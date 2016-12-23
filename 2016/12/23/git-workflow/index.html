@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hexo</title>
+  <title>git workflow | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Table of Contents1. 概述2. 命令行2.1. pull更新本地master分支2.2. checkout一个特性分支2.3. 在自己的特性分支上工作，经常的提交2.4. 经常使用rebase来合并远端的更改2.5. 将你的更改merge进master分支2.6. 将你的修改push到远端3. SourceTree4. 参考
 
 
 概述git在使用流程上与svn最大的差别大概就是分">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/2016/12/23/git_workflow/index.html">
+<meta property="og:title" content="git workflow">
+<meta property="og:url" content="http://yoursite.com/2016/12/23/git-workflow/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Table of Contents1. 概述2. 命令行2.1. pull更新本地master分支2.2. checkout一个特性分支2.3. 在自己的特性分支上工作，经常的提交2.4. 经常使用rebase来合并远端的更改2.5. 将你的更改merge进master分支2.6. 将你的修改push到远端3. SourceTree4. 参考
 
 
 概述git在使用流程上与svn最大的差别大概就是分">
-<meta property="og:updated_time" content="2016-12-23T12:36:37.000Z">
+<meta property="og:updated_time" content="2016-12-23T12:39:50.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="git workflow">
 <meta name="twitter:description" content="Table of Contents1. 概述2. 命令行2.1. pull更新本地master分支2.2. checkout一个特性分支2.3. 在自己的特性分支上工作，经常的提交2.4. 经常使用rebase来合并远端的更改2.5. 将你的更改merge进master分支2.6. 将你的修改push到远端3. SourceTree4. 参考
 
 
@@ -72,15 +72,25 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-git_workflow" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-git-workflow" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2016/12/23/git_workflow/" class="article-date">
-  <time datetime="2016-12-23T12:36:37.000Z" itemprop="datePublished">2016-12-23</time>
+    <a href="/2016/12/23/git-workflow/" class="article-date">
+  <time datetime="2016-12-23T12:39:15.000Z" itemprop="datePublished">2016-12-23</time>
 </a>
     
   </div>
   <div class="article-inner">
     
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      git workflow
+    </h1>
+  
+
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -94,34 +104,28 @@
 <li>master作为release分支，另开一个develop分支</li>
 </ol>
 <p>我们使用2。如果遇到因权限问题无法自己建立远端的分支,请联系管理员。</p>
-<h1 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行<a id="console" name="console"></a><a id="sec-2" name="sec-2"></a></h1><h2 id="pull更新本地master分支"><a href="#pull更新本地master分支" class="headerlink" title="pull更新本地master分支"></a>pull更新本地master分支<a id="sec-2-1" name="sec-2-1"></a></h2><pre><code>git pull origin master
-</code></pre><p><strong>不要在master分支上做出任何直接的commit。</strong><br>当执行pull，merge或者rebase之后，请测试一下。git可能不会做出任何关于冲突的提示，但这并不代表没有编译错误。请确保你的每次commit不包含编译错误。</p>
+<h1 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行<a id="console" name="console"></a><a id="sec-2" name="sec-2"></a></h1><h2 id="pull更新本地master分支"><a href="#pull更新本地master分支" class="headerlink" title="pull更新本地master分支"></a>pull更新本地master分支<a id="sec-2-1" name="sec-2-1"></a></h2><p>git pull origin master</p>
+<p><strong>不要在master分支上做出任何直接的commit。</strong><br>当执行pull，merge或者rebase之后，请测试一下。git可能不会做出任何关于冲突的提示，但这并不代表没有编译错误。请确保你的每次commit不包含编译错误。</p>
 <h2 id="checkout一个特性分支"><a href="#checkout一个特性分支" class="headerlink" title="checkout一个特性分支"></a>checkout一个特性分支<a id="sec-2-2" name="sec-2-2"></a></h2><p>使用自己要做的任务作为分支名称，例如要添加一个音源tidal，则可以使用下面的命令:</p>
-<pre><code>git checkout -b init_tidal
-</code></pre><p>例如要修复一个jira上的bug”IOS-31”,则使用:</p>
-<pre><code>git checkout -b jira-ios-31
-</code></pre><p>这些title可以让我们明确的知道这个分支所做的事情。</p>
+<p>git checkout -b init_tidal</p>
+<p>例如要修复一个jira上的bug”IOS-31”,则使用:</p>
+<p>git checkout -b jira-ios-31</p>
+<p>这些title可以让我们明确的知道这个分支所做的事情。</p>
 <h2 id="在自己的特性分支上工作，经常的提交"><a href="#在自己的特性分支上工作，经常的提交" class="headerlink" title="在自己的特性分支上工作，经常的提交"></a>在自己的特性分支上工作，经常的提交<a id="sec-2-3" name="sec-2-3"></a></h2><h2 id="经常使用rebase来合并远端的更改"><a href="#经常使用rebase来合并远端的更改" class="headerlink" title="经常使用rebase来合并远端的更改"></a>经常使用rebase来合并远端的更改<a id="sec-2-4" name="sec-2-4"></a></h2><p>经常rebase来避免你的分支与远端差别太大。</p>
-<pre><code>git fetch origin master
-git rebase origin/master
-</code></pre><p>这等同于下面的步骤:</p>
-<pre><code>git checkout master
-git pull
-git checkout jira-ios-31
-git rebase master
-</code></pre><h2 id="将你的更改merge进master分支"><a href="#将你的更改merge进master分支" class="headerlink" title="将你的更改merge进master分支"></a>将你的更改merge进master分支<a id="sec-2-5" name="sec-2-5"></a></h2><p>当完成了要做的任务之后，需要将更改merge进master分支。</p>
-<pre><code>git checkout master
-git merge jira-ios-31
-</code></pre><h2 id="将你的修改push到远端"><a href="#将你的修改push到远端" class="headerlink" title="将你的修改push到远端"></a>将你的修改push到远端<a id="sec-2-6" name="sec-2-6"></a></h2><p>最后需要将master push到远端。</p>
-<pre><code>git push origin master
-git branch -d jira-ios-31
-</code></pre><h1 id="SourceTree"><a href="#SourceTree" class="headerlink" title="SourceTree"></a>SourceTree<a id="sec-3" name="sec-3"></a></h1><p><a href="https://www.sourcetreeapp.com" target="_blank" rel="external">SourceTree </a>对工作流有着良好的UI支持，它默认的配置是将master作为稳定分支，将develop作为开发分支。它将命令行中描述的繁琐的命令行很好的集成进了UI中。作为mac上最好用的git工具之一，推荐使用。</p>
+<p>git fetch origin master<br>git rebase origin/master</p>
+<p>这等同于下面的步骤:</p>
+<p>git checkout master<br>git pull<br>git checkout jira-ios-31<br>git rebase master</p>
+<h2 id="将你的更改merge进master分支"><a href="#将你的更改merge进master分支" class="headerlink" title="将你的更改merge进master分支"></a>将你的更改merge进master分支<a id="sec-2-5" name="sec-2-5"></a></h2><p>当完成了要做的任务之后，需要将更改merge进master分支。</p>
+<p>git checkout master<br>git merge jira-ios-31</p>
+<h2 id="将你的修改push到远端"><a href="#将你的修改push到远端" class="headerlink" title="将你的修改push到远端"></a>将你的修改push到远端<a id="sec-2-6" name="sec-2-6"></a></h2><p>最后需要将master push到远端。</p>
+<p>git push origin master<br>git branch -d jira-ios-31</p>
+<h1 id="SourceTree"><a href="#SourceTree" class="headerlink" title="SourceTree"></a>SourceTree<a id="sec-3" name="sec-3"></a></h1><p><a href="https://www.sourcetreeapp.com" target="_blank" rel="external">SourceTree </a>对工作流有着良好的UI支持，它默认的配置是将master作为稳定分支，将develop作为开发分支。它将命令行中描述的繁琐的命令行很好的集成进了UI中。作为mac上最好用的git工具之一，推荐使用。</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考<a id="sec-4" name="sec-4"></a></h1><p class="verse"><br><a href="http://blog.jobbole.com/50603/" target="_blank" rel="external">写给Git初学者的7个建议</a><br><br><a href="http://reinh.com/blog/2009/03/02/a-git-workflow-for-agile-teams.html" target="_blank" rel="external">A Git Workflow for Agile Teams</a><br><br><a href="http://www.oschina.net/translate/a-successful-git-branching-model" target="_blank" rel="external">Git 分支模型</a><br><br></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/23/git_workflow/" data-id="cix1sbp640001wz21tzfqyx79" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/12/23/git-workflow/" data-id="cix1sbp5z0000wz21qf0fk2v0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -130,19 +134,10 @@ git branch -d jira-ios-31
     
 <nav id="article-nav">
   
-    <a href="/2016/12/23/git-workflow/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          git workflow
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/12/23/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/12/23/git_workflow/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title"></div>
     </a>
   
 </nav>
