@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Mac下安装UPnP Inspector</title>
+<!-- 2017-01-01 Sun 10:52 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/code.css" /><link rel="stylesheet" type="text/css" href="../static/test.css" />
+</head>
+<body>
+<div id="preamble" class="status">
+<!-- stats tracking -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-615313-5']);
+  _gaq.push(['_setDomainName', 'abrah.ms']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<!-- end stats tracking -->
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+    <li><a href="https://slegetank.github.io">Home</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">Mac下安装UPnP Inspector</h1>
+<p>
+由于工作中需要用到<a href="http://coherence.beebits.net/wiki/UPnP-Inspector">UPnP Inspector</a>这个工具，而这个工具在windows下安装非常简单，在Mac下安装却很麻烦，在此记录安装流程。
+</p>
+
+<p>
+这个工具依赖于两个其他的库：<a href="http://coherence.beebits.net/">Coherence</a>(一个DLNA/UPnP框架)和<a href="http://www.pygtk.org/">PyGTK</a>(一个python GUI框架)。
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">安装PyGTK</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+<a href="http://sourceforge.net/projects/macpkg/files/PyGTK/2.24.0/PyGTK.pkg/download">PyGTK.pkg</a>， 下载完成双击安装。使用pip install会提示仅支持windows。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">安装Coherence</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+pip install找不到，直接安装:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">git clone https://github.com/coherence-project/Coherence &amp;&amp; cd Coherence &amp;&amp; sudo python setup.py install
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">安装UPnP Inspector</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+这个pip找不到，git上的库在安装时会依赖pip安装PyGTK，因此也装不成功。用下面的方法安装：
+<a href="http://ftparmy.com/213856-upnp-inspector.html">Mac UPnP Inspector</a> 下载，会得到一个tar文件。解压，sudo python setup.py install安装。
+安装完成后，此时在控制台输入upnp-inspector，即可打开应用了。
+</p>
+
+<p>
+Good luck &amp; have fun.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>
