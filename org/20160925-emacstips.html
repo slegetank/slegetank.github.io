@@ -4,43 +4,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>翻译：Lisp Style Tips for the Beginner - Heinrich Taube</title>
-<!-- 2017-01-01 Sun 10:52 -->
+<!-- 2017-02-10 Fri 18:36 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="slegetank" />
-<link rel="stylesheet" type="text/css" href="../static/code.css" /><link rel="stylesheet" type="text/css" href="../static/test.css" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
 </head>
 <body>
 <div id="preamble" class="status">
-<!-- stats tracking -->
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-615313-5']);
-  _gaq.push(['_setDomainName', 'abrah.ms']);
-  _gaq.push(['_trackPageview']);
-  (function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-<!-- end stats tracking -->
 <div id="header">
   <h1>Slegtank's Blog</h1>
   <ul id="nav">
-    <li><a href="https://slegetank.github.io">Home</a></li>
     <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="tag.html">Tags</a></li>
+    <li><a href="archive.html">Archive</a></li>
+    <li><a href="index.html">Home</a></li>
   </ul>
 </div>
 </div>
 <div id="content">
 <h1 class="title">翻译：Lisp Style Tips for the Beginner - Heinrich Taube</h1>
 <p>
-原文：<a href="http://people.ace.ed.ac.uk/staff/medward2/class/moz/cm/doc/contrib/lispstyle.html">Lisp Style Tips for the Beginner</a> 
+原文：<a href="http://people.ace.ed.ac.uk/staff/medward2/class/moz/cm/doc/contrib/lispstyle.html">Lisp Style Tips for the Beginner</a> <br  />
 </p>
 
 <p>
-本篇文章是一篇非正式的摘要，旨在帮助新手写出高效、易读的Lisp代码。
+本篇文章是一篇非正式的摘要，旨在帮助新手写出高效、易读的Lisp代码。<br  />
 </p>
 
 <div id="outline-container-sec-1" class="outline-2">
@@ -118,7 +107,7 @@
 <h3 id="sec-4-4">记住append会拷贝它的参数。避免在循环中使用append来向列表中添加元素。在loop中使用collect语句，或者将元素push到列表里然后使用nreverse将列表重新排序。</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
-最坏：
+最坏：<br  />
 </p>
 <div class="org-src-container">
 
@@ -129,7 +118,7 @@
 </pre>
 </div>
 <p>
-好一些：
+好一些：<br  />
 </p>
 <div class="org-src-container">
 
@@ -140,7 +129,7 @@
 </pre>
 </div>
 <p>
-最好：
+最好：<br  />
 </p>
 <div class="org-src-container">
 
@@ -171,7 +160,7 @@
 </pre>
 </div>
 <p>
-等价于
+等价于<br  />
 </p>
 <div class="org-src-container">
 
@@ -180,7 +169,7 @@
 </pre>
 </div>
 <p>
-而
+而<br  />
 </p>
 <div class="org-src-container">
 
@@ -188,7 +177,7 @@
 </pre>
 </div>
 <p>
-等价于
+等价于<br  />
 </p>
 <div class="org-src-container">
 
@@ -204,7 +193,7 @@
 <h2 id="sec-6">循环</h2>
 <div class="outline-text-2" id="text-6">
 <p>
-避免使用do，这会使代码难以阅读。对于简单的循环，dotimes和dolist都不错。如果你需要保存，存储或者修改循环的结果，那么loop几乎可能是最简洁、最高效的结构。一些Lisp程序员因为它“不像lisp”而拒绝使用它。然而loop是一个好用并且非常强大的特性。在花费了十分钟使用do之后，大部分Lisp程序员都很高兴loop的存在！
+避免使用do，这会使代码难以阅读。对于简单的循环，dotimes和dolist都不错。如果你需要保存，存储或者修改循环的结果，那么loop几乎可能是最简洁、最高效的结构。一些Lisp程序员因为它“不像lisp”而拒绝使用它。然而loop是一个好用并且非常强大的特性。在花费了十分钟使用do之后，大部分Lisp程序员都很高兴loop的存在！<br  />
 </p>
 </div>
 </div>
@@ -213,7 +202,7 @@
 <h2 id="sec-7">注释</h2>
 <div class="outline-text-2" id="text-7">
 <p>
-请写注释。对于整体功能以及有点复杂的代码进行注释（你会在2星期内忘掉你是如何实现他们的）。Lisp提供了两种不同的注释。分号标记单行注释。Lisp会忽略掉分号之后的整行。分号并不需要一定在行首。例如：
+请写注释。对于整体功能以及有点复杂的代码进行注释（你会在2星期内忘掉你是如何实现他们的）。Lisp提供了两种不同的注释。分号标记单行注释。Lisp会忽略掉分号之后的整行。分号并不需要一定在行首。例如：<br  />
 </p>
 <div class="org-src-container">
 
@@ -222,7 +211,7 @@
 </pre>
 </div>
 <p>
-习惯上，Lisp程序员会区分单个、两个、三个分号的注释。单分号表示后面的注释用来解释同一行内的语句。两个分号表示该注释用来描述程序在该点的状态，或者用来解释下面这部分代码。两分号的注释需要跟它注释的代码具有相同的缩进。三分号注释提供全局的解释，并且总是在最左侧开始。例如：
+习惯上，Lisp程序员会区分单个、两个、三个分号的注释。单分号表示后面的注释用来解释同一行内的语句。两个分号表示该注释用来描述程序在该点的状态，或者用来解释下面这部分代码。两分号的注释需要跟它注释的代码具有相同的缩进。三分号注释提供全局的解释，并且总是在最左侧开始。例如：<br  />
 </p>
 <div class="org-src-container">
 
@@ -234,7 +223,7 @@
 </pre>
 </div>
 <p>
-在#|和|#之间的文本将被注释掉。Lisp将会忽略掉其中所有的文本。#||#通常用来注释掉文件或者函数中的大块的代码。例如：
+在#|和|#之间的文本将被注释掉。Lisp将会忽略掉其中所有的文本。#||#通常用来注释掉文件或者函数中的大块的代码。例如：<br  />
 </p>
 <div class="org-src-container">
 
@@ -246,7 +235,7 @@
 </pre>
 </div>
 <p>
-将会注释掉一个不再使用的函数定义。
+将会注释掉一个不再使用的函数定义。<br  />
 </p>
 </div>
 </div>
@@ -255,7 +244,7 @@
 <h2 id="sec-8">格式和缩进</h2>
 <div class="outline-text-2" id="text-8">
 <p>
-坏格式的Lisp代码是很难阅读的。一份易读的Lisp代码的最重要的前提条件是使用简单、统一风格的缩进。有些编辑器，例如Emacs或者Fred，他们理解Lisp语意并且会替你完成这项工作。其他的文本编辑器，例如NeXTStep的Edit.app，除了括号匹配之外则不理解Lisp。即使你使用的编辑器并不能帮助你执行Lisp的缩进，你也应该自己花时间来格式化你的代码。下面是一些非常简单的规则：
+坏格式的Lisp代码是很难阅读的。一份易读的Lisp代码的最重要的前提条件是使用简单、统一风格的缩进。有些编辑器，例如Emacs或者Fred，他们理解Lisp语意并且会替你完成这项工作。其他的文本编辑器，例如NeXTStep的Edit.app，除了括号匹配之外则不理解Lisp。即使你使用的编辑器并不能帮助你执行Lisp的缩进，你也应该自己花时间来格式化你的代码。下面是一些非常简单的规则：<br  />
 </p>
 </div>
 
@@ -310,7 +299,7 @@
 </pre>
 </div>
 <p>
-在Lisp程序员看来这样的格式更好：
+在Lisp程序员看来这样的格式更好：<br  />
 </p>
 <div class="org-src-container">
 

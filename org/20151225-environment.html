@@ -4,46 +4,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>工作环境配置记录</title>
-<!-- 2017-01-01 Sun 10:52 -->
+<!-- 2017-02-10 Fri 18:36 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="slegetank" />
-<link rel="stylesheet" type="text/css" href="../static/code.css" /><link rel="stylesheet" type="text/css" href="../static/test.css" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
 </head>
 <body>
 <div id="preamble" class="status">
-<!-- stats tracking -->
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-615313-5']);
-  _gaq.push(['_setDomainName', 'abrah.ms']);
-  _gaq.push(['_trackPageview']);
-  (function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-<!-- end stats tracking -->
 <div id="header">
   <h1>Slegtank's Blog</h1>
   <ul id="nav">
-    <li><a href="https://slegetank.github.io">Home</a></li>
     <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="tag.html">Tags</a></li>
+    <li><a href="archive.html">Archive</a></li>
+    <li><a href="index.html">Home</a></li>
   </ul>
 </div>
 </div>
 <div id="content">
 <h1 class="title">工作环境配置记录</h1>
 <p>
-最近换了台MacBook，工作环境全部需要重新配置。为方便以后查询，特此记录。
+最近换了台MacBook，工作环境全部需要重新配置。为方便以后查询，特此记录。<br  />
 </p>
 
 <div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">Xcode</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-看家工具。
+看家工具。<br  />
 </p>
 </div>
 
@@ -51,9 +40,9 @@
 <h3 id="sec-1-1">Alcatraz</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
-地址：<a href="http://alcatraz.io/">http://alcatraz.io/</a>
-安装：curl -fsSL <a href="https://raw.githubusercontent.com/supermarin/Alcatraz/deploy/Scripts/install.sh">https://raw.githubusercontent.com/supermarin/Alcatraz/deploy/Scripts/install.sh</a> | sh
-安装完成后，必装的插件有：
+地址：<a href="http://alcatraz.io/">http://alcatraz.io/</a><br  />
+安装：curl -fsSL <a href="https://raw.githubusercontent.com/supermarin/Alcatraz/deploy/Scripts/install.sh">https://raw.githubusercontent.com/supermarin/Alcatraz/deploy/Scripts/install.sh</a> | sh<br  />
+安装完成后，必装的插件有：<br  />
 </p>
 </div>
 </div>
@@ -61,7 +50,7 @@
 <h3 id="sec-1-2">XVim</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
-vim指法的效率无需多言。
+vim指法的效率无需多言。<br  />
 </p>
 </div>
 </div>
@@ -69,7 +58,7 @@ vim指法的效率无需多言。
 <h3 id="sec-1-3">CocoaPods</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
-配置
+配置<br  />
 </p>
 <div class="org-src-container">
 
@@ -81,8 +70,8 @@ gem setup(&#21487;&#20197;&#21040;~/.cocoapods&#19979;du -sh &#26597;&#30475;&#3
 </pre>
 </div>
 <p>
-使用
-在工程目录下 vim Podfile，加入
+使用<br  />
+在工程目录下 vim Podfile，加入<br  />
 </p>
 <div class="org-src-container">
 
@@ -91,8 +80,8 @@ pod <span style="color: #E6DB74;">'SDWebImage'</span>, <span style="color: #E6DB
 </pre>
 </div>
 <p>
-然后pod install
-插件在Xcode 8中已禁用，静观。
+然后pod install<br  />
+插件在Xcode 8中已禁用，静观。<br  />
 </p>
 </div>
 </div>
@@ -104,7 +93,7 @@ pod <span style="color: #E6DB74;">'SDWebImage'</span>, <span style="color: #E6DB
 <h3 id="sec-2-1">iTerm</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
-地址：<a href="http://www.iterm2.com/">http://www.iterm2.com/</a>
+地址：<a href="http://www.iterm2.com/">http://www.iterm2.com/</a><br  />
 </p>
 </div>
 </div>
@@ -112,9 +101,9 @@ pod <span style="color: #E6DB74;">'SDWebImage'</span>, <span style="color: #E6DB
 <h3 id="sec-2-2">zsh</h3>
 <div class="outline-text-3" id="text-2-2">
 <ol class="org-ol">
-<li>chsh -s /bin/zsh
+<li>chsh -s /bin/zsh<br  />
 </li>
-<li>安装oh my zsh
+<li>安装oh my zsh<br  />
 </li>
 </ol>
 <div class="org-src-container">
@@ -123,26 +112,26 @@ pod <span style="color: #E6DB74;">'SDWebImage'</span>, <span style="color: #E6DB
 </pre>
 </div>
 <p>
-真的比bash好用太多。
+真的比bash好用太多。<br  />
 </p>
 <ol class="org-ol">
-<li>z (此脚本目前oh my zsh已提供支持)
+<li>z (此脚本目前oh my zsh已提供支持)<br  />
 </li>
 </ol>
 <p>
-这个脚本是用来支持快速切换常用工作目录的。
-<a href="https://github.com/rupa/z/blob/master/z.sh">https://github.com/rupa/z/blob/master/z.sh</a>
-将这个脚本放到某个路径，例如/Volumes/Work/z.sh
-然后编辑~/.zshrc，添加代码source /Volumes/Work/z.sh
-这样，它就会自动统计你进入每个路径的次数。你只要使用z xxx，他就会自动匹配出你最常进入的路径（z -l可以查看统计）。
+这个脚本是用来支持快速切换常用工作目录的。<br  />
+<a href="https://github.com/rupa/z/blob/master/z.sh">https://github.com/rupa/z/blob/master/z.sh</a><br  />
+将这个脚本放到某个路径，例如/Volumes/Work/z.sh<br  />
+然后编辑~/.zshrc，添加代码source /Volumes/Work/z.sh<br  />
+这样，它就会自动统计你进入每个路径的次数。你只要使用z xxx，他就会自动匹配出你最常进入的路径（z -l可以查看统计）。<br  />
 </p>
 <ol class="org-ol">
-<li>themes
+<li>themes<br  />
 </li>
 </ol>
 <p>
-<a href="http://iterm2colorschemes.com/">http://iterm2colorschemes.com/</a>
-已整合入脚本。
+<a href="http://iterm2colorschemes.com/">http://iterm2colorschemes.com/</a><br  />
+已整合入脚本。<br  />
 </p>
 </div>
 </div>
@@ -150,11 +139,11 @@ pod <span style="color: #E6DB74;">'SDWebImage'</span>, <span style="color: #E6DB
 <h3 id="sec-2-3">Homebrew</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
-Mac系统里缺了很多工具，可以使用这个进行方便的安装。
-地址：<a href="http://brew.sh/">http://brew.sh/</a>
-安装：ruby -e "$(curl -fsSL <a href="https://raw.githubusercontent.com/Homebrew/install/master/install">https://raw.githubusercontent.com/Homebrew/install/master/install</a>)"
-工具列表：brew install wget
-已整合入脚本。
+Mac系统里缺了很多工具，可以使用这个进行方便的安装。<br  />
+地址：<a href="http://brew.sh/">http://brew.sh/</a><br  />
+安装：ruby -e "$(curl -fsSL <a href="https://raw.githubusercontent.com/Homebrew/install/master/install">https://raw.githubusercontent.com/Homebrew/install/master/install</a>)"<br  />
+工具列表：brew install wget<br  />
+已整合入脚本。<br  />
 </p>
 </div>
 </div>
@@ -163,12 +152,12 @@ Mac系统里缺了很多工具，可以使用这个进行方便的安装。
 <h2 id="sec-3">Git</h2>
 <div class="outline-text-2" id="text-3">
 <p>
-sourcetree
-地址： <a href="https://www.sourcetreeapp.com/">https://www.sourcetreeapp.com/</a>
-免费好用的git客户端。软件免费，但是不注册的话有试用期。
-注册地址：<a href="https://id.atlassian.com/signup">https://id.atlassian.com/signup</a>
-许可证生成地址：<a href="https://my.atlassian.com/license/sourcetree">https://my.atlassian.com/license/sourcetree</a>
-也可以使用我自己的许可证地址：license
+sourcetree<br  />
+地址： <a href="https://www.sourcetreeapp.com/">https://www.sourcetreeapp.com/</a><br  />
+免费好用的git客户端。软件免费，但是不注册的话有试用期。<br  />
+注册地址：<a href="https://id.atlassian.com/signup">https://id.atlassian.com/signup</a><br  />
+许可证生成地址：<a href="https://my.atlassian.com/license/sourcetree">https://my.atlassian.com/license/sourcetree</a><br  />
+也可以使用我自己的许可证地址：license<br  />
 </p>
 </div>
 </div>
@@ -176,9 +165,9 @@ sourcetree
 <h2 id="sec-4">Emacs</h2>
 <div class="outline-text-2" id="text-4">
 <p>
-最强大的编辑器之一，org mode强大好用。
-纯净版地址：<a href="http://emacsformacosx.com/">http://emacsformacosx.com/</a>
-配置地址： <a href="https://github.com/slegetank/Private-Emacs-Config">https://github.com/slegetank/Private-Emacs-Config</a>
+最强大的编辑器之一，org mode强大好用。<br  />
+纯净版地址：<a href="http://emacsformacosx.com/">http://emacsformacosx.com/</a><br  />
+配置地址： <a href="https://github.com/slegetank/Private-Emacs-Config">https://github.com/slegetank/Private-Emacs-Config</a><br  />
 </p>
 </div>
 </div>
@@ -189,7 +178,7 @@ sourcetree
 <h3 id="sec-5-1">pip</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
-安装： <a href="https://bootstrap.pypa.io/get-pip.py">https://bootstrap.pypa.io/get-pip.py</a> 
+安装： <a href="https://bootstrap.pypa.io/get-pip.py">https://bootstrap.pypa.io/get-pip.py</a> <br  />
 </p>
 </div>
 </div>
@@ -197,8 +186,8 @@ sourcetree
 <h3 id="sec-5-2">其他包</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
-requests
-已整合入脚本。
+requests<br  />
+已整合入脚本。<br  />
 </p>
 </div>
 </div>
