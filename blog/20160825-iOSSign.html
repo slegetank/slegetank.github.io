@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>iOS代码签名理解</title>
+<!-- 2017-02-16 Thu 16:47 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">iOS代码签名理解</h1>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">前言</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+做了几年iOS app coder了，对于证书的生成、使用流程烂熟于心，然而对于这套机制的原理却一直不甚理解。近来由于工作需要仔细研究了一下，特将自己的学习经验记录于此，以供大家学习指正。<br  />
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">问题</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+通常的iOS应用的签名流程是这样的（这里只是大概写一下，具体流程网上有很多）：<br  />
+</p>
+
+<p>
+访问钥匙串，使用“证书助理”的“从证书颁发机构请求证书”生成一个CertificateSigningRequest.certSigningRequest文件。<br  />
+打开<a href="https://developer.apple.com%EF%BC%8C%E4%BD%BF%E7%94%A8%E5%88%9A%E6%89%8D%E7%94%9F%E6%88%90%E7%9A%84CSR%E6%96%87%E4%BB%B6%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6(certifcate)">https://developer.apple.com%EF%BC%8C%E4%BD%BF%E7%94%A8%E5%88%9A%E6%89%8D%E7%94%9F%E6%88%90%E7%9A%84CSR%E6%96%87%E4%BB%B6%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6(certifcate)</a>。<br  />
+在网站的Identitifiers里创建一个应用的ID。<br  />
+在Devices里添加你想要测试使用的设备的UDID。<br  />
+在Provisioning Profiles里生成.mobileprovision文件，需要勾选ID、UDIDs以及certificates。<br  />
+将.cer文件和.mobileprovision文件下载到mac本地，双击，此时即可以在Xcode里的Build Settings页面进行选择，进行签名打包了。<br  />
+此时可以通过钥匙串将对应的p12文件导出，在其他mac电脑上双击，它们也可以用此证书打包了。<br  />
+那么问题来了，整个流程都被封装起来了，我们往返于钥匙串、开发者网站、Xcode之间，并不知道当中具体发生了什么。因而也就有了下面这些啰嗦。<br  />
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">概念</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+苹果需要我们对自己的应用签名，这样当用户从App Store里面下载到我们的应用时，用户就可以确定我们的应用来源于我们，并且从来没有被别人更改过。数字签名最重要的两个概念一个是证书，另一个是公钥加密（非对称加密）。苹果的数字签名机制使用的是X.509标准，依赖的加密算法是RSA。<br  />
+</p>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1">Certificate</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+　　数字签名的整个流程大概是这样的：对于要加密的文件，首先生成其对应的hash（一份文件对应唯一的hash），然后使用私钥对其加密，并记录下来。用户收到文件后，使用公钥解密得到hash，然后跟自己计算的文件的hash作对比。如果一样，则说明文件没有被修改过，且文件来源于与此公钥配对的私钥的持有者。<br  />
+</p>
+
+<p>
+　　但是只靠这一操作仍然有逻辑上的漏洞，即没人能证明用户手中的公钥是合法的。即A说B是合法的，但没人能证明A是合法的；如果A不合法，那也就不能保证B也是合法的。也就是说公钥证明了签名的私钥是和它配对的，但是并不能确定私钥确实来自它所说的签名者。<br  />
+</p>
+
+<p>
+　　因此，X.509协议引入了证书（certificate）来解决这一问题。证书就像我们的身份证一样，可以唯一的标识我们的身份，并且包含着一些我们自身的相关信息。证书是由权威机构（CA，certification authority）颁布的（就像身份证由公安机关颁布，只要公私钥的持有者都信任它即可），并且具有有效期，如下图所示（在钥匙串中），CA是Apple Worldwide Developer Relations Certification Authority，过期日期是2016.11.16。<br  />
+</p>
+
+
+<div class="figure">
+<p><img src="../static/20160825-iOSSign-1.png" alt="20160825-iOSSign-1.png" /><br  />
+</p>
+</div>
+
+<p>
+　　另一方面，证书中包含着公钥，终端可以用它来验证信息。这样，整个链条就完整了：CA-&gt;证明证书（公钥）的合法性-&gt;公钥证明私钥加密信息的合法性，这样用户就可以确认数据来源于它所标识来自的人，并且没被修改过。<br  />
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2">RSA</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+除了证书，另一个重要的概念就是RSA。RSA算法可用于加密（公钥加私钥解），也可用于数字签名（私钥加公钥解）。这里我们使用openssl来作为研究的工具。<br  />
+</p>
+
+<p>
+首先我们生成一对尽量简单的密钥对，当然这很不安全：<br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">openssl genrsa -out private.key 32
+openssl rsa -in private.key -pubout &gt; pubkey.pubkey
+-----BEGIN RSA PRIVATE KEY-----
+MCsCAQACBQCtbWYxAgMBAAECBDpl33UCAwDepwIDAMdnAgI/dwICcT8CAjMj
+-----END RSA PRIVATE KEY-----
+
+-----BEGIN PUBLIC KEY-----
+MCAwDQYJKoZIhvcNAQEBBQADDwAwDAIFAK1tZjECAwEAAQ==
+-----END PUBLIC KEY-----
+</pre>
+</div>
+
+<p>
+这是一对长度为32位的密钥对，这个长度实际上是模数（modulus）的二进制长度，也就是说这个模数大于2的31次方小于2的32次方。我们可以看到内容是base64编码的，且私钥文件内容要比公钥长一些。通过命令可以看一下里面具体包含着什么：<br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">openssl rsa -in private.key -text -noout
+输出：
+Private-Key: (32 bit)
+modulus: 2909627953 (0xad6d6631)
+publicExponent: 65537 (0x10001)
+privateExponent: 979754869 (0x3a65df75)
+prime1: 56999 (0xdea7)
+prime2: 51047 (0xc767)
+exponent1: 16247 (0x3f77)
+exponent2: 28991 (0x713f)
+coefficient: 13091 (0x3323)
+
+openssl rsa -pubin -in pubkey.pubkey -text -noout
+输出：
+Modulus (32 bit): 2909627953 (0xad6d6631)
+Exponent: 65537 (0x10001)
+</pre>
+</div>
+<p>
+其中：<br  />
+</p>
+
+<ol class="org-ol">
+<li>modulus长度为32位，值为2909627953（10101101011011010110011000110001）<br  />
+</li>
+<li>modulus = prime1 * prime2<br  />
+</li>
+<li>publicExponent * privateExponent mod (prime1-1)*(prime2-1)=1<br  />
+</li>
+<li>(modulus, publicExponent) 公钥<br  />
+</li>
+<li>(modulus, privateExponent) 私钥<br  />
+</li>
+</ol>
+
+<p>
+因而，如果其他人获取了我们的私钥文件，他就拥有了我们加密的一切。苹果开发者们的私钥一般保存在钥匙串中。RSA加密算法与解密算法一样（加密实际上与签名也是同一个算法，只是公私钥所担当的角色不同），假设A为明文，B为密文，则：<br  />
+</p>
+
+<p>
+A=B^privateExponent mod modulus；B=A^publicExponent mod modulus<br  />
+</p>
+
+<p>
+而公私钥可以互换使用，即：<br  />
+</p>
+
+<p>
+A=B^publicExponent mod modulus；B=A^privateExponent mod modulus<br  />
+</p>
+
+<p>
+关于如何使用openssl对文件进行签名、验证，这里不做过多描述，有兴趣可以看一下参考资料里的内容。<br  />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">具体到iOS</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+那么，上面的概念在苹果的体系当中是如何工作的呢？大概是这样的：<br  />
+</p>
+
+<ol class="org-ol">
+<li>首先，在钥匙串助手中生成CSR(.certSigningRequest)文件，此时你的电脑上已经生成了私钥和公钥。CSR文件中包含着公钥，以及一些其他的信息。<br  />
+</li>
+<li>登录苹果开发者网站，如果你的账号有对应权限，你的信息就被确认合法了。然后将CSR上传到苹果开发者网站（CA），它会用它自己的私钥对文件信息进行加密，这会得到一个certificate文件，这包含着你的公钥以及其他的你的信息。<br  />
+</li>
+<li>这样，开发者就得到了一对认证过的密钥对。然后在网站上生成provision profile，这个文件的作用是跟随app，使app只能在指定的iPhone上运行（例如Ad Hoc的只能在添加过UDID的手机上运行）。provision profile包含着应用的App ID以及谁能运行这个应用的信息。其中还包含着应用的certificate（公钥），这样用户的手机就能检测App的内容是否合法了。<br  />
+</li>
+<li>当我们打包时，我们需要选择要使用的Code Signing Identity（在Build Settings中选择），这对应着钥匙串中的私钥。生成.app时，代码编译成二进制文件，而资源被拷贝到.app里。然后系统使用指定的私钥对每个文件的hash进行加密，资源文件的结果保存在.app下的_CodeSignature下的CodeResources里，而二进制文件写入到了文件里。一同被包含进来的还有包含着公钥的描述文件embedded.mobileprovision。<br  />
+</li>
+<li>当用户安装应用后，iOS会用自己的公钥，也就是Apple Worldwide Developer Relations Certification Authority对embedded.mobileprovision中的证书进行验证，验证合法再使用证书中的公钥对app目录下的文件进行验证，如果也都合法则此app合法。<br  />
+</li>
+</ol>
+
+<p>
+下面，将对每一步做一些详细的分析，看整个流程都发生了一些什么事。<br  />
+</p>
+</div>
+
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1">Key</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+首先，我们要生成整个流程最核心的东西，即私钥、公钥；苹果使用的是2048位的密钥：<br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">openssl genrsa -out private.key 2048
+</pre>
+</div>
+
+<p>
+这样我们就生成了私钥，而公钥可以从私钥文件中导出（由上文可知私钥文件中实际上包含着公钥的信息）：<br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">openssl rsa -in private.key -pubout &gt; pubkey.pubkey
+</pre>
+</div>
+
+<p>
+打开这两个文件，可以看到这两个文件分别被这样的字符串包围着：<br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">-----BEGIN RSA PRIVATE KEY——
+…
+-----END RSA PRIVATE KEY——
+
+-----BEGIN PUBLIC KEY——
+…
+-----END PUBLIC KEY——
+</pre>
+</div>
+
+<p>
+中间的核心内容是base64的密钥（以及其他信息）。这样我们就有了一对未被CA认可的密钥对。<br  />
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2">CSR</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+下一步我们需要生成给CA验证的CSR文件：<br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">openssl req -new -key private.key -out ios-dev.csr
+</pre>
+</div>
+
+<p>
+执行这个命令时会问你询问一些你的信息，这里填的信息并没有什么用，生成证书的时候苹果会用我们的开发者账户相关信息填进去。而真正重要的是它携带着的公钥，我们可以看一下：<br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">openssl req -in ios-dev.csr -noout -pubkey
+</pre>
+</div>
+
+<p>
+可以发现，公钥信息与之前生成的公钥是一样的。CSR包含着两部分信息，分别是subject信息，也就是之前问的你的那些信息，以及你创建的公钥。<br  />
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3">Certificate</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+下一步，我们需要登录developer.apple.com来生成证书。具体步骤这里就不多说了，总之结果就是我们得到了证书（.cer）。我们要关心的是这一步发生了什么呢？<br  />
+</p>
+
+<p>
+这一步CA需要验证你的信息是否值得信任，如果值得信任，则将你提供的CSR中的公钥用它的私钥进行签名，并取一些其他的信息，最终生成certificate，并返回给你。如何验证你的信息呢？之前你申请开发者账号时其实就已经验证过了。你的个人信息、银行卡账户信息等等，只要符合苹果的规定，它就认为你是合法的。所以，这一步苹果只是将你的公钥用它的私钥加密了而已。<br  />
+</p>
+
+<p>
+我们可以将公钥从certificate中导出（假设苹果返回的是ios_distribution.cer）：<br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">openssl x509 -inform der -in ios_distribution.cer -pubkey -noout &gt; cer_pub.pubkey
+</pre>
+</div>
+
+<p>
+对比可以发现cer_pub.pubkey和我们之前生成的pubkey.pubkey是相同的。<br  />
+</p>
+
+<p>
+然后，我们可以看一下里面具体有什么：<br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">openssl x509 -inform der -in ios_distribution.cer -text -noout
+</pre>
+</div>
+
+<p>
+可以看到，这个证书的CA是Apple Worldwide Developer Relations Certification Authority，以及subject信息等等。<br  />
+</p>
+
+<p>
+现在，我们需要将证书导入到钥匙串中：<br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">openssl x509 -inform der -in ios_distribution.cer -out ios_distribution.pem
+openssl pkcs12 -export -in ios_distribution.pem -inkey private.key -out test.p12 -name "Test Sign"
+</pre>
+</div>
+
+<p>
+输入一个密码。此时，会在当前目录下生成一个test.p12文件。双击即可导入钥匙串（没密码将会导入失败）。或者通过下面的命令导入：<br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">security import test.p12 -k ~/Library/Keychains/login.keychain
+</pre>
+</div>
+
+<p>
+打开钥匙串，选择“登录”、“证书”，将会找到我们刚生成的证书：<br  />
+</p>
+
+
+<div class="figure">
+<p><img src="../static/20160825-iOSSign-2.png" alt="20160825-iOSSign-2.png" /><br  />
+</p>
+</div>
+
+<p>
+可以看到，证书和私钥都有，因而这个证书是可以用来签名的。<br  />
+</p>
+
+<p>
+那么在iOS端是如何验证这个证书是否合法，里面的公钥可用的呢？由于苹果引入了钥匙串，所以openssl应该是不好完成这件事的(而且根据苹果的说法，由于openssl版本之间的API一直在变动，所以它从来没有作为iOS的一部分提供过)。苹果在Mac系统里提供了一个命令行工具security，它可以用来处理钥匙串相关的操作。我们可以验证一下我们刚才生成的certificate：<br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">security verify-cert -c ios_distribution.pem
+
+输出：...certificate verification successful.
+</pre>
+</div>
+
+<p>
+我们可以创建一个自签名的证书：<br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout selfsign.key -out selfsign.crt
+</pre>
+</div>
+
+<p>
+然后验证一下：<br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">security verify-cert -c selfsign.crt
+输出：Cert Verify Result: CSSMERR_TP_NOT_TRUSTED
+</pre>
+</div>
+
+<p>
+可以看到，这个证书是不被信任的。因而我们可以想见iOS中大概也是用类似的方式来确认embedded.mobileprovision中的证书的可信性的。<br  />
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-4" class="outline-3">
+<h3 id="sec-4-4">Sign</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+万事俱备，只欠东风。当我们编写完代码之后，我们就需要对代码进行签名了。苹果提供了一个工具codesign大大简化了工作的流程（当然也把具体的流程封装了起来）。只要知道了code sign identity（也就是证书的CN；证书需要保存着钥匙串中）就可以对app进行签名了：<br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">codesign -s -f '{code sign identity}' test.app
+</pre>
+</div>
+
+<p>
+然后，我们可以看一下app的签名信息：<br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">codesign -vv -d test.app
+输出：
+
+Executable=/Users/hy/Library/Developer/Xcode/DerivedData/test-hekagtjqikppkueajznajyogtpmc/Build/Products/Debug-iphoneos/test.app/test
+
+Identifier=com.xxx.test
+
+Format=app bundle with Mach-O universal (armv7 arm64)
+
+CodeDirectory v=20200 size=618 flags=0x0(none) hashes=14+3 location=embedded
+
+Signature size=4690
+
+Authority=iPhone Distribution: xxx
+
+Authority=Apple Worldwide Developer Relations Certification Authority
+
+Authority=Apple Root CA
+
+Signed Time=2016年8月8日 下午4:19:19
+
+Info.plist entries=27
+
+TeamIdentifier=VWEN6QTM5A
+
+Sealed Resources version=2 rules=12 files=7
+
+Internal requirements count=1 size=168
+</pre>
+</div>
+
+<p>
+可以看到，app是由iPhone Distribution: xxx签名的，它是由Apple Worldwide Developer Relations Certification Authority签名的，而这个证书又是由苹果的根证书Apple Root CA签名的，因此整个链条是完整的。<br  />
+具体的加密算法、hash算法都是经过苹果封装的，因而我们也无法知道签名是怎么计算出来的。只能大略的知道资源文件的签名储存在_CodeSignature/CodeResources里；二进制文件的签名则直接写入了该文件里面。感兴趣的话可以自己用不同证书签下名对比一下。<br  />
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-5" class="outline-3">
+<h3 id="sec-4-5">Provision Profile</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+下一步，我们需要将应用安装到手机上，这时就轮到Provision Profile（.mobileprovision）出场了。每个iOS的应用都要携带一个对应的描述文件，它在app根目录下名为embeded.mobileprovision。iOS需要通过这个描述文件来确定应用是否有权限运行。在Mac系统中，它储存在~/Library/MobileDevices/Provisioning Profiles目录下。在打包应用时，Xcode只是简单的把对应的证书从这个目录下拷贝到app目录下。下面让我们看一下它具体包含哪些东西。<br  />
+</p>
+
+<p>
+使用命令来查看它的内容：<br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">security cms -D -i test.mobileprovision
+</pre>
+</div>
+
+<p>
+此时会输出一个XML，我们能够看到这个文件里包含着这些我们感兴趣的内容：<br  />
+</p>
+
+<p>
+DeveloperCertificates 包含着之前生成的证书<br  />
+application-identifier 应用ID<br  />
+ProvisionedDevices 此证书可以安装的所有设备的UDID，仅出现在develop描述文件里<br  />
+其实从网站的生成流程中我们也能看出它包含着什么。因为我们首先要创建一个App ID；然后如果是测试证书的话还需要录入测试设备的UDID；然后我们需要选择它包含哪个证书。<br  />
+</p>
+
+<p>
+下面我们来验证一下里面是否包含着之前创建的证书：<br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-bash">security cms -D -i test.mobileprovision | perl -nle 'print $&amp; if m{(?&lt;=&lt;data&gt;).*?(?=&lt;/data&gt;)}' | base64 -D &gt; mobile.cer
+</pre>
+</div>
+
+<p>
+上面这句命令就是先解析描述文件，其结果作为下面一句正则的输入；正则获取&lt;data&gt;&lt;/data&gt;之间的内容，也就是DeveloperCertificates所包含的证书（假设这里只有一个）；取出的内容使用base64解码存入mobile.cer里。<br  />
+</p>
+
+<p>
+比较mobile.cer和之前生成的ios_distribution.cer，发现两个文件是一样的。因而也就可以知道描述文件里确实包含着用于验证签名的公钥。<br  />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5">总结</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+以上就是我对苹果的代码签名机制的一些理解。文中忽略了一些内容，有的是因为时间问题，有的是因为与本文主题无关，有的是因为自己的疏忽。对于文中的不足以及纰漏，请不吝指教，先行谢过。<br  />
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6">参考资料</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+RSA算法<br  />
+</p>
+
+<p>
+<a href="http://www.matrix67.com/blog/archives/5100">http://www.matrix67.com/blog/archives/5100</a><br  />
+</p>
+
+<p>
+<a href="http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html">http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html</a><br  />
+</p>
+
+<p>
+<a href="http://doctrina.org/How-RSA-Works-With-Examples.html">http://doctrina.org/How-RSA-Works-With-Examples.html</a><br  />
+</p>
+
+<p>
+<a href="https://www.cs.cornell.edu/courses/cs5430/2015sp/notes/rsa_sign_vs_dec.php">https://www.cs.cornell.edu/courses/cs5430/2015sp/notes/rsa_sign_vs_dec.php</a><br  />
+</p>
+
+<p>
+证书<br  />
+</p>
+
+<p>
+<a href="https://technet.microsoft.com/en-us/library/bb123848">https://technet.microsoft.com/en-us/library/bb123848</a>(v=exchg.65).aspx<br  />
+</p>
+
+<p>
+<a href="https://www.sslshopper.com/what-is-a-csr-certificate-signing-request.html">https://www.sslshopper.com/what-is-a-csr-certificate-signing-request.html</a><br  />
+</p>
+
+<p>
+<a href="http://www.shellhacks.com/en/HowTo-Decode-CSR">http://www.shellhacks.com/en/HowTo-Decode-CSR</a><br  />
+</p>
+
+<p>
+OpenSSL<br  />
+</p>
+
+<p>
+<a href="http://www.cnblogs.com/interdrp/p/4881116.html">http://www.cnblogs.com/interdrp/p/4881116.html</a><br  />
+</p>
+
+<p>
+<a href="http://ngs.ac.uk/ukca/certificates/advanced">http://ngs.ac.uk/ukca/certificates/advanced</a><br  />
+</p>
+
+<p>
+iOS代码签名<br  />
+</p>
+
+<p>
+<a href="https://www.objc.io/issues/17-security/inside-code-signing/">https://www.objc.io/issues/17-security/inside-code-signing/</a><br  />
+</p>
+
+<p>
+<a href="http://www.stencyl.com/help/view/ios-certificates-guide">http://www.stencyl.com/help/view/ios-certificates-guide</a><br  />
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>

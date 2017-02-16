@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Objective-C Block</title>
+<!-- 2017-02-16 Thu 16:47 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">Objective-C Block</h1>
+<p>
+OC中block的语法实在是太别扭了，不知道是不是我太孤陋寡闻了。。。在此记录一下，以供日后查找使用。<br  />
+</p>
+
+<p>
+引用：<a href="http://goshdarnblocksyntax.com">http://goshdarnblocksyntax.com</a><br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-Objective-C">As a local variable:
+returnType (^blockName)(parameterTypes) = ^returnType(parameters) {...};
+
+As a property:
+@property (nonatomic, copy, nullability) returnType (^blockName)(parameterTypes);
+
+As a method parameter:
+- (void)someMethodThatTakesABlock:(returnType (^nullability)(parameterTypes))blockName;
+
+As an argument to a method call:
+[someObject someMethodThatTakesABlock:^returnType (parameters) {...}];
+
+As a typedef:
+typedef returnType (^TypeName)(parameterTypes);
+TypeName blockName = ^returnType(parameters) {...};
+</pre>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>iOS插件化开发之bundle</title>
+<!-- 2017-02-16 Thu 16:47 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="haiyong_macpromacpro" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">iOS插件化开发之bundle</h1>
+<p>
+IOS插件开发最重要的一个技术点就是bundle的应用。一共有两种方式来完成这个目的，分别是直接构建bundle工程和在普通IOS工程中添加bundle target。【以下内容以xcode3为例】<br  />
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">构建工程</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>直接构建bundle工程<br  />
+根据网上资料，没有提到bundle用于IOS（用于MAC），并且在新建工程时也没有IOS bundle的选项。因而，要直接构建，需要先选择构建MAC bundle，然后修改配置来达到这一目的。<br  />
+
+<p>
+ 首先，构建一个MAC bundle工程，如下所示：<br  />
+<img src="../static/20130305-bundle-1.png" alt="20130305-bundle-1.png" /><br  />
+</p>
+
+<p>
+步骤完成后，进入工程主界面。双击target，打开构建配置界面，将使用的SDK由MAC的变为IOS的（别忘了将Configuration项改为“All Configurations”）：<br  />
+</p>
+
+<p>
+关闭此界面，删除External Frameworks and Libraries下面的framework，添加UIKit.framework和Foundation.framework。<br  />
+</p>
+
+<p>
+然后向工程中添加自己所需的源文件就可以了。<br  />
+</p>
+</li>
+<li>在普通IOS工程中添加bundle target<br  />
+ 新建一个IOS工程，在主界面右击Groups&amp;Files中的任一项，如下选择：<br  />
+<img src="../static/20130305-bundle-2.png" alt="20130305-bundle-2.png" /><br  />
+
+<p>
+完成后，xcode会自动打开配置界面，搜索“app”，将“other linker flags”和"GCC_PREFIX_HEADER"的值删除（很好找，粗体）。<br  />
+</p>
+
+<p>
+关闭配置界面，将bundle希望包含的资源拖入Copy Bundle Resources，将希望编译的源文件拖入Compile Sources，将希望链接的库拖入Link Binary With Libraries。完成。<br  />
+</p>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">一些细节</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>principalClass<br  />
+由于插件外对于插件的内部实现应该尽量少的了解，达到较好的封装，因而，根据上一篇文章已经论述的，插件内外通过协议进行通信。而principalClass无疑是一个很好的媒介。代码如下：<br  />
+
+<div class="org-src-container">
+
+<pre class="src src-Objective-C">Class aClass = [aBundle principalClass];
+id anInstance = [[aClass alloc] init];
+</pre>
+</div>
+
+<p>
+关于这个类的设置，只要找到bundle的plist，添加一个Key，在下拉列表中找到Principal class，并将你所希望的类名设为value就可以了。<br  />
+</p>
+</li>
+<li>证书<br  />
+在模拟器上跑时，以上步骤足够了。但是，当在iphone真机上下载bundle并运行时，程序会coreDump。这是因为xcode3无法正确给bundle打入证书（xcode4 不详）。通过以下步骤对其进行更正：<br  />
+
+<p>
+在bundle的target上点击右键-Add-New Build Phase-&gt;New Run Script Build Phase<br  />
+</p>
+
+<p>
+添加如下命令：<br  />
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-Objective-C">codesign -fs "iPhone Developer" ${BUILT_PRODUCTS_DIR}/${FULL_PRODUCT_NAME}
+</pre>
+</div>
+
+<p>
+其中，iPhone Developer即为打包证书使用者。<br  />
+</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>
