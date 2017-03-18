@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>翻译：Lisp Style Tips for the Beginner - Heinrich Taube</title>
-<!-- 2017-02-21 Tue 15:00 -->
+<!-- 2017-03-18 Sat 18:53 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="slegetank" />
@@ -36,77 +36,73 @@
 <div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">赋值</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1">避免使用eval。赋值是Lisp内置的流程，所以你几乎没有任何理由自己调用它。如果你使用了它，那么请停下来并且重新思考一下你的问题，因为你解决问题的方法一定是错的。</h3>
-</div>
+<ul class="org-ul">
+<li>避免使用eval。赋值是Lisp内置的流程，所以你几乎没有任何理由自己调用它。如果你使用了它，那么请停下来并且重新思考一下你的问题，因为你解决问题的方法一定是错的。<br  />
+</li>
 
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2">熟悉宏。它是Lisp的一个重要特性，但是一个实现的很差的宏可以引起很严重的错误，而且对新手来讲很难解决。在你理解Lisp的解释器工作之前避免使用宏。绝不要编写宏来使代码“更高效”。</h3>
+<li>熟悉宏。它是Lisp的一个重要特性，但是一个实现的很差的宏可以引起很严重的错误，而且对新手来讲很难解决。在你理解Lisp的解释器工作之前避免使用宏。绝不要编写宏来使代码“更高效”。<br  />
+</li>
+</ul>
 </div>
 </div>
 
 <div id="outline-container-sec-2" class="outline-2">
 <h2 id="sec-2">函数</h2>
 <div class="outline-text-2" id="text-2">
-</div><div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1">绝不要像在C或者Pascal程序里那样实现函数。通常来讲，尽可能保持每个函数短小。每个函数应该只完成一项任务。实现很多小函数而不是几个大函数将会使你的代码更清晰、更模块化、更易重用。</h3>
-</div>
+<ul class="org-ul">
+<li>绝不要像在C或者Pascal程序里那样实现函数。通常来讲，尽可能保持每个函数短小。每个函数应该只完成一项任务。实现很多小函数而不是几个大函数将会使你的代码更清晰、更模块化、更易重用。<br  />
+</li>
 
-<div id="outline-container-sec-2-2" class="outline-3">
-<h3 id="sec-2-2">在你开始实现某个函数之前，请确认Lisp是否已经实现了它！Common Lisp提供了数百个函数，宏以及特殊类型。请在开始你的编程工作前阅读<a href="http://www.cs.cmu.edu/afs/cs.cmu.edu/project/ai-repository/ai/html/cltl/cltl2.html">Common Lisp: then Language (2nd Edition)</a> 中的相关章节来熟悉他们。</h3>
-</div>
+<li>在你开始实现某个函数之前，请确认Lisp是否已经实现了它！Common Lisp提供了数百个函数，宏以及特殊类型。请在开始你的编程工作前阅读<a href="http://www.cs.cmu.edu/afs/cs.cmu.edu/project/ai-repository/ai/html/cltl/cltl2.html">Common Lisp: then Language (2nd Edition)</a> 中的相关章节来熟悉他们。<br  />
+</li>
 
-<div id="outline-container-sec-2-3" class="outline-3">
-<h3 id="sec-2-3">如果你的函数返回不只一个结果，使用values而不是返回一个列表。如果你的函数不返回结果（C中的void），使用(values)来返回空值。</h3>
-</div>
+<li>如果你的函数返回不只一个结果，使用values而不是返回一个列表。如果你的函数不返回结果（C中的void），使用(values)来返回空值。<br  />
+</li>
 
-<div id="outline-container-sec-2-4" class="outline-3">
-<h3 id="sec-2-4">不要向你的代码中添加声明，除非你是一个Lisp老手并且完全确定那些变量将会被如何使用。</h3>
-</div>
+<li>不要向你的代码中添加声明，除非你是一个Lisp老手并且完全确定那些变量将会被如何使用。<br  />
+</li>
 
-<div id="outline-container-sec-2-5" class="outline-3">
-<h3 id="sec-2-5">避免编写大块的case或者con块。考虑其他的方式，例如数据驱动的代码或者使用哈希表。</h3>
+<li>避免编写大块的case或者con块。考虑其他的方式，例如数据驱动的代码或者使用哈希表。<br  />
+</li>
+</ul>
 </div>
 </div>
 
 <div id="outline-container-sec-3" class="outline-2">
 <h2 id="sec-3">符号和变量</h2>
 <div class="outline-text-2" id="text-3">
-</div><div id="outline-container-sec-3-1" class="outline-3">
-<h3 id="sec-3-1">Lisp程序员倾向于使用小写字母。使用横杠来构成多词语的符号，例如multi-word-symbol。Lisp通常是冗长的，所以请习惯输入长长的符号名称！</h3>
-</div>
+<ul class="org-ul">
+<li>Lisp程序员倾向于使用小写字母。使用横杠来构成多词语的符号，例如multi-word-symbol。Lisp通常是冗长的，所以请习惯输入长长的符号名称！<br  />
+</li>
 
-<div id="outline-container-sec-3-2" class="outline-3">
-<h3 id="sec-3-2">全局变量使用*来标识，例如*standard-output*。</h3>
-</div>
+<li>全局变量使用*来标识，例如*standard-output*。<br  />
+</li>
 
-<div id="outline-container-sec-3-3" class="outline-3">
-<h3 id="sec-3-3">全局常量使用+来标识，例如+default-number+。</h3>
-</div>
+<li>全局常量使用+来标识，例如+default-number+。<br  />
+</li>
 
-<div id="outline-container-sec-3-4" class="outline-3">
-<h3 id="sec-3-4">使用setf而不是setq。setf表示SET Field。setf是setq的一种更通用的形式，它能设定几乎所有你在Lisp中可以“指向”，或者引用的东西。这包括变量，数组位置，列表元素，哈希表入口，结构字段，以及对象。</h3>
+<li>使用setf而不是setq。setf表示SET Field。setf是setq的一种更通用的形式，它能设定几乎所有你在Lisp中可以“指向”，或者引用的东西。这包括变量，数组位置，列表元素，哈希表入口，结构字段，以及对象。<br  />
+</li>
+</ul>
 </div>
 </div>
 
 <div id="outline-container-sec-4" class="outline-2">
 <h2 id="sec-4">列表</h2>
 <div class="outline-text-2" id="text-4">
-</div><div id="outline-container-sec-4-1" class="outline-3">
-<h3 id="sec-4-1">使用first，reset，second等等而不是使用car，cdr，cadr。</h3>
-</div>
+<ul class="org-ul">
+<li>使用first，reset，second等等而不是使用car，cdr，cadr。<br  />
+</li>
 
-<div id="outline-container-sec-4-2" class="outline-3">
-<h3 id="sec-4-2">注意破坏性的列表操作。他们高效但是也是代码中隐蔽bug的来源。</h3>
-</div>
+<li>注意破坏性的列表操作。他们高效但是也是代码中隐蔽bug的来源。<br  />
+</li>
 
-<div id="outline-container-sec-4-3" class="outline-3">
-<h3 id="sec-4-3">记住length必须和指针一起来找到列表的末尾。如果你多次调用了某个对象的length，那么请使用变量而不是多次调用length。</h3>
-</div>
+<li>记住length必须和指针一起来找到列表的末尾。如果你多次调用了某个对象的length，那么请使用变量而不是多次调用length。<br  />
+</li>
 
-<div id="outline-container-sec-4-4" class="outline-3">
-<h3 id="sec-4-4">记住append会拷贝它的参数。避免在循环中使用append来向列表中添加元素。在loop中使用collect语句，或者将元素push到列表里然后使用nreverse将列表重新排序。</h3>
-<div class="outline-text-3" id="text-4-4">
+<li>记住append会拷贝它的参数。避免在循环中使用append来向列表中添加元素。在loop中使用collect语句，或者将元素push到列表里然后使用nreverse将列表重新排序。<br  />
+</li>
+</ul>
 <p>
 最坏：<br  />
 </p>
@@ -137,24 +133,24 @@
 <pre class="src src-lispstyle">(loop for x in list collect x)
 </pre>
 </div>
-</div>
-</div>
 
-<div id="outline-container-sec-4-5" class="outline-3">
-<h3 id="sec-4-5">记住copy只拷贝列表最外层的元素。使用copy-tree来拷贝整个列表。</h3>
+<ul class="org-ul">
+<li>记住copy只拷贝列表最外层的元素。使用copy-tree来拷贝整个列表。<br  />
+</li>
+</ul>
 </div>
 </div>
 
 <div id="outline-container-sec-5" class="outline-2">
 <h2 id="sec-5">条件</h2>
 <div class="outline-text-2" id="text-5">
-</div><div id="outline-container-sec-5-1" class="outline-3">
-<h3 id="sec-5-1">如果你并不需要条件语句的值，并且没有else分句，那么使用when和unless。否则，如果条件语句简单则使用if，否则使用cond。对于cond要在其结尾添加t语句。</h3>
-</div>
+<ul class="org-ul">
+<li>如果你并不需要条件语句的值，并且没有else分句，那么使用when和unless。否则，如果条件语句简单则使用if，否则使用cond。对于cond要在其结尾添加t语句。<br  />
+</li>
 
-<div id="outline-container-sec-5-2" class="outline-3">
-<h3 id="sec-5-2">Lisp程序员经常使用函数和and、or来实现简单的条件计算。例如：</h3>
-<div class="outline-text-3" id="text-5-2">
+<li>Lisp程序员经常使用函数和and、or来实现简单的条件计算。例如：<br  />
+</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-lispstyle">(and x (setf y t))
@@ -185,7 +181,6 @@
 <pre class="src src-lispstyle">(unless x
   (setf y t))
 </pre>
-</div>
 </div>
 </div>
 </div>
@@ -247,19 +242,17 @@
 <p>
 坏格式的Lisp代码是很难阅读的。一份易读的Lisp代码的最重要的前提条件是使用简单、统一风格的缩进。有些编辑器，例如Emacs或者Fred，他们理解Lisp语意并且会替你完成这项工作。其他的文本编辑器，例如NeXTStep的Edit.app，除了括号匹配之外则不理解Lisp。即使你使用的编辑器并不能帮助你执行Lisp的缩进，你也应该自己花时间来格式化你的代码。下面是一些非常简单的规则：<br  />
 </p>
-</div>
 
-<div id="outline-container-sec-8-1" class="outline-3">
-<h3 id="sec-8-1">如果你的编辑器提供多种字体，你都需要将你的Lisp代码使用一种等宽的字体来显示，例如Courier。</h3>
-</div>
+<ul class="org-ul">
+<li>如果你的编辑器提供多种字体，你都需要将你的Lisp代码使用一种等宽的字体来显示，例如Courier。<br  />
+</li>
 
-<div id="outline-container-sec-8-2" class="outline-3">
-<h3 id="sec-8-2">避免编写出长度超过70个字符的行。不要假设你的读者会把窗口大小调整的和你一样，而一旦换行则很难进行阅读。</h3>
-</div>
+<li>避免编写出长度超过70个字符的行。不要假设你的读者会把窗口大小调整的和你一样，而一旦换行则很难进行阅读。<br  />
+</li>
 
-<div id="outline-container-sec-8-3" class="outline-3">
-<h3 id="sec-8-3">defun、defmacro或者let语句的语句体应该向里缩进两个空格。下面的例子中，defun和let都缩进了两列。let的缩进是相对let的定义开始的：</h3>
-<div class="outline-text-3" id="text-8-3">
+<li>defun、defmacro或者let语句的语句体应该向里缩进两个空格。下面的例子中，defun和let都缩进了两列。let的缩进是相对let的定义开始的：<br  />
+</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-lispstyle">(defun foo (a b &amp;aux c)
@@ -270,12 +263,11 @@
     (foo-aux a b c d e)))
 </pre>
 </div>
-</div>
-</div>
 
-<div id="outline-container-sec-8-4" class="outline-3">
-<h3 id="sec-8-4">如果函数的参数占用了超过一行，后面的参数要和第一个参数保持相同缩进。下面的例子可以清晰的展示出compute-closure一共有三个参数：</h3>
-<div class="outline-text-3" id="text-8-4">
+<ul class="org-ul">
+<li>如果函数的参数占用了超过一行，后面的参数要和第一个参数保持相同缩进。下面的例子可以清晰的展示出compute-closure一共有三个参数：<br  />
+</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-lispstyle">(setf s (compute-closure this-function
@@ -283,12 +275,11 @@
                          56))
 </pre>
 </div>
-</div>
-</div>
 
-<div id="outline-container-sec-8-5" class="outline-3">
-<h3 id="sec-8-5">不要使用tab来缩进，并且不要在单独一行结束括号。C语言的风格在Lisp里看起来很傻。例如下面的代码：</h3>
-<div class="outline-text-3" id="text-8-5">
+<ul class="org-ul">
+<li>不要使用tab来缩进，并且不要在单独一行结束括号。C语言的风格在Lisp里看起来很傻。例如下面的代码：<br  />
+</li>
+</ul>
 <div class="org-src-container">
 
 <pre class="src src-lispstyle">(defun my_Foo (x)
@@ -308,7 +299,6 @@
   (let ((y (* x 5)))
     (values y x)))
 </pre>
-</div>
 </div>
 </div>
 </div>
