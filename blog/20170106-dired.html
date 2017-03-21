@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>如何优雅的使用Dired</title>
+<!-- 2017-03-21 Tue 19:38 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">如何优雅的使用Dired</h1>
+<p>
+Dired是directory editor的简写，是emacs内置的目录管理工具。习惯之后真的灰常强大，有些黑科技让我叹为观止。<br  />
+这里是我的配置：<a href="https://github.com/slegetank/.emacs.d/blob/master/init/init-dired.org">Dired config</a> 。<br  />
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">为什么</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>emacs内置，可以与文件编辑无缝操作。<br  />
+</li>
+<li>在批量操作的时候很方便；正则、wdired很强大。<br  />
+</li>
+</ul>
+<p>
+当然，如果你不是emacser，这些都不是必要的条件；反之，这就是你的强大助手&#x2013;就像emacs其他强大的特性一样，你需要花费时间去了解他们。<br  />
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">快捷键</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+首先要记一下一些常用的快捷键。<br  />
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="left">key</td>
+<td class="left">function</td>
+</tr>
+
+<tr>
+<td class="left">(</td>
+<td class="left">显示、隐藏详细信息</td>
+</tr>
+
+<tr>
+<td class="left">s</td>
+<td class="left">排序</td>
+</tr>
+
+<tr>
+<td class="left">q</td>
+<td class="left">退出</td>
+</tr>
+
+<tr>
+<td class="left">C, %C</td>
+<td class="left">copy</td>
+</tr>
+
+<tr>
+<td class="left">R, %R</td>
+<td class="left">重命名</td>
+</tr>
+
+<tr>
+<td class="left">d, %d</td>
+<td class="left">添加删除标记</td>
+</tr>
+
+<tr>
+<td class="left">D</td>
+<td class="left">删除</td>
+</tr>
+
+<tr>
+<td class="left">+</td>
+<td class="left">创建路径</td>
+</tr>
+
+<tr>
+<td class="left">Z</td>
+<td class="left">压缩、解压缩文件</td>
+</tr>
+
+<tr>
+<td class="left">o</td>
+<td class="left">在另一个窗口打开</td>
+</tr>
+
+<tr>
+<td class="left">m, %m</td>
+<td class="left">标记, 例如\.org将会标记目录下所有org mode文件</td>
+</tr>
+
+<tr>
+<td class="left">%g</td>
+<td class="left">根据文件的内容是否包含正则标记文件</td>
+</tr>
+
+<tr>
+<td class="left">u</td>
+<td class="left">去除标记</td>
+</tr>
+
+<tr>
+<td class="left">U</td>
+<td class="left">去除所有标记</td>
+</tr>
+
+<tr>
+<td class="left">^</td>
+<td class="left">上一层目录</td>
+</tr>
+
+<tr>
+<td class="left">*.</td>
+<td class="left">标记所有后缀名为xx的文件</td>
+</tr>
+
+<tr>
+<td class="left">V</td>
+<td class="left">区域选择</td>
+</tr>
+</tbody>
+</table>
+<p>
+% 表示正则相关的操作，极大的增强了原命令的功能。<br  />
+</p>
+</div>
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">自定义快捷键</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>外部<br  />
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="left">key</td>
+<td class="left">function</td>
+</tr>
+
+<tr>
+<td class="left">dd/do</td>
+<td class="left">打开当前文件所在的目录/在另一个窗口打开</td>
+</tr>
+
+<tr>
+<td class="left">dr</td>
+<td class="left">打开最近访问的路径</td>
+</tr>
+
+<tr>
+<td class="left">df</td>
+<td class="left">打开Mac的Finder所打开的路径</td>
+</tr>
+
+<tr>
+<td class="left">dx</td>
+<td class="left">打开XCode工程所在的目录并且打开magit窗口</td>
+</tr>
+
+<tr>
+<td class="left">fx</td>
+<td class="left">打开XCode所编辑的文件</td>
+</tr>
+
+<tr>
+<td class="left">dm</td>
+<td class="left">打开书签所标记的路径</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>内部<br  />
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="left">key</td>
+<td class="left">function</td>
+</tr>
+
+<tr>
+<td class="left">O</td>
+<td class="left">以MacOS默认的行为打开文件</td>
+</tr>
+
+<tr>
+<td class="left">V</td>
+<td class="left">区域选择</td>
+</tr>
+
+<tr>
+<td class="left">E</td>
+<td class="left">wdired</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Better defaults</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1">单个buffer</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+dired默认情况下每个目录会单独开一个buffer，而这是我们所不希望看到的；有几种方法进行改变：<br  />
+</p>
+<ul class="org-ul">
+<li>自己改<br  />
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #ab7eff;">(</span><span style="color: #ff0066;">setq</span> dired-recursive-copies 'always<span style="color: #ab7eff;">)</span>
+<span style="color: #ab7eff;">(</span><span style="color: #ff0066;">setq</span> dired-recursive-deletes 'always<span style="color: #ab7eff;">)</span>
+<span style="color: #ab7eff;">(</span><span style="color: #ff0066;">setq</span> dired-dwim-target t<span style="color: #ab7eff;">)</span>
+
+<span style="color: #ab7eff;">(</span>put 'dired-find-alternate-file 'disabled nil<span style="color: #ab7eff;">)</span>
+<span style="color: #ab7eff;">(</span><span style="color: #ff0066;">with-eval-after-load</span> 'dired
+    <span style="color: #06d8ff;">(</span>define-key dired-mode-map <span style="color: #63de5d;">(</span>kbd <span style="color: #E6DB74;">"RET"</span><span style="color: #63de5d;">)</span> 'dired-find-alternate-file<span style="color: #06d8ff;">)</span>
+    <span style="color: #06d8ff;">(</span>define-key dired-mode-map <span style="color: #63de5d;">(</span>kbd <span style="color: #E6DB74;">"^"</span><span style="color: #63de5d;">)</span> <span style="color: #63de5d;">(</span><span style="color: #ff0066;">lambda</span> <span style="color: #ffac4a;">()</span> <span style="color: #ffac4a;">(</span><span style="color: #ff0066;">interactive</span><span style="color: #ffac4a;">)</span> <span style="color: #ffac4a;">(</span>find-alternate-file <span style="color: #E6DB74;">".."</span><span style="color: #ffac4a;">)</span><span style="color: #63de5d;">)</span><span style="color: #06d8ff;">)</span><span style="color: #ab7eff;">)</span>  <span style="color: #6A6D70;">; </span><span style="color: #6A6D70;">was dired-up-directory)</span>
+</pre>
+</div>
+</li>
+<li><a href="https://github.com/crocket/dired-single">dired-single</a><br  />
+</li>
+<li><a href="https://www.emacswiki.org/emacs/dired+.el">dired+</a><br  />
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #ab7eff;">(</span>diredp-toggle-find-file-reuse-dir 1<span style="color: #ab7eff;">)</span>
+</pre>
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2">拷贝</h3>
+<div class="outline-text-3" id="text-3-2">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #ab7eff;">(</span><span style="color: #ff0066;">setq</span> dired-dwim-target t<span style="color: #ab7eff;">)</span>
+</pre>
+</div>
+<p>
+如果其他窗口也为dired mode，会以其为目标路径拷贝文件。<br  />
+</p>
+</div>
+</div>
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3">过滤</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+有些系统生成的文件我们并不希望看到，例如python的pyc文件，这时可以忽略：<br  />
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #ab7eff;">(</span><span style="color: #ff0066;">setq-default</span> dired-omit-files-p t<span style="color: #ab7eff;">)</span>
+<span style="color: #ab7eff;">(</span><span style="color: #ff0066;">setq</span> dired-omit-files
+      <span style="color: #06d8ff;">(</span>concat dired-omit-files <span style="color: #E6DB74;">"\\.pyc$"</span><span style="color: #06d8ff;">)</span><span style="color: #ab7eff;">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4">默认递归操作文件夹</h3>
+<div class="outline-text-3" id="text-3-4">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #ab7eff;">(</span><span style="color: #ff0066;">setq</span> dired-recursive-copies 'always<span style="color: #ab7eff;">)</span>
+<span style="color: #ab7eff;">(</span><span style="color: #ff0066;">setq</span> dired-recursive-deletes 'always<span style="color: #ab7eff;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">排序</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+emacs原始的排序只有根据字符和modify time进行排序；有一个插件<a href="https://www.emacswiki.org/emacs/download/dired-sort.el">dired-sort</a> 允许用户根据自己的需要进行排序。但是其中的根据后缀名排序只支持GNU版本的ls；所以对于MacOS及其他系统，最简单的方法是使用elisp版本的ls：<br  />
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #ab7eff;">(</span><span style="color: #ff0066;">require</span> '<span style="color: #ab7eff;">ls-lisp</span><span style="color: #ab7eff;">)</span>
+<span style="color: #ab7eff;">(</span><span style="color: #ff0066;">setq</span> ls-lisp-use-insert-directory-program nil<span style="color: #ab7eff;">)</span>
+<span style="color: #ab7eff;">(</span><span style="color: #ff0066;">setq</span> ls-lisp-verbosity nil<span style="color: #ab7eff;">)</span>
+</pre>
+</div>
+
+<p>
+并且，我希望文件夹能处在文件的前面：<br  />
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #ab7eff;">(</span><span style="color: #ff0066;">defun</span> <span style="color: #63de5d;">custom-dired-sort-dir-first</span> <span style="color: #06d8ff;">()</span>
+  <span style="color: #6A6D70;">"Dired sort hook to list directories first."</span>
+  <span style="color: #06d8ff;">(</span><span style="color: #ff0066;">save-excursion</span>
+    <span style="color: #63de5d;">(</span><span style="color: #ff0066;">let</span> <span style="color: #ffac4a;">(</span>buffer-read-only<span style="color: #ffac4a;">)</span>
+      <span style="color: #ffac4a;">(</span>forward-line 2<span style="color: #ffac4a;">)</span> <span style="color: #6A6D70;">;; </span><span style="color: #6A6D70;">beyond dir. header</span>
+      <span style="color: #ffac4a;">(</span>sort-regexp-fields t <span style="color: #E6DB74;">"^.*$"</span> <span style="color: #E6DB74;">"[ ]*."</span> <span style="color: #ff0066;">(</span>point<span style="color: #ff0066;">)</span> <span style="color: #ff0066;">(</span>point-max<span style="color: #ff0066;">)</span><span style="color: #ffac4a;">)</span><span style="color: #63de5d;">)</span><span style="color: #06d8ff;">)</span>
+  <span style="color: #06d8ff;">(</span><span style="color: #ff0066;">and</span> <span style="color: #63de5d;">(</span><span style="color: #ff0066;">featurep</span> '<span style="color: #ab7eff;">xemacs</span><span style="color: #63de5d;">)</span>
+       <span style="color: #63de5d;">(</span>fboundp 'dired-insert-set-properties<span style="color: #63de5d;">)</span>
+       <span style="color: #63de5d;">(</span>dired-insert-set-properties <span style="color: #ffac4a;">(</span>point-min<span style="color: #ffac4a;">)</span> <span style="color: #ffac4a;">(</span>point-max<span style="color: #ffac4a;">)</span><span style="color: #63de5d;">)</span><span style="color: #06d8ff;">)</span>
+  <span style="color: #06d8ff;">(</span>set-buffer-modified-p nil<span style="color: #06d8ff;">)</span><span style="color: #ab7eff;">)</span>
+
+<span style="color: #ab7eff;">(</span>add-hook 'dired-after-readin-hook 'custom-dired-sort-dir-first<span style="color: #ab7eff;">)</span>
+</pre>
+</div>
+
+<p>
+这样，我们就可以自定义排序了，具体效果是这样的：<br  />
+<img src="../static/20170106-dired-0.gif" alt="20170106-dired-0.gif" /><br  />
+</p>
+</div>
+</div>
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5">书签</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+跟书签配合之后，在访问远程路径的时候特别方便。借鉴了这篇文章：<a href="http://scottfrazersblog.blogspot.sg/2009/12/emacs-using-bookmarked-directories.html">Emacs: Using Bookmarked Directories</a> 。<br  />
+如果TRAMP配置合适的话，可以达到一键远程访问的效果：<br  />
+<img src="../static/20170106-dired-2.gif" alt="20170106-dired-2.gif" /><br  />
+</p>
+</div>
+</div>
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6">wdired</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+这个功能就很黑魔法了。我把它绑定到了“E”，C-c C-c确认修改；C-c C-k放弃修改。这个功能允许用户像操作普通文件那样操作目录，例如批量重命名：<br  />
+<img src="../static/20170106-dired-1.gif" alt="20170106-dired-1.gif" /><br  />
+</p>
+
+<p>
+当操作不是很复杂的时候可以用正则来匹配操作，而当比较复杂的时候就可以用这个功能了，高效、强大。<br  />
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7">参考</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+emacsist: <a href="http://mp.weixin.qq.com/s/73rHOjCF8Ot1kZdJuU6tgQ">Emacs文件管理神器&#x2013;dired常用操作说明</a><br  />
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>
