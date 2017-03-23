@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>如何优雅的使用Dired</title>
-<!-- 2017-03-22 Wed 20:07 -->
+<!-- 2017-03-23 Thu 14:52 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="slegetank" />
@@ -385,8 +385,97 @@ emacs原始的排序只有根据字符和modify time进行排序；有一个插�
 </div>
 
 <div id="outline-container-sec-7" class="outline-2">
-<h2 id="sec-7">参考</h2>
+<h2 id="sec-7">最近访问</h2>
 <div class="outline-text-2" id="text-7">
+<p>
+打开最近访问的目录是比较常用的一个功能。在shell里也有<a href="https://github.com/rupa/z">z</a>、 <a href="https://github.com/clvv/fasd">fasd</a> 这些快速打开路径的命令。而emacs内置的recentf则可为我们提供方便的最近访问路径功能，当然还是需要一些配置才能变得更好用。这里是<a href="https://www.emacswiki.org/emacs/RecentFiles#toc21">wiki</a> 。<br  />
+对于这个问题我最初查到的答案在这里：<a href="http://blog.binchen.org/posts/use-ivy-to-open-recent-directories.html">陈斌的解决方案</a> 。因此很简单的，我把其中fasd的部分去掉就可以用了：<br  />
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #ab7eff;">(</span><span style="color: #ff0066;">require</span> '<span style="color: #ab7eff;">ivy</span><span style="color: #ab7eff;">)</span> <span style="color: #6A6D70;">; </span><span style="color: #6A6D70;">swiper 7.0+ should be installed</span>
+
+<span style="color: #ab7eff;">(</span><span style="color: #ff0066;">defun</span> <span style="color: #63de5d;">custom-goto-recent-directory</span> <span style="color: #06d8ff;">()</span>
+  <span style="color: #6A6D70;">"Open recent directory with dired"</span>
+  <span style="color: #06d8ff;">(</span><span style="color: #ff0066;">interactive</span><span style="color: #06d8ff;">)</span>
+  <span style="color: #06d8ff;">(</span><span style="color: #ff0066;">unless</span> recentf-mode <span style="color: #63de5d;">(</span>recentf-mode 1<span style="color: #63de5d;">)</span><span style="color: #06d8ff;">)</span>
+  <span style="color: #06d8ff;">(</span><span style="color: #ff0066;">let</span> <span style="color: #63de5d;">(</span><span style="color: #ffac4a;">(</span>collection
+         <span style="color: #ff0066;">(</span>delete-dups
+          <span style="color: #FF61FF;">(</span>append <span style="color: #ab7eff;">(</span>mapcar 'file-name-directory recentf-list<span style="color: #ab7eff;">)</span><span style="color: #FF61FF;">)</span><span style="color: #ff0066;">)</span><span style="color: #ffac4a;">)</span><span style="color: #63de5d;">)</span>
+    <span style="color: #63de5d;">(</span>ivy-read <span style="color: #E6DB74;">"directories:"</span> collection <span style="color: #ff0066;">:action</span> 'dired<span style="color: #63de5d;">)</span><span style="color: #06d8ff;">)</span><span style="color: #ab7eff;">)</span>
+</pre>
+</div>
+
+<p>
+但是后来使用中发现了几个问题，在这里附上解决方案：<br  />
+</p>
+<ol class="org-ol">
+<li>dired访问的路径并不会被添加到最近访问里<br  />
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #ab7eff;">(</span><span style="color: #ff0066;">defun</span> <span style="color: #63de5d;">recentd-track-opened-file</span> <span style="color: #06d8ff;">()</span>
+    <span style="color: #6A6D70;">"Insert the name of the directory just opened into the recent list."</span>
+    <span style="color: #06d8ff;">(</span><span style="color: #ff0066;">and</span> <span style="color: #63de5d;">(</span>derived-mode-p 'dired-mode<span style="color: #63de5d;">)</span> default-directory
+        <span style="color: #63de5d;">(</span>recentf-add-file default-directory<span style="color: #63de5d;">)</span><span style="color: #06d8ff;">)</span>
+    <span style="color: #6A6D70;">;; </span><span style="color: #6A6D70;">Must return nil because it is run from `</span><span style="color: #6A6D70;">write-file-functions</span><span style="color: #6A6D70;">'.</span>
+    nil<span style="color: #ab7eff;">)</span>
+
+<span style="color: #ab7eff;">(</span><span style="color: #ff0066;">defun</span> <span style="color: #63de5d;">recentd-track-closed-file</span> <span style="color: #06d8ff;">()</span>
+    <span style="color: #6A6D70;">"Update the recent list when a dired buffer is killed.</span>
+<span style="color: #6A6D70;">That is, remove a non kept dired from the recent list."</span>
+    <span style="color: #06d8ff;">(</span><span style="color: #ff0066;">and</span> <span style="color: #63de5d;">(</span>derived-mode-p 'dired-mode<span style="color: #63de5d;">)</span> default-directory
+        <span style="color: #63de5d;">(</span>recentf-remove-if-non-kept default-directory<span style="color: #63de5d;">)</span><span style="color: #06d8ff;">)</span><span style="color: #ab7eff;">)</span>
+
+<span style="color: #ab7eff;">(</span>add-hook 'dired-after-readin-hook 'recentd-track-opened-file<span style="color: #ab7eff;">)</span>
+<span style="color: #ab7eff;">(</span>add-hook 'kill-buffer-hook 'recentd-track-closed-file<span style="color: #ab7eff;">)</span>
+</pre>
+</div>
+</li>
+<li>使用org-publish发布静态博客时，生成的html路径会把recentf-list塞满<br  />
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #ab7eff;">(</span><span style="color: #ff0066;">defsubst</span> <span style="color: #63de5d;">file-was-visible-p</span> <span style="color: #06d8ff;">(</span>file<span style="color: #06d8ff;">)</span>
+    <span style="color: #6A6D70;">"Return non-nil if FILE's buffer exists and has been displayed."</span>
+    <span style="color: #06d8ff;">(</span><span style="color: #ff0066;">let</span> <span style="color: #63de5d;">(</span><span style="color: #ffac4a;">(</span>buf <span style="color: #ff0066;">(</span>find-buffer-visiting file<span style="color: #ff0066;">)</span><span style="color: #ffac4a;">)</span><span style="color: #63de5d;">)</span>
+    <span style="color: #63de5d;">(</span><span style="color: #ff0066;">if</span> buf
+        <span style="color: #ffac4a;">(</span><span style="color: #ff0066;">let</span> <span style="color: #ff0066;">(</span><span style="color: #FF61FF;">(</span>display-count <span style="color: #ab7eff;">(</span>buffer-local-value 'buffer-display-count buf<span style="color: #ab7eff;">)</span><span style="color: #FF61FF;">)</span><span style="color: #ff0066;">)</span>
+            <span style="color: #ff0066;">(</span><span style="color: #ff0066;">if</span> <span style="color: #FF61FF;">(</span>&gt; display-count 0<span style="color: #FF61FF;">)</span> display-count nil<span style="color: #ff0066;">)</span><span style="color: #ffac4a;">)</span><span style="color: #63de5d;">)</span><span style="color: #06d8ff;">)</span><span style="color: #ab7eff;">)</span>
+
+<span style="color: #ab7eff;">(</span><span style="color: #ff0066;">let</span> <span style="color: #06d8ff;">(</span><span style="color: #63de5d;">(</span>r-list recentf-list<span style="color: #63de5d;">)</span><span style="color: #06d8ff;">)</span>
+    <span style="color: #06d8ff;">(</span><span style="color: #ff0066;">defsubst</span> <span style="color: #63de5d;">keep-default-old-and-visible-recentf-p</span> <span style="color: #63de5d;">(</span>file<span style="color: #63de5d;">)</span>
+    <span style="color: #6A6D70;">"Decide whether to keep file in recentf-list.</span>
+<span style="color: #6A6D70;">    Return non-nil if recentf would, by default, keep FILE, and</span>
+<span style="color: #6A6D70;">    either FILE name was loaded from recentf file on disk or FILE</span>
+<span style="color: #6A6D70;">    has been displayed in this session."</span>
+    <span style="color: #63de5d;">(</span><span style="color: #ff0066;">if</span> <span style="color: #ffac4a;">(</span>recentf-keep-default-predicate file<span style="color: #ffac4a;">)</span>
+        <span style="color: #ffac4a;">(</span><span style="color: #ff0066;">or</span> <span style="color: #ff0066;">(</span>member file r-list<span style="color: #ff0066;">)</span>
+            <span style="color: #ff0066;">(</span>file-was-visible-p file<span style="color: #ff0066;">)</span><span style="color: #ffac4a;">)</span><span style="color: #63de5d;">)</span><span style="color: #06d8ff;">)</span><span style="color: #ab7eff;">)</span>
+
+<span style="color: #ab7eff;">(</span><span style="color: #ff0066;">setf</span> recentf-keep '<span style="color: #06d8ff;">(</span>keep-default-old-and-visible-recentf-p<span style="color: #06d8ff;">)</span><span style="color: #ab7eff;">)</span>
+</pre>
+</div>
+</li>
+<li>TRAMP访问时路径不会出现在recentf-list里<br  />
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #ab7eff;">(</span><span style="color: #ff0066;">require</span> '<span style="color: #ab7eff;">recentf</span><span style="color: #ab7eff;">)</span>
+<span style="color: #ab7eff;">(</span><span style="color: #ff0066;">setq</span> recentf-auto-cleanup 'never<span style="color: #ab7eff;">)</span> <span style="color: #6A6D70;">;; </span><span style="color: #6A6D70;">disable before we start recentf!</span>
+<span style="color: #ab7eff;">(</span>recentf-mode 1<span style="color: #ab7eff;">)</span>
+</pre>
+</div>
+</li>
+</ol>
+
+<p>
+我把它绑定到了dr上:<br  />
+<img src="../static/20170106-dired-3.gif" alt="20170106-dired-3.gif" /><br  />
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8">参考</h2>
+<div class="outline-text-2" id="text-8">
 <p>
 emacsist: <a href="http://mp.weixin.qq.com/s/73rHOjCF8Ot1kZdJuU6tgQ">Emacs文件管理神器&#x2013;dired常用操作说明</a><br  />
 </p>
