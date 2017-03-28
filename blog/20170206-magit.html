@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Magit - MagicGitTool for Emacs</title>
-<!-- 2017-03-23 Thu 14:52 -->
+<!-- 2017-03-28 Tue 17:22 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="slegetank" />
@@ -275,13 +275,9 @@ bc - checkout new branch<br  />
 </p>
 <div class="org-src-container">
 
-<pre class="src src-sh">git log --pretty=format:<span style="color: #E6DB74;">"%h * %s %an %ar"</span>
+<pre class="src src-sh">git log --format=<span style="color: #E6DB74;">"%h * %s %an %ar"</span>
 </pre>
 </div>
-<p>
-可以看到对比图：<br  />
-<img src="../static/20170206-magit-6.png" alt="20170206-magit-6.png" /><br  />
-</p>
 
 <p>
 在每个提交上，按回车就可以查看这个提交的详细信息，大概相当于<br  />
@@ -301,8 +297,44 @@ bc - checkout new branch<br  />
 <h3 id="sec-4-1">操作</h3>
 <div class="outline-text-3" id="text-4-1">
 </div><div id="outline-container-sec-4-1-1" class="outline-4">
-<h4 id="sec-4-1-1">rebase interactive</h4>
+<h4 id="sec-4-1-1">log</h4>
 <div class="outline-text-4" id="text-4-1-1">
+<p>
+git log相对于git status功能上需要更多的对于查询的侧重，而log页面也有丰富的参数可供使用：<br  />
+<img src="../static/20170206-magit-7.png" alt="20170206-magit-7.png" /><br  />
+从"~/.emacs.d/elpa/magit-20170203.1633/magit-log.el"中可以看到每个选项对应的实际命令行参数：<br  />
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #ff0066;">:switches</span> <span style="color: #ab7eff;">(</span><span style="color: #06d8ff;">(</span>?g <span style="color: #E6DB74;">"Show graph"</span>              <span style="color: #E6DB74;">"--graph"</span><span style="color: #06d8ff;">)</span>
+           <span style="color: #06d8ff;">(</span>?c <span style="color: #E6DB74;">"Show graph in color"</span>     <span style="color: #E6DB74;">"--color"</span><span style="color: #06d8ff;">)</span>
+           <span style="color: #06d8ff;">(</span>?d <span style="color: #E6DB74;">"Show refnames"</span>           <span style="color: #E6DB74;">"--decorate"</span><span style="color: #06d8ff;">)</span>
+           <span style="color: #06d8ff;">(</span>?S <span style="color: #E6DB74;">"Show signatures"</span>         <span style="color: #E6DB74;">"--show-signature"</span><span style="color: #06d8ff;">)</span>
+           <span style="color: #06d8ff;">(</span>?u <span style="color: #E6DB74;">"Show diffs"</span>              <span style="color: #E6DB74;">"--patch"</span><span style="color: #06d8ff;">)</span>
+           <span style="color: #06d8ff;">(</span>?s <span style="color: #E6DB74;">"Show diffstats"</span>          <span style="color: #E6DB74;">"--stat"</span><span style="color: #06d8ff;">)</span>
+           <span style="color: #06d8ff;">(</span>?h <span style="color: #E6DB74;">"Show header"</span>             <span style="color: #E6DB74;">"++header"</span><span style="color: #06d8ff;">)</span>
+           <span style="color: #06d8ff;">(</span>?D <span style="color: #E6DB74;">"Simplify by decoration"</span>  <span style="color: #E6DB74;">"--simplify-by-decoration"</span><span style="color: #06d8ff;">)</span>
+           <span style="color: #06d8ff;">(</span>?f <span style="color: #E6DB74;">"Follow renames when showing single-file log"</span> <span style="color: #E6DB74;">"--follow"</span><span style="color: #06d8ff;">)</span><span style="color: #ab7eff;">)</span>
+<span style="color: #ff0066;">:options</span>  <span style="color: #ab7eff;">(</span><span style="color: #06d8ff;">(</span>?n <span style="color: #E6DB74;">"Limit number of commits"</span> <span style="color: #E6DB74;">"-n"</span><span style="color: #06d8ff;">)</span>
+           <span style="color: #06d8ff;">(</span>?f <span style="color: #E6DB74;">"Limit to files"</span>          <span style="color: #E6DB74;">"-- "</span> magit-read-files<span style="color: #06d8ff;">)</span>
+           <span style="color: #06d8ff;">(</span>?a <span style="color: #E6DB74;">"Limit to author"</span>         <span style="color: #E6DB74;">"--author="</span><span style="color: #06d8ff;">)</span>
+           <span style="color: #06d8ff;">(</span>?o <span style="color: #E6DB74;">"Order commits by"</span>        <span style="color: #E6DB74;">"++order="</span> magit-log-select-order<span style="color: #06d8ff;">)</span>
+           <span style="color: #06d8ff;">(</span>?g <span style="color: #E6DB74;">"Search messages"</span>         <span style="color: #E6DB74;">"--grep="</span><span style="color: #06d8ff;">)</span>
+           <span style="color: #06d8ff;">(</span>?G <span style="color: #E6DB74;">"Search changes"</span>          <span style="color: #E6DB74;">"-G"</span><span style="color: #06d8ff;">)</span>
+           <span style="color: #06d8ff;">(</span>?S <span style="color: #E6DB74;">"Search occurrences"</span>      <span style="color: #E6DB74;">"-S"</span><span style="color: #06d8ff;">)</span>
+           <span style="color: #06d8ff;">(</span>?L <span style="color: #E6DB74;">"Trace line evolution"</span>    <span style="color: #E6DB74;">"-L"</span> magit-read-file-trace<span style="color: #06d8ff;">)</span><span style="color: #ab7eff;">)</span>
+</pre>
+</div>
+
+<p>
+只要按-g或者=n等，就可以设置、取消这些参数了。对于查询某个文件的历史、某个提交者的历史来说都非常方便。<br  />
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-1-2" class="outline-4">
+<h4 id="sec-4-1-2">rebase interactive</h4>
+<div class="outline-text-4" id="text-4-1-2">
 <p>
 即git rebase -i，magit里变得稍微方便了一点:<br  />
 <img src="../static/20170206-magit-6.gif" alt="20170206-magit-6.gif" /><br  />
@@ -314,9 +346,9 @@ bc - checkout new branch<br  />
 </div>
 </div>
 
-<div id="outline-container-sec-4-1-2" class="outline-4">
-<h4 id="sec-4-1-2">reset</h4>
-<div class="outline-text-4" id="text-4-1-2">
+<div id="outline-container-sec-4-1-3" class="outline-4">
+<h4 id="sec-4-1-3">reset</h4>
+<div class="outline-text-4" id="text-4-1-3">
 <p>
 log页面另一个主要功能就是代码回滚了：<br  />
 <img src="../static/20170206-magit-7.gif" alt="20170206-magit-7.gif" /><br  />
