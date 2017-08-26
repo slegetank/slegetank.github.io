@@ -1,383 +1,638 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<head>
+
+<!-- ?xml version="1.0" encoding="utf-8"? -->
+<!-- 2017-08-26 Sat 16:18 -->
+<meta http-equiv="Content-Type"
+  content="text/html;charset=utf-8">
+
 <title>Magit - MagicGitTool for Emacs</title>
-<!-- 2017-03-28 Tue 17:22 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="slegetank" />
-<link rel="stylesheet" type="text/css" href="../static/org.css" />
-</head>
-<body>
-<div id="preamble" class="status">
-<div id="header">
-  <h1>Slegtank's Blog</h1>
-  <ul id="nav">
-      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
-    <li><a href="https://github.com/slegetank/">Github</a></li>
-    <li><a href="../tag.html">Tags</a></li>
-    <li><a href="../archive.html">Archive</a></li>
-    <li><a href="../index.html">Home</a></li>
-  </ul>
+<meta name="generator"
+  content="Org mode">
+
+<meta name="author"
+  content="slegetank">
+
+<link rel="stylesheet"
+  type="text/css"
+  href="../static/org.css">
+
+
+<div id="preamble"
+  class="status">
+
+  <div id="header">
+    <h1>Slegtank's Blog</h1>
+
+    <ul id="nav">
+      <li>
+        <a href="https://gitlab.com/slegetank">GitLab</a>
+      </li>
+      <li>
+        <a href="https://github.com/slegetank/">Github</a>
+      </li>
+      <li>
+        <a href="../tag.html">Tags</a>
+      </li>
+      <li>
+        <a href="../archive.html">Archive</a>
+      </li>
+      <li>
+        <a href="../index.html">Home</a>
+      </li>
+    </ul>
+  </div>
 </div>
-</div>
+
 <div id="content">
-<h1 class="title">Magit - MagicGitTool for Emacs</h1>
+  <h1 class="title">Magit - MagicGitTool for Emacs</h1>
 
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">为什么</h2>
-<div class="outline-text-2" id="text-1">
-<ul class="org-ul">
-<li>emacs内置，可以与文件编辑无缝操作。<br  />
-</li>
-<li>相比于命令行，对于提交内容的编辑操作更方便。<br  />
-</li>
-</ul>
+  <div id="outline-container-org0946d48"
+    class="outline-2">
+    <h2 id="org0946d48">为什么</h2>
 
-<p>
-当然，相比于现在流行的一些git客户端，magit还是没有什么特别的优势。但就像emacs每个其他的功能一样，如果你不是emacser，那么这就不是必须；否则就是你很好的帮手。<br  />
-</p>
+    <div class="outline-text-2"
+      id="text-org0946d48">
 
-<p>
-本文将关注Magit在具体使用上的内容，而不会过多牵涉git的知识。<br  />
-</p>
+      <ul class="org-ul">
+        <li>emacs内置，可以与文件编辑无缝操作。
+          <br>
+
+        </li>
+        <li>相比于命令行，对于提交内容的编辑操作更方便。
+          <br>
+
+        </li>
+      </ul>
+
+      <p>当然，相比于现在流行的一些git客户端，magit还是没有什么特别的优势，特别是对于大量文件的merge会出现卡顿的现象。但就像emacs每个其他的功能一样，如果你不是emacser，那么这就不是必须；否则就是你很好的帮手。
+        <br>
+
+      </p>
+
+      <p>本文将关注Magit在具体使用上的内容，而不会过多牵涉git的知识。
+        <br>
+
+      </p>
+    </div>
+  </div>
+
+  <div id="outline-container-org12c195b"
+    class="outline-2">
+    <h2 id="org12c195b">安装及配置</h2>
+
+    <div class="outline-text-2"
+      id="text-org12c195b">
+
+      <p>配置依然按照我的习惯：
+        <br>
+
+      </p>
+
+      <ul class="org-ul">
+        <li>使用package管理包
+          <br>
+
+        </li>
+        <li>vi键位
+          <br>
+
+        </li>
+        <li>使用leader键
+          <br>
+
+        </li>
+      </ul>
+
+      <p>所以：
+        <br>
+        将magit、evil-magit加入package-selected-packages，并将status页面绑定到gs按键上:
+        <br>
+
+      </p>
+
+      <div class="org-src-container">
+
+        <pre class="src src-sh">(require
+          <span style="color: #8b2252;">'evil-magit)</span>
+          <span style="color: #8b2252;">(evil-leader/set-key "gs" '
+          </span>magit-status)
+        </pre>
+      </div>
+
+      <p>这样，环境就配置完了。(evil-magit：
+        <a href="https://github.com/justbur/evil-magit">https://github.com/justbur/evil-magit
+        </a>， 将magit适配了evil)
+        <br>
+
+      </p>
+    </div>
+  </div>
+
+  <div id="outline-container-org8b6c41a"
+    class="outline-2">
+    <h2 id="org8b6c41a">git status</h2>
+
+    <div class="outline-text-2"
+      id="text-org8b6c41a">
+
+      <p>M-x magit-status或 空格+gs打开status页面，q退出。
+        <br>
+        status页面是magit的入口，其作用相当于git status，可以看到对比图：
+        <br>
+
+        <img src="../static/20170206-magit-1.png"
+          alt="20170206-magit-1.png">
+
+        <br>
+
+      </p>
+
+      <p>看起来差不多。但是magit提供了更方便的方式来对文件的修改进行访问以及操作。
+        <br>
+
+      </p>
+    </div>
+
+    <div id="outline-container-org6c254dd"
+      class="outline-3">
+      <h3 id="org6c254dd">访问</h3>
+
+      <div class="outline-text-3"
+        id="text-org6c254dd">
+
+        <p>每类文件都有4个展示等级，快捷键分别为1 2 3 4 :
+          <br>
+
+          <img src="../static/20170206-magit-2.gif"
+            alt="20170206-magit-2.gif">
+
+          <br>
+
+        </p>
+
+        <p>其中2（展示文件层）和4（展示修改细节）常用。
+          <br>
+
+        </p>
+
+        <p>通过j k上下移动光标(C-j C-k按块移动光标)，在文件上（或任何上一级项上）按tab将会展示其细节。
+          <br>
+
+        </p>
+      </div>
+    </div>
+
+    <div id="outline-container-org3126664"
+      class="outline-3">
+      <h3 id="org3126664">操作</h3>
+
+      <div class="outline-text-3"
+        id="text-org3126664">
+
+        <p>具体见
+          <a href="https://github.com/justbur/evil-magit">evil-magit
+          </a>， 这里只列出常用的一部分：
+          <br>
+
+        </p>
+
+        <table border="2"
+          cellspacing="0"
+          cellpadding="6"
+          rules="groups"
+          frame="hsides">
+
+          <colgroup>
+            <col class="org-left">
+
+            <col class="org-left">
+
+          </colgroup>
+
+          <tbody>
+
+            <tr>
+              <td class="org-left">快捷键</td>
+              <td class="org-left">功能</td>
+            </tr>
+
+            <tr>
+              <td class="org-left">s/u</td>
+              <td class="org-left">stage/unstage</td>
+            </tr>
+
+            <tr>
+              <td class="org-left">c</td>
+              <td class="org-left">commit</td>
+            </tr>
+
+            <tr>
+              <td class="org-left">p</td>
+              <td class="org-left">push</td>
+            </tr>
+
+            <tr>
+              <td class="org-left">x</td>
+              <td class="org-left">discard</td>
+            </tr>
+
+            <tr>
+              <td class="org-left">X</td>
+              <td class="org-left">untrack</td>
+            </tr>
+
+            <tr>
+              <td class="org-left">v</td>
+              <td class="org-left">select</td>
+            </tr>
+
+            <tr>
+              <td class="org-left">b</td>
+              <td class="org-left">branch</td>
+            </tr>
+
+            <tr>
+              <td class="org-left">fu</td>
+              <td class="org-left">fetch</td>
+            </tr>
+
+            <tr>
+              <td class="org-left">Fu</td>
+              <td class="org-left">pull</td>
+            </tr>
+
+            <tr>
+              <td class="org-left">r/ru</td>
+              <td class="org-left">rebase</td>
+            </tr>
+
+            <tr>
+              <td class="org-left">o/O</td>
+              <td class="org-left">reset</td>
+            </tr>
+
+            <tr>
+              <td class="org-left">i</td>
+              <td class="org-left">ignore</td>
+            </tr>
+
+            <tr>
+              <td class="org-left">zz/zp</td>
+              <td class="org-left">stash</td>
+            </tr>
+
+            <tr>
+              <td class="org-left">l</td>
+              <td class="org-left">log</td>
+            </tr>
+
+            <tr>
+              <td class="org-left">gr</td>
+              <td class="org-left">refresh</td>
+            </tr>
+
+            <tr>
+              <td class="org-left">$</td>
+              <td class="org-left">show git code</td>
+            </tr>
+
+            <tr>
+              <td class="org-left">m</td>
+              <td class="org-left">merge</td>
+            </tr>
+
+            <tr>
+              <td class="org-left">AA</td>
+              <td class="org-left">cherry-pick</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>下面分别进行描述(对于像cc这种两个按键的，实际上是有popup提示的，所以记不住也没关系)：
+          <br>
+
+        </p>
+      </div>
+
+      <div id="outline-container-orga20f47e"
+        class="outline-4">
+        <h4 id="orga20f47e">stage/unstage</h4>
+
+        <div class="outline-text-4"
+          id="text-orga20f47e">
+
+          <p>直接对文件进行stage/unstage，即对文件进行s/u：
+            <br>
+
+            <img src="../static/20170206-magit-3.gif"
+              alt="20170206-magit-3.gif">
+
+            <br>
+
+          </p>
+
+          <p>对块进行stage/unstage，即对块进行s/u:
+            <br>
+
+            <img src="../static/20170206-magit-4.gif"
+              alt="20170206-magit-4.gif">
+
+            <br>
+
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org0f1470a"
+        class="outline-4">
+        <h4 id="org0f1470a">commit/push</h4>
+
+        <div class="outline-text-4"
+          id="text-org0f1470a">
+
+          <p>stage完之后，按cc进行提交，此时会打开新的buffer，在其中编写commit message，C-c C-c提交，C-c C-k取消。
+            <br>
+            cc - commit
+            <br>
+            ca - amend
+            <br>
+
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-orgc7a2364"
+        class="outline-4">
+        <h4 id="orgc7a2364">select</h4>
+
+        <div class="outline-text-4"
+          id="text-orgc7a2364">
+
+          <p>magit允许同时对多项进行操作：
+            <br>
+
+            <img src="../static/20170206-magit-5.gif"
+              alt="20170206-magit-5.gif">
+
+            <br>
+
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org4afdd03"
+        class="outline-4">
+        <h4 id="org4afdd03">branch</h4>
+
+        <div class="outline-text-4"
+          id="text-org4afdd03">
+
+          <p>bb - checkout
+            <br>
+            bc - checkout new branch
+            <br>
+
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="outline-container-org7613e85"
+    class="outline-2">
+    <h2 id="org7613e85">git log</h2>
+
+    <div class="outline-text-2"
+      id="text-org7613e85">
+
+      <p>在status页面按ll就进入了log页面，大概相当于
+        <br>
+
+      </p>
+
+      <div class="org-src-container">
+
+        <pre class="src src-sh">git log --format=
+          <span style="color: #8b2252;">"%h * %s %an %ar"</span>
+        </pre>
+      </div>
+
+      <p>在每个提交上，按回车就可以查看这个提交的详细信息，大概相当于
+        <br>
+
+      </p>
+
+      <div class="org-src-container">
+
+        <pre class="src src-sh">git show xxx --pretty=fuller
+        </pre>
+      </div>
+
+      <p>1-4对于这个页面也同样有效。
+        <br>
+
+      </p>
+    </div>
+
+    <div id="outline-container-orgce50480"
+      class="outline-3">
+      <h3 id="orgce50480">操作</h3>
+
+      <div class="outline-text-3"
+        id="text-orgce50480">
+      </div>
+
+      <div id="outline-container-orgf2a2e85"
+        class="outline-4">
+        <h4 id="orgf2a2e85">log</h4>
+
+        <div class="outline-text-4"
+          id="text-orgf2a2e85">
+
+          <p>git log相对于git status功能上需要更多的对于查询的侧重，而log页面也有丰富的参数可供使用：
+            <br>
+
+            <img src="../static/20170206-magit-7.png"
+              alt="20170206-magit-7.png">
+
+            <br>
+            从"~/.emacs.d/elpa/magit-20170203.1633/magit-log.el"中可以看到每个选项对应的实际命令行参数：
+            <br>
+
+          </p>
+
+          <div class="org-src-container">
+
+            <pre class="src src-emacs-lisp">
+              <span style="color: #483d8b;">:switches</span>
+              <span style="color: #707183;">(</span>
+              <span style="color: #7388d6;">(</span>?g
+              <span style="color: #8b2252;">"Show graph"</span>
+              <span style="color: #8b2252;">"--graph"</span>
+              <span style="color: #7388d6;">)</span>
+              <span style="color: #7388d6;">(</span>?c
+              <span style="color: #8b2252;">"Show graph in color"</span>
+              <span style="color: #8b2252;">"--color"</span>
+              <span style="color: #7388d6;">)</span>
+              <span style="color: #7388d6;">(</span>?d
+              <span style="color: #8b2252;">"Show refnames"</span>
+              <span style="color: #8b2252;">"--decorate"</span>
+              <span style="color: #7388d6;">)</span>
+              <span style="color: #7388d6;">(</span>?S
+              <span style="color: #8b2252;">"Show signatures"</span>
+              <span style="color: #8b2252;">"--show-signature"</span>
+              <span style="color: #7388d6;">)</span>
+              <span style="color: #7388d6;">(</span>?u
+              <span style="color: #8b2252;">"Show diffs"</span>
+              <span style="color: #8b2252;">"--patch"</span>
+              <span style="color: #7388d6;">)</span>
+              <span style="color: #7388d6;">(</span>?s
+              <span style="color: #8b2252;">"Show diffstats"</span>
+              <span style="color: #8b2252;">"--stat"</span>
+              <span style="color: #7388d6;">)</span>
+              <span style="color: #7388d6;">(</span>?h
+              <span style="color: #8b2252;">"Show header"</span>
+              <span style="color: #8b2252;">"++header"</span>
+              <span style="color: #7388d6;">)</span>
+              <span style="color: #7388d6;">(</span>?D
+              <span style="color: #8b2252;">"Simplify by decoration"</span>
+              <span style="color: #8b2252;">"--simplify-by-decoration"</span>
+              <span style="color: #7388d6;">)</span>
+              <span style="color: #7388d6;">(</span>?f
+              <span style="color: #8b2252;">"Follow renames when showing single-file log"
+              </span>
+              <span style="color: #8b2252;">"--follow"</span>
+              <span style="color: #7388d6;">)</span>
+              <span style="color: #707183;">)</span>
+              <span style="color: #483d8b;">:options</span>
+              <span style="color: #707183;">(</span>
+              <span style="color: #7388d6;">(</span>?n
+              <span style="color: #8b2252;">"Limit number of commits"</span>
+              <span style="color: #8b2252;">"-n"</span>
+              <span style="color: #7388d6;">)</span>
+              <span style="color: #7388d6;">(</span>?f
+              <span style="color: #8b2252;">"Limit to files"</span>
+              <span style="color: #8b2252;">"-- "</span>magit-read-files
+              <span style="color: #7388d6;">)</span>
+              <span style="color: #7388d6;">(</span>?a
+              <span style="color: #8b2252;">"Limit to author"</span>
+              <span style="color: #8b2252;">"--author="</span>
+              <span style="color: #7388d6;">)</span>
+              <span style="color: #7388d6;">(</span>?o
+              <span style="color: #8b2252;">"Order commits by"</span>
+              <span style="color: #8b2252;">"++order="
+              </span>magit-log-select-order
+              <span style="color: #7388d6;">)</span>
+              <span style="color: #7388d6;">(</span>?g
+              <span style="color: #8b2252;">"Search messages"</span>
+              <span style="color: #8b2252;">"--grep="</span>
+              <span style="color: #7388d6;">)</span>
+              <span style="color: #7388d6;">(</span>?G
+              <span style="color: #8b2252;">"Search changes"</span>
+              <span style="color: #8b2252;">"-G"</span>
+              <span style="color: #7388d6;">)</span>
+              <span style="color: #7388d6;">(</span>?S
+              <span style="color: #8b2252;">"Search occurrences"</span>
+              <span style="color: #8b2252;">"-S"</span>
+              <span style="color: #7388d6;">)</span>
+              <span style="color: #7388d6;">(</span>?L
+              <span style="color: #8b2252;">"Trace line evolution"</span>
+              <span style="color: #8b2252;">"-L"</span>magit-read-file-trace
+              <span style="color: #7388d6;">)</span>
+              <span style="color: #707183;">)</span>
+            </pre>
+          </div>
+
+          <p>只要按-g或者=n等，就可以设置、取消这些参数了。对于查询某个文件的历史、某个提交者的历史来说都非常方便。
+            <br>
+
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org1acd222"
+        class="outline-4">
+        <h4 id="org1acd222">rebase interactive</h4>
+
+        <div class="outline-text-4"
+          id="text-org1acd222">
+
+          <p>即git rebase -i，magit里变得稍微方便了一点:
+            <br>
+
+            <img src="../static/20170206-magit-6.gif"
+              alt="20170206-magit-6.gif">
+
+            <br>
+
+          </p>
+
+          <p>在log页面选择squash开始的commit，然后流程跟命令行也差不多。
+            <br>
+
+          </p>
+        </div>
+      </div>
+
+      <div id="outline-container-org6dbfc1f"
+        class="outline-4">
+        <h4 id="org6dbfc1f">reset</h4>
+
+        <div class="outline-text-4"
+          id="text-org6dbfc1f">
+
+          <p>log页面另一个主要功能就是代码回滚了：
+            <br>
+
+            <img src="../static/20170206-magit-7.gif"
+              alt="20170206-magit-7.gif">
+
+            <br>
+
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="outline-container-org44fdb0b"
+    class="outline-2">
+    <h2 id="org44fdb0b">参考资料</h2>
+
+    <div class="outline-text-2"
+      id="text-org44fdb0b">
+
+      <ul class="org-ul">
+        <li>官方文档：
+          <a href="https://magit.vc/manual/magit/index.html#Top">https://magit.vc/manual/magit/index.html#Top
+          </a>
+          <br>
+
+        </li>
+        <li>官方常用功能文档：
+          <a href="https://magit.vc/manual/magit-refcard.pdf">https://magit.vc/manual/magit-refcard.pdf
+          </a>
+          <br>
+
+        </li>
+        <li>spacemacs git layer文档：
+          <a href="https://github.com/syl20bnr/spacemacs/tree/master/layers/+source-control/git#quick-guide-for-recurring-use-cases-in-magit">https://github.com/syl20bnr/spacemacs/tree/master/layers/+source-control/git#quick-guide-for-recurring-use-cases-in-magit
+          </a>
+          <br>
+
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
+
+<div id="postamble"
+  class="status">
+  <hr>
+
+  <p>License:
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </p>
+  <p>
+    <a href="mailto:slegetank@163.com">Contact</a>
+  </p>
 </div>
-
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2">安装及配置</h2>
-<div class="outline-text-2" id="text-2">
-<p>
-配置依然按照我的习惯：<br  />
-</p>
-<ul class="org-ul">
-<li>使用package管理包<br  />
-</li>
-<li>vi键位<br  />
-</li>
-<li>使用leader键<br  />
-</li>
-</ul>
-
-<p>
-所以：<br  />
-将magit、evil-magit加入package-selected-packages，并将status页面绑定到gs按键上:<br  />
-</p>
-<div class="org-src-container">
-
-<pre class="src src-sh">(require <span style="color: #E6DB74;">'evil-magit)</span>
-<span style="color: #E6DB74;">(evil-leader/set-key "gs" '</span>magit-status)
-</pre>
-</div>
-<p>
-这样，环境就配置完了。(evil-magit：<a href="https://github.com/justbur/evil-magit">https://github.com/justbur/evil-magit</a>， 将magit适配了evil)<br  />
-</p>
-</div>
-</div>
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3">git status</h2>
-<div class="outline-text-2" id="text-3">
-<p>
-M-x magit-status或 空格+gs打开status页面，q退出。<br  />
-status页面是magit的入口，其作用相当于git status，可以看到对比图：<br  />
-<img src="../static/20170206-magit-1.png" alt="20170206-magit-1.png" /><br  />
-</p>
-
-<p>
-看起来差不多。但是magit提供了更方便的方式来对文件的修改进行访问以及操作。<br  />
-</p>
-</div>
-<div id="outline-container-sec-3-1" class="outline-3">
-<h3 id="sec-3-1">访问</h3>
-<div class="outline-text-3" id="text-3-1">
-<p>
-每类文件都有4个展示等级，快捷键分别为1 2 3 4 :<br  />
-<img src="../static/20170206-magit-2.gif" alt="20170206-magit-2.gif" /><br  />
-</p>
-
-<p>
-其中2（展示文件层）和4（展示修改细节）常用。<br  />
-</p>
-
-<p>
-通过j k上下移动光标(C-j C-k按块移动光标)，在文件上（或任何上一级项上）按tab将会展示其细节。<br  />
-</p>
-</div>
-</div>
-<div id="outline-container-sec-3-2" class="outline-3">
-<h3 id="sec-3-2">操作</h3>
-<div class="outline-text-3" id="text-3-2">
-<p>
-具体见<a href="https://github.com/justbur/evil-magit">evil-magit</a>， 这里只列出常用的一部分：<br  />
-</p>
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
-
-<colgroup>
-<col  class="left" />
-
-<col  class="left" />
-</colgroup>
-<tbody>
-<tr>
-<td class="left">快捷键</td>
-<td class="left">功能</td>
-</tr>
-
-<tr>
-<td class="left">s/u</td>
-<td class="left">stage/unstage</td>
-</tr>
-
-<tr>
-<td class="left">c</td>
-<td class="left">commit</td>
-</tr>
-
-<tr>
-<td class="left">p</td>
-<td class="left">push</td>
-</tr>
-
-<tr>
-<td class="left">x</td>
-<td class="left">discard</td>
-</tr>
-
-<tr>
-<td class="left">X</td>
-<td class="left">untrack</td>
-</tr>
-
-<tr>
-<td class="left">v</td>
-<td class="left">select</td>
-</tr>
-
-<tr>
-<td class="left">b</td>
-<td class="left">branch</td>
-</tr>
-
-<tr>
-<td class="left">fu</td>
-<td class="left">fetch</td>
-</tr>
-
-<tr>
-<td class="left">Fu</td>
-<td class="left">pull</td>
-</tr>
-
-<tr>
-<td class="left">r/ru</td>
-<td class="left">rebase</td>
-</tr>
-
-<tr>
-<td class="left">o/O</td>
-<td class="left">reset</td>
-</tr>
-
-<tr>
-<td class="left">i</td>
-<td class="left">ignore</td>
-</tr>
-
-<tr>
-<td class="left">zz/zp</td>
-<td class="left">stash</td>
-</tr>
-
-<tr>
-<td class="left">l</td>
-<td class="left">log</td>
-</tr>
-
-<tr>
-<td class="left">gr</td>
-<td class="left">refresh</td>
-</tr>
-
-<tr>
-<td class="left">$</td>
-<td class="left">show git code</td>
-</tr>
-
-<tr>
-<td class="left">m</td>
-<td class="left">merge</td>
-</tr>
-
-<tr>
-<td class="left">AA</td>
-<td class="left">cherry-pick</td>
-</tr>
-</tbody>
-</table>
-
-<p>
-下面分别进行描述(对于像cc这种两个按键的，实际上是有popup提示的，所以记不住也没关系)：<br  />
-</p>
-</div>
-<div id="outline-container-sec-3-2-1" class="outline-4">
-<h4 id="sec-3-2-1">stage/unstage</h4>
-<div class="outline-text-4" id="text-3-2-1">
-<p>
-直接对文件进行stage/unstage，即对文件进行s/u：<br  />
-<img src="../static/20170206-magit-3.gif" alt="20170206-magit-3.gif" /><br  />
-</p>
-
-<p>
-对块进行stage/unstage，即对块进行s/u:<br  />
-<img src="../static/20170206-magit-4.gif" alt="20170206-magit-4.gif" /><br  />
-</p>
-</div>
-</div>
-<div id="outline-container-sec-3-2-2" class="outline-4">
-<h4 id="sec-3-2-2">commit/push</h4>
-<div class="outline-text-4" id="text-3-2-2">
-<p>
-stage完之后，按cc进行提交，此时会打开新的buffer，在其中编写commit message，C-c C-c提交，C-c C-k取消。<br  />
-cc - commit<br  />
-ca - amend<br  />
-</p>
-</div>
-</div>
-<div id="outline-container-sec-3-2-3" class="outline-4">
-<h4 id="sec-3-2-3">select</h4>
-<div class="outline-text-4" id="text-3-2-3">
-<p>
-magit允许同时对多项进行操作：<br  />
-<img src="../static/20170206-magit-5.gif" alt="20170206-magit-5.gif" /><br  />
-</p>
-</div>
-</div>
-
-<div id="outline-container-sec-3-2-4" class="outline-4">
-<h4 id="sec-3-2-4">branch</h4>
-<div class="outline-text-4" id="text-3-2-4">
-<p>
-bb - checkout<br  />
-bc - checkout new branch<br  />
-</p>
-</div>
-</div>
-</div>
-</div>
-<div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4">git log</h2>
-<div class="outline-text-2" id="text-4">
-<p>
-在status页面按ll就进入了log页面，大概相当于<br  />
-</p>
-<div class="org-src-container">
-
-<pre class="src src-sh">git log --format=<span style="color: #E6DB74;">"%h * %s %an %ar"</span>
-</pre>
-</div>
-
-<p>
-在每个提交上，按回车就可以查看这个提交的详细信息，大概相当于<br  />
-</p>
-<div class="org-src-container">
-
-<pre class="src src-sh">git show xxx --pretty=fuller
-</pre>
-</div>
-
-<p>
-1-4对于这个页面也同样有效。<br  />
-</p>
-</div>
-
-<div id="outline-container-sec-4-1" class="outline-3">
-<h3 id="sec-4-1">操作</h3>
-<div class="outline-text-3" id="text-4-1">
-</div><div id="outline-container-sec-4-1-1" class="outline-4">
-<h4 id="sec-4-1-1">log</h4>
-<div class="outline-text-4" id="text-4-1-1">
-<p>
-git log相对于git status功能上需要更多的对于查询的侧重，而log页面也有丰富的参数可供使用：<br  />
-<img src="../static/20170206-magit-7.png" alt="20170206-magit-7.png" /><br  />
-从"~/.emacs.d/elpa/magit-20170203.1633/magit-log.el"中可以看到每个选项对应的实际命令行参数：<br  />
-</p>
-<div class="org-src-container">
-
-<pre class="src src-emacs-lisp"><span style="color: #ff0066;">:switches</span> <span style="color: #ab7eff;">(</span><span style="color: #06d8ff;">(</span>?g <span style="color: #E6DB74;">"Show graph"</span>              <span style="color: #E6DB74;">"--graph"</span><span style="color: #06d8ff;">)</span>
-           <span style="color: #06d8ff;">(</span>?c <span style="color: #E6DB74;">"Show graph in color"</span>     <span style="color: #E6DB74;">"--color"</span><span style="color: #06d8ff;">)</span>
-           <span style="color: #06d8ff;">(</span>?d <span style="color: #E6DB74;">"Show refnames"</span>           <span style="color: #E6DB74;">"--decorate"</span><span style="color: #06d8ff;">)</span>
-           <span style="color: #06d8ff;">(</span>?S <span style="color: #E6DB74;">"Show signatures"</span>         <span style="color: #E6DB74;">"--show-signature"</span><span style="color: #06d8ff;">)</span>
-           <span style="color: #06d8ff;">(</span>?u <span style="color: #E6DB74;">"Show diffs"</span>              <span style="color: #E6DB74;">"--patch"</span><span style="color: #06d8ff;">)</span>
-           <span style="color: #06d8ff;">(</span>?s <span style="color: #E6DB74;">"Show diffstats"</span>          <span style="color: #E6DB74;">"--stat"</span><span style="color: #06d8ff;">)</span>
-           <span style="color: #06d8ff;">(</span>?h <span style="color: #E6DB74;">"Show header"</span>             <span style="color: #E6DB74;">"++header"</span><span style="color: #06d8ff;">)</span>
-           <span style="color: #06d8ff;">(</span>?D <span style="color: #E6DB74;">"Simplify by decoration"</span>  <span style="color: #E6DB74;">"--simplify-by-decoration"</span><span style="color: #06d8ff;">)</span>
-           <span style="color: #06d8ff;">(</span>?f <span style="color: #E6DB74;">"Follow renames when showing single-file log"</span> <span style="color: #E6DB74;">"--follow"</span><span style="color: #06d8ff;">)</span><span style="color: #ab7eff;">)</span>
-<span style="color: #ff0066;">:options</span>  <span style="color: #ab7eff;">(</span><span style="color: #06d8ff;">(</span>?n <span style="color: #E6DB74;">"Limit number of commits"</span> <span style="color: #E6DB74;">"-n"</span><span style="color: #06d8ff;">)</span>
-           <span style="color: #06d8ff;">(</span>?f <span style="color: #E6DB74;">"Limit to files"</span>          <span style="color: #E6DB74;">"-- "</span> magit-read-files<span style="color: #06d8ff;">)</span>
-           <span style="color: #06d8ff;">(</span>?a <span style="color: #E6DB74;">"Limit to author"</span>         <span style="color: #E6DB74;">"--author="</span><span style="color: #06d8ff;">)</span>
-           <span style="color: #06d8ff;">(</span>?o <span style="color: #E6DB74;">"Order commits by"</span>        <span style="color: #E6DB74;">"++order="</span> magit-log-select-order<span style="color: #06d8ff;">)</span>
-           <span style="color: #06d8ff;">(</span>?g <span style="color: #E6DB74;">"Search messages"</span>         <span style="color: #E6DB74;">"--grep="</span><span style="color: #06d8ff;">)</span>
-           <span style="color: #06d8ff;">(</span>?G <span style="color: #E6DB74;">"Search changes"</span>          <span style="color: #E6DB74;">"-G"</span><span style="color: #06d8ff;">)</span>
-           <span style="color: #06d8ff;">(</span>?S <span style="color: #E6DB74;">"Search occurrences"</span>      <span style="color: #E6DB74;">"-S"</span><span style="color: #06d8ff;">)</span>
-           <span style="color: #06d8ff;">(</span>?L <span style="color: #E6DB74;">"Trace line evolution"</span>    <span style="color: #E6DB74;">"-L"</span> magit-read-file-trace<span style="color: #06d8ff;">)</span><span style="color: #ab7eff;">)</span>
-</pre>
-</div>
-
-<p>
-只要按-g或者=n等，就可以设置、取消这些参数了。对于查询某个文件的历史、某个提交者的历史来说都非常方便。<br  />
-</p>
-</div>
-</div>
-
-<div id="outline-container-sec-4-1-2" class="outline-4">
-<h4 id="sec-4-1-2">rebase interactive</h4>
-<div class="outline-text-4" id="text-4-1-2">
-<p>
-即git rebase -i，magit里变得稍微方便了一点:<br  />
-<img src="../static/20170206-magit-6.gif" alt="20170206-magit-6.gif" /><br  />
-</p>
-
-<p>
-在log页面选择squash开始的commit，然后流程跟命令行也差不多。<br  />
-</p>
-</div>
-</div>
-
-<div id="outline-container-sec-4-1-3" class="outline-4">
-<h4 id="sec-4-1-3">reset</h4>
-<div class="outline-text-4" id="text-4-1-3">
-<p>
-log页面另一个主要功能就是代码回滚了：<br  />
-<img src="../static/20170206-magit-7.gif" alt="20170206-magit-7.gif" /><br  />
-</p>
-</div>
-</div>
-</div>
-</div>
-
-<div id="outline-container-sec-5" class="outline-2">
-<h2 id="sec-5">参考资料</h2>
-<div class="outline-text-2" id="text-5">
-<ul class="org-ul">
-<li>官方文档：<a href="https://magit.vc/manual/magit/index.html#Top">https://magit.vc/manual/magit/index.html#Top</a><br  />
-</li>
-<li>官方常用功能文档：<a href="https://magit.vc/manual/magit-refcard.pdf">https://magit.vc/manual/magit-refcard.pdf</a><br  />
-</li>
-<li>spacemacs git layer文档：<a href="https://github.com/syl20bnr/spacemacs/tree/master/layers/+source-control/git#quick-guide-for-recurring-use-cases-in-magit">https://github.com/syl20bnr/spacemacs/tree/master/layers/+source-control/git#quick-guide-for-recurring-use-cases-in-magit</a><br  />
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div id="postamble" class="status">
-<hr />
-
-                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
-
-                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
-</div>
-</body>
-</html>

@@ -1,0 +1,143 @@
+
+<!-- ?xml version="1.0" encoding="utf-8"? -->
+<!-- 2017-08-26 Sat 16:18 -->
+<meta http-equiv="Content-Type"
+  content="text/html;charset=utf-8">
+
+<title>Emacs图表优雅的解决方案</title>
+<meta name="generator"
+  content="Org mode">
+
+<meta name="author"
+  content="slegetank">
+
+<link rel="stylesheet"
+  type="text/css"
+  href="../static/org.css">
+
+
+<div id="preamble"
+  class="status">
+
+  <div id="header">
+    <h1>Slegtank's Blog</h1>
+
+    <ul id="nav">
+      <li>
+        <a href="https://gitlab.com/slegetank">GitLab</a>
+      </li>
+      <li>
+        <a href="https://github.com/slegetank/">Github</a>
+      </li>
+      <li>
+        <a href="../tag.html">Tags</a>
+      </li>
+      <li>
+        <a href="../archive.html">Archive</a>
+      </li>
+      <li>
+        <a href="../index.html">Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div id="content">
+  <h1 class="title">Emacs图表优雅的解决方案</h1>
+
+  <p>在搞js环境的时候我就说过，Emacs在解决实际问题时，很多时候都是作为"前端"工具出现的。即解决问题的核心工具是一个独立的程序，而Emacs作为一个交互工具，收集用户的输入，反馈其他程序的输出。这样做的好处是：
+    <br>
+
+  </p>
+
+  <ol class="org-ol">
+    <li>核心功能的开发与面对用户的UI分开，开发人员能更专注于功能的实现。
+      <br>
+
+    </li>
+    <li>利用Emacs的流行性与其强大的可扩展性，低成本高效率的开发出可供使用的界面。
+      <br>
+
+    </li>
+    <li>核心功能由于其独立平台的特性，可以方便的与其他需要与其交互的程序实现对接。
+      <br>
+
+    </li>
+  </ol>
+
+  <p>这个方案的大概结构是这样的:
+    <br>
+
+  </p>
+
+  <div class="figure">
+
+    <p>
+      <img src="../static/20170826-emacsChart-1.png"
+        alt="20170826-emacsChart-1.png">
+
+      <br>
+
+    </p>
+  </div>
+
+  <p>这个图的源代码是这样的：
+    <br>
+
+  </p>
+
+  <pre class="example">#+begin_src ditaa :file ../static/20170826-emacsChart-1.png +-----------------+ | ditaa | | | backend +-----------------+ ---------------------------- +-----------------+ | artist-mode | | | frontend +-----------------+ #+end_src
+  </pre>
+
+  <p>可以看到
+    <a href="http://ditaa.sourceforge.net">ditaa
+    </a>是这个方案的核心存在。而其前端交互使用的是Emacs内置的
+    <a href="https://www.emacswiki.org/emacs/ArtistMode">artist-mode
+    </a>，可以简单的绘制出文本状态的框图。更幸运的是，ditaa已经集成进了org mode。所以不需要任何额外的安装就可以直接在org mode中使用其导出功能。唯一需要配置的语句：
+    <br>
+
+  </p>
+
+  <div class="org-src-container">
+
+    <pre class="src src-emacs-lisp">
+      <span style="color: #707183;">(
+      </span>org-babel-do-load-languages 'org-babel-load-languages '
+      <span style="color: #7388d6;">(</span>
+      <span style="color: #909183;">(</span>ditaa . t
+      <span style="color: #909183;">)</span>
+      <span style="color: #7388d6;">)</span>
+      <span style="color: #707183;">)</span>
+    </pre>
+  </div>
+
+  <p>此时，只要在org mode中加入
+    <br>
+
+  </p>
+
+  <pre class="example">#+begin_src ditaa :file some-file-name.png ... #+end_src
+  </pre>
+
+  <p>在导出org mode的时候，就会自动将框图导出成png文件保存在指定的路径。
+    <br>
+
+  </p>
+
+  <p>至于例子以及转换的规则，请参照视频以及ditaa的文档，这里不做赘述。
+    <br>
+
+  </p>
+</div>
+
+<div id="postamble"
+  class="status">
+  <hr>
+
+  <p>License:
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </p>
+  <p>
+    <a href="mailto:slegetank@163.com">Contact</a>
+  </p>
+</div>

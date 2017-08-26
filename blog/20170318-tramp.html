@@ -1,176 +1,281 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-<head>
+
+<!-- ?xml version="1.0" encoding="utf-8"? -->
+<!-- 2017-08-26 Sat 16:18 -->
+<meta http-equiv="Content-Type"
+  content="text/html;charset=utf-8">
+
 <title>TRAMP学习记录</title>
-<!-- 2017-03-28 Tue 17:22 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="slegetank" />
-<link rel="stylesheet" type="text/css" href="../static/org.css" />
-</head>
-<body>
-<div id="preamble" class="status">
-<div id="header">
-  <h1>Slegtank's Blog</h1>
-  <ul id="nav">
-      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
-    <li><a href="https://github.com/slegetank/">Github</a></li>
-    <li><a href="../tag.html">Tags</a></li>
-    <li><a href="../archive.html">Archive</a></li>
-    <li><a href="../index.html">Home</a></li>
-  </ul>
+<meta name="generator"
+  content="Org mode">
+
+<meta name="author"
+  content="slegetank">
+
+<link rel="stylesheet"
+  type="text/css"
+  href="../static/org.css">
+
+
+<div id="preamble"
+  class="status">
+
+  <div id="header">
+    <h1>Slegtank's Blog</h1>
+
+    <ul id="nav">
+      <li>
+        <a href="https://gitlab.com/slegetank">GitLab</a>
+      </li>
+      <li>
+        <a href="https://github.com/slegetank/">Github</a>
+      </li>
+      <li>
+        <a href="../tag.html">Tags</a>
+      </li>
+      <li>
+        <a href="../archive.html">Archive</a>
+      </li>
+      <li>
+        <a href="../index.html">Home</a>
+      </li>
+    </ul>
+  </div>
 </div>
-</div>
+
 <div id="content">
-<h1 class="title">TRAMP学习记录</h1>
-<p>
-TRAMP是Transparent Remote file Access, Multiple Protocol的缩写，wiki在这里<a href="http://wikemacs.org/wiki/TRAMP">TRAMP</a>。 最近由于学习需要，租了一台服务器，这样，远程编辑的功能也成了一种迫切需求。因此，TRAMP搞起！<br  />
-</p>
+  <h1 class="title">TRAMP学习记录</h1>
 
-<p>
-当我们尝试用dired或者find-file连接远程目录、文件时，就会自动调用tramp-mode。如果不经过配置，每次都选择要使用的协议，输入host、密码还是很烦人的，因此需要进行一些配置。如下。<br  />
-</p>
+  <p>TRAMP是Transparent Remote file Access, Multiple Protocol的缩写，wiki在这里
+    <a href="http://wikemacs.org/wiki/TRAMP">TRAMP
+    </a>。 最近由于学习需要，租了一台服务器，这样，远程编辑的功能也成了一种迫切需求。因此，TRAMP搞起！
+    <br>
 
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">配置</h2>
-<div class="outline-text-2" id="text-1">
-</div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1">emacs</h3>
-<div class="outline-text-3" id="text-1-1">
-<p>
-首先，将TRAMP远程默认协议设为sshx。<br  />
-</p>
-<div class="org-src-container">
+  </p>
 
-<pre class="src src-emacs-lisp"><span style="color: #ab7eff;">(</span><span style="color: #ff0066;">setq</span> tramp-default-method <span style="color: #E6DB74;">"sshx"</span><span style="color: #ab7eff;">)</span>
-</pre>
+  <p>当我们尝试用dired或者find-file连接远程目录、文件时，就会自动调用tramp-mode。如果不经过配置，每次都选择要使用的协议，输入host、密码还是很烦人的，因此需要进行一些配置。如下。
+    <br>
+
+  </p>
+
+  <div id="outline-container-orge1694f2"
+    class="outline-2">
+    <h2 id="orge1694f2">配置</h2>
+
+    <div class="outline-text-2"
+      id="text-orge1694f2">
+    </div>
+
+    <div id="outline-container-org4c47dc0"
+      class="outline-3">
+      <h3 id="org4c47dc0">emacs</h3>
+
+      <div class="outline-text-3"
+        id="text-org4c47dc0">
+
+        <p>首先，将TRAMP远程默认协议设为sshx。
+          <br>
+
+        </p>
+
+        <div class="org-src-container">
+
+          <pre class="src src-emacs-lisp">
+            <span style="color: #707183;">(</span>
+            <span style="color: #a020f0;">setq</span>tramp-default-method
+            <span style="color: #8b2252;">"sshx"</span>
+            <span style="color: #707183;">)</span>
+          </pre>
+        </div>
+
+        <p>sshx的解释在这里
+          <a href="https://www.gnu.org/software/tramp/">sshx</a>:
+          <br>
+
+        </p>
+
+        <p>“Works like ssh but without the extra authentication prompts. sshx uses ‘ssh -t -t host -l user /bin/sh’ to open a connection with a “standard” login shell.”
+          <br>
+
+        </p>
+
+        <p>这会让登录的流程更干净。然后，将TRAMP补全的方法做这样的设置：
+          <br>
+
+        </p>
+
+        <div class="org-src-container">
+
+          <pre class="src src-emacs-lisp">
+            <span style="color: #707183;">(</span>tramp-set-completion-function
+            <span style="color: #8b2252;">"sshx"</span>'
+            <span style="color: #7388d6;">(</span>
+            <span style="color: #909183;">(</span>tramp-parse-sconfig
+            <span style="color: #8b2252;">"/etc/ssh_config"</span>
+            <span style="color: #909183;">)</span>
+            <span style="color: #909183;">(</span>tramp-parse-sconfig
+            <span style="color: #8b2252;">"~/.ssh/config"</span>
+            <span style="color: #909183;">)</span>
+            <span style="color: #7388d6;">)</span>
+            <span style="color: #707183;">)</span>
+          </pre>
+        </div>
+
+        <p>这样，emacs这边就配置完了。
+          <br>
+
+        </p>
+      </div>
+    </div>
+
+    <div id="outline-container-org73969ff"
+      class="outline-3">
+      <h3 id="org73969ff">ssh</h3>
+
+      <div class="outline-text-3"
+        id="text-org73969ff">
+
+        <p>编辑~/.ssh/config文件，在里面按照这种格式添加内容:
+          <br>
+
+        </p>
+
+        <div class="org-src-container">
+
+          <pre class="src src-C">
+            <span style="color: #228b22;">Host</span>
+            <span style="color: #228b22;">short
+            </span>-name-one HostName your-host-name-one.com User your-user-one Host
+            <span style="color: #228b22;">short
+            </span>-name-two HostName your-host-name-two.com User your-user-two
+          </pre>
+        </div>
+
+        <p>例如我的：
+          <br>
+
+        </p>
+
+        <div class="org-src-container">
+
+          <pre class="src src-C">Host mywebsite
+            <span style="color: #228b22;">HostName</span>
+            <span style="color: #a0522d;">slegetank</span>.com User root
+          </pre>
+        </div>
+
+        <p>这表示"mywebsite"所对应的host是“slegetank.com”,用户名是"root"。
+          <br>
+
+        </p>
+      </div>
+    </div>
+
+    <div id="outline-container-org141524f"
+      class="outline-3">
+      <h3 id="org141524f">password</h3>
+
+      <div class="outline-text-3"
+        id="text-org141524f">
+
+        <p>官方文档在这里：
+          <a href="https://www.gnu.org/software/emacs/manual/html_node/tramp/Password-handling.html">password
+          </a>。
+          <br>
+          虽然emacs会缓存密码一段时间，但是对于常用的远程链接，我还是希望能够不用输入密码。一种方法自然是用ssh自己的证书登录方式；而emacs也提供了自己的认证信息管理机制。我这里用最简单的明文保存方式。
+          <br>
+
+        </p>
+
+        <p>在用户目录下建立文件.authinfo，并且保存如下格式的信息：
+          <br>
+
+        </p>
+
+        <div class="org-src-container">
+
+          <pre class="src src-C">
+            <span style="color: #228b22;">machine</span>
+            <span style="color: #228b22;">short
+            </span>-name-one port ssh login your-user-one password your-password
+          </pre>
+        </div>
+
+        <p>例如我的：
+          <br>
+
+        </p>
+
+        <div class="org-src-container">
+
+          <pre class="src src-C">machine mywebsite port sshx login root
+            <span style="color: #228b22;">password</span>
+            <span style="color: #a0522d;">xxx</span>
+          </pre>
+        </div>
+
+        <p>这表示对于"mywebsite"的sshx协议的root用户的密码是xxx。当然，这种方式是不安全的，应该用pgp对该文件进行加密，加密文件的默认路径为~/.authinfo.gpg，具体密码文件查询路径见变量auth-sources。
+          <br>
+
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div id="outline-container-orgb2c19ad"
+    class="outline-2">
+    <h2 id="orgb2c19ad">使用</h2>
+
+    <div class="outline-text-2"
+      id="text-orgb2c19ad">
+
+      <p>使用dired或find-file，在mini-buffer输入两个斜杠，此时会提示用户输入要使用的协议。这时输入"mywebsite"会发现有提示信息。回车，如果你上面的配置都正确的话，则会自动打开远程服务器的根目录；tab则可以输入要访问的文件、目录。
+        <br>
+
+      </p>
+    </div>
+  </div>
+
+  <div id="outline-container-org4234ed0"
+    class="outline-2">
+    <h2 id="org4234ed0">更多</h2>
+
+    <div class="outline-text-2"
+      id="text-org4234ed0">
+
+      <p>Projectile据说跟TRAMP有冲突，会出现卡死的情况，我没遇到过，不过先记在这里。
+        <br>
+
+      </p>
+
+      <div class="org-src-container">
+
+        <pre class="src src-emacs-lisp">
+          <span style="color: #707183;">(</span>
+          <span style="color: #a020f0;">defadvice</span>
+          <span style="color: #0000ff;">projectile-project-root</span>
+          <span style="color: #7388d6;">(
+          </span>around ignore-remote first activate
+          <span style="color: #7388d6;">)</span>
+          <span style="color: #7388d6;">(</span>
+          <span style="color: #a020f0;">unless</span>
+          <span style="color: #909183;">(</span>file-remote-p default-directory
+          <span style="color: #909183;">)</span>ad-do-it
+          <span style="color: #7388d6;">)</span>
+          <span style="color: #707183;">)</span>
+        </pre>
+      </div>
+    </div>
+  </div>
 </div>
 
-<p>
-sshx的解释在这里 <a href="https://www.gnu.org/software/tramp/">sshx</a> :<br  />
-</p>
+<div id="postamble"
+  class="status">
+  <hr>
 
-<p>
-“Works like ssh but without the extra authentication prompts. sshx uses ‘ssh -t -t host -l user /bin/sh’ to open a connection with a “standard” login shell.”<br  />
-</p>
-
-<p>
-这会让登录的流程更干净。然后，将TRAMP补全的方法做这样的设置：<br  />
-</p>
-
-<div class="org-src-container">
-
-<pre class="src src-emacs-lisp"><span style="color: #ab7eff;">(</span>tramp-set-completion-function <span style="color: #E6DB74;">"sshx"</span>
-                               '<span style="color: #06d8ff;">(</span><span style="color: #63de5d;">(</span>tramp-parse-sconfig <span style="color: #E6DB74;">"/etc/ssh_config"</span><span style="color: #63de5d;">)</span>
-                                 <span style="color: #63de5d;">(</span>tramp-parse-sconfig <span style="color: #E6DB74;">"~/.ssh/config"</span><span style="color: #63de5d;">)</span><span style="color: #06d8ff;">)</span><span style="color: #ab7eff;">)</span>
-</pre>
+  <p>License:
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
+  </p>
+  <p>
+    <a href="mailto:slegetank@163.com">Contact</a>
+  </p>
 </div>
-
-<p>
-这样，emacs这边就配置完了。<br  />
-</p>
-</div>
-</div>
-
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2">ssh</h3>
-<div class="outline-text-3" id="text-1-2">
-<p>
-编辑~/.ssh/config文件，在里面按照这种格式添加内容:<br  />
-</p>
-<div class="org-src-container">
-
-<pre class="src src-C"><span style="color: #06d8ff;">Host</span> <span style="color: #06d8ff;">short</span>-name-one
-HostName your-host-name-one.com
-User your-user-one
-
-Host <span style="color: #06d8ff;">short</span>-name-two
-HostName your-host-name-two.com
-User your-user-two
-</pre>
-</div>
-
-<p>
-例如我的：<br  />
-</p>
-<div class="org-src-container">
-
-<pre class="src src-C">Host mywebsite
-<span style="color: #06d8ff;">HostName</span> <span style="color: #ffac4a;">slegetank</span>.com
-User root
-</pre>
-</div>
-
-<p>
-这表示"mywebsite"所对应的host是“slegetank.com”,用户名是"root"。<br  />
-</p>
-</div>
-</div>
-<div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3">password</h3>
-<div class="outline-text-3" id="text-1-3">
-<p>
-官方文档在这里：<a href="https://www.gnu.org/software/emacs/manual/html_node/tramp/Password-handling.html">password</a> 。<br  />
-虽然emacs会缓存密码一段时间，但是对于常用的远程链接，我还是希望能够不用输入密码。一种方法自然是用ssh自己的证书登录方式；而emacs也提供了自己的认证信息管理机制。我这里用最简单的明文保存方式。<br  />
-</p>
-
-<p>
-在用户目录下建立文件.authinfo，并且保存如下格式的信息：<br  />
-</p>
-
-<div class="org-src-container">
-
-<pre class="src src-C"><span style="color: #06d8ff;">machine</span> <span style="color: #06d8ff;">short</span>-name-one port ssh login your-user-one password your-password
-</pre>
-</div>
-
-<p>
-例如我的：<br  />
-</p>
-
-<div class="org-src-container">
-
-<pre class="src src-C">machine mywebsite port sshx login root <span style="color: #06d8ff;">password</span> <span style="color: #ffac4a;">xxx</span>
-</pre>
-</div>
-
-<p>
-这表示对于"mywebsite"的sshx协议的root用户的密码是xxx。当然，这种方式是不安全的，应该用pgp对该文件进行加密，加密文件的默认路径为~/.authinfo.gpg，具体密码文件查询路径见变量auth-sources。<br  />
-</p>
-</div>
-</div>
-</div>
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2">使用</h2>
-<div class="outline-text-2" id="text-2">
-<p>
-使用dired或find-file，在mini-buffer输入两个斜杠，此时会提示用户输入要使用的协议。这时输入"mywebsite"会发现有提示信息。回车，如果你上面的配置都正确的话，则会自动打开远程服务器的根目录；tab则可以输入要访问的文件、目录。<br  />
-</p>
-</div>
-</div>
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3">更多</h2>
-<div class="outline-text-2" id="text-3">
-<p>
-Projectile据说跟TRAMP有冲突，会出现卡死的情况，我没遇到过，不过先记在这里。<br  />
-</p>
-<div class="org-src-container">
-
-<pre class="src src-emacs-lisp"><span style="color: #ab7eff;">(</span><span style="color: #ff0066;">defadvice</span> <span style="color: #63de5d;">projectile-project-root</span> <span style="color: #06d8ff;">(</span>around ignore-remote first activate<span style="color: #06d8ff;">)</span>
-  <span style="color: #06d8ff;">(</span><span style="color: #ff0066;">unless</span> <span style="color: #63de5d;">(</span>file-remote-p default-directory<span style="color: #63de5d;">)</span> ad-do-it<span style="color: #06d8ff;">)</span><span style="color: #ab7eff;">)</span>
-</pre>
-</div>
-</div>
-</div>
-</div>
-<div id="postamble" class="status">
-<hr />
-
-                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
-
-                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
-</div>
-</body>
-</html>
