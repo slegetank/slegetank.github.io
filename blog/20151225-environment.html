@@ -1,493 +1,303 @@
-
-<!-- ?xml version="1.0" encoding="utf-8"? -->
-<!-- 2017-08-26 Sat 16:18 -->
-<meta http-equiv="Content-Type"
-  content="text/html;charset=utf-8">
-
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-11-19 Sun 18:30 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>工作环境配置记录</title>
-<meta name="generator"
-  content="Org mode">
-
-<meta name="author"
-  content="slegetank">
-
-<link rel="stylesheet"
-  type="text/css"
-  href="../static/org.css">
-
-
-<div id="preamble"
-  class="status">
-
-  <div id="header">
-    <h1>Slegtank's Blog</h1>
-
-    <ul id="nav">
-      <li>
-        <a href="https://gitlab.com/slegetank">GitLab</a>
-      </li>
-      <li>
-        <a href="https://github.com/slegetank/">Github</a>
-      </li>
-      <li>
-        <a href="../tag.html">Tags</a>
-      </li>
-      <li>
-        <a href="../archive.html">Archive</a>
-      </li>
-      <li>
-        <a href="../index.html">Home</a>
-      </li>
-    </ul>
-  </div>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
 </div>
-
+</div>
 <div id="content">
-  <h1 class="title">工作环境配置记录</h1>
-
-  <p>最近换了台MacBook，工作环境全部需要重新配置。为方便以后查询，特此记录。
-    <br>
-
-  </p>
-
-  <div id="outline-container-org3691eaa"
-    class="outline-2">
-    <h2 id="org3691eaa">Xcode</h2>
-
-    <div class="outline-text-2"
-      id="text-org3691eaa">
-
-      <p>看家工具。
-        <br>
-
-      </p>
-    </div>
-
-    <div id="outline-container-org72e99e8"
-      class="outline-3">
-      <h3 id="org72e99e8">Alcatraz</h3>
-
-      <div class="outline-text-3"
-        id="text-org72e99e8">
-
-        <p>地址：
-          <a href="http://alcatraz.io/">http://alcatraz.io/</a>
-          <br>
-          安装：curl -fsSL
-          <a href="https://raw.githubusercontent.com/supermarin/Alcatraz/deploy/Scripts/install.sh">https://raw.githubusercontent.com/supermarin/Alcatraz/deploy/Scripts/install.sh
-          </a>| sh
-          <br>
-          安装完成后，必装的插件有：
-          <br>
-
-        </p>
-      </div>
-    </div>
-
-    <div id="outline-container-org2563c52"
-      class="outline-3">
-      <h3 id="org2563c52">XVim</h3>
-
-      <div class="outline-text-3"
-        id="text-org2563c52">
-
-        <p>vim指法的效率无需多言。
-          <br>
-
-        </p>
-      </div>
-    </div>
-
-    <div id="outline-container-org8ade968"
-      class="outline-3">
-      <h3 id="org8ade968">CocoaPods</h3>
-
-      <div class="outline-text-3"
-        id="text-org8ade968">
-
-        <p>配置
-          <br>
-
-        </p>
-
-        <div class="org-src-container">
-
-          <pre class="src src-C">
-            <span style="color: #228b22;">gem</span>
-            <span style="color: #0000ff;">sources</span>--remove https:
-            <span style="color: #b22222;">//</span>
-            <span style="color: #b22222;">rubygems.org/
-            </span>gem sources -a https:
-            <span style="color: #b22222;">//</span>
-            <span style="color: #b22222;">ruby.taobao.org/gem
-            </span>gem sources -l sudo gem install cocoapods gem setup(可以到~/.cocoapods下du -sh 查看进度)
-          </pre>
-        </div>
-
-        <p>使用
-          <br>
-          在工程目录下 vim Podfile，加入
-          <br>
-
-        </p>
-
-        <div class="org-src-container">
-
-          <pre class="src src-C">
-            <span style="color: #008b8b;">platform</span>:ios,
-            <span style="color: #8b2252;">'9.2'</span>pod
-            <span style="color: #8b2252;">'SDWebImage'</span>,
-            <span style="color: #8b2252;">'~> 3.7.5'</span>
-          </pre>
-        </div>
-
-        <p>然后pod install
-          <br>
-          插件在Xcode 8中已禁用，静观。
-          <br>
-
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <div id="outline-container-org0822154"
-    class="outline-2">
-    <h2 id="org0822154">Terminal</h2>
-
-    <div class="outline-text-2"
-      id="text-org0822154">
-    </div>
-
-    <div id="outline-container-org6594b3e"
-      class="outline-3">
-      <h3 id="org6594b3e">iTerm</h3>
-
-      <div class="outline-text-3"
-        id="text-org6594b3e">
-
-        <p>地址：
-          <a href="http://www.iterm2.com/">http://www.iterm2.com/</a>
-          <br>
-
-        </p>
-      </div>
-    </div>
-
-    <div id="outline-container-org82f710a"
-      class="outline-3">
-      <h3 id="org82f710a">zsh</h3>
-
-      <div class="outline-text-3"
-        id="text-org82f710a">
-
-        <ol class="org-ol">
-          <li>chsh -s /bin/zsh
-            <br>
-
-          </li>
-          <li>安装oh my zsh
-            <br>
-
-          </li>
-        </ol>
-
-        <div class="org-src-container">
-
-          <pre class="src src-C">sh -c
-            <span style="color: #8b2252;">"$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-            </span>
-          </pre>
-        </div>
-
-        <p>真的比bash好用太多。
-          <br>
-
-        </p>
-
-        <ol class="org-ol">
-          <li>z (此脚本目前oh my zsh已提供支持)
-            <br>
-
-          </li>
-        </ol>
-
-        <p>这个脚本是用来支持快速切换常用工作目录的。
-          <br>
-
-          <a href="https://github.com/rupa/z/blob/master/z.sh">https://github.com/rupa/z/blob/master/z.sh
-          </a>
-          <br>
-          将这个脚本放到某个路径，例如/Volumes/Work/z.sh
-          <br>
-          然后编辑~/.zshrc，添加代码source /Volumes/Work/z.sh
-          <br>
-          这样，它就会自动统计你进入每个路径的次数。你只要使用z xxx，他就会自动匹配出你最常进入的路径（z -l可以查看统计）。
-          <br>
-
-        </p>
-
-        <ol class="org-ol">
-          <li>themes
-            <br>
-
-          </li>
-        </ol>
-
-        <p>
-          <a href="http://iterm2colorschemes.com/">http://iterm2colorschemes.com/
-          </a>
-          <br>
-          已整合入脚本。
-          <br>
-
-        </p>
-      </div>
-    </div>
-
-    <div id="outline-container-org77886ab"
-      class="outline-3">
-      <h3 id="org77886ab">Homebrew</h3>
-
-      <div class="outline-text-3"
-        id="text-org77886ab">
-
-        <p>Mac系统里缺了很多工具，可以使用这个进行方便的安装。
-          <br>
-          地址：
-          <a href="http://brew.sh/">http://brew.sh/</a>
-          <br>
-          安装：ruby -e "$(curl -fsSL
-          <a href="https://raw.githubusercontent.com/Homebrew/install/master/install">https://raw.githubusercontent.com/Homebrew/install/master/install
-          </a>)"
-          <br>
-          工具列表：brew install wget
-          <br>
-          已整合入脚本。
-          <br>
-
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <div id="outline-container-org5774f56"
-    class="outline-2">
-    <h2 id="org5774f56">Git</h2>
-
-    <div class="outline-text-2"
-      id="text-org5774f56">
-
-      <p>sourcetree
-        <br>
-        地址：
-        <a href="https://www.sourcetreeapp.com/">https://www.sourcetreeapp.com/
-        </a>
-        <br>
-        免费好用的git客户端。软件免费，但是不注册的话有试用期。
-        <br>
-        注册地址：
-        <a href="https://id.atlassian.com/signup">https://id.atlassian.com/signup
-        </a>
-        <br>
-        许可证生成地址：
-        <a href="https://my.atlassian.com/license/sourcetree">https://my.atlassian.com/license/sourcetree
-        </a>
-        <br>
-        也可以使用我自己的许可证地址：license
-        <br>
-
-      </p>
-    </div>
-  </div>
-
-  <div id="outline-container-org8690c94"
-    class="outline-2">
-    <h2 id="org8690c94">Emacs</h2>
-
-    <div class="outline-text-2"
-      id="text-org8690c94">
-
-      <p>最强大的编辑器之一，org mode强大好用。
-        <br>
-        纯净版地址：
-        <a href="http://emacsformacosx.com/">http://emacsformacosx.com/</a>
-        <br>
-        配置地址：
-        <a href="https://github.com/slegetank/Private-Emacs-Config">https://github.com/slegetank/Private-Emacs-Config
-        </a>
-        <br>
-
-      </p>
-    </div>
-  </div>
-
-  <div id="outline-container-orga64eeb0"
-    class="outline-2">
-    <h2 id="orga64eeb0">Python</h2>
-
-    <div class="outline-text-2"
-      id="text-orga64eeb0">
-    </div>
-
-    <div id="outline-container-org56055cf"
-      class="outline-3">
-      <h3 id="org56055cf">pip</h3>
-
-      <div class="outline-text-3"
-        id="text-org56055cf">
-
-        <p>安装：
-          <a href="https://bootstrap.pypa.io/get-pip.py">https://bootstrap.pypa.io/get-pip.py
-          </a>
-          <br>
-
-        </p>
-      </div>
-    </div>
-
-    <div id="outline-container-org1f825ea"
-      class="outline-3">
-      <h3 id="org1f825ea">其他包</h3>
-
-      <div class="outline-text-3"
-        id="text-org1f825ea">
-
-        <p>requests
-          <br>
-          已整合入脚本。
-          <br>
-
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <div id="outline-container-org7acb023"
-    class="outline-2">
-    <h2 id="org7acb023">其他</h2>
-
-    <div class="outline-text-2"
-      id="text-org7acb023">
-
-      <table border="2"
-        cellspacing="0"
-        cellpadding="6"
-        rules="groups"
-        frame="hsides">
-
-        <colgroup>
-          <col class="org-left">
-
-          <col class="org-left">
-
-        </colgroup>
-
-        <tbody>
-
-          <tr>
-            <td class="org-left">Name</td>
-            <td class="org-left">Comment</td>
-          </tr>
-
-          <tr>
-            <td class="org-left">QQ</td>
-            <td class="org-left"></td>
-          </tr>
-
-          <tr>
-            <td class="org-left">FireFox</td>
-            <td class="org-left"></td>
-          </tr>
-
-          <tr>
-            <td class="org-left">坚果云</td>
-            <td class="org-left"></td>
-          </tr>
-
-          <tr>
-            <td class="org-left">sougou</td>
-            <td class="org-left"></td>
-          </tr>
-
-          <tr>
-            <td class="org-left">Dash</td>
-            <td class="org-left">文档</td>
-          </tr>
-
-          <tr>
-            <td class="org-left">PAW</td>
-            <td class="org-left">http测试工具</td>
-          </tr>
-
-          <tr>
-            <td class="org-left">OmniGraffle</td>
-            <td class="org-left">流程图等图表专用</td>
-          </tr>
-
-          <tr>
-            <td class="org-left">LICEcap</td>
-            <td class="org-left">gif录制</td>
-          </tr>
-
-          <tr>
-            <td class="org-left">Meld</td>
-            <td class="org-left">文件对比工具</td>
-          </tr>
-
-          <tr>
-            <td class="org-left">VMWare Fusion</td>
-            <td class="org-left">虚拟机</td>
-          </tr>
-
-          <tr>
-            <td class="org-left">mpv</td>
-            <td class="org-left">播放器</td>
-          </tr>
-
-          <tr>
-            <td class="org-left">SecureCRT</td>
-            <td class="org-left">远程终端</td>
-          </tr>
-
-          <tr>
-            <td class="org-left">Screenflick</td>
-            <td class="org-left">屏幕录制</td>
-          </tr>
-
-          <tr>
-            <td class="org-left">Soundflower</td>
-            <td class="org-left">虚拟声卡</td>
-          </tr>
-
-          <tr>
-            <td class="org-left">Boxer</td>
-            <td class="org-left">Dos游戏模拟器</td>
-          </tr>
-
-          <tr>
-            <td class="org-left">Nestopia</td>
-            <td class="org-left">nes模拟器</td>
-          </tr>
-
-          <tr>
-            <td class="org-left">DeSmuME</td>
-            <td class="org-left">des模拟器</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<h1 class="title">工作环境配置记录</h1>
+<p>
+最近换了台MacBook，工作环境全部需要重新配置。为方便以后查询，特此记录。<br />
+</p>
+
+<div id="outline-container-org474c6fe" class="outline-2">
+<h2 id="org474c6fe">Xcode</h2>
+<div class="outline-text-2" id="text-org474c6fe">
+<p>
+看家工具。<br />
+</p>
 </div>
 
-<div id="postamble"
-  class="status">
-  <hr>
-
-  <p>License:
-    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
-  </p>
-  <p>
-    <a href="mailto:slegetank@163.com">Contact</a>
-  </p>
+<div id="outline-container-org46b43c6" class="outline-3">
+<h3 id="org46b43c6">Alcatraz</h3>
+<div class="outline-text-3" id="text-org46b43c6">
+<p>
+地址：<a href="http://alcatraz.io/">http://alcatraz.io/</a><br />
+安装：curl -fsSL <a href="https://raw.githubusercontent.com/supermarin/Alcatraz/deploy/Scripts/install.sh">https://raw.githubusercontent.com/supermarin/Alcatraz/deploy/Scripts/install.sh</a> | sh<br />
+安装完成后，必装的插件有：<br />
+</p>
 </div>
+</div>
+<div id="outline-container-org736e922" class="outline-3">
+<h3 id="org736e922">XVim</h3>
+<div class="outline-text-3" id="text-org736e922">
+<p>
+vim指法的效率无需多言。<br />
+</p>
+</div>
+</div>
+<div id="outline-container-orga0cbdd4" class="outline-3">
+<h3 id="orga0cbdd4">CocoaPods</h3>
+<div class="outline-text-3" id="text-orga0cbdd4">
+<p>
+配置<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #98f5ff;">gem</span> <span style="color: #daa520;">sources</span> --remove https:<span style="color: #969896;">//</span><span style="color: #969896;">rubygems.org/</span>
+gem sources -a https:<span style="color: #969896;">//</span><span style="color: #969896;">ruby.taobao.org/gem</span>
+gem sources -l
+sudo gem install cocoapods
+gem setup(&#21487;&#20197;&#21040;~/.cocoapods&#19979;du -sh &#26597;&#30475;&#36827;&#24230;)
+</pre>
+</div>
+<p>
+使用<br />
+在工程目录下 vim Podfile，加入<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #a2cd5a;">platform</span> :ios, <span style="color: #deb887;">'9.2'</span>
+pod <span style="color: #deb887;">'SDWebImage'</span>, <span style="color: #deb887;">'~&gt; 3.7.5'</span>
+</pre>
+</div>
+<p>
+然后pod install<br />
+插件在Xcode 8中已禁用，静观。<br />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orga00dcd8" class="outline-2">
+<h2 id="orga00dcd8">Terminal</h2>
+<div class="outline-text-2" id="text-orga00dcd8">
+</div><div id="outline-container-org7febad1" class="outline-3">
+<h3 id="org7febad1">iTerm</h3>
+<div class="outline-text-3" id="text-org7febad1">
+<p>
+地址：<a href="http://www.iterm2.com/">http://www.iterm2.com/</a><br />
+</p>
+</div>
+</div>
+<div id="outline-container-org934d6ce" class="outline-3">
+<h3 id="org934d6ce">zsh</h3>
+<div class="outline-text-3" id="text-org934d6ce">
+<ol class="org-ol">
+<li>chsh -s /bin/zsh<br /></li>
+<li>安装oh my zsh<br /></li>
+</ol>
+<div class="org-src-container">
+<pre class="src src-C">sh -c <span style="color: #deb887;">"$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"</span>
+</pre>
+</div>
+<p>
+真的比bash好用太多。<br />
+</p>
+<ol class="org-ol">
+<li>z (此脚本目前oh my zsh已提供支持)<br /></li>
+</ol>
+<p>
+这个脚本是用来支持快速切换常用工作目录的。<br />
+<a href="https://github.com/rupa/z/blob/master/z.sh">https://github.com/rupa/z/blob/master/z.sh</a><br />
+将这个脚本放到某个路径，例如/Volumes/Work/z.sh<br />
+然后编辑~/.zshrc，添加代码source /Volumes/Work/z.sh<br />
+这样，它就会自动统计你进入每个路径的次数。你只要使用z xxx，他就会自动匹配出你最常进入的路径（z -l可以查看统计）。<br />
+</p>
+<ol class="org-ol">
+<li>themes<br /></li>
+</ol>
+<p>
+<a href="http://iterm2colorschemes.com/">http://iterm2colorschemes.com/</a><br />
+已整合入脚本。<br />
+</p>
+</div>
+</div>
+<div id="outline-container-orgebec83b" class="outline-3">
+<h3 id="orgebec83b">Homebrew</h3>
+<div class="outline-text-3" id="text-orgebec83b">
+<p>
+Mac系统里缺了很多工具，可以使用这个进行方便的安装。<br />
+地址：<a href="http://brew.sh/">http://brew.sh/</a><br />
+安装：ruby -e "$(curl -fsSL <a href="https://raw.githubusercontent.com/Homebrew/install/master/install">https://raw.githubusercontent.com/Homebrew/install/master/install</a>)"<br />
+工具列表：brew install wget<br />
+已整合入脚本。<br />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org46c78fe" class="outline-2">
+<h2 id="org46c78fe">Git</h2>
+<div class="outline-text-2" id="text-org46c78fe">
+<p>
+sourcetree<br />
+地址： <a href="https://www.sourcetreeapp.com/">https://www.sourcetreeapp.com/</a><br />
+免费好用的git客户端。软件免费，但是不注册的话有试用期。<br />
+注册地址：<a href="https://id.atlassian.com/signup">https://id.atlassian.com/signup</a><br />
+许可证生成地址：<a href="https://my.atlassian.com/license/sourcetree">https://my.atlassian.com/license/sourcetree</a><br />
+也可以使用我自己的许可证地址：license<br />
+</p>
+</div>
+</div>
+<div id="outline-container-org84adeb4" class="outline-2">
+<h2 id="org84adeb4">Emacs</h2>
+<div class="outline-text-2" id="text-org84adeb4">
+<p>
+最强大的编辑器之一，org mode强大好用。<br />
+纯净版地址：<a href="http://emacsformacosx.com/">http://emacsformacosx.com/</a><br />
+配置地址： <a href="https://github.com/slegetank/Private-Emacs-Config">https://github.com/slegetank/Private-Emacs-Config</a><br />
+</p>
+</div>
+</div>
+<div id="outline-container-org83f3df3" class="outline-2">
+<h2 id="org83f3df3">Python</h2>
+<div class="outline-text-2" id="text-org83f3df3">
+</div><div id="outline-container-orgfcf909f" class="outline-3">
+<h3 id="orgfcf909f">pip</h3>
+<div class="outline-text-3" id="text-orgfcf909f">
+<p>
+安装： <a href="https://bootstrap.pypa.io/get-pip.py">https://bootstrap.pypa.io/get-pip.py</a> <br />
+</p>
+</div>
+</div>
+<div id="outline-container-org79d32ad" class="outline-3">
+<h3 id="org79d32ad">其他包</h3>
+<div class="outline-text-3" id="text-org79d32ad">
+<p>
+requests<br />
+已整合入脚本。<br />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc84ddf3" class="outline-2">
+<h2 id="orgc84ddf3">其他</h2>
+<div class="outline-text-2" id="text-orgc84ddf3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Name</td>
+<td class="org-left">Comment</td>
+</tr>
+
+<tr>
+<td class="org-left">QQ</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">FireFox</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">坚果云</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">sougou</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Dash</td>
+<td class="org-left">文档</td>
+</tr>
+
+<tr>
+<td class="org-left">PAW</td>
+<td class="org-left">http测试工具</td>
+</tr>
+
+<tr>
+<td class="org-left">OmniGraffle</td>
+<td class="org-left">流程图等图表专用</td>
+</tr>
+
+<tr>
+<td class="org-left">LICEcap</td>
+<td class="org-left">gif录制</td>
+</tr>
+
+<tr>
+<td class="org-left">Meld</td>
+<td class="org-left">文件对比工具</td>
+</tr>
+
+<tr>
+<td class="org-left">VMWare Fusion</td>
+<td class="org-left">虚拟机</td>
+</tr>
+
+<tr>
+<td class="org-left">mpv</td>
+<td class="org-left">播放器</td>
+</tr>
+
+<tr>
+<td class="org-left">SecureCRT</td>
+<td class="org-left">远程终端</td>
+</tr>
+
+<tr>
+<td class="org-left">Screenflick</td>
+<td class="org-left">屏幕录制</td>
+</tr>
+
+<tr>
+<td class="org-left">Soundflower</td>
+<td class="org-left">虚拟声卡</td>
+</tr>
+
+<tr>
+<td class="org-left">Boxer</td>
+<td class="org-left">Dos游戏模拟器</td>
+</tr>
+
+<tr>
+<td class="org-left">Nestopia</td>
+<td class="org-left">nes模拟器</td>
+</tr>
+
+<tr>
+<td class="org-left">DeSmuME</td>
+<td class="org-left">des模拟器</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>

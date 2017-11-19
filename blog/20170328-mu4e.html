@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-11-19 Sun 18:30 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>Mail with Emacs</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">Mail with Emacs</h1>
+
+<div id="outline-container-org6923ac2" class="outline-2">
+<h2 id="org6923ac2">开始</h2>
+<div class="outline-text-2" id="text-org6923ac2">
+<p>
+为什么？除了作为一个Emacs重度用户的生活需要外，现行的邮件客户端有以下特性无法满足我：<br />
+1 搜索功能太弱，条件、正则无法使用<br />
+2 编辑功能太弱；富文本编辑起来太麻烦<br />
+</p>
+
+<p>
+而这些，正是Emacs所擅长的。<br />
+</p>
+
+<p>
+然后，就面临一个在Emacs里选择用哪个方案的问题。我至少需要以下特性：<br />
+1 强大的搜索功能<br />
+2 自动同步，并且提醒我未读邮件数量<br />
+3 多账户<br />
+4 联系人<br />
+5 强大灵活的富文本编辑&#x2013;在emacs里，这就是指org mode。<br />
+</p>
+
+<p>
+Emacs上方案并不少，挑来挑去，最后就落在了是用Emacs原生的Gnus还是用第三方的mu4e上面了。开始我还是很倾向于用Gnus的，毕竟系统原生，也是<a href="https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/gnus-guide-en.org">陈斌</a> 所推荐的方案。而mu4e则需要一大堆额外配置，很是麻烦。于是开始折腾。<br />
+</p>
+
+<p>
+但是我试用的过程中，发现问题很大。比如Gnus在同步邮件时会卡死整个Emacs；而由于Gnus一开始是作为阅读新闻组的插件出现的，所以处理邮件的行为非常奇怪，跟我理想中的邮件客户端差距甚远。所以只好开始研究mu4e。搞着搞着，发现这个真的很好用，其实这也修正了我对Emacs的一些认识，即Emacs的长处其实就是作为一个文本处理的前端；后端有更专业的软件提供接口来与Emacs交互。比如在编辑js的时候的语法检查可以用eslint作为后端，而Emacs里面用flycheck作为与其交互的插件。这样，每个功能的提供者都能关注自己的部分，做出功能紧凑、重用性高的软件。<br />
+</p>
+
+<p>
+其实mu4e的方案非常符合GNU/Linux的哲学思想，即：<br />
+1 一切皆文件<br />
+2 小型，单一用途的程序<br />
+3 连接程序，共同完成复杂功能<br />
+4 避免令人困惑的用户界面<br />
+5 配置数据存储在文本中<br />
+</p>
+
+<p>
+Emacs中有很多此类的应用，这里不再多说。本文用于记录折腾mu4e过程中的一些坑以及一些经验，以帮助后来人以及整理自己的知识。<br />
+注：本文仍然以mac作为环境。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcb3ba4d" class="outline-2">
+<h2 id="orgcb3ba4d">总体结构</h2>
+<div class="outline-text-2" id="text-orgcb3ba4d">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">offlineimap</td>
+<td class="org-left">用于同步本地、服务器邮件，将其储存在本地的<a href="https://en.wikipedia.org/wiki/Maildir">maildir</a> 中。</td>
+</tr>
+
+<tr>
+<td class="org-left">mu</td>
+<td class="org-left">周期性的将maildir中的邮件信息序列化，存储到数据库里，提供访问接口。</td>
+</tr>
+
+<tr>
+<td class="org-left">mu4e</td>
+<td class="org-left">mu的Emacs端插件，提供更好的UI访问mu。</td>
+</tr>
+
+<tr>
+<td class="org-left">smtpmail</td>
+<td class="org-left">Emacs内置的发送插件，因此会造成卡顿，但问题不大。</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org559a6e5" class="outline-2">
+<h2 id="org559a6e5">offlineimap</h2>
+<div class="outline-text-2" id="text-org559a6e5">
+<p>
+github: <a href="https://github.com/OfflineIMAP/offlineimap">https://github.com/OfflineIMAP/offlineimap</a><br />
+官方文档：<a href="http://www.offlineimap.org">http://www.offlineimap.org</a><br />
+</p>
+
+<p>
+首先安装：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">brew install offlineimap
+</pre>
+</div>
+
+<p>
+安装完成后，创建配置文件~/.offlineimaprc，写入如下配置：<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">[DEFAULT]
+<span style="color: #e7c547;">postsynchook</span> = python ~/offlineimapnotify.py // &#21516;&#27493;&#20043;&#21518;&#35843;&#29992;&#65292;&#21487;&#20197;&#29992;&#26469;&#26816;&#27979;&#26159;&#21542;&#26377;&#26032;&#37038;&#20214;
+
+[general]
+<span style="color: #e7c547;">ui</span>=TTYUI
+<span style="color: #e7c547;">accounts</span> = 163
+<span style="color: #e7c547;">autorefresh</span> = 5
+
+[Account 163]
+<span style="color: #e7c547;">localrepository</span> = 163-Local
+<span style="color: #e7c547;">remoterepository</span> = 163-Remote
+
+[Repository 163-Local]
+<span style="color: #f08080;">type</span> = Maildir // https://en.wikipedia.org/wiki/Maildir
+<span style="color: #e7c547;">localfolders</span> = ~/.Mail/YOUR_ACCOUNT
+
+[Repository 163-Remote]
+<span style="color: #f08080;">type</span> = IMAP
+<span style="color: #e7c547;">remotehost</span> = imap.163.com
+<span style="color: #e7c547;">remoteuser</span> = YOUR_ACCOUNT // &#20320;&#30340;&#36134;&#25143;
+<span style="color: #e7c547;">remotepass</span> = YOUR_PASS // &#20320;&#30340;&#23494;&#30721;
+<span style="color: #e7c547;">realdelete</span> = no
+<span style="color: #e7c547;">ssl</span> = yes
+<span style="color: #e7c547;">sslcacertfile</span> = /usr/local/etc/openssl/cert.pem // macos&#19987;&#29992;
+<span style="color: #e7c547;">maxconnections</span> = 1
+</pre>
+</div>
+
+<p>
+在命令行输入offlineimap，offlineimap就会尝试进行邮件同步了。<br />
+</p>
+</div>
+<div id="outline-container-org8830d3c" class="outline-3">
+<h3 id="org8830d3c">问题1</h3>
+<div class="outline-text-3" id="text-org8830d3c">
+<p>
+当收到邮件提示："网易邮箱提醒：阻止了一次不安全的收信请求"之后，登录页面：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-url">http://config.mail.163.com/settings/imap/index.jsp?uid=YOUR_EMAIL_NAME@163.com
+</pre>
+</div>
+
+<p>
+将YOUR_EMAIL_NAME替换为自己的账户名，解锁一下offlineimap就可以正常工作了。<br />
+</p>
+</div>
+</div>
+<div id="outline-container-orge71a5c8" class="outline-3">
+<h3 id="orge71a5c8">问题2</h3>
+<div class="outline-text-3" id="text-orge71a5c8">
+<p>
+中文文件夹问题<br />
+  <a href="http://unix.stackexchange.com/questions/140372/greek-characters-in-mutts-sidebar-mailboxes-names-sourced-via-offlineimap">http://unix.stackexchange.com/questions/140372/greek-characters-in-mutts-sidebar-mailboxes-names-sourced-via-offlineimap</a><br />
+</p>
+
+<p>
+同步完成后，你可以到~/.Mail下看看下载的邮件。<br />
+<img src="../static/20170328-mu4e-0.gif" alt="20170328-mu4e-0.gif" /><br />
+</p>
+
+<p>
+Perfect!<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga2dca42" class="outline-3">
+<h3 id="orga2dca42">问题3</h3>
+<div class="outline-text-3" id="text-orga2dca42">
+<p>
+同步时有可能出现以下错误：<br />
+ERROR: Exceptions occurred during the run!<br />
+ERROR: IMAP server 'linkplay-Remote' does not have a message with UID '1777'<br />
+</p>
+
+<p>
+此时可以选择对其进行忽略(<a href="http://www.offlineimap.org/configuration/2016/07/18/ignoring-UIDs.html">http://www.offlineimap.org/configuration/2016/07/18/ignoring-UIDs.html</a>)：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">copy_ignore_eval = lambda foldername: {'INBOX': <span style="color: #eaeaea;">[</span>1777<span style="color: #eaeaea;">]</span>}.get<span style="color: #eaeaea;">(</span>foldername<span style="color: #eaeaea;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org202e2ec" class="outline-3">
+<h3 id="org202e2ec">改进1</h3>
+<div class="outline-text-3" id="text-org202e2ec">
+<p>
+同步之后的脚本可以这么写：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">newMailCount = int<span style="color: #eaeaea;">(</span>os.popen<span style="color: #70c0b1;">(</span>os.path.expanduser<span style="color: #e7c547;">(</span><span style="color: #deb887;">"ls ~/.Mail/*/INBOX/new/* | wc -l"</span><span style="color: #e7c547;">)</span> <span style="color: #70c0b1;">)</span>.read<span style="color: #70c0b1;">()</span>.strip<span style="color: #70c0b1;">()</span><span style="color: #eaeaea;">)</span>
+if newMailCount &gt; 0:
+os.system<span style="color: #eaeaea;">(</span><span style="color: #deb887;">"osascript -e \'display notification \"You have %d unread mails\" with title \"Mail\" sound name \"Glass\"\'"</span> % newMailCount<span style="color: #eaeaea;">)</span>
+</pre>
+</div>
+
+<p>
+这样当收到新邮件之后将会弹框提示，是不是很美？<br />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org5d0a8b6" class="outline-2">
+<h2 id="org5d0a8b6">mu</h2>
+<div class="outline-text-2" id="text-org5d0a8b6">
+<p>
+<a href="https://github.com/djcb/mu">https://github.com/djcb/mu</a><br />
+</p>
+
+<p>
+安装：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">brew install mu --with-emacs --HEAD
+</pre>
+</div>
+
+<p>
+安装完成后，就可以对通过命令行对offlineimap同步的邮件进行检索了，<a href="http://www.djcbsoftware.nl/code/mu/cheatsheet.html">很好很强大</a> 。第一次安装完成后，最好手动对下载的邮件进行index一下：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">mu index --maildir=~/.Mail
+</pre>
+</div>
+
+<p>
+这可能会花一些时间。这样，mu就将邮件文件夹内的信息序列化到xapian数据库里。<br />
+</p>
+
+<p>
+完成后，就可以通过命令行对邮件进行检索了：<br />
+<img src="../static/20170328-mu4e-1.gif" alt="20170328-mu4e-1.gif" /><br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org88f4cff" class="outline-2">
+<h2 id="org88f4cff">mu4e</h2>
+<div class="outline-text-2" id="text-org88f4cff">
+<p>
+然后，就到了重头戏：mu4e。mu4e对mu进行了一些lisp封装，在Emacs中提供更友好的UI。<br />
+</p>
+
+<p>
+通过brew安装的mu4e会默认以/usr/local/emacs为当前的Emacs，而相对应的el文件则保存在/usr/local/share/emacs/site-lisp下，所以在配置文件中要设置一下，不然找不到：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">let</span> <span style="color: #70c0b1;">(</span><span style="color: #e7c547;">(</span>default-directory <span style="color: #deb887;">"/usr/local/share/emacs/site-lisp/"</span><span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span>
+  <span style="color: #70c0b1;">(</span>normal-top-level-add-subdirs-to-load-path<span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">setq</span>
+ mu4e-maildir       <span style="color: #deb887;">"~/.Mail"</span>     <span style="color: #969896;">;; </span><span style="color: #969896;">top-level Maildir</span>
+ mu4e-sent-folder   <span style="color: #deb887;">"/sent"</span>       <span style="color: #969896;">;; </span><span style="color: #969896;">folder for sent messages</span>
+ mu4e-drafts-folder <span style="color: #deb887;">"/drafts"</span>     <span style="color: #969896;">;; </span><span style="color: #969896;">unfinished messages</span>
+ mu4e-trash-folder  <span style="color: #deb887;">"/trash"</span>      <span style="color: #969896;">;; </span><span style="color: #969896;">trashed messages</span>
+ mu4e-refile-folder <span style="color: #deb887;">"/archive"</span><span style="color: #eaeaea;">)</span>   <span style="color: #969896;">;; </span><span style="color: #969896;">saved messages</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orga313e19" class="outline-3">
+<h3 id="orga313e19">work flow</h3>
+<div class="outline-text-3" id="text-orga313e19">
+<p>
+基本上都是在header view这个页面。<br />
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">key</th>
+<th scope="col" class="org-left">func</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">!</td>
+<td class="org-left">mark to flag/unflag</td>
+</tr>
+
+<tr>
+<td class="org-left">*</td>
+<td class="org-left">mark to read/unread</td>
+</tr>
+
+<tr>
+<td class="org-left">d</td>
+<td class="org-left">mark to delete</td>
+</tr>
+
+<tr>
+<td class="org-left">x</td>
+<td class="org-left">apply mark</td>
+</tr>
+
+<tr>
+<td class="org-left">u</td>
+<td class="org-left">unmark</td>
+</tr>
+
+<tr>
+<td class="org-left">U</td>
+<td class="org-left">unmark all</td>
+</tr>
+
+<tr>
+<td class="org-left">R</td>
+<td class="org-left">respond</td>
+</tr>
+
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">forward</td>
+</tr>
+
+<tr>
+<td class="org-left">E</td>
+<td class="org-left">edit draft</td>
+</tr>
+
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">read all thread file</td>
+</tr>
+
+<tr>
+<td class="org-left">a</td>
+<td class="org-left">actions</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+用户可以自定义actions(a)，我用的有下面的几个：<br />
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">key</th>
+<th scope="col" class="org-left">func</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">c</td>
+<td class="org-left">capture, 将邮件相关信息保存在剪贴板和org-stored-links里，方便在org mode中相关操作</td>
+</tr>
+
+<tr>
+<td class="org-left">s</td>
+<td class="org-left">show thread</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org6817092" class="outline-3">
+<h3 id="org6817092">search</h3>
+<div class="outline-text-3" id="text-org6817092">
+<p>
+<a href="https://www.djcbsoftware.nl/code/mu/mu4e/Queries.html">https://www.djcbsoftware.nl/code/mu/mu4e/Queries.html</a><br />
+</p>
+</div>
+</div>
+<div id="outline-container-orgb686655" class="outline-3">
+<h3 id="orgb686655">send</h3>
+<div class="outline-text-3" id="text-orgb686655">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">setq</span> message-send-mail-function 'smtpmail-send-it<span style="color: #eaeaea;">)</span>
+<span style="color: #eaeaea;">(</span><span style="color: #00bfff;">setq</span> smtpmail-smtp-server <span style="color: #deb887;">"smtp.example.org"</span><span style="color: #eaeaea;">)</span>
+</pre>
+</div>
+
+<p>
+本地不处理已发邮件:<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">setq</span> mu4e-sent-messages-behavior 'delete<span style="color: #eaeaea;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb3ece77" class="outline-2">
+<h2 id="orgb3ece77">参考</h2>
+<div class="outline-text-2" id="text-orgb3ece77">
+<ul class="org-ul">
+<li>作者的话：<a href="http://emacs-fu.blogspot.sg/2012/08/introducing-mu4e-for-email.html">http://emacs-fu.blogspot.sg/2012/08/introducing-mu4e-for-email.html</a><br /></li>
+<li>官方文档：<a href="http://www.djcbsoftware.nl/code/mu/mu4e/index.html">http://www.djcbsoftware.nl/code/mu/mu4e/index.html</a><br /></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>

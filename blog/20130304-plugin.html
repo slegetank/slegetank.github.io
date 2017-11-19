@@ -1,262 +1,185 @@
-
-<!-- ?xml version="1.0" encoding="utf-8"? -->
-<!-- 2017-08-26 Sat 16:18 -->
-<meta http-equiv="Content-Type"
-  content="text/html;charset=utf-8">
-
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-11-19 Sun 18:30 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>iOS插件化开发概述</title>
-<meta name="generator"
-  content="Org mode">
-
-<meta name="author"
-  content="haiyong_macpro">
-
-<link rel="stylesheet"
-  type="text/css"
-  href="../static/org.css">
-
-
-<div id="preamble"
-  class="status">
-
-  <div id="header">
-    <h1>Slegtank's Blog</h1>
-
-    <ul id="nav">
-      <li>
-        <a href="https://gitlab.com/slegetank">GitLab</a>
-      </li>
-      <li>
-        <a href="https://github.com/slegetank/">Github</a>
-      </li>
-      <li>
-        <a href="../tag.html">Tags</a>
-      </li>
-      <li>
-        <a href="../archive.html">Archive</a>
-      </li>
-      <li>
-        <a href="../index.html">Home</a>
-      </li>
-    </ul>
-  </div>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Shuai Zhao" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
 </div>
-
+</div>
 <div id="content">
-  <h1 class="title">iOS插件化开发概述</h1>
-
-  <p>首先，了解一下插件开发的应用价值。
-    <br>
-
-  </p>
-
-  <p>最重要的一点，就是可以使软件的内容不僵化。由于插件可以通过网络进行传输，并且实时的展示出来（感谢cocoa的动态特性），因而理论上（极端情况），软件可以只是一个空架子，所有软件内容都从服务器上下载。【注：至今为止，我所在的项目都是使用的企业账号，因而不知道此种插件模式是否可以上传到APPSTORE。】或者，可以对软件进行动态换肤，或者提供一种持续开发的实现手段，等等。
-    <br>
-
-  </p>
-
-  <p>其次，这种方式可以使软件开发流程具有更大的灵活性。例如，不同的团队进行并行开发。每个团队开发一个插件，最后进行拼装。由于插件所具有的隐藏内部实现的特性会使软件更健壮。而团队之间是看不见各自源代码的，这对于外包（苦B？）来说是很有趣的一种方式，即将不重要的或是一些体力劳动插件交予合作方进行开发。而只要接口订的好，完全可以实现并行开发，提高软件开发的速度。
-    <br>
-
-  </p>
-
-  <div id="outline-container-org71996d1"
-    class="outline-2">
-    <h2 id="org71996d1">基础知识</h2>
-
-    <div class="outline-text-2"
-      id="text-org71996d1">
-    </div>
-
-    <div id="outline-container-org8702bdd"
-      class="outline-3">
-      <h3 id="org8702bdd">bundle（包）</h3>
-
-      <div class="outline-text-3"
-        id="text-org8702bdd">
-
-        <p>bundle（包）是cocoa开发中提供的一种文件存储、组织方式。
-          <br>
-
-        </p>
-
-        <p>右键点击bundle文件，选择“显示包内容”，可以看到里面包含的内容。实际上，它就是一个文件夹，在windows下可以直接打开它(IOS应用.APP实际上也是bundle，即程序中的mainBundle)。
-          <br>
-
-        </p>
-
-        <p>bundle中可以包含很多内容，包括各种资源，甚至编译好的源代码。通过它，可以动态的做很多事情。
-          <br>
-
-        </p>
-      </div>
-    </div>
-
-    <div id="outline-container-org899a9f6"
-      class="outline-3">
-      <h3 id="org899a9f6">面向接口</h3>
-
-      <div class="outline-text-3"
-        id="text-org899a9f6">
-
-        <p>高内聚低耦合一直是面向对象开发的追求目标之一，而面向接口则是使软件接近这种目标的方法之一。模块之间的交互都是面向接口的，则模块内做出的改变不会影响其他模块，从而提高了软件的健壮程度。在Objective-C中，此种思想是使用协议来完成的，即protocol。
-          <br>
-
-        </p>
-
-        <div class="org-src-container">
-
-          <pre class="src src-Objective-C">@protocol A -(void) methodA; @end
-          </pre>
-        </div>
-
-        <p>两个模块之间定义各自需要的协议，通过这些接口进行交互。这在插件开发中是必须使用的方法之一。
-          <br>
-
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <div id="outline-container-org47a0a0b"
-    class="outline-2">
-    <h2 id="org47a0a0b">具体实现</h2>
-
-    <div class="outline-text-2"
-      id="text-org47a0a0b">
-
-      <p>首先，有几个API需要了解。
-        <br>
-
-      </p>
-
-      <p>主程序所在bundle：
-        <br>
-
-      </p>
-
-      <p>NSBundle *mainBundle = [NSBundle mainBundle];
-        <br>
-
-      </p>
-
-      <p>如果有路径，则使用下面代码获得bundle：
-        <br>
-
-      </p>
-
-      <p>NSBundle *aBundle;
-        <br>
-        aBundle= [NSBundle bundleWithPath:@"…"];
-        <br>
-
-      </p>
-
-      <p>另，两个重要的路径：
-        <br>
-
-      </p>
-
-      <ol class="org-ol">
-
-        <li>
-
-          <p>mainBundle（即APP）路径：
-            <br>
-
-          </p>
-
-          <div class="org-src-container">
-
-            <pre class="src src-Objective-C">NSString * resPath = [[NSBundle mainBundle] resourcePath];
-            </pre>
-          </div>
-        </li>
-
-        <li>
-
-          <p>Document及其子路径：
-            <br>
-
-          </p>
-
-          <div class="org-src-container">
-
-            <pre class="src src-Objective-C">NSArray * documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); NSString * pluginPath = [[documentPath objectAtIndex:0] stringByAppendingPathComponent:@"..."];
-            </pre>
-          </div>
-        </li>
-      </ol>
-
-      <p>获得bundle之后，就可以访问其中的任何资源了。但是，由于我们希望尽可能的实现高内聚低耦合，因而我们希望外界对于bundle内的东西了解的越少越好。每个bundle都有一个plist，其中有一个字段，叫做principal class，可以使用下面的代码进行获得：
-        <br>
-
-      </p>
-
-      <div class="org-src-container">
-
-        <pre class="src src-Objective-C">Class aClass = [aBundle principalClass]; id anInstance = [[aClass alloc] init];
-        </pre>
-      </div>
-
-      <p>这个对象，将它设计的符合某个协议，无疑是很好的接口类。使用下面的代码进行某些功能的执行：
-        <br>
-
-      </p>
-
-      <div class="org-src-container">
-
-        <pre class="src src-Objective-C">if([anInstance conformsToProtocol:@protocol(...)]) { [anInstance performSelector:@selector(...)]; }
-        </pre>
-      </div>
-
-      <p>另外，对于bundle中UIViewController的载入，我发现只能使用initWithNibName: bundle: ，否则载入的窗口无法展示。对于bundle在xcode中的开发，我会另起一篇文章进行讲解。
-        <br>
-
-      </p>
-
-      <p>总体来说，整个过程如下所示：
-        <br>
-
-      </p>
-
-      <ol class="org-ol">
-
-        <li>
-
-          <p>定义插件内外的所具备的接口，用于交互。比如，外部符合协议A，插件符合协议B，则一般来说，principalClass符合协议B，并且应该具有一个方法类似这样：
-            <br>
-
-          </p>
-
-          <div class="org-src-container">
-
-            <pre class="src src-Objective-C">-(id)initWithDelegate:(id<A>)delegate;
-            </pre>
-          </div>
-
-          <p>这样，插件内外就达成了协议，可以进行交互了。这个过程实际上很重要，因为一旦接口经常改变，牵连的东西太多，这里就不再赘述了。
-            <br>
-
-          </p>
-        </li>
-        <li>各个团队并行开发，有的开发主程序，有的开发插件。可以采取网上下载的方式，也可以开发完合在一起。
-          <br>
-
-        </li>
-      </ol>
-    </div>
-  </div>
+<h1 class="title">iOS插件化开发概述</h1>
+<p>
+首先，了解一下插件开发的应用价值。<br />
+</p>
+
+<p>
+最重要的一点，就是可以使软件的内容不僵化。由于插件可以通过网络进行传输，并且实时的展示出来（感谢cocoa的动态特性），因而理论上（极端情况），软件可以只是一个空架子，所有软件内容都从服务器上下载。【注：至今为止，我所在的项目都是使用的企业账号，因而不知道此种插件模式是否可以上传到APPSTORE。】或者，可以对软件进行动态换肤，或者提供一种持续开发的实现手段，等等。<br />
+</p>
+
+<p>
+其次，这种方式可以使软件开发流程具有更大的灵活性。例如，不同的团队进行并行开发。每个团队开发一个插件，最后进行拼装。由于插件所具有的隐藏内部实现的特性会使软件更健壮。而团队之间是看不见各自源代码的，这对于外包（苦B？）来说是很有趣的一种方式，即将不重要的或是一些体力劳动插件交予合作方进行开发。而只要接口订的好，完全可以实现并行开发，提高软件开发的速度。<br />
+</p>
+
+<div id="outline-container-orgad55e45" class="outline-2">
+<h2 id="orgad55e45">基础知识</h2>
+<div class="outline-text-2" id="text-orgad55e45">
+</div><div id="outline-container-orgcb2185e" class="outline-3">
+<h3 id="orgcb2185e">bundle（包）</h3>
+<div class="outline-text-3" id="text-orgcb2185e">
+<p>
+bundle（包）是cocoa开发中提供的一种文件存储、组织方式。<br />
+</p>
+
+<p>
+右键点击bundle文件，选择“显示包内容”，可以看到里面包含的内容。实际上，它就是一个文件夹，在windows下可以直接打开它(IOS应用.APP实际上也是bundle，即程序中的mainBundle)。<br />
+</p>
+
+<p>
+bundle中可以包含很多内容，包括各种资源，甚至编译好的源代码。通过它，可以动态的做很多事情。<br />
+</p>
+</div>
+</div>
+<div id="outline-container-orgdf9e0af" class="outline-3">
+<h3 id="orgdf9e0af">面向接口</h3>
+<div class="outline-text-3" id="text-orgdf9e0af">
+<p>
+高内聚低耦合一直是面向对象开发的追求目标之一，而面向接口则是使软件接近这种目标的方法之一。模块之间的交互都是面向接口的，则模块内做出的改变不会影响其他模块，从而提高了软件的健壮程度。在Objective-C中，此种思想是使用协议来完成的，即protocol。<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-Objective-C">@protocol A
+
+-(void) methodA;
+
+@end
+</pre>
 </div>
 
-<div id="postamble"
-  class="status">
-  <hr>
-
-  <p>License:
-    <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>
-  </p>
-  <p>
-    <a href="mailto:slegetank@163.com">Contact</a>
-  </p>
+<p>
+两个模块之间定义各自需要的协议，通过这些接口进行交互。这在插件开发中是必须使用的方法之一。<br />
+</p>
 </div>
+</div>
+</div>
+<div id="outline-container-orgcf71abe" class="outline-2">
+<h2 id="orgcf71abe">具体实现</h2>
+<div class="outline-text-2" id="text-orgcf71abe">
+<p>
+首先，有几个API需要了解。<br />
+</p>
+
+<p>
+主程序所在bundle：<br />
+</p>
+
+<p>
+NSBundle *mainBundle = [NSBundle mainBundle];<br />
+</p>
+
+<p>
+如果有路径，则使用下面代码获得bundle：<br />
+</p>
+
+<p>
+NSBundle *aBundle;<br />
+aBundle= [NSBundle bundleWithPath:@"&#x2026;"];<br />
+</p>
+
+<p>
+另，两个重要的路径：<br />
+</p>
+
+<ol class="org-ol">
+<li><p>
+mainBundle（即APP）路径：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-Objective-C">NSString * resPath = [[NSBundle mainBundle] resourcePath];
+</pre>
+</div></li>
+
+<li><p>
+Document及其子路径：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-Objective-C">NSArray * documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+
+NSString * pluginPath = [[documentPath objectAtIndex:0] stringByAppendingPathComponent:@"..."];
+</pre>
+</div></li>
+</ol>
+
+<p>
+获得bundle之后，就可以访问其中的任何资源了。但是，由于我们希望尽可能的实现高内聚低耦合，因而我们希望外界对于bundle内的东西了解的越少越好。每个bundle都有一个plist，其中有一个字段，叫做principal class，可以使用下面的代码进行获得：<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-Objective-C">Class aClass = [aBundle principalClass];
+id anInstance = [[aClass alloc] init];
+</pre>
+</div>
+
+<p>
+这个对象，将它设计的符合某个协议，无疑是很好的接口类。使用下面的代码进行某些功能的执行：<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-Objective-C">if([anInstance conformsToProtocol:@protocol(...)])
+{
+　　[anInstance performSelector:@selector(...)];
+}
+</pre>
+</div>
+
+<p>
+另外，对于bundle中UIViewController的载入，我发现只能使用initWithNibName: bundle: ，否则载入的窗口无法展示。对于bundle在xcode中的开发，我会另起一篇文章进行讲解。<br />
+</p>
+
+<p>
+总体来说，整个过程如下所示：<br />
+</p>
+
+<ol class="org-ol">
+<li><p>
+定义插件内外的所具备的接口，用于交互。比如，外部符合协议A，插件符合协议B，则一般来说，principalClass符合协议B，并且应该具有一个方法类似这样：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-Objective-C">-(id)initWithDelegate:(id&lt;A&gt;)delegate;
+</pre>
+</div>
+
+<p>
+这样，插件内外就达成了协议，可以进行交互了。这个过程实际上很重要，因为一旦接口经常改变，牵连的东西太多，这里就不再赘述了。<br />
+</p></li>
+
+<li>各个团队并行开发，有的开发主程序，有的开发插件。可以采取网上下载的方式，也可以开发完合在一起。<br /></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>
