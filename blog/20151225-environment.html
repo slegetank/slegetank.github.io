@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-11-19 Sun 18:30 -->
+<!-- 2018-01-08 Mon 13:45 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>工作环境配置记录</title>
 <meta name="generator" content="Org mode" />
@@ -62,8 +62,8 @@ vim指法的效率无需多言。<br />
 配置<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-C"><span style="color: #98f5ff;">gem</span> <span style="color: #daa520;">sources</span> --remove https:<span style="color: #969896;">//</span><span style="color: #969896;">rubygems.org/</span>
-gem sources -a https:<span style="color: #969896;">//</span><span style="color: #969896;">ruby.taobao.org/gem</span>
+<pre class="src src-C"><span style="color: #009292; font-weight: bold;">gem</span> <span style="color: #3063EA;">sources</span> --remove https:<span style="color: #7f7f7f;">//</span><span style="color: #7f7f7f;">rubygems.org/</span>
+gem sources -a https:<span style="color: #7f7f7f;">//</span><span style="color: #7f7f7f;">ruby.taobao.org/gem</span>
 gem sources -l
 sudo gem install cocoapods
 gem setup(&#21487;&#20197;&#21040;~/.cocoapods&#19979;du -sh &#26597;&#30475;&#36827;&#24230;)
@@ -74,8 +74,8 @@ gem setup(&#21487;&#20197;&#21040;~/.cocoapods&#19979;du -sh &#26597;&#30475;&#3
 在工程目录下 vim Podfile，加入<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-C"><span style="color: #a2cd5a;">platform</span> :ios, <span style="color: #deb887;">'9.2'</span>
-pod <span style="color: #deb887;">'SDWebImage'</span>, <span style="color: #deb887;">'~&gt; 3.7.5'</span>
+<pre class="src src-C"><span style="color: #3465BD;">platform</span> :ios, <span style="color: #119911;">'9.2'</span>
+pod <span style="color: #119911;">'SDWebImage'</span>, <span style="color: #119911;">'~&gt; 3.7.5'</span>
 </pre>
 </div>
 <p>
@@ -104,7 +104,7 @@ pod <span style="color: #deb887;">'SDWebImage'</span>, <span style="color: #deb8
 <li>安装oh my zsh<br /></li>
 </ol>
 <div class="org-src-container">
-<pre class="src src-C">sh -c <span style="color: #deb887;">"$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"</span>
+<pre class="src src-C">sh -c <span style="color: #119911;">"$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"</span>
 </pre>
 </div>
 <p>
@@ -136,9 +136,38 @@ pod <span style="color: #deb887;">'SDWebImage'</span>, <span style="color: #deb8
 Mac系统里缺了很多工具，可以使用这个进行方便的安装。<br />
 地址：<a href="http://brew.sh/">http://brew.sh/</a><br />
 安装：ruby -e "$(curl -fsSL <a href="https://raw.githubusercontent.com/Homebrew/install/master/install">https://raw.githubusercontent.com/Homebrew/install/master/install</a>)"<br />
-工具列表：brew install wget<br />
 已整合入脚本。<br />
 </p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">package</td>
+<td class="org-left">功能</td>
+<td class="org-left">地址</td>
+</tr>
+
+<tr>
+<td class="org-left">wget</td>
+<td class="org-left">http get 工具</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">httpie</td>
+<td class="org-left">强大的命令行http调试工具</td>
+<td class="org-left"><a href="https://github.com/jakubroztocil/httpie">https://github.com/jakubroztocil/httpie</a></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -286,6 +315,11 @@ requests<br />
 <tr>
 <td class="org-left">DeSmuME</td>
 <td class="org-left">des模拟器</td>
+</tr>
+
+<tr>
+<td class="org-left">Spectacle</td>
+<td class="org-left">按键调整mac app布局</td>
 </tr>
 </tbody>
 </table>
