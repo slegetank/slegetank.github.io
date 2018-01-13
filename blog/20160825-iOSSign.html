@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-01-08 Mon 13:45 -->
+<!-- 2018-01-13 Sat 14:23 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>iOS代码签名理解</title>
 <meta name="generator" content="Org mode" />
@@ -44,7 +44,7 @@
 
 <p>
 访问钥匙串，使用“证书助理”的“从证书颁发机构请求证书”生成一个CertificateSigningRequest.certSigningRequest文件。<br />
-打开<a href="https://developer.apple.com%EF%BC%8C%E4%BD%BF%E7%94%A8%E5%88%9A%E6%89%8D%E7%94%9F%E6%88%90%E7%9A%84csr%E6%96%87%E4%BB%B6%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6(certifcate)">https://developer.apple.com，使用刚才生成的csr文件生成证书(certifcate)</a>。<br />
+打开<a href="https://developer.apple.com，使用刚才生成的csr文件生成证书(certifcate)">https://developer.apple.com，使用刚才生成的csr文件生成证书(certifcate)</a>。<br />
 在网站的Identitifiers里创建一个应用的ID。<br />
 在Devices里添加你想要测试使用的设备的UDID。<br />
 在Provisioning Profiles里生成.mobileprovision文件，需要勾选ID、UDIDs以及certificates。<br />
@@ -63,9 +63,9 @@
 </p>
 </div>
 
-<div id="outline-container-org4b4c513" class="outline-3">
-<h3 id="org4b4c513">Certificate</h3>
-<div class="outline-text-3" id="text-org4b4c513">
+<div id="outline-container-org7afca9e" class="outline-3">
+<h3 id="org7afca9e">Certificate</h3>
+<div class="outline-text-3" id="text-org7afca9e">
 <p>
 　　数字签名的整个流程大概是这样的：对于要加密的文件，首先生成其对应的hash（一份文件对应唯一的hash），然后使用私钥对其加密，并记录下来。用户收到文件后，使用公钥解密得到hash，然后跟自己计算的文件的hash作对比。如果一样，则说明文件没有被修改过，且文件来源于与此公钥配对的私钥的持有者。<br />
 </p>
@@ -109,7 +109,7 @@ MCsCAQACBQCtbWYxAgMBAAECBDpl33UCAwDepwIDAMdnAgI/dwICcT8CAjMj
 -----END RSA PRIVATE KEY-----
 
 -----BEGIN PUBLIC KEY-----
-<span style="color: #b8860b;">MCAwDQYJKoZIhvcNAQEBBQADDwAwDAIFAK1tZjECAwEAAQ</span>==
+<span style="color: #bf616a;">MCAwDQYJKoZIhvcNAQEBBQADDwAwDAIFAK1tZjECAwEAAQ</span>==
 -----END PUBLIC KEY-----
 </pre>
 </div>
@@ -133,7 +133,7 @@ coefficient: 13091 (0x3323)
 
 openssl rsa -pubin -in pubkey.pubkey -text -noout
 &#36755;&#20986;&#65306;
-<span style="color: #3063EA;">Modulus</span> (32 bit): 2909627953 (0xad6d6631)
+<span style="color: #8fa1b3;">Modulus</span> (32 bit): 2909627953 (0xad6d6631)
 Exponent: 65537 (0x10001)
 </pre>
 </div>
@@ -261,9 +261,9 @@ A=B^publicExponent mod modulus；B=A^privateExponent mod modulus<br />
 </div>
 </div>
 
-<div id="outline-container-org7afca9e" class="outline-3">
-<h3 id="org7afca9e">Certificate</h3>
-<div class="outline-text-3" id="text-org7afca9e">
+<div id="outline-container-org012d1ba" class="outline-3">
+<h3 id="org012d1ba">Certificate</h3>
+<div class="outline-text-3" id="text-org012d1ba">
 <p>
 下一步，我们需要登录developer.apple.com来生成证书。具体步骤这里就不多说了，总之结果就是我们得到了证书（.cer）。我们要关心的是这一步发生了什么呢？<br />
 </p>
@@ -304,7 +304,7 @@ A=B^publicExponent mod modulus；B=A^privateExponent mod modulus<br />
 
 <div class="org-src-container">
 <pre class="src src-bash">openssl x509 -inform der -in ios_distribution.cer -out ios_distribution.pem
-openssl pkcs12 -export -in ios_distribution.pem -inkey private.key -out test.p12 -name <span style="color: #119911;">"Test Sign"</span>
+openssl pkcs12 -export -in ios_distribution.pem -inkey private.key -out test.p12 -name <span style="color: #a3be8c;">"Test Sign"</span>
 </pre>
 </div>
 
@@ -375,7 +375,7 @@ openssl pkcs12 -export -in ios_distribution.pem -inkey private.key -out test.p12
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">codesign -s -f <span style="color: #119911;">'{code sign identity}'</span> test.app
+<pre class="src src-bash">codesign -s -f <span style="color: #a3be8c;">'{code sign identity}'</span> test.app
 </pre>
 </div>
 
@@ -387,31 +387,31 @@ openssl pkcs12 -export -in ios_distribution.pem -inkey private.key -out test.p12
 <pre class="src src-bash">codesign -vv -d test.app
 &#36755;&#20986;&#65306;
 
-<span style="color: #b8860b;">Executable</span>=/Users/hy/Library/Developer/Xcode/DerivedData/test-hekagtjqikppkueajznajyogtpmc/Build/Products/Debug-iphoneos/test.app/test
+<span style="color: #bf616a;">Executable</span>=/Users/hy/Library/Developer/Xcode/DerivedData/test-hekagtjqikppkueajznajyogtpmc/Build/Products/Debug-iphoneos/test.app/test
 
-<span style="color: #b8860b;">Identifier</span>=com.xxx.test
+<span style="color: #bf616a;">Identifier</span>=com.xxx.test
 
-<span style="color: #b8860b;">Format</span>=app bundle with Mach-O universal (armv7 arm64)
+<span style="color: #bf616a;">Format</span>=app bundle with Mach-O universal (armv7 arm64)
 
-CodeDirectory <span style="color: #b8860b;">v</span>=20200 <span style="color: #b8860b;">size</span>=618 <span style="color: #b8860b;">flags</span>=0x0(none) <span style="color: #b8860b;">hashes</span>=14+3 <span style="color: #b8860b;">location</span>=embedded
+CodeDirectory <span style="color: #bf616a;">v</span>=20200 <span style="color: #bf616a;">size</span>=618 <span style="color: #bf616a;">flags</span>=0x0(none) <span style="color: #bf616a;">hashes</span>=14+3 <span style="color: #bf616a;">location</span>=embedded
 
-Signature <span style="color: #b8860b;">size</span>=4690
+Signature <span style="color: #bf616a;">size</span>=4690
 
-<span style="color: #b8860b;">Authority</span>=iPhone Distribution: xxx
+<span style="color: #bf616a;">Authority</span>=iPhone Distribution: xxx
 
-<span style="color: #b8860b;">Authority</span>=Apple Worldwide Developer Relations Certification Authority
+<span style="color: #bf616a;">Authority</span>=Apple Worldwide Developer Relations Certification Authority
 
-<span style="color: #b8860b;">Authority</span>=Apple Root CA
+<span style="color: #bf616a;">Authority</span>=Apple Root CA
 
-Signed <span style="color: #b8860b;">Time</span>=2016&#24180;8&#26376;8&#26085; &#19979;&#21320;4:19:19
+Signed <span style="color: #bf616a;">Time</span>=2016&#24180;8&#26376;8&#26085; &#19979;&#21320;4:19:19
 
-Info.plist <span style="color: #b8860b;">entries</span>=27
+Info.plist <span style="color: #bf616a;">entries</span>=27
 
-<span style="color: #b8860b;">TeamIdentifier</span>=VWEN6QTM5A
+<span style="color: #bf616a;">TeamIdentifier</span>=VWEN6QTM5A
 
-Sealed Resources <span style="color: #b8860b;">version</span>=2 <span style="color: #b8860b;">rules</span>=12 <span style="color: #b8860b;">files</span>=7
+Sealed Resources <span style="color: #bf616a;">version</span>=2 <span style="color: #bf616a;">rules</span>=12 <span style="color: #bf616a;">files</span>=7
 
-Internal requirements <span style="color: #b8860b;">count</span>=1 <span style="color: #b8860b;">size</span>=168
+Internal requirements <span style="color: #bf616a;">count</span>=1 <span style="color: #bf616a;">size</span>=168
 </pre>
 </div>
 
@@ -454,7 +454,7 @@ ProvisionedDevices 此证书可以安装的所有设备的UDID，仅出现在dev
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">security cms -D -i test.mobileprovision | perl -nle <span style="color: #119911;">'print $&amp; if m{(?&lt;=&lt;data&gt;).*?(?=&lt;/data&gt;)}'</span> | base64 -D &gt; mobile.cer
+<pre class="src src-bash">security cms -D -i test.mobileprovision | perl -nle <span style="color: #a3be8c;">'print $&amp; if m{(?&lt;=&lt;data&gt;).*?(?=&lt;/data&gt;)}'</span> | base64 -D &gt; mobile.cer
 </pre>
 </div>
 
