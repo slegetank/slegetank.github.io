@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-03-04 Sun 13:21 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>SICP笔记 - 1 概述</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">SICP笔记 - 1 概述</h1>
+
+<div id="outline-container-org8777032" class="outline-2">
+<h2 id="org8777032">Lec1a</h2>
+<div class="outline-text-2" id="text-org8777032">
+</div>
+<div id="outline-container-orgb73cdcb" class="outline-3">
+<h3 id="orgb73cdcb">1 总起</h3>
+<div class="outline-text-3" id="text-orgb73cdcb">
+<p>
+计算机科学这个词并不能准确描述我们所从事的学科，因为这门学科既不是关于计算机制造、使用，也不是一门科学，事实上，它更多的是一门工程学或者艺术，并且更多的类似于我们所认知的魔法。那么我们为何用计算机科学来命名这门学科呢？这就像几何学(geometry)的由来，geo(gaia)的意思是大地，metry（measure）的意思是测量，这个词来源于古埃及时期祭祀丈量土地。因为当时的祭祀认为几何学就是丈量土地的学科，所以就以此命名，但是几千年后我们知道这么命名是不准确的，因为几何学完全不止做这件事。而同样的，计算机科学也是如此。当一门学科刚刚开始的时候，我们人对它的了解还不深时就会以某种忽略其本质的方式来标记它。事实上，我们现在对计算机科学本质的理解甚至要远远低于当时的人们对于几何学的理解。那么，几何学的本质是什么？我们今天知道，它实际上是对空间和时间进行了格式化的表达，并归纳出一套相应的符号来进行表述，这后来导致了现代数学各种形式的诞生。那么计算机科学的本质呢？相信许多年后的人们会这么说，当时的人们开始对过程进行形式化表述，即how-to。而在课程里，我们将会使用一门称为lisp的语言作为我们的魔法咒语，来控制计算机中的精灵为我们工作。Lisp的语法很简单，就像象棋的规则很简单；但就像象棋很难成为大师，Lisp也同样。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org80da7ea" class="outline-3">
+<h3 id="org80da7ea">2 降低复杂度的方法</h3>
+<div class="outline-text-3" id="text-org80da7ea">
+<p>
+计算机科学要关心如何降低系统的复杂性。计算机科学是一门抽象的科学，我们可以只关心我们需要关心的东西，而不必受其他现实环境因素的影响，比如电路设计中要考虑组件的阻抗等，而软件中则可以选择性的对其进行抽象忽略。计算机科学中用来降低复杂度的方式有：<br />
+</p>
+</div>
+<div id="outline-container-orgcd9b2bd" class="outline-4">
+<h4 id="orgcd9b2bd">黑盒抽象</h4>
+<div class="outline-text-4" id="text-orgcd9b2bd">
+<p>
+也就是分层。需要学习以下知识来使Lisp完成此目的：<br />
+</p>
+<ul class="org-ul">
+<li>基本对象<br />
+基本数据类型及过程<br /></li>
+<li>组合对象<br />
+数据组合以及过程组合<br /></li>
+<li>抽象方法<br />
+给数据、方法命名以封装其复杂度<br /></li>
+<li>更高阶的抽象<br />
+Lisp中过程及数据的边界很模糊，可以以此创造出更高阶的抽象<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2f689dc" class="outline-4">
+<h4 id="org2f689dc">约定接口</h4>
+<div class="outline-text-4" id="text-org2f689dc">
+<p>
+黑盒之后，各部分如何进行良好交互，这就需要通过暴露接口。<br />
+</p>
+<ul class="org-ul">
+<li>面向对象<br /></li>
+<li>流<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org021e0be" class="outline-4">
+<h4 id="org021e0be">构建语言</h4>
+<div class="outline-text-4" id="text-org021e0be">
+<p>
+当有时系统复杂度还是太高时，我们可以通过创建一门新的语言来在根本上降低其复杂度，放大我们想关注的细节，屏蔽我们不想关注的细节。而Lisp对这轻车熟路。<br />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org47527de" class="outline-3">
+<h3 id="org47527de">3 Lisp</h3>
+<div class="outline-text-3" id="text-org47527de">
+<p>
+当我们接触一门新的语言时，首先要关注三个问题：<br />
+</p>
+<ul class="org-ul">
+<li>它的基本对象有哪些 PRIMITIVE<br />
+例如整型、字符串等。<br /></li>
+<li>组合方式有哪些 COMBINITION<br />
+如判断、循环等语法结构。<br /></li>
+<li>抽象方式有如何的 ABSTRACT<br />
+如何给生成的对象命名以构建更复杂的对象，例如class, defun等。<br /></li>
+</ul>
+
+<p>
+因为有了这三个要素，整个系统就能构建起来了。<br />
+</p>
+</div>
+
+<div id="outline-container-orge08005d" class="outline-4">
+<h4 id="orge08005d">基本元素 (PRIMITIVES)</h4>
+<div class="outline-text-4" id="text-orge08005d">
+<p>
+Lisp中的基本元素与其他语言也没有太多区别，例如数字、字符串等。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9d68d94" class="outline-4">
+<h4 id="org9d68d94">组合 (MEANS OF COMBINATION)</h4>
+<div class="outline-text-4" id="text-org9d68d94">
+<p>
+Lisp中，最基本的组合是由list完成的：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>+ 1 2 3<span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+它由操作符、操作数组成，操作符、操作数也可以是其他list，因此可以无限延伸。括号用来区分不同list，当然也就区分了作用域。<br />
+Lisp代码可以以二叉树的形式表达出来，例如：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">  <span style="color: #AE81FF;">(</span>+ 1 <span style="color: #66D9EF;">(</span>* 3 4<span style="color: #66D9EF;">)</span> 5<span style="color: #AE81FF;">)</span>
+
+==&gt;
+
+    -/ | \---
+  -/   |  \  \---
+ /     |  |      \-
+ +     1   \      5
+            \
+             --
+          --/+--
+      ---/   |  \---
+    -/       |      \-
+    *        3        4
+</pre>
+</div>
+<p>
+可以无限延展。<br />
+</p>
+
+<p>
+另一个组合结构就是判断。scheme中的判断结构有cond, if。例如:<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672;">cond</span> <span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>&lt; x 1<span style="color: #A6E22E;">)</span> <span style="color: #A6E22E;">(</span>message <span style="color: #E6DB74;">"1"</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
+      <span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>&gt; x 1<span style="color: #A6E22E;">)</span> <span style="color: #A6E22E;">(</span>message <span style="color: #E6DB74;">"2"</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
+      <span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>= x 1<span style="color: #A6E22E;">)</span> <span style="color: #A6E22E;">(</span>message <span style="color: #E6DB74;">"3"</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<span style="color: #AE81FF;">(</span><span style="color: #F92672;">if</span> <span style="color: #66D9EF;">(</span>&gt; x 1<span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span>message <span style="color: #E6DB74;">"1"</span><span style="color: #66D9EF;">)</span>
+  <span style="color: #66D9EF;">(</span>message <span style="color: #E6DB74;">"2"</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+scheme中没有循环结构，而是用递归来实现。对比C语言，我们就会发现，C语言的三种语法结构：顺序、选择、循环，分别对应于list、cond、以及递归。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org61ae2c8" class="outline-4">
+<h4 id="org61ae2c8">抽象 (MEANS OF ABSTRACTION)</h4>
+<div class="outline-text-4" id="text-org61ae2c8">
+<p>
+scheme中抽象是通过define完成的，可以同时用来定义变量和过程。例如:<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>define a-value <span style="color: #66D9EF;">(</span>* 2 2<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span> <span style="color: #75715E;">;; </span><span style="color: #75715E;">&#21464;&#37327;</span>
+<span style="color: #AE81FF;">(</span>define SQUARE <span style="color: #66D9EF;">(</span>LAMBDA <span style="color: #A6E22E;">(</span>x<span style="color: #A6E22E;">)</span> <span style="color: #A6E22E;">(</span>* x x<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span> <span style="color: #75715E;">;; </span><span style="color: #75715E;">&#36807;&#31243;</span>
+</pre>
+</div>
+
+<p>
+LAMBDA的意思就是创建一个过程。这可以简写为：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>define <span style="color: #66D9EF;">(</span>SQUARE x<span style="color: #66D9EF;">)</span> <span style="color: #66D9EF;">(</span>* x x<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span> <span style="color: #75715E;">;; </span><span style="color: #75715E;">&#35821;&#27861;&#31958;</span>
+</pre>
+</div>
+
+<p>
+定义的过程将跟基本操作符没有任何语法上的区别，例如我们完全无法区分操作符+到底是一个scheme提供的基本元素还是后来定义的过程。而这也是Lisp强大的特性之一。<br />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0002934" class="outline-2">
+<h2 id="org0002934">Lec1b</h2>
+<div class="outline-text-2" id="text-org0002934">
+<p>
+了解Lisp语句具体的执行过程。<br />
+1 展开操作符<br />
+2 计算操作数<br />
+3 如果操作数为过程，则继续展开，直到不能展开为止（即整个表达式都由基本类型组成，"One of the things we have to learn how to do is ignore details. The key to understanding complicated things is to know what not to look at and what not compute and what not to think."）<br />
+</p>
+
+<p>
+还有其他的求值顺序，我们这里使用这一种。<br />
+</p>
+
+<p>
+"It's important, by the way, to get names for, to get names for the part of things, or the part of expressions. One of the things that every sorcerer will tell you is if you have the name of a spirit, you have power over it. So you have to learn these names so that we can discuss these things."<br />
+</p>
+</div>
+
+<div id="outline-container-orgdc90be4" class="outline-3">
+<h3 id="orgdc90be4">迭代与递归的区别</h3>
+<div class="outline-text-3" id="text-orgdc90be4">
+<p>
+"I'd like to develop some intuition about how particular programs evolve particular processes, what the shapes of programs have to be in order to get particular shaped processes. This is a question about, really, pre-visualizing." 编程语言大部分都是这样，"Easy to learn, hard to master"。学会一门语言，或者说学会一门技艺，很大程度上就是又这种由经验形成的pre-visualizing。<br />
+这里，我们来看一下迭代与递归所产生的视觉形状的区别。<br />
+</p>
+<ul class="org-ul">
+<li>迭代<br /></li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>+ 3 4<span style="color: #AE81FF;">)</span>
+<span style="color: #AE81FF;">(</span>+ 2 5<span style="color: #AE81FF;">)</span>
+<span style="color: #AE81FF;">(</span>+ 1 6<span style="color: #AE81FF;">)</span>
+<span style="color: #AE81FF;">(</span>+ 0 7<span style="color: #AE81FF;">)</span>
+7
+</pre>
+</div>
+<p>
+时间复杂度：<br />
+O(x)<br />
+空间复杂度：<br />
+O(1)<br />
+迭代所要用到的每一步的信息都保存在参数里，例如如果突然发生了断电，只剩下了(+ 2 5)，我们仍然能够得到7。<br />
+</p>
+<ul class="org-ul">
+<li>递归<br /></li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>+ 3 4<span style="color: #AE81FF;">)</span>
+<span style="color: #AE81FF;">(</span>1+ <span style="color: #66D9EF;">(</span>+ 2 4<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<span style="color: #AE81FF;">(</span>1+ <span style="color: #66D9EF;">(</span>1+ <span style="color: #A6E22E;">(</span>+ 1 4<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<span style="color: #AE81FF;">(</span>1+ <span style="color: #66D9EF;">(</span>1+ <span style="color: #A6E22E;">(</span>1+ <span style="color: #E6DB74;">(</span>+ 0 4<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<span style="color: #AE81FF;">(</span>1+ <span style="color: #66D9EF;">(</span>1+ <span style="color: #A6E22E;">(</span>1+ 4<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<span style="color: #AE81FF;">(</span>1+ <span style="color: #66D9EF;">(</span>1+ 5<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<span style="color: #AE81FF;">(</span>1+ 6<span style="color: #AE81FF;">)</span>
+7
+</pre>
+</div>
+<p>
+时间复杂度：<br />
+ O(x)<br />
+ 空间复杂度：<br />
+ O(x)<br />
+ 递归需要额外的空间保存执行的状态信息，而将这些信息延迟处理直到最后。假如发生了断电，只剩下(+ 1 4)而没有状态信息，我们是无法得到7的。<br />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-03-04 Sun 13:21 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>SICP笔记 - 2 高阶过程</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">SICP笔记 - 2 高阶过程</h1>
+
+<div id="outline-container-orga138fb2" class="outline-2">
+<h2 id="orga138fb2">高阶过程</h2>
+<div class="outline-text-2" id="text-orga138fb2">
+<p>
+高阶过程即以过程作为参数进行运算，并且返回过程的过程。<br />
+</p>
+
+<p>
+假如计算a-b之间的数的和，或者a-b之间的数的平方的和，或者a-b之间的数的1/2或者其他操作的和，此时就可以将累加这个操作抽象出来，将对单个数的操作抽象出来。这样累加函数就能得到重用：<br />
+这里我用elisp写一写，虽然这并不好：scheme整个语言都表达出一个信息，也就是SICP的作者想表达出的信息，即数据、过程是一个东西，并没有什么区别；而elisp仍然严格区分数据和过程；不过懂了就可以了，在emacs里用elisp写还是更方便：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">lec2-1</span> <span style="color: #66D9EF;">(</span>a b func<span style="color: #66D9EF;">)</span>
+  <span style="color: #75715E;">"a for lower bounds</span>
+<span style="color: #75715E;">  b for upper bounds</span>
+<span style="color: #75715E;">  func for function on the invidual item"</span>
+  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">if</span> <span style="color: #A6E22E;">(</span>&lt; b a<span style="color: #A6E22E;">)</span>
+      0
+    <span style="color: #A6E22E;">(</span>+ <span style="color: #E6DB74;">(</span>funcall func a<span style="color: #E6DB74;">)</span> <span style="color: #E6DB74;">(</span>lec2-1 <span style="color: #FD971F;">(</span>1+ a<span style="color: #FD971F;">)</span> b func<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<span style="color: #AE81FF;">(</span>lec2-1 1 10 '<span style="color: #66D9EF;">(</span>lambda <span style="color: #A6E22E;">(</span>a<span style="color: #A6E22E;">)</span> <span style="color: #A6E22E;">(</span>/ a 2<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span> <span style="color: #75715E;">;; </span><span style="color: #75715E;">&#35745;&#31639;&#27599;&#20010;&#25968;&#30340;1/2&#30340;&#21644;</span>
+<span style="color: #AE81FF;">(</span>lec2-1 1 10 '<span style="color: #66D9EF;">(</span>lambda <span style="color: #A6E22E;">(</span>a<span style="color: #A6E22E;">)</span> <span style="color: #A6E22E;">(</span>* a a<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span> <span style="color: #75715E;">;; </span><span style="color: #75715E;">&#35745;&#31639;&#24179;&#26041;&#21644;</span>
+</pre>
+</div>
+
+<p>
+但这样还是以过程作为参数，而产生数据作为结果，这还不是高阶过程。<br />
+</p>
+
+<p>
+"As I said, computers to make people happy, not people to make computers happy. And for the most part, the reason why we introduce all this abstractions stuff is to make so that programs can be more easily written and more easily read."<br />
+</p>
+
+<p>
+而更高级的抽象则使用过程作为参数，并且输出过程作为结果，这样过程与数据之间的差别就更模糊了。<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">lec2-2</span> <span style="color: #66D9EF;">(</span>func<span style="color: #66D9EF;">)</span>
+  <span style="color: #75715E;">"Higher procedure version</span>
+<span style="color: #75715E;">  func for function on invidual item"</span>
+  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">setq</span> lexical-binding t<span style="color: #66D9EF;">)</span>
+  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">lambda</span> <span style="color: #A6E22E;">(</span>a b<span style="color: #A6E22E;">)</span>
+    <span style="color: #A6E22E;">(</span><span style="color: #F92672;">if</span> <span style="color: #E6DB74;">(</span>&lt; b a<span style="color: #E6DB74;">)</span>
+        0
+      <span style="color: #E6DB74;">(</span>+ <span style="color: #FD971F;">(</span>funcall func a<span style="color: #FD971F;">)</span> <span style="color: #FD971F;">(</span>funcall <span style="color: #F92672;">(</span>lec2-2 func<span style="color: #F92672;">)</span> <span style="color: #F92672;">(</span>1+ a<span style="color: #F92672;">)</span> b<span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<span style="color: #AE81FF;">(</span>funcall <span style="color: #66D9EF;">(</span>lec2-2 '<span style="color: #A6E22E;">(</span>lambda <span style="color: #E6DB74;">(</span>a<span style="color: #E6DB74;">)</span> <span style="color: #E6DB74;">(</span>* a a<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span> 1 10<span style="color: #AE81FF;">)</span>
+<span style="color: #AE81FF;">(</span>funcall <span style="color: #66D9EF;">(</span>lec2-2 '<span style="color: #A6E22E;">(</span>lambda <span style="color: #E6DB74;">(</span>a<span style="color: #E6DB74;">)</span> <span style="color: #E6DB74;">(</span>/ a 2<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span> 1 10<span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+<p>
+可以看到，lec2-2入参为函数，出参也为函数。这个例子看起来与上面的例子并没有什么太大区别，但以我来看至少有两个好处：<br />
+1 使整个逻辑更加清晰，因为我们使用一个过程制造了另一个更特殊化的过程，然后用这个过程对参数进行了调用。<br />
+2 提高了复用；具体可以参照各种语言中的map方法。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org42d776d" class="outline-2">
+<h2 id="org42d776d">复合数据</h2>
+<div class="outline-text-2" id="text-org42d776d">
+<p>
+复合数据的核心思想依然是建立层次化的系统，以隔绝层之间的细节。复合数据可以将简单的数据组合，抽象出现实中需要解决的问题。例如可以组合出people这种复合数据，以提高抽象的层次，从而隔绝自己需要解决问题的层与下层之间的细节。这其实就是面向对象语言中的class，或者c中的struct结构。这一层面的思想根据面向对象思想来理解就好了。<br />
+</p>
+
+<p>
+"Because the whole name of this game is that we'd like the programming language to express the concepts that we have in our minds."<br />
+</p>
+
+<p>
+这种将数据的使用与实现分离开的方法被称为数据抽象，通过构造函数和选择函数将数据对象与其表示分离开的编程方法。数据抽象可以推迟对于实现细节的判断，这样系统设计就可以先完成（因为在系统设计之初很多情况都是预想不到的），而到必要的时候才对其细节进行实现。<br />
+</p>
+
+<p>
+"I said that computer science is a lot like magic, and it's sort of good that it's like magic. There's a bad part of computer science that's a lot like religion. And in general, I think people who really believe that you design everything before you implement it basically are people who haven't designed very many things. The real power is that you can pretend you've made the decision and then later on figure out which one is right, which decision you ought to have made. And when you can do that, you have the best of both worlds."<br />
+</p>
+
+<p>
+下面这个例子仍然表达了数据抽象的作用，即上层并不关心下层如何实现，只要明确需求就可以；同时也体现出了在Lisp中过程和数据并没有什么区别。<br />
+数据抽象不是必须使用数据来构成，实际上过程可以完成所有事，例如复合数据的基本方法cons、car、cdr：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">lec2-cons</span> <span style="color: #66D9EF;">(</span>a b<span style="color: #66D9EF;">)</span>
+  <span style="color: #75715E;">"cons for elisp"</span>
+  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">setq</span> lexical-binding t<span style="color: #66D9EF;">)</span>
+  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">lambda</span> <span style="color: #A6E22E;">(</span>x<span style="color: #A6E22E;">)</span>
+    <span style="color: #A6E22E;">(</span><span style="color: #F92672;">if</span> <span style="color: #E6DB74;">(</span>= 1 x<span style="color: #E6DB74;">)</span>
+        a
+      b<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">lec2-car</span> <span style="color: #66D9EF;">(</span>x<span style="color: #66D9EF;">)</span>
+  <span style="color: #75715E;">"car for elisp"</span>
+  <span style="color: #66D9EF;">(</span>funcall x 1<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<span style="color: #AE81FF;">(</span><span style="color: #F92672;">defun</span> <span style="color: #A6E22E;">lec2-cdr</span> <span style="color: #66D9EF;">(</span>x<span style="color: #66D9EF;">)</span>
+  <span style="color: #75715E;">"cdr for elisp"</span>
+  <span style="color: #66D9EF;">(</span>funcall x 2<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<span style="color: #AE81FF;">(</span>lec2-car <span style="color: #66D9EF;">(</span>lec2-cons 3 4<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<span style="color: #AE81FF;">(</span>lec2-cdr <span style="color: #66D9EF;">(</span>lec2-cons 2 3<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<span style="color: #AE81FF;">(</span>lec2-car <span style="color: #66D9EF;">(</span>lec2-car <span style="color: #A6E22E;">(</span>lec2-cons <span style="color: #E6DB74;">(</span>lec2-cons 4 5<span style="color: #E6DB74;">)</span> 6<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+可以看到，cons并没有用任何数据结构来存储3、4，只是产生了一个过程；而作为上层调用者，并不知道这一点。我们认为cons是产生了一个序对，是一个数据结构，用来存储两个相关的数据；但实际上这个结构却是通过过程来完成构建的。过程和数据间的界限几乎不存在：过程也是对象，并且也能命名。<br />
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>
