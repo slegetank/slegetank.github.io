@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-03-04 Sun 13:18 -->
+<!-- 2018-03-12 Mon 01:41 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>TRAMP学习记录</title>
 <meta name="generator" content="Org mode" />
@@ -44,7 +44,7 @@ TRAMP是Transparent Remote file Access, Multiple Protocol的缩写，wiki在这�
 首先，将TRAMP远程默认协议设为sshx。<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672;">setq</span> tramp-default-method <span style="color: #E6DB74;">"sshx"</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">setq</span> tramp-default-method <span style="color: #a3be8c;">"sshx"</span><span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
@@ -61,9 +61,9 @@ sshx的解释在这里 <a href="https://www.gnu.org/software/tramp/">sshx</a> :<
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>tramp-set-completion-function <span style="color: #E6DB74;">"sshx"</span>
-                               '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>tramp-parse-sconfig <span style="color: #E6DB74;">"/etc/ssh_config"</span><span style="color: #A6E22E;">)</span>
-                                 <span style="color: #A6E22E;">(</span>tramp-parse-sconfig <span style="color: #E6DB74;">"~/.ssh/config"</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span>tramp-set-completion-function <span style="color: #a3be8c;">"sshx"</span>
+                               '<span style="color: #93a8c6;">(</span><span style="color: #b0b1a3;">(</span>tramp-parse-sconfig <span style="color: #a3be8c;">"/etc/ssh_config"</span><span style="color: #b0b1a3;">)</span>
+                                 <span style="color: #b0b1a3;">(</span>tramp-parse-sconfig <span style="color: #a3be8c;">"~/.ssh/config"</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
@@ -80,11 +80,11 @@ sshx的解释在这里 <a href="https://www.gnu.org/software/tramp/">sshx</a> :<
 编辑~/.ssh/config文件，在里面按照这种格式添加内容:<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-C"><span style="color: #66D9EF;">Host</span> <span style="color: #66D9EF;">short</span>-name-one
+<pre class="src src-C"><span style="color: #c0c5ce;">Host</span> <span style="color: #c0c5ce;">short</span>-name-one
 HostName your-host-name-one.com
 User your-user-one
 
-Host <span style="color: #66D9EF;">short</span>-name-two
+Host <span style="color: #c0c5ce;">short</span>-name-two
 HostName your-host-name-two.com
 User your-user-two
 </pre>
@@ -95,7 +95,7 @@ User your-user-two
 </p>
 <div class="org-src-container">
 <pre class="src src-C">Host mywebsite
-<span style="color: #66D9EF;">HostName</span> <span style="color: #FD971F;">slegetank</span>.com
+<span style="color: #c0c5ce;">HostName</span> <span style="color: #bf616a;">slegetank</span>.com
 User root
 </pre>
 </div>
@@ -118,7 +118,7 @@ User root
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C"><span style="color: #66D9EF;">machine</span> <span style="color: #66D9EF;">short</span>-name-one port ssh login your-user-one password your-password
+<pre class="src src-C"><span style="color: #c0c5ce;">machine</span> <span style="color: #c0c5ce;">short</span>-name-one port ssh login your-user-one password your-password
 </pre>
 </div>
 
@@ -127,7 +127,7 @@ User root
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C">machine mywebsite port sshx login root <span style="color: #66D9EF;">password</span> <span style="color: #FD971F;">xxx</span>
+<pre class="src src-C">machine mywebsite port sshx login root <span style="color: #c0c5ce;">password</span> <span style="color: #bf616a;">xxx</span>
 </pre>
 </div>
 
@@ -152,8 +152,8 @@ User root
 Projectile据说跟TRAMP有冲突，会出现卡死的情况，我没遇到过，不过先记在这里。<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672;">defadvice</span> <span style="color: #A6E22E;">projectile-project-root</span> <span style="color: #66D9EF;">(</span>around ignore-remote first activate<span style="color: #66D9EF;">)</span>
-  <span style="color: #66D9EF;">(</span><span style="color: #F92672;">unless</span> <span style="color: #A6E22E;">(</span>file-remote-p default-directory<span style="color: #A6E22E;">)</span> ad-do-it<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">defadvice</span> <span style="color: #8fa1b3;">projectile-project-root</span> <span style="color: #93a8c6;">(</span>around ignore-remote first activate<span style="color: #93a8c6;">)</span>
+  <span style="color: #93a8c6;">(</span><span style="color: #b48ead;">unless</span> <span style="color: #b0b1a3;">(</span>file-remote-p default-directory<span style="color: #b0b1a3;">)</span> ad-do-it<span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 </div>

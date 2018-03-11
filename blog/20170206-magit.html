@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-03-04 Sun 22:26 -->
+<!-- 2018-03-12 Mon 01:41 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>Magit - MagicGitTool for Emacs</title>
 <meta name="generator" content="Org mode" />
@@ -61,8 +61,8 @@
 将magit、evil-magit加入package-selected-packages，并将status页面绑定到gs按键上:<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">(require <span style="color: #E6DB74;">'evil-magit)</span>
-<span style="color: #E6DB74;">(evil-leader/set-key "gs" '</span>magit-status)
+<pre class="src src-sh">(require <span style="color: #a3be8c;">'evil-magit)</span>
+<span style="color: #a3be8c;">(evil-leader/set-key "gs" '</span>magit-status)
 </pre>
 </div>
 <p>
@@ -100,9 +100,9 @@ status页面是magit的入口，其作用相当于git status，可以看到对�
 </p>
 </div>
 </div>
-<div id="outline-container-org75d9cf1" class="outline-3">
-<h3 id="org75d9cf1">操作</h3>
-<div class="outline-text-3" id="text-org75d9cf1">
+<div id="outline-container-org10d720e" class="outline-3">
+<h3 id="org10d720e">操作</h3>
+<div class="outline-text-3" id="text-org10d720e">
 <p>
 具体见<a href="https://github.com/justbur/evil-magit">evil-magit</a>， 这里只列出常用的一部分：<br />
 </p>
@@ -268,7 +268,7 @@ bc - checkout new branch<br />
 在status页面按ll就进入了log页面，大概相当于<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">git log --format=<span style="color: #E6DB74;">"%h * %s %an %ar"</span>
+<pre class="src src-sh">git log --format=<span style="color: #a3be8c;">"%h * %s %an %ar"</span>
 </pre>
 </div>
 
@@ -285,9 +285,9 @@ bc - checkout new branch<br />
 </p>
 </div>
 
-<div id="outline-container-org10d720e" class="outline-3">
-<h3 id="org10d720e">操作</h3>
-<div class="outline-text-3" id="text-org10d720e">
+<div id="outline-container-org0ebd23f" class="outline-3">
+<h3 id="org0ebd23f">操作</h3>
+<div class="outline-text-3" id="text-org0ebd23f">
 </div>
 <div id="outline-container-org47d63e2" class="outline-4">
 <h4 id="org47d63e2">log</h4>
@@ -298,23 +298,23 @@ git log相对于git status功能上需要更多的对于查询的侧重，而log
 从"~/.emacs.d/elpa/magit-20170203.1633/magit-log.el"中可以看到每个选项对应的实际命令行参数：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #F92672;">:switches</span> <span style="color: #AE81FF;">(</span><span style="color: #66D9EF;">(</span>?g <span style="color: #E6DB74;">"Show graph"</span>              <span style="color: #E6DB74;">"--graph"</span><span style="color: #66D9EF;">)</span>
-           <span style="color: #66D9EF;">(</span>?c <span style="color: #E6DB74;">"Show graph in color"</span>     <span style="color: #E6DB74;">"--color"</span><span style="color: #66D9EF;">)</span>
-           <span style="color: #66D9EF;">(</span>?d <span style="color: #E6DB74;">"Show refnames"</span>           <span style="color: #E6DB74;">"--decorate"</span><span style="color: #66D9EF;">)</span>
-           <span style="color: #66D9EF;">(</span>?S <span style="color: #E6DB74;">"Show signatures"</span>         <span style="color: #E6DB74;">"--show-signature"</span><span style="color: #66D9EF;">)</span>
-           <span style="color: #66D9EF;">(</span>?u <span style="color: #E6DB74;">"Show diffs"</span>              <span style="color: #E6DB74;">"--patch"</span><span style="color: #66D9EF;">)</span>
-           <span style="color: #66D9EF;">(</span>?s <span style="color: #E6DB74;">"Show diffstats"</span>          <span style="color: #E6DB74;">"--stat"</span><span style="color: #66D9EF;">)</span>
-           <span style="color: #66D9EF;">(</span>?h <span style="color: #E6DB74;">"Show header"</span>             <span style="color: #E6DB74;">"++header"</span><span style="color: #66D9EF;">)</span>
-           <span style="color: #66D9EF;">(</span>?D <span style="color: #E6DB74;">"Simplify by decoration"</span>  <span style="color: #E6DB74;">"--simplify-by-decoration"</span><span style="color: #66D9EF;">)</span>
-           <span style="color: #66D9EF;">(</span>?f <span style="color: #E6DB74;">"Follow renames when showing single-file log"</span> <span style="color: #E6DB74;">"--follow"</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
-<span style="color: #F92672;">:options</span>  <span style="color: #AE81FF;">(</span><span style="color: #66D9EF;">(</span>?n <span style="color: #E6DB74;">"Limit number of commits"</span> <span style="color: #E6DB74;">"-n"</span><span style="color: #66D9EF;">)</span>
-           <span style="color: #66D9EF;">(</span>?f <span style="color: #E6DB74;">"Limit to files"</span>          <span style="color: #E6DB74;">"-- "</span> magit-read-files<span style="color: #66D9EF;">)</span>
-           <span style="color: #66D9EF;">(</span>?a <span style="color: #E6DB74;">"Limit to author"</span>         <span style="color: #E6DB74;">"--author="</span><span style="color: #66D9EF;">)</span>
-           <span style="color: #66D9EF;">(</span>?o <span style="color: #E6DB74;">"Order commits by"</span>        <span style="color: #E6DB74;">"++order="</span> magit-log-select-order<span style="color: #66D9EF;">)</span>
-           <span style="color: #66D9EF;">(</span>?g <span style="color: #E6DB74;">"Search messages"</span>         <span style="color: #E6DB74;">"--grep="</span><span style="color: #66D9EF;">)</span>
-           <span style="color: #66D9EF;">(</span>?G <span style="color: #E6DB74;">"Search changes"</span>          <span style="color: #E6DB74;">"-G"</span><span style="color: #66D9EF;">)</span>
-           <span style="color: #66D9EF;">(</span>?S <span style="color: #E6DB74;">"Search occurrences"</span>      <span style="color: #E6DB74;">"-S"</span><span style="color: #66D9EF;">)</span>
-           <span style="color: #66D9EF;">(</span>?L <span style="color: #E6DB74;">"Trace line evolution"</span>    <span style="color: #E6DB74;">"-L"</span> magit-read-file-trace<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #d08770;">:switches</span> <span style="color: #8c8c8c;">(</span><span style="color: #93a8c6;">(</span>?g <span style="color: #a3be8c;">"Show graph"</span>              <span style="color: #a3be8c;">"--graph"</span><span style="color: #93a8c6;">)</span>
+           <span style="color: #93a8c6;">(</span>?c <span style="color: #a3be8c;">"Show graph in color"</span>     <span style="color: #a3be8c;">"--color"</span><span style="color: #93a8c6;">)</span>
+           <span style="color: #93a8c6;">(</span>?d <span style="color: #a3be8c;">"Show refnames"</span>           <span style="color: #a3be8c;">"--decorate"</span><span style="color: #93a8c6;">)</span>
+           <span style="color: #93a8c6;">(</span>?S <span style="color: #a3be8c;">"Show signatures"</span>         <span style="color: #a3be8c;">"--show-signature"</span><span style="color: #93a8c6;">)</span>
+           <span style="color: #93a8c6;">(</span>?u <span style="color: #a3be8c;">"Show diffs"</span>              <span style="color: #a3be8c;">"--patch"</span><span style="color: #93a8c6;">)</span>
+           <span style="color: #93a8c6;">(</span>?s <span style="color: #a3be8c;">"Show diffstats"</span>          <span style="color: #a3be8c;">"--stat"</span><span style="color: #93a8c6;">)</span>
+           <span style="color: #93a8c6;">(</span>?h <span style="color: #a3be8c;">"Show header"</span>             <span style="color: #a3be8c;">"++header"</span><span style="color: #93a8c6;">)</span>
+           <span style="color: #93a8c6;">(</span>?D <span style="color: #a3be8c;">"Simplify by decoration"</span>  <span style="color: #a3be8c;">"--simplify-by-decoration"</span><span style="color: #93a8c6;">)</span>
+           <span style="color: #93a8c6;">(</span>?f <span style="color: #a3be8c;">"Follow renames when showing single-file log"</span> <span style="color: #a3be8c;">"--follow"</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #d08770;">:options</span>  <span style="color: #8c8c8c;">(</span><span style="color: #93a8c6;">(</span>?n <span style="color: #a3be8c;">"Limit number of commits"</span> <span style="color: #a3be8c;">"-n"</span><span style="color: #93a8c6;">)</span>
+           <span style="color: #93a8c6;">(</span>?f <span style="color: #a3be8c;">"Limit to files"</span>          <span style="color: #a3be8c;">"-- "</span> magit-read-files<span style="color: #93a8c6;">)</span>
+           <span style="color: #93a8c6;">(</span>?a <span style="color: #a3be8c;">"Limit to author"</span>         <span style="color: #a3be8c;">"--author="</span><span style="color: #93a8c6;">)</span>
+           <span style="color: #93a8c6;">(</span>?o <span style="color: #a3be8c;">"Order commits by"</span>        <span style="color: #a3be8c;">"++order="</span> magit-log-select-order<span style="color: #93a8c6;">)</span>
+           <span style="color: #93a8c6;">(</span>?g <span style="color: #a3be8c;">"Search messages"</span>         <span style="color: #a3be8c;">"--grep="</span><span style="color: #93a8c6;">)</span>
+           <span style="color: #93a8c6;">(</span>?G <span style="color: #a3be8c;">"Search changes"</span>          <span style="color: #a3be8c;">"-G"</span><span style="color: #93a8c6;">)</span>
+           <span style="color: #93a8c6;">(</span>?S <span style="color: #a3be8c;">"Search occurrences"</span>      <span style="color: #a3be8c;">"-S"</span><span style="color: #93a8c6;">)</span>
+           <span style="color: #93a8c6;">(</span>?L <span style="color: #a3be8c;">"Trace line evolution"</span>    <span style="color: #a3be8c;">"-L"</span> magit-read-file-trace<span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 

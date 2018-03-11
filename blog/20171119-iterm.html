@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-03-12 Mon 01:41 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>高效使用iTerm</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">高效使用iTerm</h1>
+
+<div id="outline-container-org51943d9" class="outline-2">
+<h2 id="org51943d9">iTerm</h2>
+<div class="outline-text-2" id="text-org51943d9">
+<p>
+iTerm是Mac上最好用的终端app，即下即用：<a href="http://www.iterm2.com/">http://www.iterm2.com/</a>。<br />
+iTerm提供了很好的对于字体、颜色的自定义接口以及窗体等的边界访问，下面将会用到。<br />
+</p>
+</div>
+<div id="outline-container-org9e8d764" class="outline-3">
+<h3 id="org9e8d764">itermocil</h3>
+<div class="outline-text-3" id="text-org9e8d764">
+<p>
+这是一个iTerm的插件，因此不放到下面的插件部分了：<a href="https://github.com/TomAnthony/itermocil">https://github.com/TomAnthony/itermocil</a> 。<br />
+它能干什么呢？看一下：<br />
+<img src="../static/20171119-iterm-4.gif" alt="20171119-iterm-4.gif" /><br />
+</p>
+
+<p>
+简单来说，就是一个iTerm的窗口管理器。实现上面的例子的代码大概是这样的：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-ymal">windows:
+- name: flask-layout
+root: ~/work/git/ios_flask/app
+layout: even-vertical
+panes:
+- commands:
+- python3 hello.py
+- commands:
+- cd frontend
+- npm run start
+</pre>
+</div>
+
+<p>
+这在需要同时打开多个窗体的时候特别有用。具体配置还是看github上的文档。<br />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org68186b4" class="outline-2">
+<h2 id="org68186b4">zsh &amp; oh-my-zsh</h2>
+<div class="outline-text-2" id="text-org68186b4">
+<p>
+zshell（1990）实际上跟bash（1989）差不多老。bash的好处是Linux的默认shell，稳定普遍。zshell具有更好的扩展性，更好的交互特性。而且更重要的是，<a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a>的存在使得zsh变得无比强大。<br />
+</p>
+
+<p>
+首先看一下我们系统里支持那些shell：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">cat /etc/shells
+</pre>
+</div>
+
+<p>
+当前的shell：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #d08770;">echo</span> $<span style="color: #bf616a;">SHELL</span>
+</pre>
+</div>
+
+<p>
+使用zsh作为默认shell：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">chsh -s /bin/zsh
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgea855a9" class="outline-2">
+<h2 id="orgea855a9">oh-my-zsh</h2>
+<div class="outline-text-2" id="text-orgea855a9">
+<p>
+Oh My Zsh，POWER OVERWHELMING!<br />
+<img src="../static/20171119-iterm-5.gif" alt="20171119-iterm-5.gif" /><br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">sh -c <span style="color: #a3be8c;">"$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge37798e" class="outline-2">
+<h2 id="orge37798e">默认操作</h2>
+<div class="outline-text-2" id="text-orge37798e">
+<p>
+有一些默认的操作需要记一下（s-super, c-ctrl, m-alt），具体名词就不解释了，试一下就知道什么意思：<br />
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">key</td>
+<td class="org-left">功能</td>
+</tr>
+
+<tr>
+<td class="org-left">s-d/s-D</td>
+<td class="org-left">Split pane horizontally/vertically</td>
+</tr>
+
+<tr>
+<td class="org-left">s-]/s-[</td>
+<td class="org-left">Next/Previous pane</td>
+</tr>
+
+<tr>
+<td class="org-left">s-t</td>
+<td class="org-left">New tab</td>
+</tr>
+
+<tr>
+<td class="org-left">s-}/s-{</td>
+<td class="org-left">Next/Previous tab</td>
+</tr>
+
+<tr>
+<td class="org-left">s-[number]</td>
+<td class="org-left">Switch to tab [number]</td>
+</tr>
+
+<tr>
+<td class="org-left">s-n</td>
+<td class="org-left">New window</td>
+</tr>
+
+<tr>
+<td class="org-left">s-w</td>
+<td class="org-left">Close current pane/tab/window</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+然后是一些窗体内的操作：<br />
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">key</td>
+<td class="org-left">功能</td>
+</tr>
+
+<tr>
+<td class="org-left">s-=/s--</td>
+<td class="org-left">Bigger/smaller font size</td>
+</tr>
+
+<tr>
+<td class="org-left">s-k</td>
+<td class="org-left">清空窗口内容</td>
+</tr>
+
+<tr>
+<td class="org-left">c-c</td>
+<td class="org-left">终止</td>
+</tr>
+
+<tr>
+<td class="org-left">c-n/c-p</td>
+<td class="org-left">上一条/下一条命令</td>
+</tr>
+
+<tr>
+<td class="org-left">c-r</td>
+<td class="org-left">Incrementally search command</td>
+</tr>
+
+<tr>
+<td class="org-left">c-a/c-e</td>
+<td class="org-left">行首、行尾</td>
+</tr>
+
+<tr>
+<td class="org-left">c-w</td>
+<td class="org-left">删除最后一个单词</td>
+</tr>
+
+<tr>
+<td class="org-left">!!</td>
+<td class="org-left">执行最后一条指令</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-orgcb0b075" class="outline-3">
+<h3 id="orgcb0b075">一些常被忽略的用法</h3>
+<div class="outline-text-3" id="text-orgcb0b075">
+<ol class="org-ol">
+<li>&#x2026;<br />
+标准的返回上一层的指令为cd ..。而现在可以&#x2026;..来返回上一层，两个点上一层，三个点上两层，以此类推。<br /></li>
+<li>take<br />
+即mkdir &amp; cd，例如take a == mkdir a &amp;&amp; cd a 。<br /></li>
+<li>鼠标选中<br />
+鼠标选中则自动复制，不用再按s-c。<br /></li>
+<li>唤起<br />
+可以设置快捷键在任何地方唤起iTerm。<br />
+Preferences -&gt; keys -&gt; Show/hide all windows with a system-wide hotkey设置一个快捷键，例如"ctrl-super-,"。<br /></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfc8d9c7" class="outline-2">
+<h2 id="orgfc8d9c7">配置</h2>
+<div class="outline-text-2" id="text-orgfc8d9c7">
+<p>
+好的，现在材料已经备齐，开始配置。<br />
+zshell的配置文件在用户目录下，即~/.zshrc，用你喜欢的编辑器打开它。每次新建一个新的session时都会载入这个文件。<br />
+</p>
+</div>
+
+<div id="outline-container-orgc9aa067" class="outline-3">
+<h3 id="orgc9aa067">快捷键</h3>
+<div class="outline-text-3" id="text-orgc9aa067">
+<p>
+绑定快捷键很简单，如下：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #d08770;">bindkey</span> <span style="color: #a3be8c;">'^B'</span> backward-word
+<span style="color: #d08770;">bindkey</span> <span style="color: #a3be8c;">'^F'</span> forward-word
+</pre>
+</div>
+
+<p>
+这两条就表示ctrl-b是向前退一个单词，ctrl-f是前进一个单词。不知道为什么这两个键不是默认的，手动设一下。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge30f8ce" class="outline-3">
+<h3 id="orge30f8ce">一些小的代码段</h3>
+<div class="outline-text-3" id="text-orge30f8ce">
+<p>
+切换到Finder同目录：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #8fa1b3;">df</span>()
+{
+    <span style="color: #bf616a;">curFinderDir</span>=<span style="color: #fa8072;">`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`</span>
+    <span style="color: #d08770;">echo</span> <span style="color: #a3be8c;">"\033[31m$curFinderDir\033[0m"</span>
+    <span style="color: #d08770;">cd</span> $<span style="color: #bf616a;">curFinderDir</span>
+}
+</pre>
+</div>
+
+<p>
+切换到Xcode同目录：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #8fa1b3;">dx</span>()
+{
+    <span style="color: #bf616a;">curXcodeProjectDir</span>=<span style="color: #fa8072;">`osascript -e 'tell application id "com.apple.dt.Xcode" to return path of document 1'`</span>
+    <span style="color: #d08770;">echo</span> <span style="color: #a3be8c;">"\033[31m$curXcodeProjectDir\033[0m"</span>
+    <span style="color: #d08770;">cd</span> $<span style="color: #bf616a;">curXcodeProjectDir</span>/..
+}
+</pre>
+</div>
+
+<p>
+切换到Android Studio同目录：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #c0c5ce;"># </span><span style="color: #65737e;">cd android</span>
+<span style="color: #8fa1b3;">da</span>()
+{
+    <span style="color: #bf616a;">title</span>=<span style="color: #fa8072;">`osascript -e 'tell application "System Events" to get the {title} of window 1 of process "Android Studio"'`</span>
+    <span style="color: #bf616a;">title</span>=$(<span style="color: #d08770;">echo</span> ${<span style="color: #bf616a;">$</span>{<span style="color: #bf616a;">title</span>#*- <span style="color: #a3be8c;">\[</span>}%<span style="color: #a3be8c;">\]</span>*} | sed <span style="color: #a3be8c;">"s|^~|$HOME|g"</span>)
+    <span style="color: #d08770;">echo</span> <span style="color: #a3be8c;">"\033[31m$title\033[0m"</span>
+    <span style="color: #d08770;">cd</span> $<span style="color: #bf616a;">title</span>/
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org020d680" class="outline-2">
+<h2 id="org020d680">theme</h2>
+<div class="outline-text-2" id="text-org020d680">
+<p>
+一个养眼的theme是必须的，例如这样子(<a href="https://github.com/sindresorhus/iterm2-snazzy">sanzzy</a> + Meslo 13 font + <a href="https://github.com/sindresorhus/pure">pure</a>)：<br />
+<img src="../static/20171119-iterm-3.png" alt="20171119-iterm-3.png" /><br />
+</p>
+
+<p>
+在我们的这个环境里，一个theme是由三部非组成的，分别是iTerm的colorthemes(.itermcolors)用来决定各种前景、背景色；字体；以及oh-my-zsh的决定各种行摆放位置的theme。<br />
+</p>
+<ol class="org-ol">
+<li>iTerm的colorthemes可以在这里找到：<a href="https://github.com/mbadolato/iTerm2-Color-Schemes">https://github.com/mbadolato/iTerm2-Color-Schemes</a><br /></li>
+<li>字体在preferences -&gt; Profiles -&gt; Text -&gt; Change Font 自己微调就好了。<br /></li>
+<li><p>
+oh-my-zsh的默认主题在其文件夹下的<a href="https://github.com/robbyrussell/oh-my-zsh/tree/master/themes">theme</a>目录；在线预览：<br />
+<a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Themes">https://github.com/robbyrussell/oh-my-zsh/wiki/Themes</a><br />
+第三方theme列表：<br />
+<a href="https://github.com/unixorn/awesome-zsh-plugins#themes">https://github.com/unixorn/awesome-zsh-plugins#themes</a><br />
+</p>
+
+<p>
+有的主题需要安装theme，例如powerline相关的theme都需要安装这些font: <a href="https://github.com/powerline/fonts">https://github.com/powerline/fonts</a> ，然后在iTerm2的Preferences -&gt; Profiles -&gt; Text中同时将Font设置为Meslo LG M DZ Regular for Powerline即可。<br />
+</p></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org6b483db" class="outline-2">
+<h2 id="org6b483db">插件</h2>
+<div class="outline-text-2" id="text-org6b483db">
+<p>
+oh-my-zsh的强大之处就在于其插件系统，自带的插件在其<a href="https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins">plugins</a>目录下；可以在这里看到文档：<a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins">https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins</a> 。<br />
+除自带的插件外，还有很多geeks的第三方插件，这里有一个集合：<a href="https://github.com/unixorn/awesome-zsh-plugins">https://github.com/unixorn/awesome-zsh-plugins</a> 。<br />
+</p>
+</div>
+
+<div id="outline-container-org05f2c83" class="outline-3">
+<h3 id="org05f2c83">包管理</h3>
+<div class="outline-text-3" id="text-org05f2c83">
+<p>
+一个包管理器是必须的。<br />
+<a href="https://github.com/zsh-users/antigen">https://github.com/zsh-users/antigen</a><br />
+</p>
+
+<p>
+安装：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">brew install antigen
+</pre>
+</div>
+
+<p>
+然后可以新建一个.zsh_antigen，把下面的代码放进去：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #d08770;">source</span> /usr/local/share/antigen/antigen.zsh
+
+<span style="color: #c0c5ce;"># </span><span style="color: #65737e;">Load the oh-my-zsh's library.</span>
+antigen use oh-my-zsh
+
+<span style="color: #c0c5ce;"># </span><span style="color: #65737e;">Bundles from the default repo (robbyrussell's oh-my-zsh).</span>
+antigen bundle git
+antigen bundle z
+antigen bundle python
+antigen bundle pip
+antigen bundle vi-mode
+antigen bundle command-not-found
+
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-completions
+antigen bundle zdharma/fast-syntax-highlighting
+antigen bundle changyuheng/zsh-interactive-cd
+antigen bundle laurenkt/zsh-vimto
+antigen bundle psprint/history-search-multi-word
+
+<span style="color: #c0c5ce;"># </span><span style="color: #65737e;">Load the theme.</span>
+antigen bundle mafredri/zsh-async
+antigen bundle sindresorhus/pure
+
+<span style="color: #c0c5ce;"># </span><span style="color: #65737e;">Tell Antigen that you're done.</span>
+antigen apply
+</pre>
+</div>
+
+<p>
+然后在.zshrc中添加一行<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #d08770;">source</span> .zsh_antigen
+</pre>
+</div>
+
+<p>
+假如需要安装另一个默认插件，例如z：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">antigen bundle z
+</pre>
+</div>
+
+<p>
+如果要安装一个第三方插件（以及第三方theme），首先在github上找到它，例如<a href="https://github.com/laurenkt/zsh-vimto">https://github.com/laurenkt/zsh-vimto</a> ，一般来说直接用左上角的库名，也就是laurenkt/zsh-vimto就可以了，但具体还是要看文档：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">antigen bundle laurenkt/zsh-vimto
+</pre>
+</div>
+
+<p>
+然后就可以把这个文件放到版本库或者云端保存了，以后到新的机器上就很省事了。<br />
+</p>
+
+<p>
+下面介绍一些好用的插件：<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc5f98ce" class="outline-3">
+<h3 id="orgc5f98ce">z</h3>
+<div class="outline-text-3" id="text-orgc5f98ce">
+<ul class="org-ul">
+<li><p>
+安装：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">antigen bundle z
+</pre>
+</div></li>
+
+<li><p>
+使用：<br />
+访问过的路径会根据使用频繁程度排序，例如经常进入ios和ios2路径，其中ios2比ios更频繁，那么：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">z i
+</pre>
+</div>
+<p>
+将会切换到ios2下。<br />
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgae168f4" class="outline-3">
+<h3 id="orgae168f4">vi-mode</h3>
+<div class="outline-text-3" id="text-orgae168f4">
+<ul class="org-ul">
+<li><p>
+安装：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">antigen bundle vi-mode
+</pre>
+</div></li>
+
+<li><p>
+使用：<br />
+命令行内操作可以用vi指法。例如输入了这么一行指令：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">find . -name <span style="color: #a3be8c;">"*.el"</span> | xargs cat | grep -v ^$ | wc -l
+</pre>
+</div></li>
+</ul>
+
+<p>
+现在我想把el修改为py。如果没有vi-mode就麻烦了，需要各种ctrl-b然后再修改。用vi-mode之后，操作是这样的：<br />
+</p>
+<ol class="org-ol">
+<li>Esc 此时窗口最右侧会出现 &lt;&lt;&lt;（如果安装了zsh-vimto，则显示一个NORMAL）<br /></li>
+<li>F. 此时光标移动到了.el的.上<br /></li>
+<li>lxxipy 修改完成<br /></li>
+<li>Enter<br /></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org42ee8f7" class="outline-3">
+<h3 id="org42ee8f7">zsh-autosuggestions</h3>
+<div class="outline-text-3" id="text-org42ee8f7">
+
+<div class="figure">
+<p><img src="../static/20171119-iterm-0.png" alt="20171119-iterm-0.png" /><br />
+</p>
+</div>
+
+<ul class="org-ul">
+<li>安装：<br /></li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-shell">antigen bundle zsh-users/zsh-autosuggestions
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>使用：<br />
+将会根据输入显示最后输入的命令，c-e补全。<br /></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org71850ff" class="outline-3">
+<h3 id="org71850ff">fast-syntax-highlighting</h3>
+<div class="outline-text-3" id="text-org71850ff">
+<ul class="org-ul">
+<li>安装：<br /></li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-shell">antigen bundle zdharma/fast-syntax-highlighting
+</pre>
+</div>
+
+<p>
+更好的高亮支持。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge428ce2" class="outline-3">
+<h3 id="orge428ce2">history-search-multi-word</h3>
+<div class="outline-text-3" id="text-orge428ce2">
+
+<div class="figure">
+<p><img src="../static/20171119-iterm-1.png" alt="20171119-iterm-1.png" /><br />
+</p>
+</div>
+
+<ul class="org-ul">
+<li>安装：<br /></li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-shell">antigen bundle psprint/history-search-multi-word
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>使用：<br />
+更好的c-r支持。有列表提示，且可以用空格进行关键词的增加。c-r/c-n 下一条；c-p上一条。<br /></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orga7c13f7" class="outline-3">
+<h3 id="orga7c13f7">zsh-interactive-cd</h3>
+<div class="outline-text-3" id="text-orga7c13f7">
+
+<div class="figure">
+<p><img src="../static/20171119-iterm-2.png" alt="20171119-iterm-2.png" /><br />
+</p>
+</div>
+
+<ul class="org-ul">
+<li>安装：<br /></li>
+</ul>
+<p>
+先brew install fsf<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">antigen bundle psprint/history-search-multi-word
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>使用：<br />
+交互式的cd。<br /></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org8f28257" class="outline-3">
+<h3 id="org8f28257">zsh-vimto</h3>
+<div class="outline-text-3" id="text-org8f28257">
+<ul class="org-ul">
+<li>安装：<br />
+先brew install fsf<br /></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-shell">antigen bundle psprint/history-search-multi-word
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>使用：<br />
+更好的vi指法支持。<br /></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgab63de8" class="outline-2">
+<h2 id="orgab63de8">最后</h2>
+<div class="outline-text-2" id="text-orgab63de8">
+<p>
+其他alias之类的烂大街的东西就不写了，之后应该不会再这么集中的折腾终端了。<br />
+以上。<br />
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>
