@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-03-12 Mon 11:41 -->
+<!-- 2018-03-12 Mon 12:01 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>iOS代码签名理解</title>
 <meta name="generator" content="Org mode" />
@@ -63,9 +63,9 @@
 </p>
 </div>
 
-<div id="outline-container-org7b5bbc8" class="outline-3">
-<h3 id="org7b5bbc8">Certificate</h3>
-<div class="outline-text-3" id="text-org7b5bbc8">
+<div id="outline-container-org5627463" class="outline-3">
+<h3 id="org5627463">Certificate</h3>
+<div class="outline-text-3" id="text-org5627463">
 <p>
 　　数字签名的整个流程大概是这样的：对于要加密的文件，首先生成其对应的hash（一份文件对应唯一的hash），然后使用私钥对其加密，并记录下来。用户收到文件后，使用公钥解密得到hash，然后跟自己计算的文件的hash作对比。如果一样，则说明文件没有被修改过，且文件来源于与此公钥配对的私钥的持有者。<br />
 </p>
@@ -261,9 +261,9 @@ A=B^publicExponent mod modulus；B=A^privateExponent mod modulus<br />
 </div>
 </div>
 
-<div id="outline-container-org5627463" class="outline-3">
-<h3 id="org5627463">Certificate</h3>
-<div class="outline-text-3" id="text-org5627463">
+<div id="outline-container-org6ffe5ec" class="outline-3">
+<h3 id="org6ffe5ec">Certificate</h3>
+<div class="outline-text-3" id="text-org6ffe5ec">
 <p>
 下一步，我们需要登录developer.apple.com来生成证书。具体步骤这里就不多说了，总之结果就是我们得到了证书（.cer）。我们要关心的是这一步发生了什么呢？<br />
 </p>
