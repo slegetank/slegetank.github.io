@@ -5,7 +5,7 @@
 <head>
 <!-- 2018-04-22 Sun 18:51 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<title>Objective-C Block</title>
+<title>图像处理小记录</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="slegetank" />
 <link rel="stylesheet" type="text/css" href="../static/org.css" />
@@ -24,32 +24,25 @@
 </div>
 </div>
 <div id="content">
-<h1 class="title">Objective-C Block</h1>
-<p>
-OC中block的语法实在是太别扭了，不知道是不是我太孤陋寡闻了。。。在此记录一下，以供日后查找使用。<br />
-</p>
+<h1 class="title">图像处理小记录</h1>
 
-<p>
-引用：<a href="http://goshdarnblocksyntax.com">http://goshdarnblocksyntax.com</a><br />
-</p>
+<div id="outline-container-orgde240e2" class="outline-2">
+<h2 id="orgde240e2">修改icon色调</h2>
+<div class="outline-text-2" id="text-orgde240e2">
+<ol class="org-ol">
+<li>用Acorn打开图片。<br />
+<img src="../static/20180422-imageprocess-0.png" alt="20180422-imageprocess-0.png" /><br /></li>
 
-<div class="org-src-container">
-<pre class="src src-Objective-C">As a local variable:
-returnType (^blockName)(parameterTypes) = ^returnType(parameters) {...};
+<li>在其上新建图层。<br />
+<img src="../static/20180422-imageprocess-1.png" alt="20180422-imageprocess-1.png" /><br /></li>
 
-As a property:
-@property (nonatomic, copy, nullability) returnType (^blockName)(parameterTypes);
-
-As a method parameter:
-- (void)someMethodThatTakesABlock:(returnType (^)(parameterTypes))blockName;
-
-As an argument to a method call:
-[someObject someMethodThatTakesABlock:^returnType (parameters) {...}];
-
-As a typedef:
-typedef returnType (^TypeName)(parameterTypes);
-TypeName blockName = ^returnType(parameters) {...};
-</pre>
+<li>用选色工具取到颜色，然后用颜料桶填充新建的图层。<br />
+<img src="../static/20180422-imageprocess-2.png" alt="20180422-imageprocess-2.png" /><br />
+<img src="../static/20180422-imageprocess-3.png" alt="20180422-imageprocess-3.png" /><br /></li>
+<li>选择新图层的Blending模式为Source Atop，大功告成。<br />
+<img src="../static/20180422-imageprocess-4.png" alt="20180422-imageprocess-4.png" /><br /></li>
+</ol>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-03-22 Thu 11:47 -->
+<!-- 2018-04-22 Sun 18:51 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>如何优雅的使用Dired</title>
 <meta name="generator" content="Org mode" />
@@ -258,14 +258,14 @@ dired默认情况下每个目录会单独开一个buffer，而这是我们所不
 自己改<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">setq</span> dired-recursive-copies 'always<span style="color: #8c8c8c;">)</span>
-<span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">setq</span> dired-recursive-deletes 'always<span style="color: #8c8c8c;">)</span>
-<span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">setq</span> dired-dwim-target t<span style="color: #8c8c8c;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">setq</span> dired-recursive-copies 'always<span style="color: #666666; background-color: #F0FFF0;">)</span>
+<span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">setq</span> dired-recursive-deletes 'always<span style="color: #666666; background-color: #F0FFF0;">)</span>
+<span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">setq</span> dired-dwim-target t<span style="color: #666666; background-color: #F0FFF0;">)</span>
 
-<span style="color: #8c8c8c;">(</span>put 'dired-find-alternate-file 'disabled nil<span style="color: #8c8c8c;">)</span>
-<span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">with-eval-after-load</span> 'dired
-    <span style="color: #93a8c6;">(</span>define-key dired-mode-map <span style="color: #b0b1a3;">(</span>kbd <span style="color: #a3be8c;">"RET"</span><span style="color: #b0b1a3;">)</span> 'dired-find-alternate-file<span style="color: #93a8c6;">)</span>
-    <span style="color: #93a8c6;">(</span>define-key dired-mode-map <span style="color: #b0b1a3;">(</span>kbd <span style="color: #a3be8c;">"^"</span><span style="color: #b0b1a3;">)</span> <span style="color: #b0b1a3;">(</span><span style="color: #b48ead;">lambda</span> <span style="color: #97b098;">()</span> <span style="color: #97b098;">(</span><span style="color: #b48ead;">interactive</span><span style="color: #97b098;">)</span> <span style="color: #97b098;">(</span>find-alternate-file <span style="color: #a3be8c;">".."</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>  <span style="color: #c0c5ce;">; </span><span style="color: #65737e;">was dired-up-directory)</span>
+<span style="color: #666666; background-color: #F0FFF0;">(</span>put 'dired-find-alternate-file 'disabled nil<span style="color: #666666; background-color: #F0FFF0;">)</span>
+<span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">with-eval-after-load</span> 'dired
+    <span style="color: #5544EE; background-color: #F0FFF0;">(</span>define-key dired-mode-map <span style="color: #2265DC; background-color: #F0FFF0;">(</span>kbd <span style="color: #119911;">"RET"</span><span style="color: #2265DC; background-color: #F0FFF0;">)</span> 'dired-find-alternate-file<span style="color: #5544EE; background-color: #F0FFF0;">)</span>
+    <span style="color: #5544EE; background-color: #F0FFF0;">(</span>define-key dired-mode-map <span style="color: #2265DC; background-color: #F0FFF0;">(</span>kbd <span style="color: #119911;">"^"</span><span style="color: #2265DC; background-color: #F0FFF0;">)</span> <span style="color: #2265DC; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">lambda</span> <span style="color: #00A89B; background-color: #F0FFF0;">()</span> <span style="color: #00A89B; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">interactive</span><span style="color: #00A89B; background-color: #F0FFF0;">)</span> <span style="color: #00A89B; background-color: #F0FFF0;">(</span>find-alternate-file <span style="color: #119911;">".."</span><span style="color: #00A89B; background-color: #F0FFF0;">)</span><span style="color: #2265DC; background-color: #F0FFF0;">)</span><span style="color: #5544EE; background-color: #F0FFF0;">)</span><span style="color: #666666; background-color: #F0FFF0;">)</span>  <span style="color: #7f7f7f;">; </span><span style="color: #7f7f7f;">was dired-up-directory)</span>
 </pre>
 </div></li>
 <li><a href="https://github.com/crocket/dired-single">dired-single</a><br /></li>
@@ -273,7 +273,7 @@ dired默认情况下每个目录会单独开一个buffer，而这是我们所不
 <a href="https://www.emacswiki.org/emacs/dired+.el">dired+</a><br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span>diredp-toggle-find-file-reuse-dir 1<span style="color: #8c8c8c;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #666666; background-color: #F0FFF0;">(</span>diredp-toggle-find-file-reuse-dir 1<span style="color: #666666; background-color: #F0FFF0;">)</span>
 </pre>
 </div></li>
 </ul>
@@ -284,7 +284,7 @@ dired默认情况下每个目录会单独开一个buffer，而这是我们所不
 <h3 id="orge73d4f3">拷贝</h3>
 <div class="outline-text-3" id="text-orge73d4f3">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">setq</span> dired-dwim-target t<span style="color: #8c8c8c;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">setq</span> dired-dwim-target t<span style="color: #666666; background-color: #F0FFF0;">)</span>
 </pre>
 </div>
 <p>
@@ -299,9 +299,9 @@ dired默认情况下每个目录会单独开一个buffer，而这是我们所不
 有些系统生成的文件我们并不希望看到，例如python的pyc文件，这时可以忽略：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">setq-default</span> dired-omit-files-p t<span style="color: #8c8c8c;">)</span>
-<span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">setq</span> dired-omit-files
-      <span style="color: #93a8c6;">(</span>concat dired-omit-files <span style="color: #a3be8c;">"\\.pyc$"</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">setq-default</span> dired-omit-files-p t<span style="color: #666666; background-color: #F0FFF0;">)</span>
+<span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">setq</span> dired-omit-files
+      <span style="color: #5544EE; background-color: #F0FFF0;">(</span>concat dired-omit-files <span style="color: #119911;">"\\.pyc$"</span><span style="color: #5544EE; background-color: #F0FFF0;">)</span><span style="color: #666666; background-color: #F0FFF0;">)</span>
 </pre>
 </div>
 </div>
@@ -310,8 +310,8 @@ dired默认情况下每个目录会单独开一个buffer，而这是我们所不
 <h3 id="orgac1fe26">默认递归操作文件夹</h3>
 <div class="outline-text-3" id="text-orgac1fe26">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">setq</span> dired-recursive-copies 'always<span style="color: #8c8c8c;">)</span>
-<span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">setq</span> dired-recursive-deletes 'always<span style="color: #8c8c8c;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">setq</span> dired-recursive-copies 'always<span style="color: #666666; background-color: #F0FFF0;">)</span>
+<span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">setq</span> dired-recursive-deletes 'always<span style="color: #666666; background-color: #F0FFF0;">)</span>
 </pre>
 </div>
 </div>
@@ -324,9 +324,9 @@ dired默认情况下每个目录会单独开一个buffer，而这是我们所不
 emacs原始的排序只有根据字符和modify time进行排序；有一个插件<a href="https://www.emacswiki.org/emacs/download/dired-sort.el">dired-sort</a> 允许用户根据自己的需要进行排序。但是其中的根据后缀名排序只支持GNU版本的ls；所以对于MacOS及其他系统，最简单的方法是使用elisp版本的ls：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">require</span> '<span style="color: #d08770;">ls-lisp</span><span style="color: #8c8c8c;">)</span>
-<span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">setq</span> ls-lisp-use-insert-directory-program nil<span style="color: #8c8c8c;">)</span>
-<span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">setq</span> ls-lisp-verbosity nil<span style="color: #8c8c8c;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">require</span> '<span style="color: #3465BD;">ls-lisp</span><span style="color: #666666; background-color: #F0FFF0;">)</span>
+<span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">setq</span> ls-lisp-use-insert-directory-program nil<span style="color: #666666; background-color: #F0FFF0;">)</span>
+<span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">setq</span> ls-lisp-verbosity nil<span style="color: #666666; background-color: #F0FFF0;">)</span>
 </pre>
 </div>
 
@@ -334,18 +334,18 @@ emacs原始的排序只有根据字符和modify time进行排序；有一个插�
 并且，我希望文件夹能处在文件的前面：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">defun</span> <span style="color: #8fa1b3;">custom-dired-sort-dir-first</span> <span style="color: #93a8c6;">()</span>
-  <span style="color: #a3be8c;">"Dired sort hook to list directories first."</span>
-  <span style="color: #93a8c6;">(</span><span style="color: #b48ead;">save-excursion</span>
-    <span style="color: #b0b1a3;">(</span><span style="color: #b48ead;">let</span> <span style="color: #97b098;">(</span>buffer-read-only<span style="color: #97b098;">)</span>
-      <span style="color: #97b098;">(</span>forward-line 2<span style="color: #97b098;">)</span> <span style="color: #c0c5ce;">;; </span><span style="color: #65737e;">beyond dir. header</span>
-      <span style="color: #97b098;">(</span>sort-regexp-fields t <span style="color: #a3be8c;">"^.*$"</span> <span style="color: #a3be8c;">"[ ]*."</span> <span style="color: #aebed8;">(</span>point<span style="color: #aebed8;">)</span> <span style="color: #aebed8;">(</span>point-max<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span>
-  <span style="color: #93a8c6;">(</span><span style="color: #b48ead;">and</span> <span style="color: #b0b1a3;">(</span><span style="color: #b48ead;">featurep</span> '<span style="color: #d08770;">xemacs</span><span style="color: #b0b1a3;">)</span>
-       <span style="color: #b0b1a3;">(</span>fboundp 'dired-insert-set-properties<span style="color: #b0b1a3;">)</span>
-       <span style="color: #b0b1a3;">(</span>dired-insert-set-properties <span style="color: #97b098;">(</span>point-min<span style="color: #97b098;">)</span> <span style="color: #97b098;">(</span>point-max<span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span>
-  <span style="color: #93a8c6;">(</span>set-buffer-modified-p nil<span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">defun</span> <span style="color: #3063EA;">custom-dired-sort-dir-first</span> <span style="color: #5544EE; background-color: #F0FFF0;">()</span>
+  <span style="color: #119911;">"Dired sort hook to list directories first."</span>
+  <span style="color: #5544EE; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">save-excursion</span>
+    <span style="color: #2265DC; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">let</span> <span style="color: #00A89B; background-color: #F0FFF0;">(</span>buffer-read-only<span style="color: #00A89B; background-color: #F0FFF0;">)</span>
+      <span style="color: #00A89B; background-color: #F0FFF0;">(</span>forward-line 2<span style="color: #00A89B; background-color: #F0FFF0;">)</span> <span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">beyond dir. header</span>
+      <span style="color: #00A89B; background-color: #F0FFF0;">(</span>sort-regexp-fields t <span style="color: #119911;">"^.*$"</span> <span style="color: #119911;">"[ ]*."</span> <span style="color: #229900; background-color: #F0FFF0;">(</span>point<span style="color: #229900; background-color: #F0FFF0;">)</span> <span style="color: #229900; background-color: #F0FFF0;">(</span>point-max<span style="color: #229900; background-color: #F0FFF0;">)</span><span style="color: #00A89B; background-color: #F0FFF0;">)</span><span style="color: #2265DC; background-color: #F0FFF0;">)</span><span style="color: #5544EE; background-color: #F0FFF0;">)</span>
+  <span style="color: #5544EE; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">and</span> <span style="color: #2265DC; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">featurep</span> '<span style="color: #3465BD;">xemacs</span><span style="color: #2265DC; background-color: #F0FFF0;">)</span>
+       <span style="color: #2265DC; background-color: #F0FFF0;">(</span>fboundp 'dired-insert-set-properties<span style="color: #2265DC; background-color: #F0FFF0;">)</span>
+       <span style="color: #2265DC; background-color: #F0FFF0;">(</span>dired-insert-set-properties <span style="color: #00A89B; background-color: #F0FFF0;">(</span>point-min<span style="color: #00A89B; background-color: #F0FFF0;">)</span> <span style="color: #00A89B; background-color: #F0FFF0;">(</span>point-max<span style="color: #00A89B; background-color: #F0FFF0;">)</span><span style="color: #2265DC; background-color: #F0FFF0;">)</span><span style="color: #5544EE; background-color: #F0FFF0;">)</span>
+  <span style="color: #5544EE; background-color: #F0FFF0;">(</span>set-buffer-modified-p nil<span style="color: #5544EE; background-color: #F0FFF0;">)</span><span style="color: #666666; background-color: #F0FFF0;">)</span>
 
-<span style="color: #8c8c8c;">(</span>add-hook 'dired-after-readin-hook 'custom-dired-sort-dir-first<span style="color: #8c8c8c;">)</span>
+<span style="color: #666666; background-color: #F0FFF0;">(</span>add-hook 'dired-after-readin-hook 'custom-dired-sort-dir-first<span style="color: #666666; background-color: #F0FFF0;">)</span>
 </pre>
 </div>
 
@@ -387,16 +387,16 @@ emacs原始的排序只有根据字符和modify time进行排序；有一个插�
 对于这个问题我最初查到的答案在这里：<a href="http://blog.binchen.org/posts/use-ivy-to-open-recent-directories.html">陈斌的解决方案</a> 。因此很简单的，我把其中fasd的部分去掉就可以用了：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">require</span> '<span style="color: #d08770;">ivy</span><span style="color: #8c8c8c;">)</span> <span style="color: #c0c5ce;">; </span><span style="color: #65737e;">swiper 7.0+ should be installed</span>
+<pre class="src src-emacs-lisp"><span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">require</span> '<span style="color: #3465BD;">ivy</span><span style="color: #666666; background-color: #F0FFF0;">)</span> <span style="color: #7f7f7f;">; </span><span style="color: #7f7f7f;">swiper 7.0+ should be installed</span>
 
-<span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">defun</span> <span style="color: #8fa1b3;">custom-goto-recent-directory</span> <span style="color: #93a8c6;">()</span>
-  <span style="color: #a3be8c;">"Open recent directory with dired"</span>
-  <span style="color: #93a8c6;">(</span><span style="color: #b48ead;">interactive</span><span style="color: #93a8c6;">)</span>
-  <span style="color: #93a8c6;">(</span><span style="color: #b48ead;">unless</span> recentf-mode <span style="color: #b0b1a3;">(</span>recentf-mode 1<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span>
-  <span style="color: #93a8c6;">(</span><span style="color: #b48ead;">let</span> <span style="color: #b0b1a3;">(</span><span style="color: #97b098;">(</span>collection
-         <span style="color: #aebed8;">(</span>delete-dups
-          <span style="color: #b0b0b3;">(</span>append <span style="color: #90a890;">(</span>mapcar 'file-name-directory recentf-list<span style="color: #90a890;">)</span><span style="color: #b0b0b3;">)</span><span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span>
-    <span style="color: #b0b1a3;">(</span>ivy-read <span style="color: #a3be8c;">"directories:"</span> collection <span style="color: #d08770;">:action</span> 'dired<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">defun</span> <span style="color: #3063EA;">custom-goto-recent-directory</span> <span style="color: #5544EE; background-color: #F0FFF0;">()</span>
+  <span style="color: #119911;">"Open recent directory with dired"</span>
+  <span style="color: #5544EE; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">interactive</span><span style="color: #5544EE; background-color: #F0FFF0;">)</span>
+  <span style="color: #5544EE; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">unless</span> recentf-mode <span style="color: #2265DC; background-color: #F0FFF0;">(</span>recentf-mode 1<span style="color: #2265DC; background-color: #F0FFF0;">)</span><span style="color: #5544EE; background-color: #F0FFF0;">)</span>
+  <span style="color: #5544EE; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">let</span> <span style="color: #2265DC; background-color: #F0FFF0;">(</span><span style="color: #00A89B; background-color: #F0FFF0;">(</span>collection
+         <span style="color: #229900; background-color: #F0FFF0;">(</span>delete-dups
+          <span style="color: #999900; background-color: #F0FFF0;">(</span>append <span style="color: #F57900; background-color: #F0FFF0;">(</span>mapcar 'file-name-directory recentf-list<span style="color: #F57900; background-color: #F0FFF0;">)</span><span style="color: #999900; background-color: #F0FFF0;">)</span><span style="color: #229900; background-color: #F0FFF0;">)</span><span style="color: #00A89B; background-color: #F0FFF0;">)</span><span style="color: #2265DC; background-color: #F0FFF0;">)</span>
+    <span style="color: #2265DC; background-color: #F0FFF0;">(</span>ivy-read <span style="color: #119911;">"directories:"</span> collection <span style="color: #009292;">:action</span> 'dired<span style="color: #2265DC; background-color: #F0FFF0;">)</span><span style="color: #5544EE; background-color: #F0FFF0;">)</span><span style="color: #666666; background-color: #F0FFF0;">)</span>
 </pre>
 </div>
 
@@ -408,54 +408,54 @@ emacs原始的排序只有根据字符和modify time进行排序；有一个插�
 dired访问的路径并不会被添加到最近访问里<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">defun</span> <span style="color: #8fa1b3;">recentd-track-opened-file</span> <span style="color: #93a8c6;">()</span>
-    <span style="color: #a3be8c;">"Insert the name of the directory just opened into the recent list."</span>
-    <span style="color: #93a8c6;">(</span><span style="color: #b48ead;">and</span> <span style="color: #b0b1a3;">(</span>derived-mode-p 'dired-mode<span style="color: #b0b1a3;">)</span> default-directory
-        <span style="color: #b0b1a3;">(</span>recentf-add-file default-directory<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span>
-    <span style="color: #c0c5ce;">;; </span><span style="color: #65737e;">Must return nil because it is run from `</span><span style="color: #d08770;">write-file-functions</span><span style="color: #65737e;">'.</span>
-    nil<span style="color: #8c8c8c;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">defun</span> <span style="color: #3063EA;">recentd-track-opened-file</span> <span style="color: #5544EE; background-color: #F0FFF0;">()</span>
+    <span style="color: #119911;">"Insert the name of the directory just opened into the recent list."</span>
+    <span style="color: #5544EE; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">and</span> <span style="color: #2265DC; background-color: #F0FFF0;">(</span>derived-mode-p 'dired-mode<span style="color: #2265DC; background-color: #F0FFF0;">)</span> default-directory
+        <span style="color: #2265DC; background-color: #F0FFF0;">(</span>recentf-add-file default-directory<span style="color: #2265DC; background-color: #F0FFF0;">)</span><span style="color: #5544EE; background-color: #F0FFF0;">)</span>
+    <span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">Must return nil because it is run from `</span><span style="color: #3465BD;">write-file-functions</span><span style="color: #7f7f7f;">'.</span>
+    nil<span style="color: #666666; background-color: #F0FFF0;">)</span>
 
-<span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">defun</span> <span style="color: #8fa1b3;">recentd-track-closed-file</span> <span style="color: #93a8c6;">()</span>
-    <span style="color: #a3be8c;">"Update the recent list when a dired buffer is killed.</span>
-<span style="color: #a3be8c;">That is, remove a non kept dired from the recent list."</span>
-    <span style="color: #93a8c6;">(</span><span style="color: #b48ead;">and</span> <span style="color: #b0b1a3;">(</span>derived-mode-p 'dired-mode<span style="color: #b0b1a3;">)</span> default-directory
-        <span style="color: #b0b1a3;">(</span>recentf-remove-if-non-kept default-directory<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">defun</span> <span style="color: #3063EA;">recentd-track-closed-file</span> <span style="color: #5544EE; background-color: #F0FFF0;">()</span>
+    <span style="color: #119911;">"Update the recent list when a dired buffer is killed.</span>
+<span style="color: #119911;">That is, remove a non kept dired from the recent list."</span>
+    <span style="color: #5544EE; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">and</span> <span style="color: #2265DC; background-color: #F0FFF0;">(</span>derived-mode-p 'dired-mode<span style="color: #2265DC; background-color: #F0FFF0;">)</span> default-directory
+        <span style="color: #2265DC; background-color: #F0FFF0;">(</span>recentf-remove-if-non-kept default-directory<span style="color: #2265DC; background-color: #F0FFF0;">)</span><span style="color: #5544EE; background-color: #F0FFF0;">)</span><span style="color: #666666; background-color: #F0FFF0;">)</span>
 
-<span style="color: #8c8c8c;">(</span>add-hook 'dired-after-readin-hook 'recentd-track-opened-file<span style="color: #8c8c8c;">)</span>
-<span style="color: #8c8c8c;">(</span>add-hook 'kill-buffer-hook 'recentd-track-closed-file<span style="color: #8c8c8c;">)</span>
+<span style="color: #666666; background-color: #F0FFF0;">(</span>add-hook 'dired-after-readin-hook 'recentd-track-opened-file<span style="color: #666666; background-color: #F0FFF0;">)</span>
+<span style="color: #666666; background-color: #F0FFF0;">(</span>add-hook 'kill-buffer-hook 'recentd-track-closed-file<span style="color: #666666; background-color: #F0FFF0;">)</span>
 </pre>
 </div></li>
 <li><p>
 使用org-publish发布静态博客时，生成的html路径会把recentf-list塞满<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">defsubst</span> <span style="color: #8fa1b3;">file-was-visible-p</span> <span style="color: #93a8c6;">(</span>file<span style="color: #93a8c6;">)</span>
-    <span style="color: #a3be8c;">"Return non-nil if FILE's buffer exists and has been displayed."</span>
-    <span style="color: #93a8c6;">(</span><span style="color: #b48ead;">let</span> <span style="color: #b0b1a3;">(</span><span style="color: #97b098;">(</span>buf <span style="color: #aebed8;">(</span>find-buffer-visiting file<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span>
-    <span style="color: #b0b1a3;">(</span><span style="color: #b48ead;">if</span> buf
-        <span style="color: #97b098;">(</span><span style="color: #b48ead;">let</span> <span style="color: #aebed8;">(</span><span style="color: #b0b0b3;">(</span>display-count <span style="color: #90a890;">(</span>buffer-local-value 'buffer-display-count buf<span style="color: #90a890;">)</span><span style="color: #b0b0b3;">)</span><span style="color: #aebed8;">)</span>
-            <span style="color: #aebed8;">(</span><span style="color: #b48ead;">if</span> <span style="color: #b0b0b3;">(</span>&gt; display-count 0<span style="color: #b0b0b3;">)</span> display-count nil<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">defsubst</span> <span style="color: #3063EA;">file-was-visible-p</span> <span style="color: #5544EE; background-color: #F0FFF0;">(</span>file<span style="color: #5544EE; background-color: #F0FFF0;">)</span>
+    <span style="color: #119911;">"Return non-nil if FILE's buffer exists and has been displayed."</span>
+    <span style="color: #5544EE; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">let</span> <span style="color: #2265DC; background-color: #F0FFF0;">(</span><span style="color: #00A89B; background-color: #F0FFF0;">(</span>buf <span style="color: #229900; background-color: #F0FFF0;">(</span>find-buffer-visiting file<span style="color: #229900; background-color: #F0FFF0;">)</span><span style="color: #00A89B; background-color: #F0FFF0;">)</span><span style="color: #2265DC; background-color: #F0FFF0;">)</span>
+    <span style="color: #2265DC; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">if</span> buf
+        <span style="color: #00A89B; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">let</span> <span style="color: #229900; background-color: #F0FFF0;">(</span><span style="color: #999900; background-color: #F0FFF0;">(</span>display-count <span style="color: #F57900; background-color: #F0FFF0;">(</span>buffer-local-value 'buffer-display-count buf<span style="color: #F57900; background-color: #F0FFF0;">)</span><span style="color: #999900; background-color: #F0FFF0;">)</span><span style="color: #229900; background-color: #F0FFF0;">)</span>
+            <span style="color: #229900; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">if</span> <span style="color: #999900; background-color: #F0FFF0;">(</span>&gt; display-count 0<span style="color: #999900; background-color: #F0FFF0;">)</span> display-count nil<span style="color: #229900; background-color: #F0FFF0;">)</span><span style="color: #00A89B; background-color: #F0FFF0;">)</span><span style="color: #2265DC; background-color: #F0FFF0;">)</span><span style="color: #5544EE; background-color: #F0FFF0;">)</span><span style="color: #666666; background-color: #F0FFF0;">)</span>
 
-<span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">let</span> <span style="color: #93a8c6;">(</span><span style="color: #b0b1a3;">(</span>r-list recentf-list<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span>
-    <span style="color: #93a8c6;">(</span><span style="color: #b48ead;">defsubst</span> <span style="color: #8fa1b3;">keep-default-old-and-visible-recentf-p</span> <span style="color: #b0b1a3;">(</span>file<span style="color: #b0b1a3;">)</span>
-    <span style="color: #a3be8c;">"Decide whether to keep file in recentf-list.</span>
-<span style="color: #a3be8c;">    Return non-nil if recentf would, by default, keep FILE, and</span>
-<span style="color: #a3be8c;">    either FILE name was loaded from recentf file on disk or FILE</span>
-<span style="color: #a3be8c;">    has been displayed in this session."</span>
-    <span style="color: #b0b1a3;">(</span><span style="color: #b48ead;">if</span> <span style="color: #97b098;">(</span>recentf-keep-default-predicate file<span style="color: #97b098;">)</span>
-        <span style="color: #97b098;">(</span><span style="color: #b48ead;">or</span> <span style="color: #aebed8;">(</span>member file r-list<span style="color: #aebed8;">)</span>
-            <span style="color: #aebed8;">(</span>file-was-visible-p file<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">let</span> <span style="color: #5544EE; background-color: #F0FFF0;">(</span><span style="color: #2265DC; background-color: #F0FFF0;">(</span>r-list recentf-list<span style="color: #2265DC; background-color: #F0FFF0;">)</span><span style="color: #5544EE; background-color: #F0FFF0;">)</span>
+    <span style="color: #5544EE; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">defsubst</span> <span style="color: #3063EA;">keep-default-old-and-visible-recentf-p</span> <span style="color: #2265DC; background-color: #F0FFF0;">(</span>file<span style="color: #2265DC; background-color: #F0FFF0;">)</span>
+    <span style="color: #119911;">"Decide whether to keep file in recentf-list.</span>
+<span style="color: #119911;">    Return non-nil if recentf would, by default, keep FILE, and</span>
+<span style="color: #119911;">    either FILE name was loaded from recentf file on disk or FILE</span>
+<span style="color: #119911;">    has been displayed in this session."</span>
+    <span style="color: #2265DC; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">if</span> <span style="color: #00A89B; background-color: #F0FFF0;">(</span>recentf-keep-default-predicate file<span style="color: #00A89B; background-color: #F0FFF0;">)</span>
+        <span style="color: #00A89B; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">or</span> <span style="color: #229900; background-color: #F0FFF0;">(</span>member file r-list<span style="color: #229900; background-color: #F0FFF0;">)</span>
+            <span style="color: #229900; background-color: #F0FFF0;">(</span>file-was-visible-p file<span style="color: #229900; background-color: #F0FFF0;">)</span><span style="color: #00A89B; background-color: #F0FFF0;">)</span><span style="color: #2265DC; background-color: #F0FFF0;">)</span><span style="color: #5544EE; background-color: #F0FFF0;">)</span><span style="color: #666666; background-color: #F0FFF0;">)</span>
 
-<span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">setf</span> recentf-keep '<span style="color: #93a8c6;">(</span>keep-default-old-and-visible-recentf-p<span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">setf</span> recentf-keep '<span style="color: #5544EE; background-color: #F0FFF0;">(</span>keep-default-old-and-visible-recentf-p<span style="color: #5544EE; background-color: #F0FFF0;">)</span><span style="color: #666666; background-color: #F0FFF0;">)</span>
 </pre>
 </div></li>
 <li><p>
 TRAMP访问时路径不会出现在recentf-list里<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">require</span> '<span style="color: #d08770;">recentf</span><span style="color: #8c8c8c;">)</span>
-<span style="color: #8c8c8c;">(</span><span style="color: #b48ead;">setq</span> recentf-auto-cleanup 'never<span style="color: #8c8c8c;">)</span> <span style="color: #c0c5ce;">;; </span><span style="color: #65737e;">disable before we start recentf!</span>
-<span style="color: #8c8c8c;">(</span>recentf-mode 1<span style="color: #8c8c8c;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">require</span> '<span style="color: #3465BD;">recentf</span><span style="color: #666666; background-color: #F0FFF0;">)</span>
+<span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">setq</span> recentf-auto-cleanup 'never<span style="color: #666666; background-color: #F0FFF0;">)</span> <span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">disable before we start recentf!</span>
+<span style="color: #666666; background-color: #F0FFF0;">(</span>recentf-mode 1<span style="color: #666666; background-color: #F0FFF0;">)</span>
 </pre>
 </div></li>
 </ol>
