@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-04-22 Sun 18:51 -->
+<!-- 2018-05-07 Mon 20:08 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>Mail with Emacs</title>
 <meta name="generator" content="Org mode" />
@@ -130,30 +130,30 @@ github: <a href="https://github.com/OfflineIMAP/offlineimap">https://github.com/
 
 <div class="org-src-container">
 <pre class="src src-python">[DEFAULT]
-<span style="color: #b8860b;">postsynchook</span> = python ~/offlineimapnotify.py // &#21516;&#27493;&#20043;&#21518;&#35843;&#29992;&#65292;&#21487;&#20197;&#29992;&#26469;&#26816;&#27979;&#26159;&#21542;&#26377;&#26032;&#37038;&#20214;
+<span style="color: #ffeead;">postsynchook</span> = python ~/offlineimapnotify.py // &#21516;&#27493;&#20043;&#21518;&#35843;&#29992;&#65292;&#21487;&#20197;&#29992;&#26469;&#26816;&#27979;&#26159;&#21542;&#26377;&#26032;&#37038;&#20214;
 
 [general]
-<span style="color: #b8860b;">ui</span>=TTYUI
-<span style="color: #b8860b;">accounts</span> = 163
-<span style="color: #b8860b;">autorefresh</span> = 5
+<span style="color: #ffeead;">ui</span>=TTYUI
+<span style="color: #ffeead;">accounts</span> = 163
+<span style="color: #ffeead;">autorefresh</span> = 5
 
 [Account 163]
-<span style="color: #b8860b;">localrepository</span> = 163-Local
-<span style="color: #b8860b;">remoterepository</span> = 163-Remote
+<span style="color: #ffeead;">localrepository</span> = 163-Local
+<span style="color: #ffeead;">remoterepository</span> = 163-Remote
 
 [Repository 163-Local]
-<span style="color: #009292;">type</span> = Maildir // https://en.wikipedia.org/wiki/Maildir
-<span style="color: #b8860b;">localfolders</span> = ~/.Mail/YOUR_ACCOUNT
+<span style="color: #ebbbff;">type</span> = Maildir // https://en.wikipedia.org/wiki/Maildir
+<span style="color: #ffeead;">localfolders</span> = ~/.Mail/YOUR_ACCOUNT
 
 [Repository 163-Remote]
-<span style="color: #009292;">type</span> = IMAP
-<span style="color: #b8860b;">remotehost</span> = imap.163.com
-<span style="color: #b8860b;">remoteuser</span> = YOUR_ACCOUNT // &#20320;&#30340;&#36134;&#25143;
-<span style="color: #b8860b;">remotepass</span> = YOUR_PASS // &#20320;&#30340;&#23494;&#30721;
-<span style="color: #b8860b;">realdelete</span> = no
-<span style="color: #b8860b;">ssl</span> = yes
-<span style="color: #b8860b;">sslcacertfile</span> = /usr/local/etc/openssl/cert.pem // macos&#19987;&#29992;
-<span style="color: #b8860b;">maxconnections</span> = 1
+<span style="color: #ebbbff;">type</span> = IMAP
+<span style="color: #ffeead;">remotehost</span> = imap.163.com
+<span style="color: #ffeead;">remoteuser</span> = YOUR_ACCOUNT // &#20320;&#30340;&#36134;&#25143;
+<span style="color: #ffeead;">remotepass</span> = YOUR_PASS // &#20320;&#30340;&#23494;&#30721;
+<span style="color: #ffeead;">realdelete</span> = no
+<span style="color: #ffeead;">ssl</span> = yes
+<span style="color: #ffeead;">sslcacertfile</span> = /usr/local/etc/openssl/cert.pem // macos&#19987;&#29992;
+<span style="color: #ffeead;">maxconnections</span> = 1
 </pre>
 </div>
 
@@ -209,7 +209,7 @@ ERROR: IMAP server 'linkplay-Remote' does not have a message with UID '1777'<br 
 此时可以选择对其进行忽略(<a href="http://www.offlineimap.org/configuration/2016/07/18/ignoring-UIDs.html">http://www.offlineimap.org/configuration/2016/07/18/ignoring-UIDs.html</a>)：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp">copy_ignore_eval = lambda foldername: {'INBOX': <span style="color: #666666; background-color: #F0FFF0;">[</span>1777<span style="color: #666666; background-color: #F0FFF0;">]</span>}.get<span style="color: #666666; background-color: #F0FFF0;">(</span>foldername<span style="color: #666666; background-color: #F0FFF0;">)</span>
+<pre class="src src-emacs-lisp">copy_ignore_eval = lambda foldername: {'INBOX': <span style="color: #ffffff;">[</span>1777<span style="color: #ffffff;">]</span>}.get<span style="color: #ffffff;">(</span>foldername<span style="color: #ffffff;">)</span>
 </pre>
 </div>
 </div>
@@ -222,9 +222,9 @@ ERROR: IMAP server 'linkplay-Remote' does not have a message with UID '1777'<br 
 同步之后的脚本可以这么写：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp">newMailCount = int<span style="color: #666666; background-color: #F0FFF0;">(</span>os.popen<span style="color: #5544EE; background-color: #F0FFF0;">(</span>os.path.expanduser<span style="color: #2265DC; background-color: #F0FFF0;">(</span><span style="color: #119911;">"ls ~/.Mail/*/INBOX/new/* | wc -l"</span><span style="color: #2265DC; background-color: #F0FFF0;">)</span> <span style="color: #5544EE; background-color: #F0FFF0;">)</span>.read<span style="color: #5544EE; background-color: #F0FFF0;">()</span>.strip<span style="color: #5544EE; background-color: #F0FFF0;">()</span><span style="color: #666666; background-color: #F0FFF0;">)</span>
+<pre class="src src-emacs-lisp">newMailCount = int<span style="color: #ffffff;">(</span>os.popen<span style="color: #99ffff;">(</span>os.path.expanduser<span style="color: #ffeead;">(</span><span style="color: #99ffff;">"ls ~/.Mail/*/INBOX/new/* | wc -l"</span><span style="color: #ffeead;">)</span> <span style="color: #99ffff;">)</span>.read<span style="color: #99ffff;">()</span>.strip<span style="color: #99ffff;">()</span><span style="color: #ffffff;">)</span>
 if newMailCount &gt; 0:
-os.system<span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #119911;">"osascript -e </span><span style="color: #AA0000; font-weight: bold;">\</span><span style="color: #119911;">'display notification \"You have %d unread mails\" with title \"Mail\" sound name \"Glass\"</span><span style="color: #AA0000; font-weight: bold;">\</span><span style="color: #119911;">'"</span> % newMailCount<span style="color: #666666; background-color: #F0FFF0;">)</span>
+os.system<span style="color: #ffffff;">(</span><span style="color: #99ffff;">"osascript -e </span><span style="color: #ff9da4; font-weight: bold;">\</span><span style="color: #99ffff;">'display notification \"You have %d unread mails\" with title \"Mail\" sound name \"Glass\"</span><span style="color: #ff9da4; font-weight: bold;">\</span><span style="color: #99ffff;">'"</span> % newMailCount<span style="color: #ffffff;">)</span>
 </pre>
 </div>
 
@@ -279,18 +279,18 @@ os.system<span style="color: #666666; background-color: #F0FFF0;">(</span><span 
 通过brew安装的mu4e会默认以/usr/local/emacs为当前的Emacs，而相对应的el文件则保存在/usr/local/share/emacs/site-lisp下，所以在配置文件中要设置一下，不然找不到：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">let</span> <span style="color: #5544EE; background-color: #F0FFF0;">(</span><span style="color: #2265DC; background-color: #F0FFF0;">(</span>default-directory <span style="color: #119911;">"/usr/local/share/emacs/site-lisp/"</span><span style="color: #2265DC; background-color: #F0FFF0;">)</span><span style="color: #5544EE; background-color: #F0FFF0;">)</span>
-  <span style="color: #5544EE; background-color: #F0FFF0;">(</span>normal-top-level-add-subdirs-to-load-path<span style="color: #5544EE; background-color: #F0FFF0;">)</span><span style="color: #666666; background-color: #F0FFF0;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #ffffff;">(</span><span style="color: #d1f1a9;">let</span> <span style="color: #99ffff;">(</span><span style="color: #ffeead;">(</span>default-directory <span style="color: #99ffff;">"/usr/local/share/emacs/site-lisp/"</span><span style="color: #ffeead;">)</span><span style="color: #99ffff;">)</span>
+  <span style="color: #99ffff;">(</span>normal-top-level-add-subdirs-to-load-path<span style="color: #99ffff;">)</span><span style="color: #ffffff;">)</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">setq</span>
- mu4e-maildir       <span style="color: #119911;">"~/.Mail"</span>     <span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">top-level Maildir</span>
- mu4e-sent-folder   <span style="color: #119911;">"/sent"</span>       <span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">folder for sent messages</span>
- mu4e-drafts-folder <span style="color: #119911;">"/drafts"</span>     <span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">unfinished messages</span>
- mu4e-trash-folder  <span style="color: #119911;">"/trash"</span>      <span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">trashed messages</span>
- mu4e-refile-folder <span style="color: #119911;">"/archive"</span><span style="color: #666666; background-color: #F0FFF0;">)</span>   <span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">saved messages</span>
+<pre class="src src-emacs-lisp"><span style="color: #ffffff;">(</span><span style="color: #d1f1a9;">setq</span>
+ mu4e-maildir       <span style="color: #99ffff;">"~/.Mail"</span>     <span style="color: #7285b7; font-style: italic;">;; </span><span style="color: #7285b7; font-style: italic;">top-level Maildir</span>
+ mu4e-sent-folder   <span style="color: #99ffff;">"/sent"</span>       <span style="color: #7285b7; font-style: italic;">;; </span><span style="color: #7285b7; font-style: italic;">folder for sent messages</span>
+ mu4e-drafts-folder <span style="color: #99ffff;">"/drafts"</span>     <span style="color: #7285b7; font-style: italic;">;; </span><span style="color: #7285b7; font-style: italic;">unfinished messages</span>
+ mu4e-trash-folder  <span style="color: #99ffff;">"/trash"</span>      <span style="color: #7285b7; font-style: italic;">;; </span><span style="color: #7285b7; font-style: italic;">trashed messages</span>
+ mu4e-refile-folder <span style="color: #99ffff;">"/archive"</span><span style="color: #ffffff;">)</span>   <span style="color: #7285b7; font-style: italic;">;; </span><span style="color: #7285b7; font-style: italic;">saved messages</span>
 </pre>
 </div>
 </div>
@@ -416,8 +416,8 @@ os.system<span style="color: #666666; background-color: #F0FFF0;">(</span><span 
 <h3 id="orgb686655">send</h3>
 <div class="outline-text-3" id="text-orgb686655">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">setq</span> message-send-mail-function 'smtpmail-send-it<span style="color: #666666; background-color: #F0FFF0;">)</span>
-<span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">setq</span> smtpmail-smtp-server <span style="color: #119911;">"smtp.example.org"</span><span style="color: #666666; background-color: #F0FFF0;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #ffffff;">(</span><span style="color: #d1f1a9;">setq</span> message-send-mail-function 'smtpmail-send-it<span style="color: #ffffff;">)</span>
+<span style="color: #ffffff;">(</span><span style="color: #d1f1a9;">setq</span> smtpmail-smtp-server <span style="color: #99ffff;">"smtp.example.org"</span><span style="color: #ffffff;">)</span>
 </pre>
 </div>
 
@@ -425,7 +425,7 @@ os.system<span style="color: #666666; background-color: #F0FFF0;">(</span><span 
 本地不处理已发邮件:<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #666666; background-color: #F0FFF0;">(</span><span style="color: #a020f0;">setq</span> mu4e-sent-messages-behavior 'delete<span style="color: #666666; background-color: #F0FFF0;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #ffffff;">(</span><span style="color: #d1f1a9;">setq</span> mu4e-sent-messages-behavior 'delete<span style="color: #ffffff;">)</span>
 </pre>
 </div>
 </div>
