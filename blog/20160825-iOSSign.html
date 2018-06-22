@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-05-20 Sun 15:42 -->
+<!-- 2018-06-22 Fri 13:27 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>iOS代码签名理解</title>
 <meta name="generator" content="Org mode" />
@@ -63,9 +63,9 @@
 </p>
 </div>
 
-<div id="outline-container-orge27cdc2" class="outline-3">
-<h3 id="orge27cdc2">Certificate</h3>
-<div class="outline-text-3" id="text-orge27cdc2">
+<div id="outline-container-orge73d227" class="outline-3">
+<h3 id="orge73d227">Certificate</h3>
+<div class="outline-text-3" id="text-orge73d227">
 <p>
 　　数字签名的整个流程大概是这样的：对于要加密的文件，首先生成其对应的hash（一份文件对应唯一的hash），然后使用私钥对其加密，并记录下来。用户收到文件后，使用公钥解密得到hash，然后跟自己计算的文件的hash作对比。如果一样，则说明文件没有被修改过，且文件来源于与此公钥配对的私钥的持有者。<br />
 </p>
@@ -109,7 +109,7 @@ MCsCAQACBQCtbWYxAgMBAAECBDpl33UCAwDepwIDAMdnAgI/dwICcT8CAjMj
 -----END RSA PRIVATE KEY-----
 
 -----BEGIN PUBLIC KEY-----
-<span style="color: #ffeead;">MCAwDQYJKoZIhvcNAQEBBQADDwAwDAIFAK1tZjECAwEAAQ</span>==
+<span style="color: #dcaeea;">MCAwDQYJKoZIhvcNAQEBBQADDwAwDAIFAK1tZjECAwEAAQ</span>==
 -----END PUBLIC KEY-----
 </pre>
 </div>
@@ -133,7 +133,7 @@ coefficient: 13091 (0x3323)
 
 openssl rsa -pubin -in pubkey.pubkey -text -noout
 &#36755;&#20986;&#65306;
-<span style="color: #ffc58f;">Modulus</span> (32 bit): 2909627953 (0xad6d6631)
+<span style="color: #c678dd;">Modulus</span> (32 bit): 2909627953 (0xad6d6631)
 Exponent: 65537 (0x10001)
 </pre>
 </div>
@@ -261,9 +261,9 @@ A=B^publicExponent mod modulus；B=A^privateExponent mod modulus<br />
 </div>
 </div>
 
-<div id="outline-container-org9d8706a" class="outline-3">
-<h3 id="org9d8706a">Certificate</h3>
-<div class="outline-text-3" id="text-org9d8706a">
+<div id="outline-container-orgcc6967e" class="outline-3">
+<h3 id="orgcc6967e">Certificate</h3>
+<div class="outline-text-3" id="text-orgcc6967e">
 <p>
 下一步，我们需要登录developer.apple.com来生成证书。具体步骤这里就不多说了，总之结果就是我们得到了证书（.cer）。我们要关心的是这一步发生了什么呢？<br />
 </p>
@@ -304,7 +304,7 @@ A=B^publicExponent mod modulus；B=A^privateExponent mod modulus<br />
 
 <div class="org-src-container">
 <pre class="src src-bash">openssl x509 -inform der -in ios_distribution.cer -out ios_distribution.pem
-openssl pkcs12 -export -in ios_distribution.pem -inkey private.key -out test.p12 -name <span style="color: #99ffff;">"Test Sign"</span>
+openssl pkcs12 -export -in ios_distribution.pem -inkey private.key -out test.p12 -name <span style="color: #98be65;">"Test Sign"</span>
 </pre>
 </div>
 
@@ -375,7 +375,7 @@ openssl pkcs12 -export -in ios_distribution.pem -inkey private.key -out test.p12
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">codesign -s -f <span style="color: #99ffff;">'{code sign identity}'</span> test.app
+<pre class="src src-bash">codesign -s -f <span style="color: #98be65;">'{code sign identity}'</span> test.app
 </pre>
 </div>
 
@@ -387,31 +387,31 @@ openssl pkcs12 -export -in ios_distribution.pem -inkey private.key -out test.p12
 <pre class="src src-bash">codesign -vv -d test.app
 &#36755;&#20986;&#65306;
 
-<span style="color: #ffeead;">Executable</span>=/Users/hy/Library/Developer/Xcode/DerivedData/test-hekagtjqikppkueajznajyogtpmc/Build/Products/Debug-iphoneos/test.app/test
+<span style="color: #dcaeea;">Executable</span>=/Users/hy/Library/Developer/Xcode/DerivedData/test-hekagtjqikppkueajznajyogtpmc/Build/Products/Debug-iphoneos/test.app/test
 
-<span style="color: #ffeead;">Identifier</span>=com.xxx.test
+<span style="color: #dcaeea;">Identifier</span>=com.xxx.test
 
-<span style="color: #ffeead;">Format</span>=app bundle with Mach-O universal (armv7 arm64)
+<span style="color: #dcaeea;">Format</span>=app bundle with Mach-O universal (armv7 arm64)
 
-CodeDirectory <span style="color: #ffeead;">v</span>=20200 <span style="color: #ffeead;">size</span>=618 <span style="color: #ffeead;">flags</span>=0x0(none) <span style="color: #ffeead;">hashes</span>=14+3 <span style="color: #ffeead;">location</span>=embedded
+CodeDirectory <span style="color: #dcaeea;">v</span>=20200 <span style="color: #dcaeea;">size</span>=618 <span style="color: #dcaeea;">flags</span>=0x0(none) <span style="color: #dcaeea;">hashes</span>=14+3 <span style="color: #dcaeea;">location</span>=embedded
 
-Signature <span style="color: #ffeead;">size</span>=4690
+Signature <span style="color: #dcaeea;">size</span>=4690
 
-<span style="color: #ffeead;">Authority</span>=iPhone Distribution: xxx
+<span style="color: #dcaeea;">Authority</span>=iPhone Distribution: xxx
 
-<span style="color: #ffeead;">Authority</span>=Apple Worldwide Developer Relations Certification Authority
+<span style="color: #dcaeea;">Authority</span>=Apple Worldwide Developer Relations Certification Authority
 
-<span style="color: #ffeead;">Authority</span>=Apple Root CA
+<span style="color: #dcaeea;">Authority</span>=Apple Root CA
 
-Signed <span style="color: #ffeead;">Time</span>=2016&#24180;8&#26376;8&#26085; &#19979;&#21320;4:19:19
+Signed <span style="color: #dcaeea;">Time</span>=2016&#24180;8&#26376;8&#26085; &#19979;&#21320;4:19:19
 
-Info.plist <span style="color: #ffeead;">entries</span>=27
+Info.plist <span style="color: #dcaeea;">entries</span>=27
 
-<span style="color: #ffeead;">TeamIdentifier</span>=VWEN6QTM5A
+<span style="color: #dcaeea;">TeamIdentifier</span>=VWEN6QTM5A
 
-Sealed Resources <span style="color: #ffeead;">version</span>=2 <span style="color: #ffeead;">rules</span>=12 <span style="color: #ffeead;">files</span>=7
+Sealed Resources <span style="color: #dcaeea;">version</span>=2 <span style="color: #dcaeea;">rules</span>=12 <span style="color: #dcaeea;">files</span>=7
 
-Internal requirements <span style="color: #ffeead;">count</span>=1 <span style="color: #ffeead;">size</span>=168
+Internal requirements <span style="color: #dcaeea;">count</span>=1 <span style="color: #dcaeea;">size</span>=168
 </pre>
 </div>
 
@@ -454,7 +454,7 @@ ProvisionedDevices 此证书可以安装的所有设备的UDID，仅出现在dev
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">security cms -D -i test.mobileprovision | perl -nle <span style="color: #99ffff;">'print $&amp; if m{(?&lt;=&lt;data&gt;).*?(?=&lt;/data&gt;)}'</span> | base64 -D &gt; mobile.cer
+<pre class="src src-bash">security cms -D -i test.mobileprovision | perl -nle <span style="color: #98be65;">'print $&amp; if m{(?&lt;=&lt;data&gt;).*?(?=&lt;/data&gt;)}'</span> | base64 -D &gt; mobile.cer
 </pre>
 </div>
 
