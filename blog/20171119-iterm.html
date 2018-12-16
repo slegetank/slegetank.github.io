@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-11-17 Sat 16:41 -->
+<!-- 2018-12-16 Sun 20:22 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>高效使用iTerm</title>
 <meta name="generator" content="Org mode" />
@@ -87,7 +87,7 @@ zshell（1990）实际上跟bash（1989）差不多老。bash的好处是Linux�
 当前的shell：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-shell"><span style="color: #fd971f;">echo</span> $<span style="color: #fd971f;">SHELL</span>
+<pre class="src src-shell"><span style="color: #c678dd;">echo</span> $<span style="color: #dcaeea;">SHELL</span>
 </pre>
 </div>
 
@@ -110,7 +110,7 @@ Oh My Zsh，POWER OVERWHELMING!<br />
 </p>
 
 <div class="org-src-container">
-<pre class="src src-shell">sh -c <span style="color: #e2c770;">"$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"</span>
+<pre class="src src-shell">sh -c <span style="color: #98be65;">"$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"</span>
 </pre>
 </div>
 </div>
@@ -266,8 +266,8 @@ zshell的配置文件在用户目录下，即~/.zshrc，用你喜欢的编辑器
 绑定快捷键很简单，如下：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-shell"><span style="color: #fd971f;">bindkey</span> <span style="color: #e2c770;">'^B'</span> backward-word
-<span style="color: #fd971f;">bindkey</span> <span style="color: #e2c770;">'^F'</span> forward-word
+<pre class="src src-shell"><span style="color: #c678dd;">bindkey</span> <span style="color: #98be65;">'^B'</span> backward-word
+<span style="color: #c678dd;">bindkey</span> <span style="color: #98be65;">'^F'</span> forward-word
 </pre>
 </div>
 
@@ -284,11 +284,11 @@ zshell的配置文件在用户目录下，即~/.zshrc，用你喜欢的编辑器
 切换到Finder同目录：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-shell"><span style="color: #b6e63e;">df</span>()
+<pre class="src src-shell"><span style="color: #c678dd;">df</span>()
 {
-    <span style="color: #fd971f;">curFinderDir</span>=<span style="color: #9c91e4; font-weight: bold;">`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`</span>
-    <span style="color: #fd971f;">echo</span> <span style="color: #e2c770;">"\033[31m$curFinderDir\033[0m"</span>
-    <span style="color: #fd971f;">cd</span> $<span style="color: #fd971f;">curFinderDir</span>
+    <span style="color: #dcaeea;">curFinderDir</span>=<span style="color: #51afef; font-weight: bold;">`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`</span>
+    <span style="color: #c678dd;">echo</span> <span style="color: #98be65;">"\033[31m$curFinderDir\033[0m"</span>
+    <span style="color: #c678dd;">cd</span> $<span style="color: #dcaeea;">curFinderDir</span>
 }
 </pre>
 </div>
@@ -297,11 +297,11 @@ zshell的配置文件在用户目录下，即~/.zshrc，用你喜欢的编辑器
 切换到Xcode同目录：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-shell"><span style="color: #b6e63e;">dx</span>()
+<pre class="src src-shell"><span style="color: #c678dd;">dx</span>()
 {
-    <span style="color: #fd971f;">curXcodeProjectDir</span>=<span style="color: #9c91e4; font-weight: bold;">`osascript -e 'tell application id "com.apple.dt.Xcode" to return path of document 1'`</span>
-    <span style="color: #fd971f;">echo</span> <span style="color: #e2c770;">"\033[31m$curXcodeProjectDir\033[0m"</span>
-    <span style="color: #fd971f;">cd</span> $<span style="color: #fd971f;">curXcodeProjectDir</span>/..
+    <span style="color: #dcaeea;">curXcodeProjectDir</span>=<span style="color: #51afef; font-weight: bold;">`osascript -e 'tell application id "com.apple.dt.Xcode" to return path of document 1'`</span>
+    <span style="color: #c678dd;">echo</span> <span style="color: #98be65;">"\033[31m$curXcodeProjectDir\033[0m"</span>
+    <span style="color: #c678dd;">cd</span> $<span style="color: #dcaeea;">curXcodeProjectDir</span>/..
 }
 </pre>
 </div>
@@ -310,13 +310,13 @@ zshell的配置文件在用户目录下，即~/.zshrc，用你喜欢的编辑器
 切换到Android Studio同目录：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-shell"><span style="color: #555556;"># </span><span style="color: #555556;">cd android</span>
-<span style="color: #b6e63e;">da</span>()
+<pre class="src src-shell"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">cd android</span>
+<span style="color: #c678dd;">da</span>()
 {
-    <span style="color: #fd971f;">title</span>=<span style="color: #9c91e4; font-weight: bold;">`osascript -e 'tell application "System Events" to get the {title} of window 1 of process "Android Studio"'`</span>
-    <span style="color: #fd971f;">title</span>=$(<span style="color: #fd971f;">echo</span> ${<span style="color: #fd971f;">$</span>{<span style="color: #fd971f;">title</span>#*- <span style="color: #e2c770;">\[</span>}%<span style="color: #e2c770;">\]</span>*} | sed <span style="color: #e2c770;">"s|^~|$HOME|g"</span>)
-    <span style="color: #fd971f;">echo</span> <span style="color: #e2c770;">"\033[31m$title\033[0m"</span>
-    <span style="color: #fd971f;">cd</span> $<span style="color: #fd971f;">title</span>/
+    <span style="color: #dcaeea;">title</span>=<span style="color: #51afef; font-weight: bold;">`osascript -e 'tell application "System Events" to get the {title} of window 1 of process "Android Studio"'`</span>
+    <span style="color: #dcaeea;">title</span>=$(<span style="color: #c678dd;">echo</span> ${<span style="color: #dcaeea;">$</span>{<span style="color: #dcaeea;">title</span>#*- <span style="color: #98be65;">\[</span>}%<span style="color: #98be65;">\]</span>*} | sed <span style="color: #98be65;">"s|^~|$HOME|g"</span>)
+    <span style="color: #c678dd;">echo</span> <span style="color: #98be65;">"\033[31m$title\033[0m"</span>
+    <span style="color: #c678dd;">cd</span> $<span style="color: #dcaeea;">title</span>/
 }
 </pre>
 </div>
@@ -381,12 +381,12 @@ oh-my-zsh的强大之处就在于其插件系统，自带的插件在其<a href=
 然后可以新建一个.zsh_antigen，把下面的代码放进去：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-shell"><span style="color: #fd971f;">source</span> /usr/local/share/antigen/antigen.zsh
+<pre class="src src-shell"><span style="color: #c678dd;">source</span> /usr/local/share/antigen/antigen.zsh
 
-<span style="color: #555556;"># </span><span style="color: #555556;">Load the oh-my-zsh's library.</span>
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Load the oh-my-zsh's library.</span>
 antigen use oh-my-zsh
 
-<span style="color: #555556;"># </span><span style="color: #555556;">Bundles from the default repo (robbyrussell's oh-my-zsh).</span>
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Bundles from the default repo (robbyrussell's oh-my-zsh).</span>
 antigen bundle git
 antigen bundle z
 antigen bundle python
@@ -401,11 +401,11 @@ antigen bundle changyuheng/zsh-interactive-cd
 antigen bundle laurenkt/zsh-vimto
 antigen bundle psprint/history-search-multi-word
 
-<span style="color: #555556;"># </span><span style="color: #555556;">Load the theme.</span>
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Load the theme.</span>
 antigen bundle mafredri/zsh-async
 antigen bundle sindresorhus/pure
 
-<span style="color: #555556;"># </span><span style="color: #555556;">Tell Antigen that you're done.</span>
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">Tell Antigen that you're done.</span>
 antigen apply
 </pre>
 </div>
@@ -414,7 +414,7 @@ antigen apply
 然后在.zshrc中添加一行<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-shell"><span style="color: #fd971f;">source</span> .zsh_antigen
+<pre class="src src-shell"><span style="color: #c678dd;">source</span> .zsh_antigen
 </pre>
 </div>
 
@@ -488,7 +488,7 @@ antigen apply
 命令行内操作可以用vi指法。例如输入了这么一行指令：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-shell">find . -name <span style="color: #e2c770;">"*.el"</span> | xargs cat | grep -v ^$ | wc -l
+<pre class="src src-shell">find . -name <span style="color: #98be65;">"*.el"</span> | xargs cat | grep -v ^$ | wc -l
 </pre>
 </div></li>
 </ul>

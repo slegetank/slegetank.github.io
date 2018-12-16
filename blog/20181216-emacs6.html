@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-12-16 Sun 20:23 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>文件访问</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">文件访问</h1>
+<p>
+找到需要的文件是每个程序员每天都要做很多遍的事情，因此提高此效率是很有必要的。emacs比其他编辑器效率更高的特性之一就是用buffer代替了通过文件树访问文件；但是通过文件路径访问文件仍然是绕不过去的。本章主要关注这一问题。<br />
+注意，这里把文件和路径作为同一种实体处理，因为找到文件或者路径再打开无非就是多了一步，也避免分的太细而引起的繁琐。<br />
+</p>
+
+<p>
+定位文件分为直接定位与搜索两种，而再细分大概可以分为四种方式：<br />
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">方式</td>
+<td class="org-left">解释</td>
+<td class="org-left">特性</td>
+<td class="org-left">相关包、函数</td>
+</tr>
+
+<tr>
+<td class="org-left">直接访问</td>
+<td class="org-left">利用系统的文件树直接访问</td>
+<td class="org-left">基本行为，效率最低，当然也最稳定</td>
+<td class="org-left">find-file</td>
+</tr>
+
+<tr>
+<td class="org-left">直接搜索</td>
+<td class="org-left">用户指定搜索范围以及关键词，工具帮助用户找到文件</td>
+<td class="org-left">小范围效率高，例如工程内</td>
+<td class="org-left">find-grep-dired find-name-dired projectile-find-file</td>
+</tr>
+
+<tr>
+<td class="org-left">自动检索</td>
+<td class="org-left">工具帮助用户记录平时访问的路径、文件，在此范围内切换</td>
+<td class="org-left">目的性更强，因此效率很高</td>
+<td class="org-left">recentf-list  projectile-switch-project</td>
+</tr>
+
+<tr>
+<td class="org-left">显式记录</td>
+<td class="org-left">用户显式的记录地点，用于以后的搜索范围</td>
+<td class="org-left">目的性最强，但是要用户自己维护列表</td>
+<td class="org-left">bookmark</td>
+</tr>
+</tbody>
+</table>
+
+<div id="outline-container-orgc059f4a" class="outline-2">
+<h2 id="orgc059f4a">直接访问</h2>
+<div class="outline-text-2" id="text-orgc059f4a">
+<p>
+定位文件即找到目标文件，最简单的方式当然是直接输入路径。emacs提供了find-file，而如果装了helm/ivy，路径的补全和识别都能得到很大的提高：<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../static/20181216-emacs6-0.gif" alt="20181216-emacs6-0.gif" /><br />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc85bd5b" class="outline-2">
+<h2 id="orgc85bd5b">直接搜索</h2>
+<div class="outline-text-2" id="text-orgc85bd5b">
+<p>
+直接搜索由于没有任何历史记录来缩小搜索范围，因此会慢一些。<br />
+</p>
+<ul class="org-ul">
+<li><p>
+find-name-dired<br />
+这类指令实际上封装了操作系统shell的指令，在很多地方都能看到emacs类似的行为。例如，dired实际上是封装了ls，而这个指令实际上封装了find，然后又利用了dired。而tramp这种远程访问工具封装了ssh、ftp、adb等指令，然后又利用了dired；而如果在远端主机搜索，又用上了find-grep-dired。<br />
+</p>
+
+<p>
+如果要搜索当前路径下所有后缀名为org的文件，实际上执行的是下面的指令，最终结果是以dired展示出来：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">find . <span style="color: #98be65;">\(</span> -iname <span style="color: #98be65;">\*</span>.org <span style="color: #98be65;">\)</span> -ls
+</pre>
+</div></li>
+
+<li><p>
+find-grep-dired<br />
+与上个指令类似，但是功能是搜索内容。如果找寻文件中包含“org”的文件，封装的指令如下：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">find . \( -type f -exec grep -q -e org \{\} \; \) -ls
+</pre>
+</div></li>
+
+<li>projectile-find-file<br />
+projectile封装了ag指令，也就是<a href="https://github.com/ggreer/the_silver_searcher">silver searcher</a> 。projectile-find-file提供了在工程内搜索文件名的功能，类似find-name-dired；但是由于自动限制了范围，所以更方便。<br /></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org1b07faf" class="outline-2">
+<h2 id="org1b07faf">自动检索</h2>
+<div class="outline-text-2" id="text-org1b07faf">
+<p>
+自动检索的意思就是工具会以某种规则替用户记录其访问过的路径，以自动的限定搜索范围。<br />
+</p>
+</div>
+
+<div id="outline-container-orga12ba64" class="outline-3">
+<h3 id="orga12ba64">最近访问</h3>
+<div class="outline-text-3" id="text-orga12ba64">
+<p>
+另一种访问文件的方式是使用最近访问路径的方式。目前我访问路径的方式有以下三种：<br />
+</p>
+<ol class="org-ol">
+<li>通过emacs<br /></li>
+<li>通过命令行<br /></li>
+<li>通过MacOS的Finder<br /></li>
+</ol>
+
+<p>
+因此把这三种方式归结起来就是我所有访问过的路径。具体配置是这样的：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">slegetank/recent-directories</span> <span style="color: #c678dd;">()</span>
+  <span style="color: #83898d;">"Return recent access directories."</span>
+  <span style="color: #c678dd;">(</span>delete-dups
+   <span style="color: #98be65;">(</span>append
+    <span style="color: #da8548;">(</span>delq nil <span style="color: #a9a1e1;">(</span>mapcar <span style="color: #ECBE7B;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #4db5bd;">(</span>filename<span style="color: #4db5bd;">)</span> <span style="color: #5B6268;">; </span><span style="color: #5B6268;">recentf</span>
+                        <span style="color: #4db5bd;">(</span><span style="color: #51afef;">let</span> <span style="color: #a2b6da;">(</span><span style="color: #9cb6ad;">(</span>directory <span style="color: #51afef;">(</span>file-name-directory filename<span style="color: #51afef;">)</span><span style="color: #9cb6ad;">)</span><span style="color: #a2b6da;">)</span>
+                          <span style="color: #a2b6da;">(</span><span style="color: #51afef;">and</span> <span style="color: #9cb6ad;">(</span>not <span style="color: #51afef;">(</span>file-remote-p directory<span style="color: #51afef;">)</span><span style="color: #9cb6ad;">)</span> <span style="color: #9cb6ad;">(</span>file-exists-p directory<span style="color: #9cb6ad;">)</span> directory<span style="color: #a2b6da;">)</span><span style="color: #4db5bd;">)</span><span style="color: #ECBE7B;">)</span>
+                      recentf-list<span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span>
+    <span style="color: #da8548;">(</span>delq nil <span style="color: #a9a1e1;">(</span>mapcar <span style="color: #ECBE7B;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #4db5bd;">(</span>directory<span style="color: #4db5bd;">)</span> <span style="color: #5B6268;">; </span><span style="color: #5B6268;">finder recent</span>
+                        <span style="color: #4db5bd;">(</span><span style="color: #51afef;">and</span> <span style="color: #a2b6da;">(</span>file-exists-p directory<span style="color: #a2b6da;">)</span> <span style="color: #a2b6da;">(</span>concat directory <span style="color: #98be65;">"/"</span><span style="color: #a2b6da;">)</span><span style="color: #4db5bd;">)</span><span style="color: #ECBE7B;">)</span>
+                      <span style="color: #ECBE7B;">(</span>split-string <span style="color: #4db5bd;">(</span>shell-command-to-string <span style="color: #a2b6da;">(</span>format <span style="color: #98be65;">"python %s/init/osx-recent-dir.py"</span> user-emacs-directory<span style="color: #a2b6da;">)</span><span style="color: #4db5bd;">)</span> <span style="color: #98be65;">"\n"</span> t<span style="color: #ECBE7B;">)</span><span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span>
+    <span style="color: #da8548;">(</span><span style="color: #51afef;">when</span> <span style="color: #a9a1e1;">(</span>file-exists-p <span style="color: #98be65;">"~/.z"</span><span style="color: #a9a1e1;">)</span> <span style="color: #5B6268;">; </span><span style="color: #5B6268;">append lines from z; append top 20 dirs</span>
+      <span style="color: #a9a1e1;">(</span>mapcar <span style="color: #ECBE7B;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #4db5bd;">(</span>directory<span style="color: #4db5bd;">)</span>
+                <span style="color: #4db5bd;">(</span><span style="color: #51afef;">and</span> <span style="color: #a2b6da;">(</span>file-exists-p directory<span style="color: #a2b6da;">)</span> <span style="color: #a2b6da;">(</span>concat directory <span style="color: #98be65;">"/"</span><span style="color: #a2b6da;">)</span><span style="color: #4db5bd;">)</span><span style="color: #ECBE7B;">)</span>
+              <span style="color: #ECBE7B;">(</span>split-string <span style="color: #4db5bd;">(</span>shell-command-to-string <span style="color: #98be65;">"cat ~/.z | sort -r -n -k 2 -t \"|\" | cut -f 1 -d \"|\" | head -n 20"</span><span style="color: #4db5bd;">)</span> <span style="color: #98be65;">"\n"</span> t<span style="color: #ECBE7B;">)</span><span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge04086a" class="outline-3">
+<h3 id="orge04086a">按工程切换</h3>
+<div class="outline-text-3" id="text-orge04086a">
+<p>
+<a href="https://github.com/ericdanan/counsel-projectile">Package: projectile</a><br />
+</p>
+
+<p>
+projectile提供了按工程切换路径的方式，实际上也就是每次进入git目录记录以下，也是不错的切换方式。<br />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgebf491a" class="outline-2">
+<h2 id="orgebf491a">显式记录</h2>
+<div class="outline-text-2" id="text-orgebf491a">
+<p>
+利用书签（bookmark），记录最经常要访问文件、路径，可以更快的定位到要去的地方。其官方文档在这里：<a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Bookmarks.html">https://www.gnu.org/software/emacs/manual/html_node/emacs/Bookmarks.html</a><br />
+初看起来有些麻烦，但是如果牵扯到远程访问这种行为的时候就变成了很便捷的一种方式。例如通过tramp用ssh访问了一个远程主机，如果每次再要访问都需要ssh鉴权，然后从根目录找到自己想要去的目录就很麻烦。这时就可以在想要再次访问的路径或者buffer用bookmark-set设置一个书签。下次再要访问的时候直接bookmark-jump就可以直接跳过去了，emacs会处理好ssh、目录定位这些事情。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org20051be" class="outline-2">
+<h2 id="org20051be">访问特定路径</h2>
+<div class="outline-text-2" id="text-org20051be">
+<p>
+除了上面提到的这些可以抽象出来的公有访问方法，还可以自己发挥想象力在自己平时的工作中。例如我平时的工作会有下面这些需求：<br />
+</p>
+
+<ol class="org-ol">
+<li>访问Finder当前打开的路径<br /></li>
+<li>访问Xcode的当前路径<br /></li>
+<li>访问Android Studio的当前路径<br /></li>
+</ol>
+
+<p>
+那么就可以找一下是否有什么命令行可以得到指定的路径字符串，例如访问Finder：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">custom-goto-finder-directory</span> <span style="color: #c678dd;">()</span>
+  <span style="color: #83898d;">"Open OSX Finder path with dired"</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">interactive</span><span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span>dired <span style="color: #98be65;">(</span>file-name-as-directory <span style="color: #da8548;">(</span>s-trim <span style="color: #a9a1e1;">(</span>shell-command-to-string <span style="color: #98be65;">"osascript -e </span><span style="color: #ECBE7B;">\</span><span style="color: #98be65;">'tell app \"Finder\" to POSIX path of (insertion location as alias)</span><span style="color: #ECBE7B;">\</span><span style="color: #98be65;">'"</span><span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<p>
+上面的例子就是用命令行执行了一个apple script，获得到Finder当前窗口的路径，然后用dired打开这个路径。<br />
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>

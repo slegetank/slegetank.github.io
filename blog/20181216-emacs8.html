@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-12-16 Sun 20:22 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>工作流分享</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">工作流分享</h1>
+<p>
+这里分享一下我使用emacs的工作流。原则就是尽量高效，也就是说，操作尽量简化。编辑器作为一个输入文本的工具，应该尽量不影响程序员本身的行为，例如编写代码或者写文章的时候，应该使操作者集中注意力于本身的操作而不是相反。<br />
+</p>
+
+<div id="outline-container-orgcd7941e" class="outline-2">
+<h2 id="orgcd7941e">evil</h2>
+<div class="outline-text-2" id="text-orgcd7941e">
+<p>
+首先，我是vi指法的坚定支持者。vi指法的好处是手指一直处于主键盘区，光标的移动、操作（跳转、选择、复制粘贴等）都脱离鼠标操作，因此不会打断自己写代码的思路。emacs的指法由于没有一个独立的state，因此需要加入meta键，会更复杂一些。<br />
+</p>
+
+<p>
+因此，如果认同vi的指法的话，也会受益于evil-leader的好处，即以一个leader键而不是一个组合键作为命令的开始。现在最流行的是以空格作为leader键，例如space-bb是切换buffer。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0633859" class="outline-2">
+<h2 id="org0633859">单文件编辑</h2>
+<div class="outline-text-2" id="text-org0633859">
+<p>
+除了vi提供的指法之外，还有一些需要知道的包与技巧。<br />
+</p>
+
+<ul class="org-ul">
+<li>高亮<br />
+一般由major-mode决定<br /></li>
+<li>语法检测<br />
+采用flycheck<br /></li>
+<li>补全<br />
+采用company<br /></li>
+<li>搜索<br />
+swiper(s-f)<br /></li>
+<li>替换<br />
+swiper + multi-cursor(s-m)<br /></li>
+<li>跳转<br />
+<ol class="org-ol">
+<li>avy(s-g)<br />
+在文件内自由跳转<br /></li>
+<li>auto-highlight-symbol(c-n/c-p)<br />
+同样的symbol之间跳转<br /></li>
+<li>mark(s-,)<br />
+很多命令会在光标当前位置自动插入一个mark，一般用于跳转之后的跳回<br /></li>
+<li>line-mode(s-l)<br />
+行号默认不需要打开。只有在定位问题的时候才需要<br /></li>
+</ol></li>
+<li>shell(s-t)<br />
+eshell，日常操作都可以，但还是推荐专业的终端工具<br /></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org6dda7ff" class="outline-2">
+<h2 id="org6dda7ff">多文件操作</h2>
+<div class="outline-text-2" id="text-org6dda7ff">
+<p>
+涉及到文件内容的多文件操作也是一个编辑环境需要的，工程相关的下面单独列出。<br />
+涉及到文件的重命名、拷贝、删除等使用dired。<br />
+</p>
+
+<ul class="org-ul">
+<li>跳转(s-.)<br />
+一般由major-mode支持<br /></li>
+<li>跳回(bb)<br />
+一般跳到另一个文件之后使用最简单的switch-buffer再调回来<br /></li>
+<li>搜索<br />
+<ol class="org-ol">
+<li>grep<br />
+按照路径搜索文件内容，emacs提供了很多利用其特性封装的函数<br /></li>
+<li>find<br />
+按照文件名的搜索<br /></li>
+<li>ag/rg<br />
+依然是封装的命令行工具，与grep类似，但速度更快<br /></li>
+</ol></li>
+<li>替换<br />
+ag + counsel + wgrep<br /></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb826fea" class="outline-2">
+<h2 id="orgb826fea">分屏 w</h2>
+<div class="outline-text-2" id="text-orgb826fea">
+<p>
+写代码常用的一个操作是分屏，例如同时编写两部分需要互相交互的代码的时候可能就会用到。关于分屏，有一个原则，就是尽量少，一般最多两个屏，再多就是分散注意力的行为（暂时的弹窗无所谓）。分屏的常用快捷键如下：<br />
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">key</td>
+<td class="org-left">comment</td>
+</tr>
+
+<tr>
+<td class="org-left">wo</td>
+<td class="org-left">Other window, 跳到另一个window</td>
+</tr>
+
+<tr>
+<td class="org-left">wh</td>
+<td class="org-left">Split horizontally, 横向分一个屏</td>
+</tr>
+
+<tr>
+<td class="org-left">wv</td>
+<td class="org-left">Split vertically, 纵向分一个屏</td>
+</tr>
+
+<tr>
+<td class="org-left">wk</td>
+<td class="org-left">Kill all other window, 只保留当前的window</td>
+</tr>
+
+<tr>
+<td class="org-left">ws</td>
+<td class="org-left">Swap window，将当前窗口与另一个窗口交换位置</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org6894e29" class="outline-2">
+<h2 id="org6894e29">buffer b</h2>
+<div class="outline-text-2" id="text-org6894e29">
+<p>
+emacs的一个与众不同的地方就是抽象出了buffer。我们实际操作的对象是一个内存对象而不是实际的文件，只有当加载和保存文件的时候才会与文件打交道。<br />
+只要不显式的杀死buffer就能够访问到buffer，即使这个buffer已经不在内存中了。这在当由于电脑重启等原因导致emacs关闭之后的继续工作时将变得很方便。<br />
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">key</td>
+<td class="org-left">comment</td>
+</tr>
+
+<tr>
+<td class="org-left">ff</td>
+<td class="org-left">加载文件</td>
+</tr>
+
+<tr>
+<td class="org-left">fo</td>
+<td class="org-left">在另一个窗口打开文件</td>
+</tr>
+
+<tr>
+<td class="org-left">bb</td>
+<td class="org-left">切换buffer</td>
+</tr>
+
+<tr>
+<td class="org-left">bo</td>
+<td class="org-left">在另一个窗口切换buffer</td>
+</tr>
+
+<tr>
+<td class="org-left">bk</td>
+<td class="org-left">Kill buffer，关闭当前buffer</td>
+</tr>
+
+<tr>
+<td class="org-left">bi</td>
+<td class="org-left">打开ibuffer，即所有buffer的列表，批量操作</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgd3954bd" class="outline-2">
+<h2 id="orgd3954bd">directory d</h2>
+<div class="outline-text-2" id="text-orgd3954bd">
+<p>
+emacs除了编辑单个文件，还有很强的路径操作功能，其主体也就是dired。dired对于文件的操作很强大，并且支持远程操作。<br />
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">key</td>
+<td class="org-left">comment</td>
+</tr>
+
+<tr>
+<td class="org-left">dd</td>
+<td class="org-left">打开当前buffer所在的路径</td>
+</tr>
+
+<tr>
+<td class="org-left">dr</td>
+<td class="org-left">打开最近访问的路径列表</td>
+</tr>
+
+<tr>
+<td class="org-left">df</td>
+<td class="org-left">访问当前Finder所在的路径</td>
+</tr>
+
+<tr>
+<td class="org-left">dn</td>
+<td class="org-left">neotree</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgd6271fc" class="outline-2">
+<h2 id="orgd6271fc">git g</h2>
+<div class="outline-text-2" id="text-orgd6271fc">
+<p>
+git是目前最流行的版本管理工具，emacs有很好用的magit对其进行了封装，可以无缝的进行代码的提交、更新。<br />
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">key</td>
+<td class="org-left">comment</td>
+</tr>
+
+<tr>
+<td class="org-left">gs</td>
+<td class="org-left">git status，用magit打开当前buffer对应的文件所在的工程</td>
+</tr>
+
+<tr>
+<td class="org-left">gl</td>
+<td class="org-left">last commit，显示当前行所对应的最后一次git commit</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgca56cad" class="outline-2">
+<h2 id="orgca56cad">help h</h2>
+<div class="outline-text-2" id="text-orgca56cad">
+<p>
+自定义的一些帮助功能。<br />
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">key</td>
+<td class="org-left">comment</td>
+</tr>
+
+<tr>
+<td class="org-left">hp</td>
+<td class="org-left">根据包名跳转到其主页，一般是github</td>
+</tr>
+
+<tr>
+<td class="org-left">hy</td>
+<td class="org-left">有道词典</td>
+</tr>
+
+<tr>
+<td class="org-left">hs</td>
+<td class="org-left">搜索引擎</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org7f6075a" class="outline-2">
+<h2 id="org7f6075a">project p</h2>
+<div class="outline-text-2" id="text-org7f6075a">
+<p>
+利用projectile，提供工程相关的操作。<br />
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">key</td>
+<td class="org-left">comment</td>
+</tr>
+
+<tr>
+<td class="org-left">pp</td>
+<td class="org-left">切换工程，很有效的路径切换手段</td>
+</tr>
+
+<tr>
+<td class="org-left">s-F</td>
+<td class="org-left">利用ag搜索工程内文件的内容</td>
+</tr>
+
+<tr>
+<td class="org-left">pf</td>
+<td class="org-left">工程内按文件名查找</td>
+</tr>
+
+<tr>
+<td class="org-left">pb</td>
+<td class="org-left">工程内切换buffer，较少用到</td>
+</tr>
+
+<tr>
+<td class="org-left">pc</td>
+<td class="org-left">清空工程缓存，例如文件路径发送了改变时，此时pf仍会搜索原有的缓存</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org207dda9" class="outline-2">
+<h2 id="org207dda9">bookmark bm</h2>
+<div class="outline-text-2" id="text-org207dda9">
+<p>
+书签是个好东西，特别是涉及远程访问的时候。<br />
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">key</td>
+<td class="org-left">comment</td>
+</tr>
+
+<tr>
+<td class="org-left">bmm</td>
+<td class="org-left">Make bookmark</td>
+</tr>
+
+<tr>
+<td class="org-left">bmj</td>
+<td class="org-left">Jump to bookmark</td>
+</tr>
+
+<tr>
+<td class="org-left">bml</td>
+<td class="org-left">List bookmarks，批量操作</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>

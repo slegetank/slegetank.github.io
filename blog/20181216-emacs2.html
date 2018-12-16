@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-12-16 Sun 20:22 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>elisp</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">elisp</h1>
+<p>
+现代编辑器一般都提供了一些脚本语言用于用户自己的定制，而Emacs毫无疑问是其中的佼佼者。elisp是Emacs的灵魂所在，不会写elisp也就无法体会到Emacs所提供的灵活自由。<br />
+</p>
+
+<p>
+lisp for "List Processor"，elisp是lisp专用于emacs的方言。lisp的标志性语法结构是它的括号，这里不多吐槽。下面简单介绍一下配置所需要了解的语法知识。<br />
+</p>
+
+<p>
+在学习的时候，可以打开scratch buffer,在其中试一下。将光标移动到表达式的结尾按下C-x C-e可以对前面的表达式进行求值。<br />
+</p>
+
+<div id="outline-container-org5093fa2" class="outline-2">
+<h2 id="org5093fa2">开始</h2>
+<div class="outline-text-2" id="text-org5093fa2">
+<p>
+lisp的语法与主流语言有两个标志性的区别：<br />
+</p>
+<ol class="org-ol">
+<li><p>
+前缀操作符<br />
+即操作符在表达式的最前面，好处首先就是没有了其他语言的“优先级”问题。<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>+ 3 4<span style="color: #51afef;">)</span>
+</pre>
+</div></li>
+
+<li>括号<br />
+lisp一直为人诟病的语法结构。习惯了还好，无非就是作用域的结构。当然如果习惯了python这种从设计上就去括号化的语言，可能会对这不爽。<br /></li>
+</ol>
+
+<p>
+elisp作为lisp的方言，以我的观点来看不用太深入学习，因为只是作为配置的话并用不到多么高深的语言技巧与抽象层次，所以只要把基本的一些语法掌握了就可以了。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb64ccba" class="outline-2">
+<h2 id="orgb64ccba">数据类型</h2>
+<div class="outline-text-2" id="text-orgb64ccba">
+</div>
+<div id="outline-container-orgebda364" class="outline-3">
+<h3 id="orgebda364">基本数据类型</h3>
+<div class="outline-text-3" id="text-orgebda364">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">3 <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">int</span>
+3.5 <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">float</span>
+<span style="color: #98be65;">"string"</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">string</span>
+t <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">bool</span>
+nil <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#31354;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfc05d85" class="outline-3">
+<h3 id="orgfc05d85">符号</h3>
+<div class="outline-text-3" id="text-orgfc05d85">
+<p>
+如SICP中所述，编程最重要的两个概念就是抽象和分层。简单来说，抽象即命名；复杂点说，抽象即将事物的复杂性隐去，而以其名称对其操作。lisp中用符号（symbol）来完成这一操作。elisp中，数据与函数分别在不同的命名空间（scheme只有一个命名空间，详见：<a href="https://stackoverflow.com/questions/4578574/what-is-the-difference-between-lisp-1-and-lisp-2">stackoverflow</a>），即函数与变量可以具有相同的名字。<br />
+</p>
+
+<p>
+全局变量：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> a1 3<span style="color: #51afef;">)</span> <span style="color: #5B6268;">;;  </span><span style="color: #5B6268;">-&gt; 3</span>
+<span style="color: #51afef;">(</span><span style="color: #51afef;">defvar</span> <span style="color: #dcaeea;">a1</span> 3 <span style="color: #83898d;">"temp varlue"</span><span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt; 3</span>
+</pre>
+</div>
+
+<p>
+在行末按下C-x C-e，minibuffer会显示"3 (#o3, #x3, ?\C-c)"。此时，在整个emacs的全局都可以访问到一个名为a1的变量，其值为3。defvar跟setq功能相同，只是多了个可选的文档字符串。这在编写插件的时候有用，自己维护配置可以直接使用setq。<br />
+</p>
+
+<p>
+局部变量：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>a2 3<span style="color: #98be65;">)</span>
+      a3<span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">setq</span> a3 1<span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span>message <span style="color: #98be65;">"%s %s"</span> a2 a3<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt; 3 1</span>
+
+<span style="color: #51afef;">(</span><span style="color: #51afef;">let*</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>a2 3<span style="color: #98be65;">)</span>
+       <span style="color: #98be65;">(</span>a3 a2<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span>message <span style="color: #98be65;">"%s %s"</span> a2 a3<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt; 3 3</span>
+</pre>
+</div>
+
+<p>
+let结构有两种：let与let*。let的结构是这样的：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>var1 val1<span style="color: #98be65;">)</span>
+      <span style="color: #98be65;">(</span>var2 val2<span style="color: #98be65;">)</span>
+      ...<span style="color: #c678dd;">)</span>
+  body<span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<p>
+第一个列表用于临时变量的声明赋值；后面的语句是body，它们能使用上面声明的变量。当超出let的括号时，这些临时变量就被释放了。<br />
+let中变量列表的赋值顺序是不定的，因此在第一个例子里a3无法使用a2的值；而let*中后面变量的声明可以使用前面变量的值。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org13dda60" class="outline-3">
+<h3 id="org13dda60">复合数据结构</h3>
+<div class="outline-text-3" id="text-org13dda60">
+<p>
+如果说抽象是纵向的复杂性的话，复合数据就是横向的扩展。《道德经》有云：“道生一,一生二,二生三,三生万物”。lisp复合数据结构的构建向我们展示了这一点。<br />
+</p>
+
+<p>
+空表：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">'<span style="color: #51afef;">()</span> == <span style="color: #51afef;">(</span><span style="color: #51afef;">quote</span> <span style="color: #c678dd;">()</span><span style="color: #51afef;">)</span> == nil
+</pre>
+</div>
+
+<p>
+可以看到一个'，这个符号被称为引用符（quote）。它的作用是表示后面的表不立即求值，而把其当作一个字面值处理。例如：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>+ 1 2<span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt; 3</span>
+'<span style="color: #51afef;">(</span>+ 1 2<span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt; (+ 1 2)</span>
+
+<span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> testquote '<span style="color: #c678dd;">(</span>+ 1 2<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span>apply testquote<span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">3</span>
+</pre>
+</div>
+
+<p>
+两个基本类型的数据可以组合成一个称为序对（cons cell）的结构：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> two <span style="color: #c678dd;">(</span>cons 1 2<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">(1 . 2)</span>
+<span style="color: #51afef;">(</span>car two<span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">1</span>
+<span style="color: #51afef;">(</span>cdr two<span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">2</span>
+</pre>
+</div>
+
+<p>
+cons用于构建序对，car用于取前面的元素，cdr用于取后面的元素(序对与list的区别就是list的最后一个元素为nil)。而按照这种形式可以构成任意长度的表：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> three <span style="color: #c678dd;">(</span>cons 1 <span style="color: #98be65;">(</span>cons 2 <span style="color: #da8548;">(</span>cons 3 nil<span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#31561;&#20215;&#20110;</span>
+<span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> three <span style="color: #c678dd;">(</span>list 1 2 3<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+
+<span style="color: #51afef;">(</span>car three<span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">1</span>
+<span style="color: #51afef;">(</span>cdr three<span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">(2 3)</span>
+</pre>
+</div>
+
+<p>
+因此可以把list看成由很多序对组成的链表，其中每个序对的cdr指向另一个序对，最后一个序对的cdr指向空表。list函数可以看作一个语法糖。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8b87f9f" class="outline-3">
+<h3 id="org8b87f9f">alist</h3>
+<div class="outline-text-3" id="text-org8b87f9f">
+<p>
+那么字典怎么实现呢，即以key的形式直接访问元素？lisp中提供了一种称为<a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Association-Lists.html">association list</a>（a-list）的结构来达到这种效果。它的结构是这样的：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> color-alist '<span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>red . <span style="color: #98be65;">"ff0000"</span><span style="color: #98be65;">)</span>
+                    <span style="color: #98be65;">(</span>green . <span style="color: #98be65;">"00ff00"</span><span style="color: #98be65;">)</span>
+                    <span style="color: #98be65;">(</span>blue . <span style="color: #98be65;">"0000ff"</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<p>
+而使用内置的assoc函数可以进行取操作：<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> green-item <span style="color: #c678dd;">(</span>assoc 'green color-alist<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span> -&gt; <span style="color: #51afef;">(</span>green . <span style="color: #98be65;">"00ff00"</span><span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">item</span>
+<span style="color: #51afef;">(</span>car green-item<span style="color: #51afef;">)</span> -&gt; green <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">key</span>
+<span style="color: #51afef;">(</span>cdr green-item<span style="color: #51afef;">)</span> -&gt; <span style="color: #98be65;">"00ff00"</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">value</span>
+</pre>
+</div>
+
+<p>
+alist中对于key-value的替换是这样做的：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>add-to-list 'color-alist '<span style="color: #c678dd;">(</span>green . <span style="color: #98be65;">"00ff01"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span> -&gt; <span style="color: #51afef;">(</span><span style="color: #c678dd;">(</span>green . <span style="color: #98be65;">"00ff01"</span><span style="color: #c678dd;">)</span> <span style="color: #c678dd;">(</span>red . <span style="color: #98be65;">"ff0000"</span><span style="color: #c678dd;">)</span> <span style="color: #c678dd;">(</span>green . <span style="color: #98be65;">"00ff00"</span><span style="color: #c678dd;">)</span> <span style="color: #c678dd;">(</span>blue . <span style="color: #98be65;">"0000ff"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span>cdr <span style="color: #c678dd;">(</span>assoc 'green color-alist<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span> -&gt; <span style="color: #98be65;">"00ff01"</span>
+</pre>
+</div>
+
+<p>
+即前面的同key的元素会替换后面的。其他操作见官方文档。<br />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1a8e100" class="outline-2">
+<h2 id="org1a8e100">控制结构</h2>
+<div class="outline-text-2" id="text-org1a8e100">
+<p>
+共有三种，分别是顺序、条件和循环（scheme没有循环，而用递归代替了循环）。<br />
+</p>
+</div>
+<div id="outline-container-orgcb29417" class="outline-3">
+<h3 id="orgcb29417">顺序</h3>
+<div class="outline-text-3" id="text-orgcb29417">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">progn</span> expr1 expr2 ...<span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<p>
+progn的作用就是将多条表达式合并成一条，返回值为最后执行的语句；在有的结构里必须这么写，例子见下面的if结构。还有个prog1，它的返回值是第一条表达式的值。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge03fd63" class="outline-3">
+<h3 id="orge03fd63">条件</h3>
+<div class="outline-text-3" id="text-orge03fd63">
+</div>
+<div id="outline-container-orgb136d95" class="outline-4">
+<h4 id="orgb136d95">if</h4>
+<div class="outline-text-4" id="text-orgb136d95">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">if</span> test
+    then
+  else1 else2 ...<span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<p>
+第一个list是条件，第二个list是t的时候执行的表达式，后面跟着的其他语句是nil的时候执行的表达式。返回值为最后执行的语句。例如：<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>a2 3<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">if</span> <span style="color: #98be65;">(</span>&gt; a2 1<span style="color: #98be65;">)</span>
+      <span style="color: #98be65;">(</span><span style="color: #51afef;">progn</span>
+        <span style="color: #da8548;">(</span><span style="color: #51afef;">setq</span> a2 2<span style="color: #da8548;">)</span>
+        <span style="color: #da8548;">(</span>message <span style="color: #98be65;">"Right %s"</span> a2<span style="color: #da8548;">)</span><span style="color: #98be65;">)</span>
+    <span style="color: #98be65;">(</span>message <span style="color: #98be65;">"Wrong %s"</span> a2<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt; Right 2</span>
+</pre>
+</div>
+
+<p>
+还有两个简化版本的if：<br />
+</p>
+<ul class="org-ul">
+<li><p>
+when<br />
+没有else分支的if：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>a2 3<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+    <span style="color: #c678dd;">(</span><span style="color: #51afef;">when</span> <span style="color: #98be65;">(</span>&gt; a2 1<span style="color: #98be65;">)</span>
+    <span style="color: #98be65;">(</span>message <span style="color: #98be65;">"hello"</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div></li>
+
+<li><p>
+unless<br />
+if的else分支：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>a2 3<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+    <span style="color: #c678dd;">(</span><span style="color: #51afef;">unless</span> <span style="color: #98be65;">(</span>&lt; a2 1<span style="color: #98be65;">)</span>
+    <span style="color: #98be65;">(</span>message <span style="color: #98be65;">"hello"</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf72059a" class="outline-4">
+<h4 id="orgf72059a">cond</h4>
+<div class="outline-text-4" id="text-orgf72059a">
+<p>
+多条件语句，返回值为最后执行的语句。<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">cond</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>test1 body11 body12 ...<span style="color: #98be65;">)</span>
+       <span style="color: #98be65;">(</span>test2 body21 body22 ...<span style="color: #98be65;">)</span>
+       ...
+       <span style="color: #98be65;">(</span>t bodyn1 bodyn2 ...<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<p>
+例如：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>a4 4<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">cond</span> <span style="color: #98be65;">(</span><span style="color: #da8548;">(</span>&gt; a4 3<span style="color: #da8548;">)</span> <span style="color: #da8548;">(</span>message <span style="color: #98be65;">"1"</span><span style="color: #da8548;">)</span> <span style="color: #da8548;">(</span>message <span style="color: #98be65;">"&gt;"</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span>
+        <span style="color: #98be65;">(</span><span style="color: #da8548;">(</span>= a4 3<span style="color: #da8548;">)</span> <span style="color: #da8548;">(</span>message <span style="color: #98be65;">"1"</span><span style="color: #da8548;">)</span> <span style="color: #da8548;">(</span>message <span style="color: #98be65;">"="</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span>
+        <span style="color: #98be65;">(</span><span style="color: #da8548;">(</span>&lt; a4 3<span style="color: #da8548;">)</span> <span style="color: #da8548;">(</span>message <span style="color: #98be65;">"1"</span><span style="color: #da8548;">)</span> <span style="color: #da8548;">(</span>message <span style="color: #98be65;">"&lt;"</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt;</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">1</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&gt;</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">"&gt;"</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf9dd35a" class="outline-4">
+<h4 id="orgf9dd35a">逻辑语句</h4>
+<div class="outline-text-4" id="text-orgf9dd35a">
+<p>
+逻辑语句是经常使用的一种控制语句，返回值为最后执行的语句。<br />
+</p>
+
+<ul class="org-ul">
+<li><p>
+and会顺序执行表达式，直到遇到nil。所以返回值为nil或者最后一个语句。通常，<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">if</span> expr1
+    <span style="color: #c678dd;">(</span><span style="color: #51afef;">if</span> expr2
+        ..
+    <span style="color: #98be65;">(</span><span style="color: #51afef;">if</span> exprn-1 exprn<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+<p>
+简写作<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">and</span> expr1 exp2 ...<span style="color: #51afef;">)</span>
+</pre>
+</div></li>
+
+<li><p>
+or会顺序执行表达式，直到遇到一个非nil。所以返回值为第一个非nil的值。<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">if</span> a a b<span style="color: #51afef;">)</span>
+</pre>
+</div>
+<p>
+简写作<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">or</span> a b<span style="color: #51afef;">)</span>
+</pre>
+</div></li>
+
+<li><p>
+not为非：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>not expr<span style="color: #51afef;">)</span>
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc949ece" class="outline-3">
+<h3 id="orgc949ece">循环</h3>
+<div class="outline-text-3" id="text-orgc949ece">
+</div>
+<div id="outline-container-orgba8d0a3" class="outline-4">
+<h4 id="orgba8d0a3">while</h4>
+<div class="outline-text-4" id="text-orgba8d0a3">
+<p>
+返回值为nil。<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">while</span> test
+  body1 body2 ...<span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<p>
+例如：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>count 3<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">while</span> <span style="color: #98be65;">(</span>&gt; count 0<span style="color: #98be65;">)</span>
+    <span style="color: #98be65;">(</span>message <span style="color: #98be65;">"%d"</span> count<span style="color: #98be65;">)</span>
+    <span style="color: #98be65;">(</span><span style="color: #51afef;">setq</span> count <span style="color: #da8548;">(</span>1- count<span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">3</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">2</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">1</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">nil</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8b1272d" class="outline-4">
+<h4 id="org8b1272d">dolist</h4>
+<div class="outline-text-4" id="text-org8b1272d">
+<p>
+elisp提供了更方便的对list的遍历方法，返回值为nil。<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>templist '<span style="color: #da8548;">(</span>1 2 3<span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">dolist</span> <span style="color: #98be65;">(</span>var templist<span style="color: #98be65;">)</span>
+    <span style="color: #98be65;">(</span>message <span style="color: #98be65;">"%d"</span> var<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">3</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">2</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">1</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">nil</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9fcee90" class="outline-2">
+<h2 id="org9fcee90">函数</h2>
+<div class="outline-text-2" id="text-org9fcee90">
+<p>
+按照scheme的看法，函数与数据并没有什么区别，但elisp中还是有区别的。<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> func1 <span style="color: #c678dd;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #98be65;">()</span> <span style="color: #98be65;">(</span>message <span style="color: #98be65;">"hello"</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span>funcall func1<span style="color: #51afef;">)</span>
+
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">scheme&#21487;&#20197;&#30452;&#25509;&#35843;&#29992;</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">(func1)</span>
+</pre>
+</div>
+
+<p>
+elisp提供了更显式的函数定义方式：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">func1</span> <span style="color: #c678dd;">()</span>
+  <span style="color: #c678dd;">(</span>message <span style="color: #98be65;">"hello"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span>func1<span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt; "hello"</span>
+</pre>
+</div>
+
+<p>
+这两种方式在elisp中的符号分别储存在不同的命名空间。现在我们仔细看一下defun。<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">name</span> <span style="color: #c678dd;">(</span>arg1 arg2<span style="color: #c678dd;">)</span>
+  <span style="color: #83898d;">"document string"</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">interactive</span><span style="color: #c678dd;">)</span>
+  body<span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<p>
+一个常见的defun是这样的。第一个元素为函数名，后面的列表是参数列表，参数可以使用&amp;rest和&amp;optional修饰；下面有一个可选的文档字符串以及一个可选的声明列表，最常见的就是(interactive)，表示这个函数是一个可交互的函数，即用户可以通过关联快捷键或者M-x的方式直接调用该函数。对于不需要名字的函数，可以使用lambda表达式：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">bind-key</span> <span style="color: #c678dd;">(</span>kbd <span style="color: #98be65;">"C-c C-1"</span><span style="color: #c678dd;">)</span> <span style="color: #c678dd;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #98be65;">()</span> <span style="color: #98be65;">(</span><span style="color: #51afef;">interactive</span><span style="color: #98be65;">)</span> <span style="color: #98be65;">(</span>message <span style="color: #98be65;">"hello"</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span> global-map<span style="color: #51afef;">)</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org0538f18" class="outline-3">
+<h3 id="org0538f18">修饰</h3>
+<div class="outline-text-3" id="text-org0538f18">
+<p>
+可以在不修改源代码的情况下对函数进行修饰，具体参照<a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Advice-combinators.html">文档</a>。在插件之间相互冲突，或者希望微调第三方插件时这个功能很好用。<br />
+修饰可以对在函数调用前对其参数进行修改；或者修改函数的返回值；我们经常用修饰对第三方插件的一些bug或者其他冲突做修正而不必改动插件内的代码。这里提供一个例子：<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">example-func</span> <span style="color: #c678dd;">(</span>p1 p2 p3<span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span>message <span style="color: #98be65;">"%d %d %d"</span> p1 p2 p3<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+
+<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">example-advice</span> <span style="color: #c678dd;">(</span>oldfunc <span style="color: #ECBE7B;">&amp;rest</span> args<span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span>setcar <span style="color: #98be65;">(</span>nthcdr 1 args<span style="color: #98be65;">)</span> 0<span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span>apply oldfunc args<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+
+<span style="color: #51afef;">(</span>example-func 1 2 3<span style="color: #51afef;">)</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt; "1 2 3"</span>
+
+<span style="color: #51afef;">(</span>advice-add 'example-func <span style="color: #c678dd;">:around</span> 'example-advice<span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span>example-func 1 2 3<span style="color: #51afef;">)</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt; "1 0 3"</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2c0ba58" class="outline-2">
+<h2 id="org2c0ba58">宏</h2>
+<div class="outline-text-2" id="text-org2c0ba58">
+<p>
+在配置中基本上用不到，我实际上也并不是很熟悉。从概念上来说就是用来生成代码的代码。据说是lisp真正强大的地方，有兴趣可以自己研究。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf704ae3" class="outline-2">
+<h2 id="orgf704ae3">作用域</h2>
+<div class="outline-text-2" id="text-orgf704ae3">
+<p>
+elisp的作用域默认为dynamic binding，具体参照<a href="https://www.emacswiki.org/emacs/DynamicBindingVsLexicalBinding">wiki</a>。<br />
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>

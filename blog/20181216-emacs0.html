@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-12-16 Sun 20:22 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>前言</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">前言</h1>
+
+<div id="outline-container-org28ed69b" class="outline-2">
+<h2 id="org28ed69b">是什么</h2>
+<div class="outline-text-2" id="text-org28ed69b">
+<p>
+<a href="https://www.gnu.org/software/emacs/">GNU Emacs</a>(为了简化，后面用Emacs指代GNU Emacs。)的官方对其定义是这样的：<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">An extensible, customizable, free/libre text editor &#8212; and more.
+At its core is an interpreter for Emacs Lisp, a dialect of the Lisp programming language with extensions to support text editing.
+</pre>
+</div>
+
+<p>
+几个关键词是可扩展、可定制、自由、文本编辑器、Emacs Lisp。<br />
+</p>
+<ul class="org-ul">
+<li>可扩展、可定制<br />
+这表示你可以根据自己的需要，而不必拘泥于现存的定义来满足自己的需求。对于已有的功能可以进行修改，对于没有的功能可以自己做出扩展。<br />
+Emacs被称为“神的编辑器”，其中所蕴含的意义之一就是它提供了足够强大的扩展能力，使用者越强，它就能提供更大的支撑。想要见识神器的威力吗？那么你自己要先成神^_^。<br /></li>
+<li>自由<br />
+代码开源，权利自由。你几乎可以根据自己的任意需求对它进行处理。<a href="https://www.gnu.org/philosophy/free-sw.zh-cn.html">真正的自由</a>。实际上，Emacs是<a href="https://www.gnu.org/software/software.html">GNU</a>软件的代表性作品；相对于现在流行的版权（Copyright），GNU提出了<a href="https://www.gnu.org/licenses/copyleft.en.html">Copyleft</a>。<br /></li>
+<li>文本编辑器<br />
+Emacs是个文本编辑器，但用的多了你却会发现，它更像一个操作系统。所以拿Emacs跟Vim比在某种程度上来说是不适合的，因为Vim充其量只是Emacs的一部分。用过<a href="https://github.com/emacs-evil/evil">evil</a>（Emacs中用于模仿vim指法的插件）的人绝对不会纠结这件事。<br />
+《Writing Gnu Emacs Extensions》的前言中说：“这个关于编辑器的定义几乎涵盖了所有交互程序的范畴，而这绝非偶然。交互程序总是用来处理某种数据的编辑器。因此可以说，Emacs在广义上，是一种交互程序的生成器。”可以这么说，只要是数据处理相关的功能，用Emacs都能做出一个高效率的实现出来。比如邮件（Gnus、mu4e、mew等等），git（magit），浏览器（w3m、eww等），shell（eshell）等等，都有良好的表现。<br /></li>
+<li>Emacs Lisp<br />
+elisp是Emacs的扩展脚本，除了最底层的c代码，整个Emacs都是用elisp搭成的，不管是emacs的基础功能模块还是hackers们实现的各种各样的第三方插件。下面会有章节专门讲这门语言。<br />
+Emacs是文本编辑器，所以理论上只要是有文本编辑需求的人都可以用它；但是要想真正的触碰到它的强大的扩展能力就需要用户理解elisp。也就是说，它实际上是面向程序员的编辑器。否则，用户就会毫无疑问的缠绕在琐碎的、不知所谓的快捷键记忆、奇奇怪怪的古老功能设定里；这样的话，与其花时间在这上面还不如去用现在市面上流行的付费软件去。<br /></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgde04356" class="outline-2">
+<h2 id="orgde04356">不是什么</h2>
+<div class="outline-text-2" id="text-orgde04356">
+<p>
+Emacs虽然很强大，但是也不要对它抱有不切实际的期望。<br />
+</p>
+<ol class="org-ol">
+<li>Emacs对网络编程的支持不怎么样。它缺少一个好的支持javascript的浏览器。当然目前看起来，<a href="https://www.gnu.org/philosophy/javascript-trap.zh-cn.html">是不为也,非不能也</a>。<br /></li>
+<li>Emacs毕竟本质上是一个文本编辑器，它对于图像的支持很差。<br /></li>
+<li>elisp的效率比较差，所以不要试图用它做出什么高效率的应用。实际上，在很多实际问题的解决中，elisp编写的插件本身只是作为一个与用户交互的前端出现，而实际的功能都是由其他语言编写的后端提供。例如语言的补全插件<a href="http://company-mode.github.io">company</a>就是这种类型插件的代表。<br /></li>
+</ol>
+
+<p>
+当然了，一个文本编辑器有这些缺点也不是什么丢脸的事，毕竟这已经超出一个编辑器应有的本分了^_^。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org11aff94" class="outline-2">
+<h2 id="org11aff94">为什么</h2>
+<div class="outline-text-2" id="text-org11aff94">
+<p>
+虽然Emacs很强大，但是如果花费了很多时间（实际上也确实需要花费很多时间调教它），最终得到的回报跟用别的IDE、编辑器比并差不了多少，那不是很赔的一件事吗？所以我们必须要解决为什么的问题。<br />
+</p>
+</div>
+<div id="outline-container-orgf99e008" class="outline-3">
+<h3 id="orgf99e008">稳定高效</h3>
+<div class="outline-text-3" id="text-orgf99e008">
+<p>
+在<a href="http://blog.csdn.net/redguardtoo/article/details/7222501">一年成为Emacs高手(像神一样使用编辑器)</a>这篇文章里，作者打了这么一个比方：<br />
+“打个比方,职业杀手对于刀只关心两件事:<br />
+高效地杀人<br />
+任何环境下都可靠<br />
+刀的装饰是否漂亮或技巧是否自己原创对他并不重要.<br />
+Emacs就是那把刀.”<br />
+</p>
+
+<p>
+Emacs毫无疑问具有稳定可靠的特性，至少我的Emacs从来没有自己crash过；而Emacs的跨平台特性，让它在几乎所有流行的平台下（linux/MacOS/Windows/Android，GUI桌面系统以及控制台下）都表现稳定。Emacs当得起“重剑无锋，大巧不工”几个字。<br />
+而且，Emacs作为开源软件将会一直流传下去（1975年至今），而其他商用软件则有可能停止维护。从这方面说Emacs也比其他商用软件具有优势。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf9056ba" class="outline-3">
+<h3 id="orgf9056ba">自由</h3>
+<div class="outline-text-3" id="text-orgf9056ba">
+<p>
+可以说，Emacs是我用过的最自由的一个软件了。它跟大多数现行的软件的设计理念完全不同。现在的软件追求的是量产化，即全部用户的用户体验是相似的，这样才能量产，才能传播开来。为了达到这个目的，就产生了一些产品经理之类的职位，他们会去学习一些用户体验之类的知识，以求达到更好的用户体验之类的目标。比如各种语言的IDE，你需要去学习某个公司设计的IDE相关的各种跳转、重构之类的工具，所以最终的结果与其说人驯化了工具，不如说工具驯化了人（当然这也不一定是坏事；毕竟设计这个工具的人一般都是领域的专业人员，学习他们的操作习惯也不是一件坏事）。用户一般最大的自由就是自定义有限的一些快捷键，仅此而已。<br />
+Emacs的准则则不同。每个人的Emacs都可以是不同的。用户掌握着自由修改定制软件的权力，按照自己的意愿，没有任何强迫的存在。如果你自己做出了一个好用的轮子，那么可以把它贡献出来；别的用户如果觉得它好用，那么可以自由的拿这个轮子来做车，任意修改，几乎没有任何限制。这种自由是我喜欢Emacs的原因之一。<br />
+上面曾经说过，Emacs对于杀手来说就是一把稳定高效的刀；但以我看来，它与用户的关系更像是魔法师与法杖。在<a href="https://github.com/DeathKing/Learning-SICP">SICP</a>中，两位老师曾经说过“计算机科学这个词并不能准确描述我们所从事的学科，因为这门学科既不是关于计算机制造、使用，也不是一门科学，事实上，它更多的是一门工程学或者艺术，并且更多的类似于我们所认知的魔法。”如果把程序员比作魔法师，编码比作魔法咒语的话，那么毫无疑问的Emacs就是那根法杖&#x2013;只是更幸运的是，这根法杖具有能够进化的能力。法师随着自身的需求去改进法杖，而法杖反过来又使法师更加的强大。最终，每个法师的法杖实际上成了自己的一部分，并且是独一无二的。也许你会发现别人的法杖跟你的有点像，但是两把法杖与主人的契合度是完全不同的。很难想到这个世界上还有其他职业的人也有这种幸运。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3284783" class="outline-3">
+<h3 id="org3284783">1 + 1 &gt; 2</h3>
+<div class="outline-text-3" id="text-org3284783">
+<p>
+Emacs有着令人惊叹的学习曲线。你需要花费很多很多时间去打磨它，因此假如与其他IDE等编程环境作对比的话，那么在一开始的一段时间，Emacs是完败的。但是假如用户需要编写多种语言，包括写文章、写博客这些文本处理，那么随着时间的延长，Emacs会逐渐赶上来然后超越。为什么呢？因为随着时间的前进，用户与编辑器的契合度越来越高；当有新的编写需求的时候，用户会以之前的操作习惯去添加新的配置。因此，不管编写的对象如何变，最后的操作习惯却是自己习惯的那一套。可以说，越早学之后的受益就越大。而假如不用Emacs，而是每编写一门新语言就用一个新的IDE的话，那么学习成本一直不会下降；而且如果这些IDE的开发公司还不是一个的话，那么用户还要因为操作习惯的不同而更加难过。<br />
+而且不止如此。当所有的工具都在同一个环境里的时候，工具之间的合作会极大的提高效率。比如在编写python脚本的时候，Emacs内置的eshell会使代码的编写和调试变得无缝；比如在用org mode写文章的时候，可以方便的对文件系统里的文件进行引用。能用Emacs完成的事情越多，切出Emacs的次数越少，这种切换成本的节省就越来越大。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0320e25" class="outline-3">
+<h3 id="org0320e25">除此之外</h3>
+<div class="outline-text-3" id="text-org0320e25">
+<p>
+Emacs是一个强大的知识信息处理工具，写程序只是它的功能之一。即使有一天不做程序员了，不写代码了，只要还需要学习，还需要码字，Emacs就是一个可以陪伴终生的强力工具。org mode是我见过的对程序员最友好的文章编辑工具，编写文档、博客、读书笔记等全部在行。它简单、强大，支持各种文本格式的导出，而最重要的是，它的存储格式是纯文本。只有纯文本才是最健壮、最稳定的信息存储介质。眼花缭乱的工具只能在人与信息之间隔离太多的墙，而分层越多就越不稳定、越会使人远离本质。简单即是美。但简单不等于简陋，Emacs就是这么一个使人能接近信息本质的的强大工具。<br />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge9b09cc" class="outline-2">
+<h2 id="orge9b09cc">如何</h2>
+<div class="outline-text-2" id="text-orge9b09cc">
+<ol class="org-ol">
+<li>学好英语。其实不止是Emacs，其它的hack工具都需要程序员本身具有良好的阅读能力，毕竟大部分的技术文章都是英文的。<br /></li>
+<li>学好基础知识，任何知识的延伸都是建立在良好的基础之上的。如果想认真的学好Emacs，一定至少要把Emacs自带的文档的基础部分通读一遍。<br /></li>
+<li>在开始的时候，不要纠结于主题等细枝末节的东西，否则就是本末倒置；虽然Emacs可以做到很多很酷的操作，但是如果那些操作的使用频率很低，也不必在上面浪费时间。<br /></li>
+<li>除了一些基本快捷键之外，其它快捷键都不要记。Emacs传统的快捷键用起来需要脚踏板，而且小指会断。而且我个人推荐用vim的键位。vim作为Emacs里最好用的编辑器应该得到应有的尊重。<br /></li>
+<li>阅读一流用户的配置。任何知识都是在模仿前人的基础上前进的，Emacs也不例外。在能够理解其配置的情况下，再去做自己的配置。<br /></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgbd831d3" class="outline-2">
+<h2 id="orgbd831d3">目标</h2>
+<div class="outline-text-2" id="text-orgbd831d3">
+<p>
+这个教程主要讲一下我用emacs过程中解决问题的方式，以此来为大家带来启发。我希望，在学完之后，读者能够：<br />
+</p>
+<ol class="org-ol">
+<li>读懂世界一流的配置，例如<a href="https://github.com/purcell/emacs.d">purcell</a>的配置。<br /></li>
+<li>独力编写维护自己的配置。<br /></li>
+<li>Finally, live in Emacs.<br /></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgabb4377" class="outline-2">
+<h2 id="orgabb4377">开始吧</h2>
+<div class="outline-text-2" id="text-orgabb4377">
+<p>
+曾经有人这么盛赞emacs:<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-text">&#24403;&#28982;&#65292;&#20182;&#20204;&#25152;&#26377;&#20154;&#37117;&#20351;&#29992;Emacs&#12290;&#38752;&#65292;Eric Benson&#26159;XEmacs&#30340;&#20316;&#32773;&#20043;&#19968;&#12290;&#36825;&#20010;&#19990;&#30028;&#19978;&#25152;&#26377;&#20255;&#22823;&#30340;&#24037;&#31243;&#24072;&#37117;&#22312;&#29992;Emacs&#12290;&#37027;&#31181;&#19990;&#30028;&#22240;&#20320;&#32780;&#19981;&#21516;&#32423;&#21035;&#30340;&#20255;&#22823;&#12290;&#19981;&#26159;&#22352;&#22312;&#20320;&#26049;&#36793;&#30340;&#26684;&#23376;&#37324;&#30340;&#37027;&#21733;&#20204;&#37027;&#31181;&#20255;&#22823;&#12290;&#20063;&#19981;&#26159;Fred&#65292;&#36208;&#24266;&#23613;&#22836;&#37027;&#21733;&#20204;&#12290;&#25105;&#35828;&#30340;&#26159;&#25105;&#20204;&#36825;&#20010;&#34892;&#19994;&#37324;&#26368;&#20255;&#22823;&#30340;&#36719;&#20214;&#24320;&#21457;&#32773;&#65292;&#37027;&#20123;&#33021;&#25913;&#21464;&#36825;&#20010;&#24037;&#19994;&#30340;&#38754;&#35980;&#30340;&#20154;&#12290;&#20687;James Gosling&#20204;(Java&#35821;&#35328;&#35774;&#35745;&#32773;)&#65292;Donald Knuth&#20204;(&#36825;&#20010;&#20154;&#27809;&#26377;&#21548;&#35828;&#36807;&#30340;&#35805;&#36214;&#32039;&#25913;&#34892;&#21543;&#65292;&#21035;&#25630;&#35745;&#31639;&#26426;&#20102;)&#65292;Paul Graham&#20204;&#65292;Jamie Zawinski&#20204;&#65292;Eric Benson&#20204;&#12290;&#30495;&#27491;&#30340;&#24037;&#31243;&#24072;&#29992;Emacs&#12290;&#20320;&#24517;&#39035;&#24456;&#26377;&#28857;&#32874;&#26126;&#25165;&#33021;&#25226;Emacs&#29992;&#22909;&#65292;&#32780;&#22914;&#26524;&#20320;&#33021;&#25104;&#20026;&#19968;&#20010;Emacs&#22823;&#24072;&#30340;&#35805;&#23427;&#20250;&#32473;&#20320;&#38590;&#20197;&#32622;&#20449;&#30340;&#29275;&#21147;&#12290;&#26377;&#26426;&#20250;&#30340;&#35805;&#20320;&#24212;&#35813;&#31449;&#21040;Paul Nordstrom&#30340;&#32937;&#21518;&#30475;&#30475;&#20182;&#26159;&#24590;&#20040;&#24037;&#20316;&#30340;&#65292;&#22914;&#26524;&#20320;&#19981;&#30456;&#20449;&#25105;&#30340;&#35805;&#12290;&#23545;&#37027;&#20123;&#19968;&#36744;&#23376;&#37117;&#22312;&#29992;&#28866;Visual .Net&#20043;&#31867;&#30340;&#38598;&#25104;&#24320;&#21457;&#29615;&#22659;&#30340;&#20154;&#26469;&#35828;&#65292;&#19968;&#23450;&#20250;&#22823;&#24320;&#30524;&#30028;&#30340;&#12290;
+
+Emacs&#26159;&#37027;&#31181;&#20320;&#21487;&#20197;&#29992;100&#24180;&#30340;&#32534;&#36753;&#22120;&#12290;
+</pre>
+</div>
+
+<p>
+我认为并不是特别夸张（实际上深表认同^_^）。实际上接触emacs可以让你接触到的圈子不一样，你会用高手的思维去面对这个程序世界，更加接触到编写代码的本质。最后，以Neal Stephenson的一句著名的话结束前言:<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-text">Emacs outshines all other editing software in approximately the same way that the noonday sun does the stars. It is not just bigger and brighter; it simply makes everything else vanish.
+</pre>
+</div>
+
+<p>
+所以就像那句老话：“前途是光明的，道路是曲折的”。打好行囊，阔步前行吧。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc151c1a" class="outline-2">
+<h2 id="orgc151c1a">章节简介</h2>
+<div class="outline-text-2" id="text-orgc151c1a">
+</div>
+<div id="outline-container-orgad23fde" class="outline-3">
+<h3 id="orgad23fde"><a href="./1-basic.html">基础</a></h3>
+<div class="outline-text-3" id="text-orgad23fde">
+<p>
+Emacs的一些最基本的概念。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga590ddf" class="outline-3">
+<h3 id="orga590ddf"><a href="./e-elisp.html">elisp</a></h3>
+<div class="outline-text-3" id="text-orga590ddf">
+<p>
+简单介绍一下elisp。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org93ae9a9" class="outline-3">
+<h3 id="org93ae9a9"><a href="./3-mode.html">mode</a></h3>
+<div class="outline-text-3" id="text-org93ae9a9">
+<p>
+描述emacs编辑行为的核心概念mode。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org11b8d6d" class="outline-3">
+<h3 id="org11b8d6d"><a href="./4-begin.html">开始</a></h3>
+<div class="outline-text-3" id="text-org11b8d6d">
+<p>
+配置代码组织以及一些常用的配置。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb435a2b" class="outline-3">
+<h3 id="orgb435a2b"><a href="./5-basicpackage.html">基础包</a></h3>
+<div class="outline-text-3" id="text-orgb435a2b">
+<p>
+有些包是基础包，它们会极大的改变emacs默认的操作方式。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org791e276" class="outline-3">
+<h3 id="org791e276"><a href="./6-access.html">文件访问及管理</a></h3>
+<div class="outline-text-3" id="text-org791e276">
+<p>
+Emacs的强大特性之一就是对于文件的查找、操作、管理。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org67fe55a" class="outline-3">
+<h3 id="org67fe55a"><a href="./7-search.html">搜索与替换</a></h3>
+<div class="outline-text-3" id="text-org67fe55a">
+<p>
+在工程中搜索、替换是程序员的必要技能。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5ba1794" class="outline-3">
+<h3 id="org5ba1794"><a href="./8-workflow.html">工作流</a></h3>
+<div class="outline-text-3" id="text-org5ba1794">
+<p>
+分享一下工作流。<br />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>

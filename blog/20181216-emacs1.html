@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-12-16 Sun 20:22 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>基础</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">基础</h1>
+<p>
+任何更高层的概念都最终由其基础元素所建立；良好的基础能事半功倍。至2018年，Emacs已经40多岁了，许多优秀的（或不优秀的）程序员在生涯中都将其作为主要编辑器。除了Emacs主版本的迭代之外，不同需求、不同境界的程序员都会根据自己的需求编写了许多第三方package（实际上一开始也没有package这种概念，这些都是随着技术的“现代化”等一点点建立起来的）。40年在IT界说是“沧海桑田”也没有太大问题，太多太多新技术出现，Emacs的设计与最初的环境有太多差别。这就带来一个问题，就是Emacs的知识很繁杂，即多且毫无头绪。而抓住了基础也就抓住了纲，不管外围花哨的东西如何变，总是能够清晰的看到学习的脉络，前进的方向。<br />
+</p>
+
+<p>
+本章说是基础，其实也算不上，只是稍微认识一下emacs的基础概念热热身。如果你已经是有经验的Emacs的用户，那么可以跳过这一章。<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../static/20181216-emacs1-0.png" alt="20181216-emacs1-0.png" /><br />
+</p>
+</div>
+
+<div id="outline-container-orgd0693d2" class="outline-2">
+<h2 id="orgd0693d2">Frame &amp; Window</h2>
+<div class="outline-text-2" id="text-orgd0693d2">
+<p>
+Frame是Emacs提供的UI的最外层，Emacs可以同时支持多个frame；每个frame可以分成多个window。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf93ad20" class="outline-2">
+<h2 id="orgf93ad20">Buffer</h2>
+<div class="outline-text-2" id="text-orgf93ad20">
+<p>
+在Emacs中，我们编辑的基本单位是buffer，而不是通常的文件。编辑行为通常是在buffer间切来切去，而会忽略像文件路径这种属性的存在。这种忽略路径的方式可以极大的提高多文件间编辑的效率。<br />
+</p>
+
+<p>
+顾名思义，Buffer就是缓冲区，它存在于内存当中；用户编辑的任何文件都会以buffer的形式与用户交互，用户编辑完成后再把缓冲区的内容写入文件中。但是buffer可能与任何文件都没有关系。你需要知道buffer有以下几个特性：<br />
+</p>
+<ol class="org-ol">
+<li>Buffer可能对应文件，也可能不对应。<br /></li>
+<li>每个Buffer都有一个major mode，以及多个minor mode决定用户的交互行为。<br /></li>
+<li>Buffer所占的内存资源只比其中的文本大一点，现代的硬件条件下同时开几百个buffer也没关系，不必纠结于对buffer的清理。<br /></li>
+</ol>
+
+<p>
+我们还需要知道几个常用的buffer，因为经常需要与它们打交道：<br />
+</p>
+
+<ul class="org-ul">
+<li>Minibuffer<br />
+minibuffer是一个特殊的buffer，它出现在整个frame的最底部，用于显示提示信息或者与用户进行交互，例如提示用户输入要搜索的关键字等。ivy/helm都对minibuffer提供了大量的修饰，使emacs的使用更加便利。<br /></li>
+
+<li>Scratch Buffer<br />
+scratch buffer在buffer列表中的名字是*scratch*，不对应任何文件。顾名思义，这个buffer是用来涂鸦的地方，当然涂鸦的默认方式是用elisp ^_^，当然不止elisp&#x2013;每当你需要一个地方做临时记录而你又不希望把内容保存到文件中的时候，就可以使用它。<br /></li>
+
+<li>Message Buffer<br />
+message buffer是emacs用来输出日志的地方，在调试的时候经常会用到。默认快捷键是"C-h e"。<br /></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org87db71d" class="outline-2">
+<h2 id="org87db71d">Mode</h2>
+<div class="outline-text-2" id="text-org87db71d">
+<p>
+Mode决定了buffer的行为模式，其中major mode每个buffer唯一，它决定了buffer的主要行为模式；minor mode提供了一些额外的、更灵活的行为。<br />
+buffer的major mode可以随时改变，而minor mode可以随时开关以及改变。<br />
+玩emacs实际上经常就是和mode打交道。<br />
+</p>
+</div>
+
+<div id="outline-container-org4ef8d3a" class="outline-3">
+<h3 id="org4ef8d3a">mode line</h3>
+<div class="outline-text-3" id="text-org4ef8d3a">
+<p>
+mode line一般摆放着与当前编辑的buffer相关的信息，最基础的有文件名、当前编辑的位置在文件的百分比，以及当前buffer所使用的major mode和minor modes。<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../static/20181216-emacs1-1.png" alt="20181216-emacs1-1.png" /><br />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4134cb1" class="outline-2">
+<h2 id="org4134cb1">基本快捷键</h2>
+<div class="outline-text-2" id="text-org4134cb1">
+<p>
+在Emacs中的快捷键表示中，C代表Ctrl键，M代表Alt键，s代表super（Mac上的command）键。在Emacs的习惯里，C-x（同时按下Ctrl和x）开头的一般是系统定义的快捷键，C-c是用户自定义的快捷键，C-h是系统提供的帮助函数。下面就是最基本的几个快捷键：<br />
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Key</td>
+<td class="org-left">Description</td>
+<td class="org-left">Function</td>
+</tr>
+
+<tr>
+<td class="org-left">M-x</td>
+<td class="org-left">执行函数</td>
+<td class="org-left">execute-extended-command</td>
+</tr>
+
+<tr>
+<td class="org-left">C-g</td>
+<td class="org-left">取消当前操作</td>
+<td class="org-left">keyboard-quit</td>
+</tr>
+
+<tr>
+<td class="org-left">C-x C-c</td>
+<td class="org-left">退出Emacs</td>
+<td class="org-left">save-buffers-kill-terminal</td>
+</tr>
+
+<tr>
+<td class="org-left">C-x C-s</td>
+<td class="org-left">保存buffer</td>
+<td class="org-left">save-buffer</td>
+</tr>
+
+<tr>
+<td class="org-left">C-x b</td>
+<td class="org-left">切换buffer</td>
+<td class="org-left">switch-to-buffer</td>
+</tr>
+
+<tr>
+<td class="org-left">C-x C-f</td>
+<td class="org-left">打开文件</td>
+<td class="org-left">find-file</td>
+</tr>
+
+<tr>
+<td class="org-left">C-x C-e</td>
+<td class="org-left">执行光标前的函数</td>
+<td class="org-left">eval-last-sexp</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+上面的几个快捷键，M-x、C-x C-c、C-g一般不会被改掉，其它的几个在自己的配置中完全可以被替换掉。不换掉的原因是没有必要；而且当你的配置出问题时，你的自定义快捷键有可能会失效，这几个默认快捷键就很重要了。<br />
+</p>
+
+<p>
+注意，大部分快捷键都不需要记忆，这一点需要与通常的观点区分开。每个人的Emacs都应该符合自己的编辑习惯；当然这与学习其他人更优秀的编辑习惯并不冲突。<br />
+</p>
+
+<p>
+Emacs中每个快捷键都与一个交互式（interactive，后面再讲）lisp函数相绑定(如上表最后一列所示；这些函数都是原版的，实际上ivy/helm都提供了对其功能的加强版本)，即按下快捷键实际上会触发一个lisp函数。这个函数可以在运行时动态绑定。<br />
+</p>
+
+<p>
+可以通过M-x来触发任何交互式函数。所以，只有 <b>最常用</b> 的功能才需要绑定快捷键，而其他的函数完全可以通过M-x来直接调用。如果使用了ivy或者helm会发现M-x直接调用是很方便的。<br />
+</p>
+
+<p>
+关于如何绑定快捷键我们后面再看。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7441242" class="outline-2">
+<h2 id="org7441242">帮助</h2>
+<div class="outline-text-2" id="text-org7441242">
+<p>
+Emacs提供了强大的文档与帮助系统，要活用这些工具来提高对整个系统的使用以及理解。下面是经常使用的几个帮助快捷键：<br />
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Key</td>
+<td class="org-left">Description</td>
+<td class="org-left">Function</td>
+</tr>
+
+<tr>
+<td class="org-left">C-h i</td>
+<td class="org-left">查看Emacs自带的帮助文档</td>
+<td class="org-left">info</td>
+</tr>
+
+<tr>
+<td class="org-left">C-h f</td>
+<td class="org-left">查看函数帮助</td>
+<td class="org-left">describe-function</td>
+</tr>
+
+<tr>
+<td class="org-left">C-h C-f</td>
+<td class="org-left">跳转到lisp函数定义</td>
+<td class="org-left">find-function</td>
+</tr>
+
+<tr>
+<td class="org-left">C-h v</td>
+<td class="org-left">查看变量帮助</td>
+<td class="org-left">describe-variable</td>
+</tr>
+
+<tr>
+<td class="org-left">C-h C-v</td>
+<td class="org-left">跳转到lisp变量定义</td>
+<td class="org-left">find-variable</td>
+</tr>
+
+<tr>
+<td class="org-left">C-h k</td>
+<td class="org-left">查看按键绑定的函数</td>
+<td class="org-left">describe-key</td>
+</tr>
+
+<tr>
+<td class="org-left">C-h C-k</td>
+<td class="org-left">跳转到按键绑定的函数定义</td>
+<td class="org-left">find-function-on-key</td>
+</tr>
+
+<tr>
+<td class="org-left">C-h a</td>
+<td class="org-left">查看符号帮助</td>
+<td class="org-left">describe-aprops</td>
+</tr>
+
+<tr>
+<td class="org-left">C-h e</td>
+<td class="org-left">查看日志输出</td>
+<td class="org-left">view-echo-area-messages</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+它们的名字表明了一切。C-h i查看系统帮助；如果真的以严肃的态度想学好emacs，emacs自带的文档是需要通读的。C-h f/v/a 分别是查看函数、变量、符号（symbol，emacs内置的一种数据结构，函数名、变量名这些实际上都是符号）。当你想知道某个按键绑定的函数是什么时，就使用C-h k。C-h e在debug的时候经常使用。<br />
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>

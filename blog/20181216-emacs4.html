@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-12-16 Sun 20:23 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>开始</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">开始</h1>
+
+<div id="outline-container-org4895146" class="outline-2">
+<h2 id="org4895146">配置的基础</h2>
+<div class="outline-text-2" id="text-org4895146">
+<p>
+除了前面介绍的基础之外，有以下基础知识还需要知道：<br />
+</p>
+<ol class="org-ol">
+<li>如何加载脚本文件<br /></li>
+<li>如何从网络下载配置<br /></li>
+</ol>
+</div>
+
+<div id="outline-container-org1f47c0e" class="outline-3">
+<h3 id="org1f47c0e">加载脚本文件</h3>
+<div class="outline-text-3" id="text-org1f47c0e">
+<p>
+上一章大概的讲述了elisp的基本语法，这在配置脚本比较简单的时候就已经够用了。emacs启动时，会默认使用~/.emacs.d/init.el进行加载，这也就是配置的入口；只需要把配置贴到里面，emacs启动的时候就会对其进行加载。<br />
+而在实际配置中需要分文件对其进行管理。例如，python语言的配置与c语言的配置我们当然不希望混在一起。<br />
+</p>
+
+<p>
+elisp的源文件后缀名为el，编译过的字节码文件为elc。加载脚本文件的方式具体可以参见：<a href="https://github.com/slegetank/WGEECN/blob/master/5.org">https://github.com/slegetank/WGEECN/blob/master/5.org</a> ; 还有<a href="https://www.emacswiki.org/emacs/LoadingLispFiles">wiki</a>。其中，最常用的就是require-provide，这里也只讲这一个。<br />
+</p>
+
+<p>
+require保证文件只加载一次。即如果在不同地方require同一个功能，如果之前已经加载过，则不重复加载文件。<br />
+</p>
+
+<p>
+首先保证要加载的文件在load-path中。按下C-h v，输入load-path，看一下这个变量里都包含了哪些路径。如果要加载的文件路径不在里面，例如~/.emacs.d/init文件夹，那么就把它加进去：<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">(add-to-<span style="color: #c678dd;">list</span> <span style="color: #98be65;">'load-path "~/.emacs.d/init/")</span>
+</pre>
+</div>
+
+<p>
+然后，在这个路径下新建一个文件init-default.el （C-x C-f），写入如下内容：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python">(setq hello <span style="color: #98be65;">"world"</span>)
+(provide <span style="color: #98be65;">'init-default)</span>
+</pre>
+</div>
+
+<p>
+注意，provide放在文件的末尾，这样当整个文件加载完成时才会提供此特性，也就保证了require时，如果一个特性已经存在，那么整个文件就肯定加载完了。然后，在init.el里写入：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python">(require <span style="color: #98be65;">'init-default)</span>
+<span style="color: #98be65;">(message hello)</span>
+</pre>
+</div>
+
+<p>
+重启emacs，C-h e就会看到输出"world"。这时，如果C-h v hello，则会看到hello的值为字符串world。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcbfb33a" class="outline-3">
+<h3 id="orgcbfb33a">从网络下载配置</h3>
+<div class="outline-text-3" id="text-orgcbfb33a">
+<p>
+以前网络不发达的时候大家很难共享配置。后来大家一般用wiki来分享自己的配置（例如<a href="https://www.emacswiki.org/emacs/dired+.el">dired plus</a>，而且现在还是有一些人习惯用wiki来保存配置，实际上是在人为的抬高emacs的使用门槛）。再后来随着git以及github的兴起，emacs也终于出现了更灵活好用的配置方式。现在，将自己的配置存放到github上是一种标准方式。<br />
+而更重要的是，在emacs 24.1终于出现了从网络下载配置的pacakge包，极大的简化了配置的安装方式。一般在init.el的开头会写这么一段代码:<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">(when (&gt;= emacs-major-version 24)
+  (setq package-archives <span style="color: #98be65;">'(("gnu"   . "http://elpa.emacs-china.org/gnu/")</span>
+<span style="color: #98be65;">                           ("melpa"   . "http://elpa.emacs-china.org/melpa/")</span>
+<span style="color: #98be65;">                           ("org" . "http://orgmode.org/elpa/")</span>
+<span style="color: #98be65;">                           )))</span>
+
+<span style="color: #98be65;">(package-initialize)</span>
+
+<span style="color: #98be65;">(defun require-package (package &amp;optional min-version no-refresh)</span>
+<span style="color: #98be65;">  "Install given PACKAGE, optionally requiring MIN-VERSION.</span>
+<span style="color: #98be65;"> If NO-REFRESH is non-nil, the available package lists will not be</span>
+<span style="color: #98be65;"> re-downloaded in order to locate PACKAGE."</span>
+<span style="color: #98be65;">  (add-to-list '</span>package-selected-packages package)
+  (<span style="color: #51afef;">if</span> (package-installed-p package <span style="color: #c678dd;">min</span>-version)
+      t
+    (<span style="color: #51afef;">if</span> (<span style="color: #51afef;">or</span> (assoc package package-archive-contents) no-refresh)
+        (<span style="color: #51afef;">if</span> (boundp <span style="color: #98be65;">'package-selected-packages)</span>
+<span style="color: #98be65;">            ;; Record this as a package the user installed explicitly</span>
+<span style="color: #98be65;">            (package-install package nil)</span>
+<span style="color: #98be65;">          (package-install package))</span>
+<span style="color: #98be65;">      (progn</span>
+<span style="color: #98be65;">        (package-refresh-contents)</span>
+<span style="color: #98be65;">        (require-package package min-version t)))))</span>
+</pre>
+</div>
+
+<p>
+第一段代码是将几个常用的源加入到搜索的远端列表中，其中第一个源gnu是emacs的官方源，但是要把包加入到这里面比较麻烦，要完全符合GPL还是很烦；melpa是目前最流行的一个源，绝大多数的开发者都把包贡献在这里，可以访问<a href="http://melpa.org/#/">http://melpa.org/#/</a> 来查看、搜索需要的包；org是org mode单独的源，访问<a href="https://orgmode.org/elpa.html">https://orgmode.org/elpa.html</a> 来查看更多。<br />
+</p>
+
+<p>
+然后执行package-initialize。接下来定义了一个帮助函数require-package，它的作用是检测包是否已经在本地，如果在则忽略，不在则下载。以上三步做完之后，如果想要安装一个包，例如evil，只需要：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-python">(require-package <span style="color: #98be65;">'evil)</span>
+</pre>
+</div>
+
+<p>
+Perfect!<br />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb4536a7" class="outline-2">
+<h2 id="orgb4536a7">结构</h2>
+<div class="outline-text-2" id="text-orgb4536a7">
+<p>
+有了上面的基础之后就是如何组织配置文件了。这里推荐以<a href="https://github.com/purcell/emacs.d">purcell</a>的配置结构。很多高手都是拿他的配置作为基础，再根据自己的需要去修改配置，因此很具有代表性。<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">+-init.el
++-init/
+  +- init-company.el
+  +- init-python.el
+  ...
+</pre>
+</div>
+
+<p>
+即新建一个init文件夹，然后在其中根据功能将配置分配到不同的文件中。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2d3d232" class="outline-2">
+<h2 id="org2d3d232">一般流程</h2>
+<div class="outline-text-2" id="text-org2d3d232">
+<p>
+以某种语言的配置流程为例，一般是这样的：<br />
+</p>
+<ol class="org-ol">
+<li>寻找需要的major mode，一般emacs有自带的，但有时不好用，第三方会提供更好的选择。<br /></li>
+<li>寻找minor mode然后阅读作者提供的文档进行配置。<br /></li>
+<li>试用，然后看是否有冲突或者不好用的情况，使用advice进行行为的微调修正。<br /></li>
+</ol>
+
+<p>
+寻找包一般有两个途径：<br />
+</p>
+<ol class="org-ol">
+<li>去其他配置里抄，例如<a href="https://github.com/syl20bnr/spacemacs">spacemacs</a>。<br /></li>
+<li>打开<a href="http://melpa.org/#/">melpa</a>搜。<br /></li>
+</ol>
+
+<p>
+这里以jsx的配置为例。打开melpa搜索jsx，按照下载量排序：<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../static/20181216-emacs4-0.png" alt="20181216-emacs4-0.png" /><br />
+</p>
+</div>
+
+<p>
+点击“github”，跳到<a href="https://github.com/felipeochoa/rjsx-mode">github</a>页面，阅读文档，编写配置如下：<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">;; &#19979;&#36733;&#21253;
+(require-package <span style="color: #98be65;">'rjsx-mode)</span>
+
+<span style="color: #98be65;">;; .ts/.js/.jsx&#40664;&#35748;&#20351;&#29992;rjsx-mode</span>
+<span style="color: #98be65;">(add-to-list '</span>auto-mode-alist <span style="color: #98be65;">'("\\.[jt]sx?$" . rjsx-mode))</span>
+
+<span style="color: #98be65;">;; &#21152;&#36733;rjsx mode&#30340;&#26102;&#20505;&#36733;&#20837;&#33258;&#23450;&#20041;&#37197;&#32622;</span>
+<span style="color: #98be65;">(add-hook '</span>rjsx-mode-hook (<span style="color: #51afef;">lambda</span> () (local-<span style="color: #c678dd;">set</span>-key (kbd <span style="color: #98be65;">"&lt;S-tab&gt;"</span>) <span style="color: #98be65;">'js2-mode-toggle-hide-functions)))</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>
