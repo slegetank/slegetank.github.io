@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-12-16 Sun 20:28 -->
+<!-- 2019-01-01 Tue 20:56 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>Mode</title>
 <meta name="generator" content="Org mode" />
@@ -40,12 +40,12 @@ emacs中我们直接打交道的对象是buffer，决定buffer行为的则是mod
 查看一下变量auto-mode-alist，这个变量的值看起来是这样的：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #c678dd;">(</span><span style="color: #98be65;">"\\.el"</span> . lisp-mode<span style="color: #c678dd;">)</span>
- <span style="color: #c678dd;">(</span><span style="color: #98be65;">"\\.c\\'"</span> . c-mode<span style="color: #c678dd;">)</span>
- <span style="color: #c678dd;">(</span><span style="color: #98be65;">"\\.py[iw]?\\'"</span> . python-mode<span style="color: #c678dd;">)</span>
- <span style="color: #c678dd;">(</span><span style="color: #98be65;">"\\.jsx$"</span> . rjsx-mode<span style="color: #c678dd;">)</span>
- <span style="color: #c678dd;">(</span><span style="color: #98be65;">"\\.html?\\'"</span> . web-mode<span style="color: #c678dd;">)</span>
- ...<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #93a8c6;">(</span><span style="color: #81af34; background-color: #1a2321;">"\\.el"</span> . lisp-mode<span style="color: #93a8c6;">)</span>
+ <span style="color: #93a8c6;">(</span><span style="color: #81af34; background-color: #1a2321;">"\\.c\\'"</span> . c-mode<span style="color: #93a8c6;">)</span>
+ <span style="color: #93a8c6;">(</span><span style="color: #81af34; background-color: #1a2321;">"\\.py[iw]?\\'"</span> . python-mode<span style="color: #93a8c6;">)</span>
+ <span style="color: #93a8c6;">(</span><span style="color: #81af34; background-color: #1a2321;">"\\.jsx$"</span> . rjsx-mode<span style="color: #93a8c6;">)</span>
+ <span style="color: #93a8c6;">(</span><span style="color: #81af34; background-color: #1a2321;">"\\.html?\\'"</span> . web-mode<span style="color: #93a8c6;">)</span>
+ ...<span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
@@ -54,7 +54,7 @@ emacs中我们直接打交道的对象是buffer，决定buffer行为的则是mod
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>add-to-list 'auto-mode-alist '<span style="color: #c678dd;">(</span><span style="color: #98be65;">"\\.js\\'"</span> . js2-mode<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span>add-to-list 'auto-mode-alist '<span style="color: #93a8c6;">(</span><span style="color: #81af34; background-color: #1a2321;">"\\.js\\'"</span> . js2-mode<span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
@@ -79,7 +79,7 @@ emacs中我们直接打交道的对象是buffer，决定buffer行为的则是mod
 hook是一种list类型的变量，它们的作用是在特定情况下执行列表里的函数。每个mode一般都会定义一些hook，而一般都会有一个xxx-mode-hook，它的作用是在加载这个mode的时候执行其中包含的函数。例如，如果想在加载js2-mode的时候执行自定义的配置函数custom-js-function，那么可以这么写：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>add-hook  'js2-mode-hook 'custom-js-function<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span>add-hook  'js2-mode-hook 'custom-js-function<span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
@@ -87,7 +87,7 @@ hook是一种list类型的变量，它们的作用是在特定情况下执行列
 或者希望enable一些minor hook，可以：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>add-hook  'js2-mode-hook 'some-mode<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span>add-hook  'js2-mode-hook 'some-mode<span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 </div>
@@ -104,7 +104,7 @@ hook是一种list类型的变量，它们的作用是在特定情况下执行列
 定义全局快捷键的例子：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>global-set-key <span style="color: #c678dd;">(</span>kbd <span style="color: #98be65;">"s-s"</span><span style="color: #c678dd;">)</span> 'custom-save-buffer<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span>global-set-key <span style="color: #93a8c6;">(</span>kbd <span style="color: #81af34; background-color: #1a2321;">"s-s"</span><span style="color: #93a8c6;">)</span> 'custom-save-buffer<span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
@@ -112,7 +112,7 @@ hook是一种list类型的变量，它们的作用是在特定情况下执行列
 修改某个map的例子：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>define-key company-active-map <span style="color: #c678dd;">(</span>kbd <span style="color: #98be65;">"C-n"</span><span style="color: #c678dd;">)</span> #'company-select-next<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span>define-key company-active-map <span style="color: #93a8c6;">(</span>kbd <span style="color: #81af34; background-color: #1a2321;">"C-n"</span><span style="color: #93a8c6;">)</span> #'company-select-next<span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
@@ -131,7 +131,7 @@ hook是一种list类型的变量，它们的作用是在特定情况下执行列
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>smartparens-global-mode t<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span>smartparens-global-mode t<span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
@@ -140,7 +140,7 @@ hook是一种list类型的变量，它们的作用是在特定情况下执行列
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>add-hook 'web-mode-hook 'emmet-mode<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span>add-hook 'web-mode-hook 'emmet-mode<span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 

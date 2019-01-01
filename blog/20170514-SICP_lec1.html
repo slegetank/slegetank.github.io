@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-12-16 Sun 20:27 -->
+<!-- 2019-01-01 Tue 20:55 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SICP笔记 - 1 概述</title>
 <meta name="generator" content="Org mode" />
@@ -122,7 +122,7 @@ Lisp中的基本元素与其他语言也没有太多区别，例如数字、字�
 Lisp中，最基本的组合是由list完成的：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>+ 1 2 3<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span>+ 1 2 3<span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
@@ -131,7 +131,7 @@ Lisp中，最基本的组合是由list完成的：<br />
 Lisp代码可以以二叉树的形式表达出来，例如：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp">  <span style="color: #51afef;">(</span>+ 1 <span style="color: #c678dd;">(</span>* 3 4<span style="color: #c678dd;">)</span> 5<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">  <span style="color: #8c8c8c;">(</span>+ 1 <span style="color: #93a8c6;">(</span>* 3 4<span style="color: #93a8c6;">)</span> 5<span style="color: #8c8c8c;">)</span>
 
 ==&gt;
 
@@ -155,13 +155,13 @@ Lisp代码可以以二叉树的形式表达出来，例如：<br />
 另一个组合结构就是判断。scheme中的判断结构有cond, if。例如:<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">cond</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>&lt; x 1<span style="color: #98be65;">)</span> <span style="color: #98be65;">(</span>message <span style="color: #98be65;">"1"</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-      <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>&gt; x 1<span style="color: #98be65;">)</span> <span style="color: #98be65;">(</span>message <span style="color: #98be65;">"2"</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-      <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>= x 1<span style="color: #98be65;">)</span> <span style="color: #98be65;">(</span>message <span style="color: #98be65;">"3"</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #d97a35; background-color: #272122;">cond</span> <span style="color: #93a8c6;">(</span><span style="color: #b0b1a3;">(</span>&lt; x 1<span style="color: #b0b1a3;">)</span> <span style="color: #b0b1a3;">(</span>message <span style="color: #81af34; background-color: #1a2321;">"1"</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span>
+      <span style="color: #93a8c6;">(</span><span style="color: #b0b1a3;">(</span>&gt; x 1<span style="color: #b0b1a3;">)</span> <span style="color: #b0b1a3;">(</span>message <span style="color: #81af34; background-color: #1a2321;">"2"</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span>
+      <span style="color: #93a8c6;">(</span><span style="color: #b0b1a3;">(</span>= x 1<span style="color: #b0b1a3;">)</span> <span style="color: #b0b1a3;">(</span>message <span style="color: #81af34; background-color: #1a2321;">"3"</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
 
-<span style="color: #51afef;">(</span><span style="color: #51afef;">if</span> <span style="color: #c678dd;">(</span>&gt; x 1<span style="color: #c678dd;">)</span>
-    <span style="color: #c678dd;">(</span>message <span style="color: #98be65;">"1"</span><span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span>message <span style="color: #98be65;">"2"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #8c8c8c;">(</span><span style="color: #d97a35; background-color: #272122;">if</span> <span style="color: #93a8c6;">(</span>&gt; x 1<span style="color: #93a8c6;">)</span>
+    <span style="color: #93a8c6;">(</span>message <span style="color: #81af34; background-color: #1a2321;">"1"</span><span style="color: #93a8c6;">)</span>
+  <span style="color: #93a8c6;">(</span>message <span style="color: #81af34; background-color: #1a2321;">"2"</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
 </pre>
 </div>
 
@@ -178,8 +178,8 @@ scheme中没有循环结构，而是用递归来实现。对比C语言，我们�
 scheme中抽象是通过define完成的，可以同时用来定义变量和过程。例如:<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>define a-value <span style="color: #c678dd;">(</span>* 2 2<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#21464;&#37327;</span>
-<span style="color: #51afef;">(</span>define SQUARE <span style="color: #c678dd;">(</span>LAMBDA <span style="color: #98be65;">(</span>x<span style="color: #98be65;">)</span> <span style="color: #98be65;">(</span>* x x<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#36807;&#31243;</span>
+<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span>define a-value <span style="color: #93a8c6;">(</span>* 2 2<span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span> <span style="color: #716d73; background-color: #181d23; font-style: italic;">;; </span><span style="color: #716d73; background-color: #181d23; font-style: italic;">&#21464;&#37327;</span>
+<span style="color: #8c8c8c;">(</span>define SQUARE <span style="color: #93a8c6;">(</span>LAMBDA <span style="color: #b0b1a3;">(</span>x<span style="color: #b0b1a3;">)</span> <span style="color: #b0b1a3;">(</span>* x x<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span> <span style="color: #716d73; background-color: #181d23; font-style: italic;">;; </span><span style="color: #716d73; background-color: #181d23; font-style: italic;">&#36807;&#31243;</span>
 </pre>
 </div>
 
@@ -187,7 +187,7 @@ scheme中抽象是通过define完成的，可以同时用来定义变量和过�
 LAMBDA的意思就是创建一个过程。这可以简写为：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>define <span style="color: #c678dd;">(</span>SQUARE x<span style="color: #c678dd;">)</span> <span style="color: #c678dd;">(</span>* x x<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#35821;&#27861;&#31958;</span>
+<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span>define <span style="color: #93a8c6;">(</span>SQUARE x<span style="color: #93a8c6;">)</span> <span style="color: #93a8c6;">(</span>* x x<span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span> <span style="color: #716d73; background-color: #181d23; font-style: italic;">;; </span><span style="color: #716d73; background-color: #181d23; font-style: italic;">&#35821;&#27861;&#31958;</span>
 </pre>
 </div>
 
@@ -229,10 +229,10 @@ LAMBDA的意思就是创建一个过程。这可以简写为：<br />
 <li>迭代<br /></li>
 </ul>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>+ 3 4<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>+ 2 5<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>+ 1 6<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>+ 0 7<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span>+ 3 4<span style="color: #8c8c8c;">)</span>
+<span style="color: #8c8c8c;">(</span>+ 2 5<span style="color: #8c8c8c;">)</span>
+<span style="color: #8c8c8c;">(</span>+ 1 6<span style="color: #8c8c8c;">)</span>
+<span style="color: #8c8c8c;">(</span>+ 0 7<span style="color: #8c8c8c;">)</span>
 7
 </pre>
 </div>
@@ -247,13 +247,13 @@ O(1)<br />
 <li>递归<br /></li>
 </ul>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>+ 3 4<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>1+ <span style="color: #c678dd;">(</span>+ 2 4<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>1+ <span style="color: #c678dd;">(</span>1+ <span style="color: #98be65;">(</span>+ 1 4<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>1+ <span style="color: #c678dd;">(</span>1+ <span style="color: #98be65;">(</span>1+ <span style="color: #da8548;">(</span>+ 0 4<span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>1+ <span style="color: #c678dd;">(</span>1+ <span style="color: #98be65;">(</span>1+ 4<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>1+ <span style="color: #c678dd;">(</span>1+ 5<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>1+ 6<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span>+ 3 4<span style="color: #8c8c8c;">)</span>
+<span style="color: #8c8c8c;">(</span>1+ <span style="color: #93a8c6;">(</span>+ 2 4<span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #8c8c8c;">(</span>1+ <span style="color: #93a8c6;">(</span>1+ <span style="color: #b0b1a3;">(</span>+ 1 4<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #8c8c8c;">(</span>1+ <span style="color: #93a8c6;">(</span>1+ <span style="color: #b0b1a3;">(</span>1+ <span style="color: #97b098;">(</span>+ 0 4<span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #8c8c8c;">(</span>1+ <span style="color: #93a8c6;">(</span>1+ <span style="color: #b0b1a3;">(</span>1+ 4<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #8c8c8c;">(</span>1+ <span style="color: #93a8c6;">(</span>1+ 5<span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #8c8c8c;">(</span>1+ 6<span style="color: #8c8c8c;">)</span>
 7
 </pre>
 </div>
