@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-01-20 Sun 13:47 -->
+<!-- 2019-01-20 Sun 14:33 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>开始</title>
 <meta name="generator" content="Org mode" />
@@ -59,7 +59,7 @@ require保证文件只加载一次。即如果在不同地方require同一个功
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python">(add-to-<span style="color: #deae3e; background-color: #2a2921;">list</span> <span style="color: #81af34; background-color: #1a2321;">'load-path "~/.emacs.d/init/")</span>
+<pre class="src src-python">(add-to-<span style="color: #c678dd;">list</span> <span style="color: #98be65;">'load-path "~/.emacs.d/init/")</span>
 </pre>
 </div>
 
@@ -67,8 +67,8 @@ require保证文件只加载一次。即如果在不同地方require同一个功
 然后，在这个路径下新建一个文件init-default.el （C-x C-f），写入如下内容：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-python">(setq hello <span style="color: #81af34; background-color: #1a2321;">"world"</span>)
-(provide <span style="color: #81af34; background-color: #1a2321;">'init-default)</span>
+<pre class="src src-python">(setq hello <span style="color: #98be65;">"world"</span>)
+(provide <span style="color: #98be65;">'init-default)</span>
 </pre>
 </div>
 
@@ -76,8 +76,8 @@ require保证文件只加载一次。即如果在不同地方require同一个功
 注意，provide放在文件的末尾，这样当整个文件加载完成时才会提供此特性，也就保证了require时，如果一个特性已经存在，那么整个文件就肯定加载完了。然后，在init.el里写入：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-python">(require <span style="color: #81af34; background-color: #1a2321;">'init-default)</span>
-<span style="color: #81af34; background-color: #1a2321;">(message hello)</span>
+<pre class="src src-python">(require <span style="color: #98be65;">'init-default)</span>
+<span style="color: #98be65;">(message hello)</span>
 </pre>
 </div>
 
@@ -97,28 +97,28 @@ require保证文件只加载一次。即如果在不同地方require同一个功
 
 <div class="org-src-container">
 <pre class="src src-python">(when (&gt;= emacs-major-version 24)
-  (setq package-archives <span style="color: #81af34; background-color: #1a2321;">'(("gnu"   . "http://elpa.emacs-china.org/gnu/")</span>
-<span style="color: #81af34; background-color: #1a2321;">                           ("melpa"   . "http://elpa.emacs-china.org/melpa/")</span>
-<span style="color: #81af34; background-color: #1a2321;">                           ("org" . "http://orgmode.org/elpa/")</span>
-<span style="color: #81af34; background-color: #1a2321;">                           )))</span>
+  (setq package-archives <span style="color: #98be65;">'(("gnu"   . "http://elpa.emacs-china.org/gnu/")</span>
+<span style="color: #98be65;">                           ("melpa"   . "http://elpa.emacs-china.org/melpa/")</span>
+<span style="color: #98be65;">                           ("org" . "http://orgmode.org/elpa/")</span>
+<span style="color: #98be65;">                           )))</span>
 
-<span style="color: #81af34; background-color: #1a2321;">(package-initialize)</span>
+<span style="color: #98be65;">(package-initialize)</span>
 
-<span style="color: #81af34; background-color: #1a2321;">(defun require-package (package &amp;optional min-version no-refresh)</span>
-<span style="color: #81af34; background-color: #1a2321;">  "Install given PACKAGE, optionally requiring MIN-VERSION.</span>
-<span style="color: #81af34; background-color: #1a2321;"> If NO-REFRESH is non-nil, the available package lists will not be</span>
-<span style="color: #81af34; background-color: #1a2321;"> re-downloaded in order to locate PACKAGE."</span>
-<span style="color: #81af34; background-color: #1a2321;">  (add-to-list '</span>package-selected-packages package)
-  (<span style="color: #d97a35; background-color: #272122;">if</span> (package-installed-p package <span style="color: #deae3e; background-color: #2a2921;">min</span>-version)
+<span style="color: #98be65;">(defun require-package (package &amp;optional min-version no-refresh)</span>
+<span style="color: #98be65;">  "Install given PACKAGE, optionally requiring MIN-VERSION.</span>
+<span style="color: #98be65;"> If NO-REFRESH is non-nil, the available package lists will not be</span>
+<span style="color: #98be65;"> re-downloaded in order to locate PACKAGE."</span>
+<span style="color: #98be65;">  (add-to-list '</span>package-selected-packages package)
+  (<span style="color: #51afef;">if</span> (package-installed-p package <span style="color: #c678dd;">min</span>-version)
       t
-    (<span style="color: #d97a35; background-color: #272122;">if</span> (<span style="color: #d97a35; background-color: #272122;">or</span> (assoc package package-archive-contents) no-refresh)
-        (<span style="color: #d97a35; background-color: #272122;">if</span> (boundp <span style="color: #81af34; background-color: #1a2321;">'package-selected-packages)</span>
-<span style="color: #81af34; background-color: #1a2321;">            ;; Record this as a package the user installed explicitly</span>
-<span style="color: #81af34; background-color: #1a2321;">            (package-install package nil)</span>
-<span style="color: #81af34; background-color: #1a2321;">          (package-install package))</span>
-<span style="color: #81af34; background-color: #1a2321;">      (progn</span>
-<span style="color: #81af34; background-color: #1a2321;">        (package-refresh-contents)</span>
-<span style="color: #81af34; background-color: #1a2321;">        (require-package package min-version t)))))</span>
+    (<span style="color: #51afef;">if</span> (<span style="color: #51afef;">or</span> (assoc package package-archive-contents) no-refresh)
+        (<span style="color: #51afef;">if</span> (boundp <span style="color: #98be65;">'package-selected-packages)</span>
+<span style="color: #98be65;">            ;; Record this as a package the user installed explicitly</span>
+<span style="color: #98be65;">            (package-install package nil)</span>
+<span style="color: #98be65;">          (package-install package))</span>
+<span style="color: #98be65;">      (progn</span>
+<span style="color: #98be65;">        (package-refresh-contents)</span>
+<span style="color: #98be65;">        (require-package package min-version t)))))</span>
 </pre>
 </div>
 
@@ -130,7 +130,7 @@ require保证文件只加载一次。即如果在不同地方require同一个功
 然后执行package-initialize。接下来定义了一个帮助函数require-package，它的作用是检测包是否已经在本地，如果在则忽略，不在则下载。以上三步做完之后，如果想要安装一个包，例如evil，只需要：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-python">(require-package <span style="color: #81af34; background-color: #1a2321;">'evil)</span>
+<pre class="src src-python">(require-package <span style="color: #98be65;">'evil)</span>
 </pre>
 </div>
 
@@ -199,13 +199,13 @@ Perfect!<br />
 
 <div class="org-src-container">
 <pre class="src src-python">;; &#19979;&#36733;&#21253;
-(require-package <span style="color: #81af34; background-color: #1a2321;">'rjsx-mode)</span>
+(require-package <span style="color: #98be65;">'rjsx-mode)</span>
 
-<span style="color: #81af34; background-color: #1a2321;">;; .ts/.js/.jsx&#40664;&#35748;&#20351;&#29992;rjsx-mode</span>
-<span style="color: #81af34; background-color: #1a2321;">(add-to-list '</span>auto-mode-alist <span style="color: #81af34; background-color: #1a2321;">'("\\.[jt]sx?$" . rjsx-mode))</span>
+<span style="color: #98be65;">;; .ts/.js/.jsx&#40664;&#35748;&#20351;&#29992;rjsx-mode</span>
+<span style="color: #98be65;">(add-to-list '</span>auto-mode-alist <span style="color: #98be65;">'("\\.[jt]sx?$" . rjsx-mode))</span>
 
-<span style="color: #81af34; background-color: #1a2321;">;; &#21152;&#36733;rjsx mode&#30340;&#26102;&#20505;&#36733;&#20837;&#33258;&#23450;&#20041;&#37197;&#32622;</span>
-<span style="color: #81af34; background-color: #1a2321;">(add-hook '</span>rjsx-mode-hook (<span style="color: #d97a35; background-color: #272122;">lambda</span> () (local-<span style="color: #deae3e; background-color: #2a2921;">set</span>-key (kbd <span style="color: #81af34; background-color: #1a2321;">"&lt;S-tab&gt;"</span>) <span style="color: #81af34; background-color: #1a2321;">'js2-mode-toggle-hide-functions)))</span>
+<span style="color: #98be65;">;; &#21152;&#36733;rjsx mode&#30340;&#26102;&#20505;&#36733;&#20837;&#33258;&#23450;&#20041;&#37197;&#32622;</span>
+<span style="color: #98be65;">(add-hook '</span>rjsx-mode-hook (<span style="color: #51afef;">lambda</span> () (local-<span style="color: #c678dd;">set</span>-key (kbd <span style="color: #98be65;">"&lt;S-tab&gt;"</span>) <span style="color: #98be65;">'js2-mode-toggle-hide-functions)))</span>
 </pre>
 </div>
 </div>

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-01-20 Sun 13:47 -->
+<!-- 2019-01-20 Sun 14:33 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>文件访问</title>
 <meta name="generator" content="Org mode" />
@@ -114,7 +114,7 @@ find-name-dired<br />
 如果要搜索当前路径下所有后缀名为org的文件，实际上执行的是下面的指令，最终结果是以dired展示出来：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-shell">find . <span style="color: #81af34; background-color: #1a2321;">\(</span> -iname <span style="color: #81af34; background-color: #1a2321;">\*</span>.org <span style="color: #81af34; background-color: #1a2321;">\)</span> -ls
+<pre class="src src-shell">find . <span style="color: #98be65;">\(</span> -iname <span style="color: #98be65;">\*</span>.org <span style="color: #98be65;">\)</span> -ls
 </pre>
 </div></li>
 
@@ -157,21 +157,21 @@ projectile封装了ag指令，也就是<a href="https://github.com/ggreer/the_si
 因此把这三种方式归结起来就是我所有访问过的路径。具体配置是这样的：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #d97a35; background-color: #272122;">defun</span> <span style="color: #d15120; background-color: #2a1f1f;">slegetank/recent-directories</span> <span style="color: #93a8c6;">()</span>
-  <span style="color: #878289; background-color: #181d23;">"Return recent access directories."</span>
-  <span style="color: #93a8c6;">(</span>delete-dups
-   <span style="color: #b0b1a3;">(</span>append
-    <span style="color: #97b098;">(</span>delq nil <span style="color: #aebed8;">(</span>mapcar <span style="color: #b0b0b3;">(</span><span style="color: #d97a35; background-color: #272122;">lambda</span> <span style="color: #90a890;">(</span>filename<span style="color: #90a890;">)</span> <span style="color: #716d73; background-color: #181d23; font-style: italic;">; </span><span style="color: #716d73; background-color: #181d23; font-style: italic;">recentf</span>
-                        <span style="color: #90a890;">(</span><span style="color: #d97a35; background-color: #272122;">let</span> <span style="color: #a2b6da;">(</span><span style="color: #9cb6ad;">(</span>directory <span style="color: #8c8c8c;">(</span>file-name-directory filename<span style="color: #8c8c8c;">)</span><span style="color: #9cb6ad;">)</span><span style="color: #a2b6da;">)</span>
-                          <span style="color: #a2b6da;">(</span><span style="color: #d97a35; background-color: #272122;">and</span> <span style="color: #9cb6ad;">(</span>not <span style="color: #8c8c8c;">(</span>file-remote-p directory<span style="color: #8c8c8c;">)</span><span style="color: #9cb6ad;">)</span> <span style="color: #9cb6ad;">(</span>file-exists-p directory<span style="color: #9cb6ad;">)</span> directory<span style="color: #a2b6da;">)</span><span style="color: #90a890;">)</span><span style="color: #b0b0b3;">)</span>
-                      recentf-list<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span>
-    <span style="color: #97b098;">(</span>delq nil <span style="color: #aebed8;">(</span>mapcar <span style="color: #b0b0b3;">(</span><span style="color: #d97a35; background-color: #272122;">lambda</span> <span style="color: #90a890;">(</span>directory<span style="color: #90a890;">)</span> <span style="color: #716d73; background-color: #181d23; font-style: italic;">; </span><span style="color: #716d73; background-color: #181d23; font-style: italic;">finder recent</span>
-                        <span style="color: #90a890;">(</span><span style="color: #d97a35; background-color: #272122;">and</span> <span style="color: #a2b6da;">(</span>file-exists-p directory<span style="color: #a2b6da;">)</span> <span style="color: #a2b6da;">(</span>concat directory <span style="color: #81af34; background-color: #1a2321;">"/"</span><span style="color: #a2b6da;">)</span><span style="color: #90a890;">)</span><span style="color: #b0b0b3;">)</span>
-                      <span style="color: #b0b0b3;">(</span>split-string <span style="color: #90a890;">(</span>shell-command-to-string <span style="color: #a2b6da;">(</span>format <span style="color: #81af34; background-color: #1a2321;">"python %s/init/osx-recent-dir.py"</span> user-emacs-directory<span style="color: #a2b6da;">)</span><span style="color: #90a890;">)</span> <span style="color: #81af34; background-color: #1a2321;">"\n"</span> t<span style="color: #b0b0b3;">)</span><span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span>
-    <span style="color: #97b098;">(</span><span style="color: #d97a35; background-color: #272122;">when</span> <span style="color: #aebed8;">(</span>file-exists-p <span style="color: #81af34; background-color: #1a2321;">"~/.z"</span><span style="color: #aebed8;">)</span> <span style="color: #716d73; background-color: #181d23; font-style: italic;">; </span><span style="color: #716d73; background-color: #181d23; font-style: italic;">append lines from z; append top 20 dirs</span>
-      <span style="color: #aebed8;">(</span>mapcar <span style="color: #b0b0b3;">(</span><span style="color: #d97a35; background-color: #272122;">lambda</span> <span style="color: #90a890;">(</span>directory<span style="color: #90a890;">)</span>
-                <span style="color: #90a890;">(</span><span style="color: #d97a35; background-color: #272122;">and</span> <span style="color: #a2b6da;">(</span>file-exists-p directory<span style="color: #a2b6da;">)</span> <span style="color: #a2b6da;">(</span>concat directory <span style="color: #81af34; background-color: #1a2321;">"/"</span><span style="color: #a2b6da;">)</span><span style="color: #90a890;">)</span><span style="color: #b0b0b3;">)</span>
-              <span style="color: #b0b0b3;">(</span>split-string <span style="color: #90a890;">(</span>shell-command-to-string <span style="color: #81af34; background-color: #1a2321;">"cat ~/.z | sort -r -n -k 2 -t \"|\" | cut -f 1 -d \"|\" | head -n 20"</span><span style="color: #90a890;">)</span> <span style="color: #81af34; background-color: #1a2321;">"\n"</span> t<span style="color: #b0b0b3;">)</span><span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">slegetank/recent-directories</span> <span style="color: #c678dd;">()</span>
+  <span style="color: #83898d;">"Return recent access directories."</span>
+  <span style="color: #c678dd;">(</span>delete-dups
+   <span style="color: #98be65;">(</span>append
+    <span style="color: #da8548;">(</span>delq nil <span style="color: #a9a1e1;">(</span>mapcar <span style="color: #ECBE7B;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #4db5bd;">(</span>filename<span style="color: #4db5bd;">)</span> <span style="color: #5B6268;">; </span><span style="color: #5B6268;">recentf</span>
+                        <span style="color: #4db5bd;">(</span><span style="color: #51afef;">let</span> <span style="color: #a2b6da;">(</span><span style="color: #9cb6ad;">(</span>directory <span style="color: #51afef;">(</span>file-name-directory filename<span style="color: #51afef;">)</span><span style="color: #9cb6ad;">)</span><span style="color: #a2b6da;">)</span>
+                          <span style="color: #a2b6da;">(</span><span style="color: #51afef;">and</span> <span style="color: #9cb6ad;">(</span>not <span style="color: #51afef;">(</span>file-remote-p directory<span style="color: #51afef;">)</span><span style="color: #9cb6ad;">)</span> <span style="color: #9cb6ad;">(</span>file-exists-p directory<span style="color: #9cb6ad;">)</span> directory<span style="color: #a2b6da;">)</span><span style="color: #4db5bd;">)</span><span style="color: #ECBE7B;">)</span>
+                      recentf-list<span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span>
+    <span style="color: #da8548;">(</span>delq nil <span style="color: #a9a1e1;">(</span>mapcar <span style="color: #ECBE7B;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #4db5bd;">(</span>directory<span style="color: #4db5bd;">)</span> <span style="color: #5B6268;">; </span><span style="color: #5B6268;">finder recent</span>
+                        <span style="color: #4db5bd;">(</span><span style="color: #51afef;">and</span> <span style="color: #a2b6da;">(</span>file-exists-p directory<span style="color: #a2b6da;">)</span> <span style="color: #a2b6da;">(</span>concat directory <span style="color: #98be65;">"/"</span><span style="color: #a2b6da;">)</span><span style="color: #4db5bd;">)</span><span style="color: #ECBE7B;">)</span>
+                      <span style="color: #ECBE7B;">(</span>split-string <span style="color: #4db5bd;">(</span>shell-command-to-string <span style="color: #a2b6da;">(</span>format <span style="color: #98be65;">"python %s/init/osx-recent-dir.py"</span> user-emacs-directory<span style="color: #a2b6da;">)</span><span style="color: #4db5bd;">)</span> <span style="color: #98be65;">"\n"</span> t<span style="color: #ECBE7B;">)</span><span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span>
+    <span style="color: #da8548;">(</span><span style="color: #51afef;">when</span> <span style="color: #a9a1e1;">(</span>file-exists-p <span style="color: #98be65;">"~/.z"</span><span style="color: #a9a1e1;">)</span> <span style="color: #5B6268;">; </span><span style="color: #5B6268;">append lines from z; append top 20 dirs</span>
+      <span style="color: #a9a1e1;">(</span>mapcar <span style="color: #ECBE7B;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #4db5bd;">(</span>directory<span style="color: #4db5bd;">)</span>
+                <span style="color: #4db5bd;">(</span><span style="color: #51afef;">and</span> <span style="color: #a2b6da;">(</span>file-exists-p directory<span style="color: #a2b6da;">)</span> <span style="color: #a2b6da;">(</span>concat directory <span style="color: #98be65;">"/"</span><span style="color: #a2b6da;">)</span><span style="color: #4db5bd;">)</span><span style="color: #ECBE7B;">)</span>
+              <span style="color: #ECBE7B;">(</span>split-string <span style="color: #4db5bd;">(</span>shell-command-to-string <span style="color: #98be65;">"cat ~/.z | sort -r -n -k 2 -t \"|\" | cut -f 1 -d \"|\" | head -n 20"</span><span style="color: #4db5bd;">)</span> <span style="color: #98be65;">"\n"</span> t<span style="color: #ECBE7B;">)</span><span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 </pre>
 </div>
 </div>
@@ -218,10 +218,10 @@ projectile提供了按工程切换路径的方式，实际上也就是每次进�
 那么就可以找一下是否有什么命令行可以得到指定的路径字符串，例如访问Finder：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #d97a35; background-color: #272122;">defun</span> <span style="color: #d15120; background-color: #2a1f1f;">custom-goto-finder-directory</span> <span style="color: #93a8c6;">()</span>
-  <span style="color: #878289; background-color: #181d23;">"Open OSX Finder path with dired"</span>
-  <span style="color: #93a8c6;">(</span><span style="color: #d97a35; background-color: #272122;">interactive</span><span style="color: #93a8c6;">)</span>
-  <span style="color: #93a8c6;">(</span>dired <span style="color: #b0b1a3;">(</span>file-name-as-directory <span style="color: #97b098;">(</span>s-trim <span style="color: #aebed8;">(</span>shell-command-to-string <span style="color: #81af34; background-color: #1a2321;">"osascript -e </span><span style="color: #b23f1e; background-color: #251c1e;">\</span><span style="color: #81af34; background-color: #1a2321;">'tell app \"Finder\" to POSIX path of (insertion location as alias)</span><span style="color: #b23f1e; background-color: #251c1e;">\</span><span style="color: #81af34; background-color: #1a2321;">'"</span><span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">custom-goto-finder-directory</span> <span style="color: #c678dd;">()</span>
+  <span style="color: #83898d;">"Open OSX Finder path with dired"</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">interactive</span><span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span>dired <span style="color: #98be65;">(</span>file-name-as-directory <span style="color: #da8548;">(</span>s-trim <span style="color: #a9a1e1;">(</span>shell-command-to-string <span style="color: #98be65;">"osascript -e </span><span style="color: #ECBE7B;">\</span><span style="color: #98be65;">'tell app \"Finder\" to POSIX path of (insertion location as alias)</span><span style="color: #ECBE7B;">\</span><span style="color: #98be65;">'"</span><span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 </pre>
 </div>
 

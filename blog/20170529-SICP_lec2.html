@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-01-20 Sun 13:46 -->
+<!-- 2019-01-20 Sun 14:32 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>SICP笔记 - 2 高阶过程</title>
 <meta name="generator" content="Org mode" />
@@ -38,16 +38,16 @@
 这里我用elisp写一写，虽然这并不好：scheme整个语言都表达出一个信息，也就是SICP的作者想表达出的信息，即数据、过程是一个东西，并没有什么区别；而elisp仍然严格区分数据和过程；不过懂了就可以了，在emacs里用elisp写还是更方便：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #d97a35; background-color: #272122;">defun</span> <span style="color: #d15120; background-color: #2a1f1f;">lec2-1</span> <span style="color: #93a8c6;">(</span>a b func<span style="color: #93a8c6;">)</span>
-  <span style="color: #878289; background-color: #181d23;">"a for lower bounds</span>
-<span style="color: #878289; background-color: #181d23;">  b for upper bounds</span>
-<span style="color: #878289; background-color: #181d23;">  func for function on the invidual item"</span>
-  <span style="color: #93a8c6;">(</span><span style="color: #d97a35; background-color: #272122;">if</span> <span style="color: #b0b1a3;">(</span>&lt; b a<span style="color: #b0b1a3;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">lec2-1</span> <span style="color: #c678dd;">(</span>a b func<span style="color: #c678dd;">)</span>
+  <span style="color: #83898d;">"a for lower bounds</span>
+<span style="color: #83898d;">  b for upper bounds</span>
+<span style="color: #83898d;">  func for function on the invidual item"</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">if</span> <span style="color: #98be65;">(</span>&lt; b a<span style="color: #98be65;">)</span>
       0
-    <span style="color: #b0b1a3;">(</span>+ <span style="color: #97b098;">(</span>funcall func a<span style="color: #97b098;">)</span> <span style="color: #97b098;">(</span>lec2-1 <span style="color: #aebed8;">(</span>1+ a<span style="color: #aebed8;">)</span> b func<span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+    <span style="color: #98be65;">(</span>+ <span style="color: #da8548;">(</span>funcall func a<span style="color: #da8548;">)</span> <span style="color: #da8548;">(</span>lec2-1 <span style="color: #a9a1e1;">(</span>1+ a<span style="color: #a9a1e1;">)</span> b func<span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 
-<span style="color: #8c8c8c;">(</span>lec2-1 1 10 '<span style="color: #93a8c6;">(</span>lambda <span style="color: #b0b1a3;">(</span>a<span style="color: #b0b1a3;">)</span> <span style="color: #b0b1a3;">(</span>/ a 2<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span> <span style="color: #716d73; background-color: #181d23; font-style: italic;">;; </span><span style="color: #716d73; background-color: #181d23; font-style: italic;">&#35745;&#31639;&#27599;&#20010;&#25968;&#30340;1/2&#30340;&#21644;</span>
-<span style="color: #8c8c8c;">(</span>lec2-1 1 10 '<span style="color: #93a8c6;">(</span>lambda <span style="color: #b0b1a3;">(</span>a<span style="color: #b0b1a3;">)</span> <span style="color: #b0b1a3;">(</span>* a a<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span> <span style="color: #716d73; background-color: #181d23; font-style: italic;">;; </span><span style="color: #716d73; background-color: #181d23; font-style: italic;">&#35745;&#31639;&#24179;&#26041;&#21644;</span>
+<span style="color: #51afef;">(</span>lec2-1 1 10 '<span style="color: #c678dd;">(</span>lambda <span style="color: #98be65;">(</span>a<span style="color: #98be65;">)</span> <span style="color: #98be65;">(</span>/ a 2<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#35745;&#31639;&#27599;&#20010;&#25968;&#30340;1/2&#30340;&#21644;</span>
+<span style="color: #51afef;">(</span>lec2-1 1 10 '<span style="color: #c678dd;">(</span>lambda <span style="color: #98be65;">(</span>a<span style="color: #98be65;">)</span> <span style="color: #98be65;">(</span>* a a<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#35745;&#31639;&#24179;&#26041;&#21644;</span>
 </pre>
 </div>
 
@@ -63,17 +63,17 @@
 而更高级的抽象则使用过程作为参数，并且输出过程作为结果，这样过程与数据之间的差别就更模糊了。<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #d97a35; background-color: #272122;">defun</span> <span style="color: #d15120; background-color: #2a1f1f;">lec2-2</span> <span style="color: #93a8c6;">(</span>func<span style="color: #93a8c6;">)</span>
-  <span style="color: #878289; background-color: #181d23;">"Higher procedure version</span>
-<span style="color: #878289; background-color: #181d23;">  func for function on invidual item"</span>
-  <span style="color: #93a8c6;">(</span><span style="color: #d97a35; background-color: #272122;">setq</span> lexical-binding t<span style="color: #93a8c6;">)</span>
-  <span style="color: #93a8c6;">(</span><span style="color: #d97a35; background-color: #272122;">lambda</span> <span style="color: #b0b1a3;">(</span>a b<span style="color: #b0b1a3;">)</span>
-    <span style="color: #b0b1a3;">(</span><span style="color: #d97a35; background-color: #272122;">if</span> <span style="color: #97b098;">(</span>&lt; b a<span style="color: #97b098;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">lec2-2</span> <span style="color: #c678dd;">(</span>func<span style="color: #c678dd;">)</span>
+  <span style="color: #83898d;">"Higher procedure version</span>
+<span style="color: #83898d;">  func for function on invidual item"</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">setq</span> lexical-binding t<span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #98be65;">(</span>a b<span style="color: #98be65;">)</span>
+    <span style="color: #98be65;">(</span><span style="color: #51afef;">if</span> <span style="color: #da8548;">(</span>&lt; b a<span style="color: #da8548;">)</span>
         0
-      <span style="color: #97b098;">(</span>+ <span style="color: #aebed8;">(</span>funcall func a<span style="color: #aebed8;">)</span> <span style="color: #aebed8;">(</span>funcall <span style="color: #b0b0b3;">(</span>lec2-2 func<span style="color: #b0b0b3;">)</span> <span style="color: #b0b0b3;">(</span>1+ a<span style="color: #b0b0b3;">)</span> b<span style="color: #aebed8;">)</span><span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+      <span style="color: #da8548;">(</span>+ <span style="color: #a9a1e1;">(</span>funcall func a<span style="color: #a9a1e1;">)</span> <span style="color: #a9a1e1;">(</span>funcall <span style="color: #ECBE7B;">(</span>lec2-2 func<span style="color: #ECBE7B;">)</span> <span style="color: #ECBE7B;">(</span>1+ a<span style="color: #ECBE7B;">)</span> b<span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 
-<span style="color: #8c8c8c;">(</span>funcall <span style="color: #93a8c6;">(</span>lec2-2 '<span style="color: #b0b1a3;">(</span>lambda <span style="color: #97b098;">(</span>a<span style="color: #97b098;">)</span> <span style="color: #97b098;">(</span>* a a<span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span> 1 10<span style="color: #8c8c8c;">)</span>
-<span style="color: #8c8c8c;">(</span>funcall <span style="color: #93a8c6;">(</span>lec2-2 '<span style="color: #b0b1a3;">(</span>lambda <span style="color: #97b098;">(</span>a<span style="color: #97b098;">)</span> <span style="color: #97b098;">(</span>/ a 2<span style="color: #97b098;">)</span><span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span> 1 10<span style="color: #8c8c8c;">)</span>
+<span style="color: #51afef;">(</span>funcall <span style="color: #c678dd;">(</span>lec2-2 '<span style="color: #98be65;">(</span>lambda <span style="color: #da8548;">(</span>a<span style="color: #da8548;">)</span> <span style="color: #da8548;">(</span>* a a<span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span> 1 10<span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span>funcall <span style="color: #c678dd;">(</span>lec2-2 '<span style="color: #98be65;">(</span>lambda <span style="color: #da8548;">(</span>a<span style="color: #da8548;">)</span> <span style="color: #da8548;">(</span>/ a 2<span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span> 1 10<span style="color: #51afef;">)</span>
 </pre>
 </div>
 <p>
@@ -108,25 +108,25 @@
 数据抽象不是必须使用数据来构成，实际上过程可以完成所有事，例如复合数据的基本方法cons、car、cdr：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span><span style="color: #d97a35; background-color: #272122;">defun</span> <span style="color: #d15120; background-color: #2a1f1f;">lec2-cons</span> <span style="color: #93a8c6;">(</span>a b<span style="color: #93a8c6;">)</span>
-  <span style="color: #878289; background-color: #181d23;">"cons for elisp"</span>
-  <span style="color: #93a8c6;">(</span><span style="color: #d97a35; background-color: #272122;">setq</span> lexical-binding t<span style="color: #93a8c6;">)</span>
-  <span style="color: #93a8c6;">(</span><span style="color: #d97a35; background-color: #272122;">lambda</span> <span style="color: #b0b1a3;">(</span>x<span style="color: #b0b1a3;">)</span>
-    <span style="color: #b0b1a3;">(</span><span style="color: #d97a35; background-color: #272122;">if</span> <span style="color: #97b098;">(</span>= 1 x<span style="color: #97b098;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">lec2-cons</span> <span style="color: #c678dd;">(</span>a b<span style="color: #c678dd;">)</span>
+  <span style="color: #83898d;">"cons for elisp"</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">setq</span> lexical-binding t<span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #98be65;">(</span>x<span style="color: #98be65;">)</span>
+    <span style="color: #98be65;">(</span><span style="color: #51afef;">if</span> <span style="color: #da8548;">(</span>= 1 x<span style="color: #da8548;">)</span>
         a
-      b<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+      b<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 
-<span style="color: #8c8c8c;">(</span><span style="color: #d97a35; background-color: #272122;">defun</span> <span style="color: #d15120; background-color: #2a1f1f;">lec2-car</span> <span style="color: #93a8c6;">(</span>x<span style="color: #93a8c6;">)</span>
-  <span style="color: #878289; background-color: #181d23;">"car for elisp"</span>
-  <span style="color: #93a8c6;">(</span>funcall x 1<span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">lec2-car</span> <span style="color: #c678dd;">(</span>x<span style="color: #c678dd;">)</span>
+  <span style="color: #83898d;">"car for elisp"</span>
+  <span style="color: #c678dd;">(</span>funcall x 1<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 
-<span style="color: #8c8c8c;">(</span><span style="color: #d97a35; background-color: #272122;">defun</span> <span style="color: #d15120; background-color: #2a1f1f;">lec2-cdr</span> <span style="color: #93a8c6;">(</span>x<span style="color: #93a8c6;">)</span>
-  <span style="color: #878289; background-color: #181d23;">"cdr for elisp"</span>
-  <span style="color: #93a8c6;">(</span>funcall x 2<span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">lec2-cdr</span> <span style="color: #c678dd;">(</span>x<span style="color: #c678dd;">)</span>
+  <span style="color: #83898d;">"cdr for elisp"</span>
+  <span style="color: #c678dd;">(</span>funcall x 2<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 
-<span style="color: #8c8c8c;">(</span>lec2-car <span style="color: #93a8c6;">(</span>lec2-cons 3 4<span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
-<span style="color: #8c8c8c;">(</span>lec2-cdr <span style="color: #93a8c6;">(</span>lec2-cons 2 3<span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
-<span style="color: #8c8c8c;">(</span>lec2-car <span style="color: #93a8c6;">(</span>lec2-car <span style="color: #b0b1a3;">(</span>lec2-cons <span style="color: #97b098;">(</span>lec2-cons 4 5<span style="color: #97b098;">)</span> 6<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+<span style="color: #51afef;">(</span>lec2-car <span style="color: #c678dd;">(</span>lec2-cons 3 4<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span>lec2-cdr <span style="color: #c678dd;">(</span>lec2-cons 2 3<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span>lec2-car <span style="color: #c678dd;">(</span>lec2-car <span style="color: #98be65;">(</span>lec2-cons <span style="color: #da8548;">(</span>lec2-cons 4 5<span style="color: #da8548;">)</span> 6<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 </pre>
 </div>
 

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-01-20 Sun 13:46 -->
+<!-- 2019-01-20 Sun 14:32 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>Emacs图表优雅的解决方案</title>
 <meta name="generator" content="Org mode" />
@@ -64,9 +64,9 @@
 可以看到<a href="http://ditaa.sourceforge.net">ditaa</a> 是这个方案的核心存在。而其前端交互使用的是Emacs内置的<a href="https://www.emacswiki.org/emacs/ArtistMode">artist-mode</a>，可以简单的绘制出文本状态的框图。更幸运的是，ditaa已经集成进了org mode。所以不需要任何额外的安装就可以直接在org mode中使用其导出功能。唯一需要配置的语句：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #8c8c8c;">(</span>org-babel-do-load-languages
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>org-babel-do-load-languages
  'org-babel-load-languages
- '<span style="color: #93a8c6;">(</span><span style="color: #b0b1a3;">(</span>ditaa . t<span style="color: #b0b1a3;">)</span><span style="color: #93a8c6;">)</span><span style="color: #8c8c8c;">)</span>
+ '<span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>ditaa . t<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 </pre>
 </div>
 
