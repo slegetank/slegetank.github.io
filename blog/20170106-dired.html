@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-01-20 Sun 14:33 -->
+<!-- 2019-02-13 Wed 15:10 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>如何优雅的使用Dired</title>
 <meta name="generator" content="Org mode" />
@@ -36,6 +36,7 @@ Dired是directory editor的简写，是emacs内置的目录管理工具。习惯
 <ul class="org-ul">
 <li>emacs内置，可以与文件编辑无缝操作。<br /></li>
 <li>在批量操作的时候很方便；正则、wdired很强大。<br /></li>
+<li>dired的强大之处在于其打破了操作系统的树形结构。树形结构主要是对人更方便，但对于机器来说却没有那么重要。通过搜索找到所有符合条件的文件并进行操作是dired真正强大的地方。<br /></li>
 </ul>
 <p>
 当然，如果你不是emacser，这些都不是必要的条件；反之，这就是你的强大助手&#x2013;就像emacs其他强大的特性一样，你需要花费时间去了解他们。<br />
@@ -147,8 +148,29 @@ Dired是directory editor的简写，是emacs内置的目录管理工具。习惯
 <td class="org-left">V</td>
 <td class="org-left">区域选择</td>
 </tr>
+
+<tr>
+<td class="org-left">c</td>
+<td class="org-left">compress</td>
+</tr>
+
+<tr>
+<td class="org-left">t</td>
+<td class="org-left">反向选择</td>
+</tr>
+
+<tr>
+<td class="org-left">w</td>
+<td class="org-left">拷贝文件名；在buffer的顶端有当前路径，也可以w</td>
+</tr>
+
+<tr>
+<td class="org-left">0w</td>
+<td class="org-left">拷贝文件路</td>
+</tr>
 </tbody>
 </table>
+
 <p>
 % 表示正则相关的操作，极大的增强了原命令的功能。<br />
 </p>
@@ -233,8 +255,13 @@ Dired是directory editor的简写，是emacs内置的目录管理工具。习惯
 </tr>
 
 <tr>
-<td class="org-left">E</td>
+<td class="org-left">e</td>
 <td class="org-left">wdired</td>
+</tr>
+
+<tr>
+<td class="org-left">H</td>
+<td class="org-left">忽略/显示mark的文件</td>
 </tr>
 </tbody>
 </table></li>
@@ -304,8 +331,29 @@ dired默认情况下每个目录会单独开一个buffer，而这是我们所不
       <span style="color: #c678dd;">(</span>concat dired-omit-files <span style="color: #98be65;">"\\.pyc$"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
 </pre>
 </div>
+
+<p>
+还可以跟mark结合进行暂时的忽略、显示：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">custom-dired-temp-hide-files</span> <span style="color: #c678dd;">()</span>
+  <span style="color: #83898d;">"Hide/show marked files temporary."</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">interactive</span><span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">if</span> dired-omit-files-p
+      <span style="color: #98be65;">(</span><span style="color: #51afef;">setq</span> dired-omit-files-p nil<span style="color: #98be65;">)</span>
+    <span style="color: #98be65;">(</span><span style="color: #51afef;">progn</span>
+      <span style="color: #da8548;">(</span>make-local-variable 'dired-omit-files<span style="color: #da8548;">)</span>
+      <span style="color: #da8548;">(</span><span style="color: #51afef;">dolist</span> <span style="color: #a9a1e1;">(</span>item <span style="color: #ECBE7B;">(</span>dired-get-marked-files<span style="color: #ECBE7B;">)</span><span style="color: #a9a1e1;">)</span>
+        <span style="color: #a9a1e1;">(</span><span style="color: #51afef;">setq</span> dired-omit-files
+              <span style="color: #ECBE7B;">(</span>concat dired-omit-files <span style="color: #4db5bd;">(</span>format <span style="color: #98be65;">"</span><span style="color: #51afef; font-weight: bold;">\\</span><span style="color: #51afef; font-weight: bold;">|</span><span style="color: #98be65;">%s"</span> <span style="color: #a2b6da;">(</span>file-name-nondirectory item<span style="color: #a2b6da;">)</span><span style="color: #4db5bd;">)</span><span style="color: #ECBE7B;">)</span><span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span>
+      <span style="color: #da8548;">(</span><span style="color: #51afef;">setq</span> dired-omit-files-p t<span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span>dired-unmark-all-marks<span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span>revert-buffer<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
 </div>
 </div>
+</div>
+
 <div id="outline-container-orgac1fe26" class="outline-3">
 <h3 id="orgac1fe26">默认递归操作文件夹</h3>
 <div class="outline-text-3" id="text-orgac1fe26">
@@ -401,6 +449,35 @@ emacs原始的排序只有根据字符和modify time进行排序；有一个插�
 </div>
 
 <p>
+当然后来发现，这还是不够完美，因为有时我还是需要通过iterm、MacOS的Finder进行文件的操作，这些我也想能够实时的获取过来，于是变成了下面这样：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">slegetank/recent-directories</span> <span style="color: #c678dd;">()</span>
+  <span style="color: #83898d;">"Return recent access directories."</span>
+  <span style="color: #c678dd;">(</span>delete-dups
+   <span style="color: #98be65;">(</span>append
+    <span style="color: #da8548;">(</span>delq nil <span style="color: #a9a1e1;">(</span>mapcar <span style="color: #ECBE7B;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #4db5bd;">(</span>filename<span style="color: #4db5bd;">)</span> <span style="color: #5B6268;">; </span><span style="color: #5B6268;">recentf</span>
+                        <span style="color: #4db5bd;">(</span><span style="color: #51afef;">let</span> <span style="color: #a2b6da;">(</span><span style="color: #9cb6ad;">(</span>directory <span style="color: #51afef;">(</span>file-name-directory filename<span style="color: #51afef;">)</span><span style="color: #9cb6ad;">)</span><span style="color: #a2b6da;">)</span>
+                          <span style="color: #a2b6da;">(</span><span style="color: #51afef;">and</span> <span style="color: #9cb6ad;">(</span>not <span style="color: #51afef;">(</span>file-remote-p directory<span style="color: #51afef;">)</span><span style="color: #9cb6ad;">)</span> <span style="color: #9cb6ad;">(</span>file-exists-p directory<span style="color: #9cb6ad;">)</span> directory<span style="color: #a2b6da;">)</span><span style="color: #4db5bd;">)</span><span style="color: #ECBE7B;">)</span>
+                      recentf-list<span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span>
+    <span style="color: #da8548;">(</span>delq nil <span style="color: #a9a1e1;">(</span>mapcar <span style="color: #ECBE7B;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #4db5bd;">(</span>directory<span style="color: #4db5bd;">)</span> <span style="color: #5B6268;">; </span><span style="color: #5B6268;">finder recent</span>
+                        <span style="color: #4db5bd;">(</span><span style="color: #51afef;">and</span> <span style="color: #a2b6da;">(</span>file-exists-p directory<span style="color: #a2b6da;">)</span> <span style="color: #a2b6da;">(</span>concat directory <span style="color: #98be65;">"/"</span><span style="color: #a2b6da;">)</span><span style="color: #4db5bd;">)</span><span style="color: #ECBE7B;">)</span>
+                      <span style="color: #ECBE7B;">(</span>split-string <span style="color: #4db5bd;">(</span>shell-command-to-string <span style="color: #a2b6da;">(</span>format <span style="color: #98be65;">"python %s/init/osx-recent-dir.py"</span> user-emacs-directory<span style="color: #a2b6da;">)</span><span style="color: #4db5bd;">)</span> <span style="color: #98be65;">"\n"</span> t<span style="color: #ECBE7B;">)</span><span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span>
+    <span style="color: #da8548;">(</span><span style="color: #51afef;">when</span> <span style="color: #a9a1e1;">(</span>file-exists-p <span style="color: #98be65;">"~/.z"</span><span style="color: #a9a1e1;">)</span> <span style="color: #5B6268;">; </span><span style="color: #5B6268;">append lines from z; append top 20 dirs</span>
+      <span style="color: #a9a1e1;">(</span>mapcar <span style="color: #ECBE7B;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #4db5bd;">(</span>directory<span style="color: #4db5bd;">)</span>
+                <span style="color: #4db5bd;">(</span><span style="color: #51afef;">and</span> <span style="color: #a2b6da;">(</span>file-exists-p directory<span style="color: #a2b6da;">)</span> <span style="color: #a2b6da;">(</span>concat directory <span style="color: #98be65;">"/"</span><span style="color: #a2b6da;">)</span><span style="color: #4db5bd;">)</span><span style="color: #ECBE7B;">)</span>
+              <span style="color: #ECBE7B;">(</span>split-string <span style="color: #4db5bd;">(</span>shell-command-to-string <span style="color: #98be65;">"cat ~/.z | sort -r -n -k 2 -t \"|\" | cut -f 1 -d \"|\" | head -n 20"</span><span style="color: #4db5bd;">)</span> <span style="color: #98be65;">"\n"</span> t<span style="color: #ECBE7B;">)</span><span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+
+<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">custom-goto-recent-directory</span> <span style="color: #c678dd;">()</span>
+  <span style="color: #83898d;">"Open recent directory with dired; add z cmd &amp; MacOS recent dir list to this"</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">interactive</span><span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">unless</span> recentf-mode <span style="color: #98be65;">(</span>recentf-mode 1<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
+  <span style="color: #c678dd;">(</span><span style="color: #51afef;">let</span> <span style="color: #98be65;">(</span><span style="color: #da8548;">(</span>collection <span style="color: #a9a1e1;">(</span>slegetank/recent-directories<span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span>
+    <span style="color: #98be65;">(</span>ivy-read <span style="color: #98be65;">"directories:"</span> collection <span style="color: #c678dd;">:action</span> 'dired<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<p>
 但是后来使用中发现了几个问题，在这里附上解决方案：<br />
 </p>
 <ol class="org-ol">
@@ -463,6 +540,84 @@ TRAMP访问时路径不会出现在recentf-list里<br />
 <p>
 我把它绑定到了dr上:<br />
 <img src="../static/20170106-dired-3.gif" alt="20170106-dired-3.gif" /><br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5c8cccc" class="outline-2">
+<h2 id="org5c8cccc">条件筛选</h2>
+<div class="outline-text-2" id="text-org5c8cccc">
+<p>
+以这两个方法作为例子：find-grep-dired find-name-dired，分别是封装的find和grep命令，在结合dired（ls）。grep用的是正则，find用的是wildcard。这里以find-name-dired为例，列出~/.emacs.d下所有org文件。<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">M-x find-name-dired
+</pre>
+</div>
+
+<p>
+此时，会有如下提示，输入要搜索的路径：<br />
+<img src="../static/20170106-dired-4.png" alt="20170106-dired-4.png" /><br />
+</p>
+
+<p>
+输入*.org，搜索所有org文件：<br />
+<img src="../static/20170106-dired-5.png" alt="20170106-dired-5.png" /><br />
+</p>
+
+<p>
+结果会以dired-mode展示出来，可以看到这平铺了树形结构，使得我们可以方便的对这些文件进行操作：<br />
+<img src="../static/20170106-dired-6.png" alt="20170106-dired-6.png" /><br />
+</p>
+
+<p>
+更进一步，假如是在一个很大的文件系统中，搜索非常耗时。此时我们可以将结果保存到一个文本文件中，大概这样：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-text">/Users/shuaizhao/.emacs.d/:
+find . \( -iname \*.org \) -ls
+1993857        8 -rw-r--r--    1 shuaizhao        staff                 134 Nov 19  2017 org-template/email.org
+1993859        8 -rw-r--r--    1 shuaizhao        staff                 103 Nov 19  2017 org-template/level-1.org
+1993858        8 -rw-r--r--    1 shuaizhao        staff                 100 Nov 19  2017 org-template/level-0.org
+66455846       32 -rw-r--r--    1 shuaizhao        staff               14169 Feb 13 10:11 init/init-package.org
+66473986       16 -rw-r--r--    1 shuaizhao        staff                7139 Feb 13 13:37 init/init-evil.org
+50835202        8 -rw-r--r--    1 shuaizhao        staff                 278 Sep 24 14:13 init/init-regex.org
+50835190        8 -rw-r--r--    1 shuaizhao        staff                3615 Sep 24 14:13 init/init-commonlisp.org
+54122149       40 -rw-r--r--    1 shuaizhao        staff               19158 Oct 21 22:00 init/init-blog.org
+32433335       16 -rw-r--r--    1 shuaizhao        staff                6559 May 20  2018 init/init-help.org
+63648306       16 -rw-r--r--    1 shuaizhao        staff                6255 Jan  7 09:24 init/init-ivy.org
+61226068       16 -rw-r--r--    1 shuaizhao        staff                5815 Dec  4 10:29 init/init-chinese.org
+12124446        8 -rw-r--r--    1 shuaizhao        staff                1581 Jan 13  2018 init/init-c.org
+62652381        8 -rw-r--r--    1 shuaizhao        staff                2441 Dec 23 13:26 init/init-UI.org
+53945139        8 -rw-r--r--    1 shuaizhao        staff                1192 Oct 19 10:59 init/init-whitespace.org
+62747687       24 -rw-r--r--    1 shuaizhao        staff               10530 Dec 25 09:22 init/init-org.org
+15584059        8 -rw-r--r--    1 shuaizhao        staff                2591 Feb  4  2018 init/init-tools.org
+50859975        8 -rw-r--r--    1 shuaizhao        staff                 491 Sep 24 20:01 init/init-minibuffer.org
+62220091        8 -rw-r--r--    1 shuaizhao        staff                2275 Dec 16 19:13 init/init-window.org
+66474258       32 -rw-r--r--    1 shuaizhao        staff               13949 Feb 13 13:40 init/init-dired.org
+64440168        8 -rw-r--r--    1 shuaizhao        staff                2493 Jan 17 10:16 init/init-mark.org
+62145812       40 -rw-r--r--    1 shuaizhao        staff               19797 Dec 15 10:49 init/init-defaults.org
+62219834        8 -rw-r--r--    1 shuaizhao        staff                3041 Dec 16 19:12 init/init-git.org
+50835196        8 -rw-r--r--    1 shuaizhao        staff                1758 Sep 24 14:13 init/init-ibuffer.org
+24027643       40 -rw-r--r--    1 shuaizhao        staff               17912 Apr  4  2018 init/init-eshell.org
+50837497        8 -rw-r--r--    1 shuaizhao        staff                2873 Sep 24 14:36 init/init-company.org
+62219812       24 -rw-r--r--    1 shuaizhao        staff                8702 Dec 16 19:11 init/init-project.org
+50835203       16 -rw-r--r--    1 shuaizhao        staff                4153 Sep 24 14:13 init/init-search.org
+62219681       56 -rw-r--r--    1 shuaizhao        staff               26338 Dec 16 19:10 init/init-mu4e.org
+15364513        8 -rw-r--r--    1 shuaizhao        staff                1893 Feb  2  2018 init/init-linkplay.org
+12126792        8 -rw-r--r--    1 shuaizhao        staff                 386 Jan 13  2018 init/init-custom.org
+63436546        8 -rw-r--r--    1 shuaizhao        staff                3861 Jan  3 16:55 init/init-python.org
+50835198       24 -rw-r--r--    1 shuaizhao        staff               10604 Sep 24 14:13 init/init-js.org
+1993855        8 -rw-r--r--    1 shuaizhao        staff                 400 Nov 19  2017 initpage.org
+50730938       16 -rw-r--r--    1 shuaizhao        staff                4893 Sep 24 12:37 elpa/ivy-20180917.2237/ivy-help.org
+13425906        8 -rw-r--r--    1 shuaizhao        staff                 297 Jan 17  2018 README.org
+
+find finished at Wed Feb 13 14:00:23
+</pre>
+</div>
+
+<p>
+然后等需要操作的时候再用emacs打开，然后M-x virtual-dired进行加载。<br />
 </p>
 </div>
 </div>
