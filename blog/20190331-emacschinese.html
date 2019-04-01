@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-04-01 Mon 08:18 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>emacs内置中文输入法</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">emacs内置中文输入法</h1>
+<p>
+我的配置见 <a href="https://github.com/slegetank/.emacs.d/blob/master/init/init-chinese.org">https://github.com/slegetank/.emacs.d/blob/master/init/init-chinese.org</a><br />
+</p>
+
+<p>
+为什么不用搜狗呢？因为个人数据无法导出。所以选择了鼠须管。<br />
+</p>
+
+<p>
+为什么不用五笔呢？自己比较笨，学了几次实在学不会。<br />
+</p>
+
+<p>
+为什么要配置一个内置的输入法呢？最大的原因是由于vim模式切换很痛苦。normal-state的时候切回英文，insert-state的时候再切回去，在mac上是无法做到的。之前试过<a href="https://github.com/Lutzifer/keyboardSwitcher">https://github.com/Lutzifer/keyboardSwitcher</a>， 在切换的时候通过命令行切换输入法，但发现虽然系统状态栏上的变化了，但实际却并没有切换成中文。最终还是决定痛下杀手，折腾一番。<br />
+</p>
+
+<div id="outline-container-orgbca49df" class="outline-2">
+<h2 id="orgbca49df">pyim</h2>
+<div class="outline-text-2" id="text-orgbca49df">
+<p>
+<a href="https://github.com/tumashu/pyim">https://github.com/tumashu/pyim</a><br />
+</p>
+
+<p>
+内置的感觉是真的好。具体配置官方文档已经很清楚了，这里不做赘述。也可以参考我的配置。<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../static/20190331-emacschinese-0.png" alt="20190331-emacschinese-0.png" /><br />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfd152a9" class="outline-2">
+<h2 id="orgfd152a9">liberime</h2>
+<div class="outline-text-2" id="text-orgfd152a9">
+<p>
+但是，pyim原生的全拼补全实在是捉鸡。鼠须管虽然输入生词上仍然不如搜狗，但毕竟比pyim好太多了。pyim现在也支持了使用liberime作为后端，官方文档见：<a href="https://github.com/tumashu/pyim">https://github.com/tumashu/pyim</a> “通过-pyim-来支持-rime-所有输入法”小节。<br />
+</p>
+
+<p>
+liberime的作用是使用rime的librime作为后端，提供一个elisp的封装供pyim调用。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org57fd485" class="outline-2">
+<h2 id="org57fd485">编译librime</h2>
+<div class="outline-text-2" id="text-org57fd485">
+<p>
+首先编译librime，文档：<a href="https://gitlab.com/liberime/liberime/blob/master/README.org">https://gitlab.com/liberime/liberime/blob/master/README.org</a>， MacOS的文档<a href="https://github.com/rime/librime/blob/master/README-mac.md">https://github.com/rime/librime/blob/master/README-mac.md</a> 。<br />
+</p>
+
+<p>
+具体来说：<br />
+</p>
+<ol class="org-ol">
+<li><p>
+准备<br />
+需要XCode。<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">brew install cmake git
+brew install boost@1.60
+brew link --overwrite --force boost@1.60
+</pre>
+</div></li>
+
+<li><p>
+下载源码<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #f08080;">cd</span> ~
+git clone --recursive https://github.com/rime/librime.git
+</pre>
+</div></li>
+
+<li><p>
+编译<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #f08080;">cd</span> librime
+<span style="color: #969896;"># </span><span style="color: #969896;">&#32534;&#35793;&#31532;&#19977;&#26041;&#24211;</span>
+make xcode/thirdparty
+<span style="color: #969896;"># </span><span style="color: #969896;">&#32534;&#35793;librime</span>
+make xcode
+</pre>
+</div></li>
+</ol>
+<p>
+注意，不要删除这个文件夹。liberime只是一个动态库，最终还是要调用这里的编译结果。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0831d29" class="outline-2">
+<h2 id="org0831d29">编译liberime</h2>
+<div class="outline-text-2" id="text-org0831d29">
+<p>
+编译完成后，就可以编译liberime了。<br />
+</p>
+<ol class="org-ol">
+<li><p>
+下载源码<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">git clone https://gitlab.com/liberime/liberime.git
+</pre>
+</div></li>
+
+<li><p>
+编译<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #969896;"># </span><span style="color: #969896;">&#25351;&#21521;&#21018;&#25165;&#32534;&#35793;&#30340;librime&#25991;&#20214;&#22841;</span>
+<span style="color: #f08080;">export</span> <span style="color: #e7c547;">RIME_PATH</span>=~/librime
+<span style="color: #f08080;">cd</span> liberime
+make liberime
+<span style="color: #f08080;">cd</span> build
+<span style="color: #969896;"># </span><span style="color: #969896;">&#23558;&#21160;&#24577;&#24211;&#25335;&#36125;&#21040;&#38656;&#35201;&#30340;&#30446;&#24405;</span>
+cp liberime.so ~/ScriptHelper
+</pre>
+</div>
+
+<p>
+如果报错：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">ld: warning: directory not found for option <span style="color: #deb887;">'-L/Users/shuaizhao/librime/xbuild/lib/Release'</span>
+ld: library not found for -lrime
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+</pre>
+</div>
+
+<p>
+则修改CMakeLists.txt中的xbuild为build。<br />
+</p></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org7842522" class="outline-2">
+<h2 id="org7842522">配置</h2>
+<div class="outline-text-2" id="text-org7842522">
+<p>
+这里以我的配置作为例子：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #969896;">;; </span><span style="color: #969896;">&#25351;&#21521;liberime.so&#25152;&#22312;&#30340;&#36335;&#24452;</span>
+<span style="color: #eaeaea;">(</span><span style="color: #00bfff;">setq</span> load-path <span style="color: #70c0b1;">(</span>cons <span style="color: #e7c547;">(</span>expand-file-name <span style="color: #deb887;">"~/ScriptHelper"</span><span style="color: #e7c547;">)</span> load-path<span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
+<span style="color: #eaeaea;">(</span><span style="color: #00bfff;">require</span> '<span style="color: #a2cd5a;">liberime</span><span style="color: #eaeaea;">)</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">&#31532;&#19968;&#20010;&#21442;&#25968;&#26159;&#20849;&#20139;&#25991;&#20214;&#22841;&#65292;&#35265;https://github.com/rime/home/wiki/SharedData</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">&#31532;&#20108;&#20010;&#21442;&#25968;&#26159;&#20010;&#20154;&#25991;&#20214;&#22841;&#65292;&#25512;&#33616;&#25918;&#21040;~/.emacs.d/rime/</span>
+<span style="color: #eaeaea;">(</span>liberime-start <span style="color: #deb887;">"/Library/Input Methods/Squirrel.app/Contents/SharedSupport"</span> <span style="color: #deb887;">"~/.emacs.d/rime"</span><span style="color: #eaeaea;">)</span>
+<span style="color: #eaeaea;">(</span>liberime-select-schema <span style="color: #deb887;">"luna_pinyin_simp"</span><span style="color: #eaeaea;">)</span>
+<span style="color: #eaeaea;">(</span><span style="color: #00bfff;">setq</span> pyim-default-scheme 'rime-quanpin<span style="color: #eaeaea;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-03-17 Sun 18:29 -->
+<!-- 2019-04-01 Mon 08:18 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>elisp</title>
 <meta name="generator" content="Org mode" />
@@ -71,7 +71,7 @@ lisp的语法与主流语言有两个标志性的区别：<br />
 即操作符在表达式的最前面，好处首先就是没有了其他语言的“优先级”问题。<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>+ 3 4<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span>+ 3 4<span style="color: #eaeaea;">)</span>
 </pre>
 </div></li>
 
@@ -93,11 +93,11 @@ elisp作为lisp的方言，以我的观点来看不用太深入学习，因为�
 <h3 id="orgebda364">基本数据类型</h3>
 <div class="outline-text-3" id="text-orgebda364">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp">3 <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">int</span>
-3.5 <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">float</span>
-<span style="color: #98be65;">"string"</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">string</span>
-t <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">bool</span>
-nil <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#31354;</span>
+<pre class="src src-emacs-lisp">3 <span style="color: #969896;">;; </span><span style="color: #969896;">int</span>
+3.5 <span style="color: #969896;">;; </span><span style="color: #969896;">float</span>
+<span style="color: #deb887;">"string"</span> <span style="color: #969896;">;; </span><span style="color: #969896;">string</span>
+t <span style="color: #969896;">;; </span><span style="color: #969896;">bool</span>
+nil <span style="color: #969896;">;; </span><span style="color: #969896;">&#31354;</span>
 </pre>
 </div>
 </div>
@@ -114,8 +114,8 @@ nil <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#3135
 全局变量：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> a1 3<span style="color: #51afef;">)</span> <span style="color: #5B6268;">;;  </span><span style="color: #5B6268;">-&gt; 3</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defvar</span> <span style="color: #dcaeea;">a1</span> 3 <span style="color: #83898d;">"temp varlue"</span><span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt; 3</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">setq</span> a1 3<span style="color: #eaeaea;">)</span> <span style="color: #969896;">;;  </span><span style="color: #969896;">-&gt; 3</span>
+<span style="color: #eaeaea;">(</span><span style="color: #00bfff;">defvar</span> <span style="color: #e7c547;">a1</span> 3 <span style="color: #ffe4b5;">"temp varlue"</span><span style="color: #eaeaea;">)</span> <span style="color: #969896;">;; </span><span style="color: #969896;">-&gt; 3</span>
 </pre>
 </div>
 
@@ -127,16 +127,16 @@ nil <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#3135
 局部变量：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>a2 3<span style="color: #98be65;">)</span>
-      a3<span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">setq</span> a3 1<span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span>message <span style="color: #98be65;">"%s %s"</span> a2 a3<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt; 3 1</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">let</span> <span style="color: #70c0b1;">(</span><span style="color: #e7c547;">(</span>a2 3<span style="color: #e7c547;">)</span>
+      a3<span style="color: #70c0b1;">)</span>
+  <span style="color: #70c0b1;">(</span><span style="color: #00bfff;">setq</span> a3 1<span style="color: #70c0b1;">)</span>
+  <span style="color: #70c0b1;">(</span>message <span style="color: #deb887;">"%s %s"</span> a2 a3<span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">-&gt; 3 1</span>
 
-<span style="color: #51afef;">(</span><span style="color: #51afef;">let*</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>a2 3<span style="color: #98be65;">)</span>
-       <span style="color: #98be65;">(</span>a3 a2<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span>message <span style="color: #98be65;">"%s %s"</span> a2 a3<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt; 3 3</span>
+<span style="color: #eaeaea;">(</span><span style="color: #00bfff;">let*</span> <span style="color: #70c0b1;">(</span><span style="color: #e7c547;">(</span>a2 3<span style="color: #e7c547;">)</span>
+       <span style="color: #e7c547;">(</span>a3 a2<span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span>
+  <span style="color: #70c0b1;">(</span>message <span style="color: #deb887;">"%s %s"</span> a2 a3<span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">-&gt; 3 3</span>
 </pre>
 </div>
 
@@ -144,10 +144,10 @@ nil <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#3135
 let结构有两种：let与let*。let的结构是这样的：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>var1 val1<span style="color: #98be65;">)</span>
-      <span style="color: #98be65;">(</span>var2 val2<span style="color: #98be65;">)</span>
-      ...<span style="color: #c678dd;">)</span>
-  body<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">let</span> <span style="color: #70c0b1;">(</span><span style="color: #e7c547;">(</span>var1 val1<span style="color: #e7c547;">)</span>
+      <span style="color: #e7c547;">(</span>var2 val2<span style="color: #e7c547;">)</span>
+      ...<span style="color: #70c0b1;">)</span>
+  body<span style="color: #eaeaea;">)</span>
 </pre>
 </div>
 
@@ -169,7 +169,7 @@ let中变量列表的赋值顺序是不定的，因此在第一个例子里a3无
 空表：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp">'<span style="color: #51afef;">()</span> == <span style="color: #51afef;">(</span><span style="color: #51afef;">quote</span> <span style="color: #c678dd;">()</span><span style="color: #51afef;">)</span> == nil
+<pre class="src src-emacs-lisp">'<span style="color: #eaeaea;">()</span> == <span style="color: #eaeaea;">(</span><span style="color: #00bfff;">quote</span> <span style="color: #70c0b1;">()</span><span style="color: #eaeaea;">)</span> == nil
 </pre>
 </div>
 
@@ -177,11 +177,11 @@ let中变量列表的赋值顺序是不定的，因此在第一个例子里a3无
 可以看到一个'，这个符号被称为引用符（quote）。它的作用是表示后面的表不立即求值，而把其当作一个字面值处理。例如：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>+ 1 2<span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt; 3</span>
-'<span style="color: #51afef;">(</span>+ 1 2<span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt; (+ 1 2)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span>+ 1 2<span style="color: #eaeaea;">)</span> <span style="color: #969896;">;; </span><span style="color: #969896;">-&gt; 3</span>
+'<span style="color: #eaeaea;">(</span>+ 1 2<span style="color: #eaeaea;">)</span> <span style="color: #969896;">;; </span><span style="color: #969896;">-&gt; (+ 1 2)</span>
 
-<span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> testquote '<span style="color: #c678dd;">(</span>+ 1 2<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>apply testquote<span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">3</span>
+<span style="color: #eaeaea;">(</span><span style="color: #00bfff;">setq</span> testquote '<span style="color: #70c0b1;">(</span>+ 1 2<span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
+<span style="color: #eaeaea;">(</span>apply testquote<span style="color: #eaeaea;">)</span> <span style="color: #969896;">;; </span><span style="color: #969896;">3</span>
 </pre>
 </div>
 
@@ -189,9 +189,9 @@ let中变量列表的赋值顺序是不定的，因此在第一个例子里a3无
 两个基本类型的数据可以组合成一个称为序对（cons cell）的结构：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> two <span style="color: #c678dd;">(</span>cons 1 2<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">(1 . 2)</span>
-<span style="color: #51afef;">(</span>car two<span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">1</span>
-<span style="color: #51afef;">(</span>cdr two<span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">2</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">setq</span> two <span style="color: #70c0b1;">(</span>cons 1 2<span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span> <span style="color: #969896;">;; </span><span style="color: #969896;">(1 . 2)</span>
+<span style="color: #eaeaea;">(</span>car two<span style="color: #eaeaea;">)</span> <span style="color: #969896;">;; </span><span style="color: #969896;">1</span>
+<span style="color: #eaeaea;">(</span>cdr two<span style="color: #eaeaea;">)</span> <span style="color: #969896;">;; </span><span style="color: #969896;">2</span>
 </pre>
 </div>
 
@@ -199,12 +199,12 @@ let中变量列表的赋值顺序是不定的，因此在第一个例子里a3无
 cons用于构建序对，car用于取前面的元素，cdr用于取后面的元素(序对与list的区别就是list的最后一个元素为nil)。而按照这种形式可以构成任意长度的表：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> three <span style="color: #c678dd;">(</span>cons 1 <span style="color: #98be65;">(</span>cons 2 <span style="color: #da8548;">(</span>cons 3 nil<span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#31561;&#20215;&#20110;</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> three <span style="color: #c678dd;">(</span>list 1 2 3<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">setq</span> three <span style="color: #70c0b1;">(</span>cons 1 <span style="color: #e7c547;">(</span>cons 2 <span style="color: #a2cd5a;">(</span>cons 3 nil<span style="color: #a2cd5a;">)</span><span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">&#31561;&#20215;&#20110;</span>
+<span style="color: #eaeaea;">(</span><span style="color: #00bfff;">setq</span> three <span style="color: #70c0b1;">(</span>list 1 2 3<span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
 
-<span style="color: #51afef;">(</span>car three<span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">1</span>
-<span style="color: #51afef;">(</span>cdr three<span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">(2 3)</span>
+<span style="color: #eaeaea;">(</span>car three<span style="color: #eaeaea;">)</span> <span style="color: #969896;">;; </span><span style="color: #969896;">1</span>
+<span style="color: #eaeaea;">(</span>cdr three<span style="color: #eaeaea;">)</span> <span style="color: #969896;">;; </span><span style="color: #969896;">(2 3)</span>
 </pre>
 </div>
 
@@ -221,9 +221,9 @@ cons用于构建序对，car用于取前面的元素，cdr用于取后面的元�
 那么字典怎么实现呢，即以key的形式直接访问元素？lisp中提供了一种称为<a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Association-Lists.html">association list</a>（a-list）的结构来达到这种效果。它的结构是这样的：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> color-alist '<span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>red . <span style="color: #98be65;">"ff0000"</span><span style="color: #98be65;">)</span>
-                    <span style="color: #98be65;">(</span>green . <span style="color: #98be65;">"00ff00"</span><span style="color: #98be65;">)</span>
-                    <span style="color: #98be65;">(</span>blue . <span style="color: #98be65;">"0000ff"</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">setq</span> color-alist '<span style="color: #70c0b1;">(</span><span style="color: #e7c547;">(</span>red . <span style="color: #deb887;">"ff0000"</span><span style="color: #e7c547;">)</span>
+                    <span style="color: #e7c547;">(</span>green . <span style="color: #deb887;">"00ff00"</span><span style="color: #e7c547;">)</span>
+                    <span style="color: #e7c547;">(</span>blue . <span style="color: #deb887;">"0000ff"</span><span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
 </pre>
 </div>
 
@@ -232,9 +232,9 @@ cons用于构建序对，car用于取前面的元素，cdr用于取后面的元�
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> green-item <span style="color: #c678dd;">(</span>assoc 'green color-alist<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span> -&gt; <span style="color: #51afef;">(</span>green . <span style="color: #98be65;">"00ff00"</span><span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">item</span>
-<span style="color: #51afef;">(</span>car green-item<span style="color: #51afef;">)</span> -&gt; green <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">key</span>
-<span style="color: #51afef;">(</span>cdr green-item<span style="color: #51afef;">)</span> -&gt; <span style="color: #98be65;">"00ff00"</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">value</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">setq</span> green-item <span style="color: #70c0b1;">(</span>assoc 'green color-alist<span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span> -&gt; <span style="color: #eaeaea;">(</span>green . <span style="color: #deb887;">"00ff00"</span><span style="color: #eaeaea;">)</span> <span style="color: #969896;">;; </span><span style="color: #969896;">item</span>
+<span style="color: #eaeaea;">(</span>car green-item<span style="color: #eaeaea;">)</span> -&gt; green <span style="color: #969896;">;; </span><span style="color: #969896;">key</span>
+<span style="color: #eaeaea;">(</span>cdr green-item<span style="color: #eaeaea;">)</span> -&gt; <span style="color: #deb887;">"00ff00"</span> <span style="color: #969896;">;; </span><span style="color: #969896;">value</span>
 </pre>
 </div>
 
@@ -242,8 +242,8 @@ cons用于构建序对，car用于取前面的元素，cdr用于取后面的元�
 alist中对于key-value的替换是这样做的：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>add-to-list 'color-alist '<span style="color: #c678dd;">(</span>green . <span style="color: #98be65;">"00ff01"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span> -&gt; <span style="color: #51afef;">(</span><span style="color: #c678dd;">(</span>green . <span style="color: #98be65;">"00ff01"</span><span style="color: #c678dd;">)</span> <span style="color: #c678dd;">(</span>red . <span style="color: #98be65;">"ff0000"</span><span style="color: #c678dd;">)</span> <span style="color: #c678dd;">(</span>green . <span style="color: #98be65;">"00ff00"</span><span style="color: #c678dd;">)</span> <span style="color: #c678dd;">(</span>blue . <span style="color: #98be65;">"0000ff"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>cdr <span style="color: #c678dd;">(</span>assoc 'green color-alist<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span> -&gt; <span style="color: #98be65;">"00ff01"</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span>add-to-list 'color-alist '<span style="color: #70c0b1;">(</span>green . <span style="color: #deb887;">"00ff01"</span><span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span> -&gt; <span style="color: #eaeaea;">(</span><span style="color: #70c0b1;">(</span>green . <span style="color: #deb887;">"00ff01"</span><span style="color: #70c0b1;">)</span> <span style="color: #70c0b1;">(</span>red . <span style="color: #deb887;">"ff0000"</span><span style="color: #70c0b1;">)</span> <span style="color: #70c0b1;">(</span>green . <span style="color: #deb887;">"00ff00"</span><span style="color: #70c0b1;">)</span> <span style="color: #70c0b1;">(</span>blue . <span style="color: #deb887;">"0000ff"</span><span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
+<span style="color: #eaeaea;">(</span>cdr <span style="color: #70c0b1;">(</span>assoc 'green color-alist<span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span> -&gt; <span style="color: #deb887;">"00ff01"</span>
 </pre>
 </div>
 
@@ -265,7 +265,7 @@ alist中对于key-value的替换是这样做的：<br />
 <h3 id="orgcb29417">顺序</h3>
 <div class="outline-text-3" id="text-orgcb29417">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">progn</span> expr1 expr2 ...<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">progn</span> expr1 expr2 ...<span style="color: #eaeaea;">)</span>
 </pre>
 </div>
 
@@ -283,9 +283,9 @@ progn的作用就是将多条表达式合并成一条，返回值为最后执行
 <h4 id="orgb136d95">if</h4>
 <div class="outline-text-4" id="text-orgb136d95">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">if</span> test
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">if</span> test
     then
-  else1 else2 ...<span style="color: #51afef;">)</span>
+  else1 else2 ...<span style="color: #eaeaea;">)</span>
 </pre>
 </div>
 
@@ -294,14 +294,14 @@ progn的作用就是将多条表达式合并成一条，返回值为最后执行
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>a2 3<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">if</span> <span style="color: #98be65;">(</span>&gt; a2 1<span style="color: #98be65;">)</span>
-      <span style="color: #98be65;">(</span><span style="color: #51afef;">progn</span>
-        <span style="color: #da8548;">(</span><span style="color: #51afef;">setq</span> a2 2<span style="color: #da8548;">)</span>
-        <span style="color: #da8548;">(</span>message <span style="color: #98be65;">"Right %s"</span> a2<span style="color: #da8548;">)</span><span style="color: #98be65;">)</span>
-    <span style="color: #98be65;">(</span>message <span style="color: #98be65;">"Wrong %s"</span> a2<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">let</span> <span style="color: #70c0b1;">(</span><span style="color: #e7c547;">(</span>a2 3<span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span>
+  <span style="color: #70c0b1;">(</span><span style="color: #00bfff;">if</span> <span style="color: #e7c547;">(</span>&gt; a2 1<span style="color: #e7c547;">)</span>
+      <span style="color: #e7c547;">(</span><span style="color: #00bfff;">progn</span>
+        <span style="color: #a2cd5a;">(</span><span style="color: #00bfff;">setq</span> a2 2<span style="color: #a2cd5a;">)</span>
+        <span style="color: #a2cd5a;">(</span>message <span style="color: #deb887;">"Right %s"</span> a2<span style="color: #a2cd5a;">)</span><span style="color: #e7c547;">)</span>
+    <span style="color: #e7c547;">(</span>message <span style="color: #deb887;">"Wrong %s"</span> a2<span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
 
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt; Right 2</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">-&gt; Right 2</span>
 </pre>
 </div>
 
@@ -314,9 +314,9 @@ when<br />
 没有else分支的if：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>a2 3<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-    <span style="color: #c678dd;">(</span><span style="color: #51afef;">when</span> <span style="color: #98be65;">(</span>&gt; a2 1<span style="color: #98be65;">)</span>
-    <span style="color: #98be65;">(</span>message <span style="color: #98be65;">"hello"</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">let</span> <span style="color: #70c0b1;">(</span><span style="color: #e7c547;">(</span>a2 3<span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span>
+    <span style="color: #70c0b1;">(</span><span style="color: #00bfff;">when</span> <span style="color: #e7c547;">(</span>&gt; a2 1<span style="color: #e7c547;">)</span>
+    <span style="color: #e7c547;">(</span>message <span style="color: #deb887;">"hello"</span><span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
 </pre>
 </div></li>
 
@@ -325,9 +325,9 @@ unless<br />
 if的else分支：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>a2 3<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-    <span style="color: #c678dd;">(</span><span style="color: #51afef;">unless</span> <span style="color: #98be65;">(</span>&lt; a2 1<span style="color: #98be65;">)</span>
-    <span style="color: #98be65;">(</span>message <span style="color: #98be65;">"hello"</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">let</span> <span style="color: #70c0b1;">(</span><span style="color: #e7c547;">(</span>a2 3<span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span>
+    <span style="color: #70c0b1;">(</span><span style="color: #00bfff;">unless</span> <span style="color: #e7c547;">(</span>&lt; a2 1<span style="color: #e7c547;">)</span>
+    <span style="color: #e7c547;">(</span>message <span style="color: #deb887;">"hello"</span><span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
 </pre>
 </div></li>
 </ul>
@@ -341,10 +341,10 @@ if的else分支：<br />
 多条件语句，返回值为最后执行的语句。<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">cond</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>test1 body11 body12 ...<span style="color: #98be65;">)</span>
-       <span style="color: #98be65;">(</span>test2 body21 body22 ...<span style="color: #98be65;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">cond</span> <span style="color: #70c0b1;">(</span><span style="color: #e7c547;">(</span>test1 body11 body12 ...<span style="color: #e7c547;">)</span>
+       <span style="color: #e7c547;">(</span>test2 body21 body22 ...<span style="color: #e7c547;">)</span>
        ...
-       <span style="color: #98be65;">(</span>t bodyn1 bodyn2 ...<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+       <span style="color: #e7c547;">(</span>t bodyn1 bodyn2 ...<span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
 </pre>
 </div>
 
@@ -352,15 +352,15 @@ if的else分支：<br />
 例如：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>a4 4<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">cond</span> <span style="color: #98be65;">(</span><span style="color: #da8548;">(</span>&gt; a4 3<span style="color: #da8548;">)</span> <span style="color: #da8548;">(</span>message <span style="color: #98be65;">"1"</span><span style="color: #da8548;">)</span> <span style="color: #da8548;">(</span>message <span style="color: #98be65;">"&gt;"</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span>
-        <span style="color: #98be65;">(</span><span style="color: #da8548;">(</span>= a4 3<span style="color: #da8548;">)</span> <span style="color: #da8548;">(</span>message <span style="color: #98be65;">"1"</span><span style="color: #da8548;">)</span> <span style="color: #da8548;">(</span>message <span style="color: #98be65;">"="</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span>
-        <span style="color: #98be65;">(</span><span style="color: #da8548;">(</span>&lt; a4 3<span style="color: #da8548;">)</span> <span style="color: #da8548;">(</span>message <span style="color: #98be65;">"1"</span><span style="color: #da8548;">)</span> <span style="color: #da8548;">(</span>message <span style="color: #98be65;">"&lt;"</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">let</span> <span style="color: #70c0b1;">(</span><span style="color: #e7c547;">(</span>a4 4<span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span>
+  <span style="color: #70c0b1;">(</span><span style="color: #00bfff;">cond</span> <span style="color: #e7c547;">(</span><span style="color: #a2cd5a;">(</span>&gt; a4 3<span style="color: #a2cd5a;">)</span> <span style="color: #a2cd5a;">(</span>message <span style="color: #deb887;">"1"</span><span style="color: #a2cd5a;">)</span> <span style="color: #a2cd5a;">(</span>message <span style="color: #deb887;">"&gt;"</span><span style="color: #a2cd5a;">)</span><span style="color: #e7c547;">)</span>
+        <span style="color: #e7c547;">(</span><span style="color: #a2cd5a;">(</span>= a4 3<span style="color: #a2cd5a;">)</span> <span style="color: #a2cd5a;">(</span>message <span style="color: #deb887;">"1"</span><span style="color: #a2cd5a;">)</span> <span style="color: #a2cd5a;">(</span>message <span style="color: #deb887;">"="</span><span style="color: #a2cd5a;">)</span><span style="color: #e7c547;">)</span>
+        <span style="color: #e7c547;">(</span><span style="color: #a2cd5a;">(</span>&lt; a4 3<span style="color: #a2cd5a;">)</span> <span style="color: #a2cd5a;">(</span>message <span style="color: #deb887;">"1"</span><span style="color: #a2cd5a;">)</span> <span style="color: #a2cd5a;">(</span>message <span style="color: #deb887;">"&lt;"</span><span style="color: #a2cd5a;">)</span><span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
 
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt;</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">1</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&gt;</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">"&gt;"</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">-&gt;</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">1</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">&gt;</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">"&gt;"</span>
 </pre>
 </div>
 </div>
@@ -378,17 +378,17 @@ if的else分支：<br />
 and会顺序执行表达式，直到遇到nil。所以返回值为nil或者最后一个语句。通常，<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">if</span> expr1
-    <span style="color: #c678dd;">(</span><span style="color: #51afef;">if</span> expr2
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">if</span> expr1
+    <span style="color: #70c0b1;">(</span><span style="color: #00bfff;">if</span> expr2
         ..
-    <span style="color: #98be65;">(</span><span style="color: #51afef;">if</span> exprn-1 exprn<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+    <span style="color: #e7c547;">(</span><span style="color: #00bfff;">if</span> exprn-1 exprn<span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
 </pre>
 </div>
 <p>
 简写作<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">and</span> expr1 exp2 ...<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">and</span> expr1 exp2 ...<span style="color: #eaeaea;">)</span>
 </pre>
 </div></li>
 
@@ -396,14 +396,14 @@ and会顺序执行表达式，直到遇到nil。所以返回值为nil或者最�
 or会顺序执行表达式，直到遇到一个非nil。所以返回值为第一个非nil的值。<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">if</span> a a b<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">if</span> a a b<span style="color: #eaeaea;">)</span>
 </pre>
 </div>
 <p>
 简写作<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">or</span> a b<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">or</span> a b<span style="color: #eaeaea;">)</span>
 </pre>
 </div></li>
 
@@ -411,7 +411,7 @@ or会顺序执行表达式，直到遇到一个非nil。所以返回值为第一
 not为非：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>not expr<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span>not expr<span style="color: #eaeaea;">)</span>
 </pre>
 </div></li>
 </ul>
@@ -429,8 +429,8 @@ not为非：<br />
 返回值为nil。<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">while</span> test
-  body1 body2 ...<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">while</span> test
+  body1 body2 ...<span style="color: #eaeaea;">)</span>
 </pre>
 </div>
 
@@ -438,14 +438,14 @@ not为非：<br />
 例如：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>count 3<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">while</span> <span style="color: #98be65;">(</span>&gt; count 0<span style="color: #98be65;">)</span>
-    <span style="color: #98be65;">(</span>message <span style="color: #98be65;">"%d"</span> count<span style="color: #98be65;">)</span>
-    <span style="color: #98be65;">(</span><span style="color: #51afef;">setq</span> count <span style="color: #da8548;">(</span>1- count<span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">3</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">2</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">1</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">nil</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">let</span> <span style="color: #70c0b1;">(</span><span style="color: #e7c547;">(</span>count 3<span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span>
+  <span style="color: #70c0b1;">(</span><span style="color: #00bfff;">while</span> <span style="color: #e7c547;">(</span>&gt; count 0<span style="color: #e7c547;">)</span>
+    <span style="color: #e7c547;">(</span>message <span style="color: #deb887;">"%d"</span> count<span style="color: #e7c547;">)</span>
+    <span style="color: #e7c547;">(</span><span style="color: #00bfff;">setq</span> count <span style="color: #a2cd5a;">(</span>1- count<span style="color: #a2cd5a;">)</span><span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">3</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">2</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">1</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">nil</span>
 </pre>
 </div>
 </div>
@@ -458,13 +458,13 @@ not为非：<br />
 elisp提供了更方便的对list的遍历方法，返回值为nil。<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>templist '<span style="color: #da8548;">(</span>1 2 3<span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">dolist</span> <span style="color: #98be65;">(</span>var templist<span style="color: #98be65;">)</span>
-    <span style="color: #98be65;">(</span>message <span style="color: #98be65;">"%d"</span> var<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">3</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">2</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">1</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">nil</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">let</span> <span style="color: #70c0b1;">(</span><span style="color: #e7c547;">(</span>templist '<span style="color: #a2cd5a;">(</span>1 2 3<span style="color: #a2cd5a;">)</span><span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span>
+  <span style="color: #70c0b1;">(</span><span style="color: #00bfff;">dolist</span> <span style="color: #e7c547;">(</span>var templist<span style="color: #e7c547;">)</span>
+    <span style="color: #e7c547;">(</span>message <span style="color: #deb887;">"%d"</span> var<span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">3</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">2</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">1</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">nil</span>
 </pre>
 </div>
 </div>
@@ -480,11 +480,11 @@ elisp提供了更方便的对list的遍历方法，返回值为nil。<br />
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> func1 <span style="color: #c678dd;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #98be65;">()</span> <span style="color: #98be65;">(</span>message <span style="color: #98be65;">"hello"</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>funcall func1<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">setq</span> func1 <span style="color: #70c0b1;">(</span><span style="color: #00bfff;">lambda</span> <span style="color: #e7c547;">()</span> <span style="color: #e7c547;">(</span>message <span style="color: #deb887;">"hello"</span><span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
+<span style="color: #eaeaea;">(</span>funcall func1<span style="color: #eaeaea;">)</span>
 
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">scheme&#21487;&#20197;&#30452;&#25509;&#35843;&#29992;</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">(func1)</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">scheme&#21487;&#20197;&#30452;&#25509;&#35843;&#29992;</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">(func1)</span>
 </pre>
 </div>
 
@@ -492,9 +492,9 @@ elisp提供了更方便的对list的遍历方法，返回值为nil。<br />
 elisp提供了更显式的函数定义方式：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">func1</span> <span style="color: #c678dd;">()</span>
-  <span style="color: #c678dd;">(</span>message <span style="color: #98be65;">"hello"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>func1<span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt; "hello"</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">defun</span> <span style="color: #daa520;">func1</span> <span style="color: #70c0b1;">()</span>
+  <span style="color: #70c0b1;">(</span>message <span style="color: #deb887;">"hello"</span><span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
+<span style="color: #eaeaea;">(</span>func1<span style="color: #eaeaea;">)</span> <span style="color: #969896;">;; </span><span style="color: #969896;">-&gt; "hello"</span>
 </pre>
 </div>
 
@@ -503,10 +503,10 @@ elisp提供了更显式的函数定义方式：<br />
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">name</span> <span style="color: #c678dd;">(</span>arg1 arg2<span style="color: #c678dd;">)</span>
-  <span style="color: #83898d;">"document string"</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">interactive</span><span style="color: #c678dd;">)</span>
-  body<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">defun</span> <span style="color: #daa520;">name</span> <span style="color: #70c0b1;">(</span>arg1 arg2<span style="color: #70c0b1;">)</span>
+  <span style="color: #ffe4b5;">"document string"</span>
+  <span style="color: #70c0b1;">(</span><span style="color: #00bfff;">interactive</span><span style="color: #70c0b1;">)</span>
+  body<span style="color: #eaeaea;">)</span>
 </pre>
 </div>
 
@@ -514,7 +514,7 @@ elisp提供了更显式的函数定义方式：<br />
 一个常见的defun是这样的。第一个元素为函数名，后面的列表是参数列表，参数可以使用&amp;rest和&amp;optional修饰；下面有一个可选的文档字符串以及一个可选的声明列表，最常见的就是(interactive)，表示这个函数是一个可交互的函数，即用户可以通过关联快捷键或者M-x的方式直接调用该函数。对于不需要名字的函数，可以使用lambda表达式：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">bind-key</span> <span style="color: #c678dd;">(</span>kbd <span style="color: #98be65;">"C-c C-1"</span><span style="color: #c678dd;">)</span> <span style="color: #c678dd;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #98be65;">()</span> <span style="color: #98be65;">(</span><span style="color: #51afef;">interactive</span><span style="color: #98be65;">)</span> <span style="color: #98be65;">(</span>message <span style="color: #98be65;">"hello"</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span> global-map<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">bind-key</span> <span style="color: #70c0b1;">(</span>kbd <span style="color: #deb887;">"C-c C-1"</span><span style="color: #70c0b1;">)</span> <span style="color: #70c0b1;">(</span><span style="color: #00bfff;">lambda</span> <span style="color: #e7c547;">()</span> <span style="color: #e7c547;">(</span><span style="color: #00bfff;">interactive</span><span style="color: #e7c547;">)</span> <span style="color: #e7c547;">(</span>message <span style="color: #deb887;">"hello"</span><span style="color: #e7c547;">)</span><span style="color: #70c0b1;">)</span> global-map<span style="color: #eaeaea;">)</span>
 </pre>
 </div>
 </div>
@@ -528,19 +528,19 @@ elisp提供了更显式的函数定义方式：<br />
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">example-func</span> <span style="color: #c678dd;">(</span>p1 p2 p3<span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span>message <span style="color: #98be65;">"%d %d %d"</span> p1 p2 p3<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #eaeaea;">(</span><span style="color: #00bfff;">defun</span> <span style="color: #daa520;">example-func</span> <span style="color: #70c0b1;">(</span>p1 p2 p3<span style="color: #70c0b1;">)</span>
+  <span style="color: #70c0b1;">(</span>message <span style="color: #deb887;">"%d %d %d"</span> p1 p2 p3<span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
 
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">example-advice</span> <span style="color: #c678dd;">(</span>oldfunc <span style="color: #ECBE7B;">&amp;rest</span> args<span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span>setcar <span style="color: #98be65;">(</span>nthcdr 1 args<span style="color: #98be65;">)</span> 0<span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span>apply oldfunc args<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #eaeaea;">(</span><span style="color: #00bfff;">defun</span> <span style="color: #daa520;">example-advice</span> <span style="color: #70c0b1;">(</span>oldfunc <span style="color: #98f5ff;">&amp;rest</span> args<span style="color: #70c0b1;">)</span>
+  <span style="color: #70c0b1;">(</span>setcar <span style="color: #e7c547;">(</span>nthcdr 1 args<span style="color: #e7c547;">)</span> 0<span style="color: #70c0b1;">)</span>
+  <span style="color: #70c0b1;">(</span>apply oldfunc args<span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
 
-<span style="color: #51afef;">(</span>example-func 1 2 3<span style="color: #51afef;">)</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt; "1 2 3"</span>
+<span style="color: #eaeaea;">(</span>example-func 1 2 3<span style="color: #eaeaea;">)</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">-&gt; "1 2 3"</span>
 
-<span style="color: #51afef;">(</span>advice-add 'example-func <span style="color: #c678dd;">:around</span> 'example-advice<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>example-func 1 2 3<span style="color: #51afef;">)</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">-&gt; "1 0 3"</span>
+<span style="color: #eaeaea;">(</span>advice-add 'example-func <span style="color: #f08080;">:around</span> 'example-advice<span style="color: #eaeaea;">)</span>
+<span style="color: #eaeaea;">(</span>example-func 1 2 3<span style="color: #eaeaea;">)</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">-&gt; "1 0 3"</span>
 </pre>
 </div>
 </div>
