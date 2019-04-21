@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-04-01 Mon 19:03 -->
+<!-- 2019-04-21 Sun 15:19 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>emacs内置中文输入法</title>
 <meta name="generator" content="Org mode" />
@@ -176,14 +176,24 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)
 </p>
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #969896;">;; </span><span style="color: #969896;">&#25351;&#21521;liberime.so&#25152;&#22312;&#30340;&#36335;&#24452;</span>
-<span style="color: #eaeaea;">(</span><span style="color: #00bfff;">setq</span> load-path <span style="color: #70c0b1;">(</span>cons <span style="color: #e7c547;">(</span>expand-file-name <span style="color: #deb887;">"~/ScriptHelper"</span><span style="color: #e7c547;">)</span> load-path<span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
+<span style="color: #eaeaea;">(</span><span style="color: #00bfff;">setq</span> load-path <span style="color: #70c0b1;">(</span>cons <span style="color: #e7c547;">(</span>file-truename <span style="color: #deb887;">"~/ScriptHelper"</span><span style="color: #e7c547;">)</span> load-path<span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
 <span style="color: #eaeaea;">(</span><span style="color: #00bfff;">require</span> '<span style="color: #a2cd5a;">liberime</span><span style="color: #eaeaea;">)</span>
 <span style="color: #969896;">;; </span><span style="color: #969896;">&#31532;&#19968;&#20010;&#21442;&#25968;&#26159;&#20849;&#20139;&#25991;&#20214;&#22841;&#65292;&#35265;https://github.com/rime/home/wiki/SharedData</span>
-<span style="color: #969896;">;; </span><span style="color: #969896;">&#31532;&#20108;&#20010;&#21442;&#25968;&#26159;&#20010;&#20154;&#25991;&#20214;&#22841;&#65292;&#25512;&#33616;&#25918;&#21040;~/.emacs.d/rime/</span>
-<span style="color: #eaeaea;">(</span>liberime-start <span style="color: #deb887;">"/Library/Input Methods/Squirrel.app/Contents/SharedSupport"</span> <span style="color: #deb887;">"~/.emacs.d/rime"</span><span style="color: #eaeaea;">)</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">&#31532;&#20108;&#20010;&#21442;&#25968;&#26159;&#20010;&#20154;&#25991;&#20214;&#22841;</span>
+<span style="color: #969896;">;; </span><span style="color: #969896;">&#27880;&#24847;&#65306;&#35774;&#32622;&#30340;&#26102;&#20505;&#26368;&#22909;&#19981;&#35201;&#20351;&#29992;&#36719;&#38142;&#25509;&#65292;&#20063;&#19981;&#35201;&#20351;&#29992; "~" &#21644;&#30456;&#23545;&#36335;&#24452;&#65292;liberime&#26377;&#26102;&#20505;&#26080;&#27861;&#22788;&#29702;&#12290;</span>
+<span style="color: #eaeaea;">(</span>liberime-start <span style="color: #deb887;">"/Library/Input Methods/Squirrel.app/Contents/SharedSupport"</span> <span style="color: #70c0b1;">(</span>file-truename <span style="color: #deb887;">"~/.emacs.d/pyim/rime/"</span><span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
 <span style="color: #eaeaea;">(</span>liberime-select-schema <span style="color: #deb887;">"luna_pinyin_simp"</span><span style="color: #eaeaea;">)</span>
 <span style="color: #eaeaea;">(</span><span style="color: #00bfff;">setq</span> pyim-default-scheme 'rime-quanpin<span style="color: #eaeaea;">)</span>
 </pre>
+</div>
+</div>
+
+<div id="outline-container-org4f8bb64" class="outline-3">
+<h3 id="org4f8bb64">上屏问题</h3>
+<div class="outline-text-3" id="text-org4f8bb64">
+<p>
+<a href="https://github.com/tumashu/pyim/issues/261">https://github.com/tumashu/pyim/issues/261</a><br />
+</p>
 </div>
 </div>
 </div>
