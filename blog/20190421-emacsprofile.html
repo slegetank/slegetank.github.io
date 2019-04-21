@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-04-21 Sun 17:45 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>如何定位emacs卡顿的问题</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">如何定位emacs卡顿的问题</h1>
+<p>
+很多时候听到人跟我抱怨emacs在某种情况下很卡，这时候就很无奈，因为毕竟运行环境不同，别人也很难及时的帮助你定位问题。今天在这里介绍emacs（24.3之后提供）内置的一个分析工具：profiler。<br />
+</p>
+
+<p>
+举个例子。我之前发现在编辑某个python文件的时候特别卡，于是我就需要定位一下。<br />
+此时执行：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">M-x profiler-start
+</pre>
+</div>
+
+<p>
+emacs会提示你监测内存还是cpu，还是两者都需要。卡顿一般是因为cpu占用高，所以我选择cpu。此时emacs开始记录cpu的运行情况了。<br />
+</p>
+
+<p>
+然后乱七八糟操作一阵，觉得差不多了，执行：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">M-x profiler-report
+</pre>
+</div>
+
+<p>
+来收集统计统计数据：<br />
+<img src="../static/20190421-emacsprofile-0.png" alt="20190421-emacsprofile-0.png" /><br />
+</p>
+
+<p>
+可以看到，有个罪魁祸首“indent-guide-post-command-hook”占了绝大部分的功劳。<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">find-function indent-guide-post-command-hook
+</pre>
+</div>
+
+<p>
+找到这个函数：<br />
+<img src="../static/20190421-emacsprofile-1.png" alt="20190421-emacsprofile-1.png" /><br />
+</p>
+
+<p>
+发现是一个第三方库：indent-guide，通过melpa找到这个库：<br />
+<a href="https://github.com/zk-phi/indent-guide">https://github.com/zk-phi/indent-guide</a><br />
+</p>
+
+<p>
+发现是一个用来展示缩进竖线的库。在配置里将其禁掉，再编辑，发现不卡了。<br />
+</p>
+
+<p>
+最后，如果定位结束，不要忘了停止监听：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">M-x profiler-stop
+</pre>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>
