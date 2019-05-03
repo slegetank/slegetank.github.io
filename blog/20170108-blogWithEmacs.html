@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-05-03 Fri 15:16 -->
+<!-- 2019-05-03 Fri 15:19 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>Blog With Emacs</title>
 <meta name="generator" content="Org mode" />
@@ -201,6 +201,10 @@ PREVIEW: 需要我自己填<br /></li>
 <p>
 我将org文件的导出以及commit做了一个整合，变成了这个命令。也就是将org文件导出生成html文件，然后使用固定格式的message提交更改。这样看起来提交的记录会变得非常整洁：<br />
 <img src="../static/20170108-blogWithEmacs-2.png" alt="20170108-blogWithEmacs-2.png" /><br />
+</p>
+
+<p>
+博客文件多了之后，每次全量更新会很慢，所以也需要考虑只publish更改的博客文件。我目前的做法是把每个博客文件的md5计算出来保存在文件当中，每次publish的时候与其对比，有变化或新增的才publish，这样就很快了。<br />
 </p>
 </div>
 </div>
