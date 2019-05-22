@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-05-22 Wed 14:04 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>科学上网</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" /><link rel="shortcut icon" type="image/jpg" href="../static/favicon.jpg"/>
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">科学上网</h1>
+<p>
+使用他人搭建的vpn最大的问题是不稳定。所以勤劳的程序员需要自己翻墙，因为自己的主机比较隐蔽，流量小，不容易引起老大哥的注意。翻墙的原理很简单，就是通过不被墙的主机做中转去访问被墙掉的站点。所以首先需要在域外建立一个主机，vps是最佳的选择。<br />
+</p>
+
+<div id="outline-container-org9cbc517" class="outline-2">
+<h2 id="org9cbc517">vps</h2>
+<div class="outline-text-2" id="text-org9cbc517">
+<p>
+选择一个vps提供商，这里选择<a href="https://cloud.digitalocean.com">digital ocean</a> 来搭建服务器。vps的成本相当低，digitalocean提供的最低配置只要5$每月，而且建立、删除都很灵活，可以在世界各地建立自己想要的网络服务。这里仅使用主机提供vpn服务。<br />
+</p>
+
+<p>
+建立Droplet，选择一个系统镜像，最便宜的5$的方案：<br />
+<img src="../static/20190522-crosswall-0.png" alt="20190522-crosswall-0.png" /><br />
+</p>
+
+<p>
+选择主机所在的国家，这里选择英国：<br />
+<img src="../static/20190522-crosswall-1.png" alt="20190522-crosswall-1.png" /><br />
+</p>
+
+<p>
+创建完成。<br />
+</p>
+
+<p>
+此时你预留的邮箱会收到一封邮件，里面有默认的密码：<br />
+<img src="../static/20190522-crosswall-2.png" alt="20190522-crosswall-2.png" /><br />
+</p>
+
+<p>
+使用ssh远程登录：<br />
+ssh root@178.128.170.209<br />
+</p>
+
+<p>
+输入帐号密码之后，会要求你重置密码。完成。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org805fe0e" class="outline-2">
+<h2 id="org805fe0e">shadowsocks</h2>
+<div class="outline-text-2" id="text-org805fe0e">
+<p>
+如果不需要使用热点共享网络，那么可以使用shadowsocks，它更安全，更不容易被墙。但是需要安装客户端，系统不能默认支持。<br />
+教程：<a href="https://www.textarea.com/ExpectoPatronum/shiyong-shadowsocks-kexue-shangwang-265/">https://www.textarea.com/ExpectoPatronum/shiyong-shadowsocks-kexue-shangwang-265/</a><br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1216dec" class="outline-2">
+<h2 id="org1216dec">L2TP/IPSecs</h2>
+<div class="outline-text-2" id="text-org1216dec">
+<p>
+传统的vpn协议有多种选择，区别在这里：<br />
+<a href="https://thebestvpn.com/pptp-l2tp-openvpn-sstp-ikev2-protocols/">https://thebestvpn.com/pptp-l2tp-openvpn-sstp-ikev2-protocols/</a><br />
+</p>
+
+<p>
+这里选择L2TP/IPSecs。<br />
+</p>
+
+<p>
+教程：<a href="https://teddysun.com/448.html">https://teddysun.com/448.html</a><br />
+主页：<a href="https://github.com/teddysun/across">https://github.com/teddysun/across</a><br />
+</p>
+
+<p>
+自动搭建完成，最后会得到类似：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">Server IP: 178.128.170.209
+PSK      : psk
+Username : vpn
+Password : 123456
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org9aa3a0c" class="outline-3">
+<h3 id="org9aa3a0c">客户端</h3>
+<div class="outline-text-3" id="text-org9aa3a0c">
+</div>
+<div id="outline-container-org89afed0" class="outline-4">
+<h4 id="org89afed0">mac</h4>
+<div class="outline-text-4" id="text-org89afed0">
+<p>
+Setting -&gt; Network -&gt; + -&gt; VPN -&gt; L2TP over IPSec -&gt; Create。<br />
+填入Server Address，Account Name（对应上面的Server IP和Username），选择Advanced。<br />
+<img src="../static/20190522-crosswall-3.png" alt="20190522-crosswall-3.png" /><br />
+</p>
+
+<p>
+勾选“Send all traffic over VPN connection”。<br />
+<img src="../static/20190522-crosswall-6.png" alt="20190522-crosswall-6.png" /><br />
+</p>
+
+<p>
+选择Authentication Settings，填写Password，Shared Secret（对应上面的Password和PSK）,OK，Connect。<br />
+<img src="../static/20190522-crosswall-4.png" alt="20190522-crosswall-4.png" /><br />
+</p>
+
+<p>
+如果成功的话，会显示“Connected”。<br />
+<img src="../static/20190522-crosswall-5.png" alt="20190522-crosswall-5.png" /><br />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9de6f48" class="outline-3">
+<h3 id="org9de6f48">win10</h3>
+<div class="outline-text-3" id="text-org9de6f48">
+<p>
+教程：<a href="https://support.untangle.com/hc/en-us/articles/231971387-L2TP-VPN-Windows-10-configuration">https://support.untangle.com/hc/en-us/articles/231971387-L2TP-VPN-Windows-10-configuration</a><br />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>
