@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-04-21 Sun 21:49 -->
+<!-- 2019-07-06 Sat 13:57 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>emacs内置中文输入法</title>
 <meta name="generator" content="Org mode" />
@@ -100,7 +100,7 @@ brew link --overwrite --force boost@1.60
 下载源码<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-shell"><span style="color: #f08080;">cd</span> ~
+<pre class="src src-shell"><span style="color: #c678dd;">cd</span> ~
 git clone --recursive https://github.com/rime/librime.git
 </pre>
 </div></li>
@@ -109,10 +109,10 @@ git clone --recursive https://github.com/rime/librime.git
 编译<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-shell"><span style="color: #f08080;">cd</span> librime
-<span style="color: #969896;"># </span><span style="color: #969896;">&#32534;&#35793;&#31532;&#19977;&#26041;&#24211;</span>
+<pre class="src src-shell"><span style="color: #c678dd;">cd</span> librime
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">&#32534;&#35793;&#31532;&#19977;&#26041;&#24211;</span>
 make xcode/thirdparty
-<span style="color: #969896;"># </span><span style="color: #969896;">&#32534;&#35793;librime</span>
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">&#32534;&#35793;librime</span>
 make xcode
 </pre>
 </div></li>
@@ -142,12 +142,12 @@ make xcode
 编译<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-shell"><span style="color: #969896;"># </span><span style="color: #969896;">&#25351;&#21521;&#21018;&#25165;&#32534;&#35793;&#30340;librime&#25991;&#20214;&#22841;</span>
-<span style="color: #f08080;">export</span> <span style="color: #e7c547;">RIME_PATH</span>=~/librime
-<span style="color: #f08080;">cd</span> liberime
+<pre class="src src-shell"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">&#25351;&#21521;&#21018;&#25165;&#32534;&#35793;&#30340;librime&#25991;&#20214;&#22841;</span>
+<span style="color: #c678dd;">export</span> <span style="color: #dcaeea;">RIME_PATH</span>=~/librime
+<span style="color: #c678dd;">cd</span> liberime
 make liberime
-<span style="color: #f08080;">cd</span> build
-<span style="color: #969896;"># </span><span style="color: #969896;">&#23558;&#21160;&#24577;&#24211;&#25335;&#36125;&#21040;&#38656;&#35201;&#30340;&#30446;&#24405;</span>
+<span style="color: #c678dd;">cd</span> build
+<span style="color: #5B6268;"># </span><span style="color: #5B6268;">&#23558;&#21160;&#24577;&#24211;&#25335;&#36125;&#21040;&#38656;&#35201;&#30340;&#30446;&#24405;</span>
 cp liberime.so ~/ScriptHelper
 </pre>
 </div>
@@ -156,7 +156,7 @@ cp liberime.so ~/ScriptHelper
 如果报错：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-shell">ld: warning: directory not found for option <span style="color: #deb887;">'-L/Users/shuaizhao/librime/xbuild/lib/Release'</span>
+<pre class="src src-shell">ld: warning: directory not found for option <span style="color: #98be65;">'-L/Users/shuaizhao/librime/xbuild/lib/Release'</span>
 ld: library not found for -lrime
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
 </pre>
@@ -176,15 +176,15 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)
 这里以我的配置作为例子：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #969896;">;; </span><span style="color: #969896;">&#25351;&#21521;liberime.so&#25152;&#22312;&#30340;&#36335;&#24452;</span>
-<span style="color: #eaeaea;">(</span><span style="color: #00bfff;">setq</span> load-path <span style="color: #70c0b1;">(</span>cons <span style="color: #e7c547;">(</span>file-truename <span style="color: #deb887;">"~/ScriptHelper"</span><span style="color: #e7c547;">)</span> load-path<span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
-<span style="color: #eaeaea;">(</span><span style="color: #00bfff;">require</span> '<span style="color: #a2cd5a;">liberime</span><span style="color: #eaeaea;">)</span>
-<span style="color: #969896;">;; </span><span style="color: #969896;">&#31532;&#19968;&#20010;&#21442;&#25968;&#26159;&#20849;&#20139;&#25991;&#20214;&#22841;&#65292;&#35265;https://github.com/rime/home/wiki/SharedData</span>
-<span style="color: #969896;">;; </span><span style="color: #969896;">&#31532;&#20108;&#20010;&#21442;&#25968;&#26159;&#20010;&#20154;&#25991;&#20214;&#22841;</span>
-<span style="color: #969896;">;; </span><span style="color: #969896;">&#27880;&#24847;&#65306;&#35774;&#32622;&#30340;&#26102;&#20505;&#26368;&#22909;&#19981;&#35201;&#20351;&#29992;&#36719;&#38142;&#25509;&#65292;&#20063;&#19981;&#35201;&#20351;&#29992; "~" &#21644;&#30456;&#23545;&#36335;&#24452;&#65292;liberime&#26377;&#26102;&#20505;&#26080;&#27861;&#22788;&#29702;&#12290;</span>
-<span style="color: #eaeaea;">(</span>liberime-start <span style="color: #deb887;">"/Library/Input Methods/Squirrel.app/Contents/SharedSupport"</span> <span style="color: #70c0b1;">(</span>file-truename <span style="color: #deb887;">"~/.emacs.d/pyim/rime/"</span><span style="color: #70c0b1;">)</span><span style="color: #eaeaea;">)</span>
-<span style="color: #eaeaea;">(</span>liberime-select-schema <span style="color: #deb887;">"luna_pinyin_simp"</span><span style="color: #eaeaea;">)</span>
-<span style="color: #eaeaea;">(</span><span style="color: #00bfff;">setq</span> pyim-default-scheme 'rime-quanpin<span style="color: #eaeaea;">)</span>
+<pre class="src src-emacs-lisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#25351;&#21521;liberime.so&#25152;&#22312;&#30340;&#36335;&#24452;</span>
+<span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> load-path <span style="color: #c678dd;">(</span>cons <span style="color: #98be65;">(</span>file-truename <span style="color: #98be65;">"~/ScriptHelper"</span><span style="color: #98be65;">)</span> load-path<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span><span style="color: #51afef;">require</span> '<span style="color: #a9a1e1;">liberime</span><span style="color: #51afef;">)</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#31532;&#19968;&#20010;&#21442;&#25968;&#26159;&#20849;&#20139;&#25991;&#20214;&#22841;&#65292;&#35265;https://github.com/rime/home/wiki/SharedData</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#31532;&#20108;&#20010;&#21442;&#25968;&#26159;&#20010;&#20154;&#25991;&#20214;&#22841;</span>
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#27880;&#24847;&#65306;&#35774;&#32622;&#30340;&#26102;&#20505;&#26368;&#22909;&#19981;&#35201;&#20351;&#29992;&#36719;&#38142;&#25509;&#65292;&#20063;&#19981;&#35201;&#20351;&#29992; "~" &#21644;&#30456;&#23545;&#36335;&#24452;&#65292;liberime&#26377;&#26102;&#20505;&#26080;&#27861;&#22788;&#29702;&#12290;</span>
+<span style="color: #51afef;">(</span>liberime-start <span style="color: #98be65;">"/Library/Input Methods/Squirrel.app/Contents/SharedSupport"</span> <span style="color: #c678dd;">(</span>file-truename <span style="color: #98be65;">"~/.emacs.d/pyim/rime/"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span>liberime-select-schema <span style="color: #98be65;">"luna_pinyin_simp"</span><span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> pyim-default-scheme 'rime-quanpin<span style="color: #51afef;">)</span>
 </pre>
 </div>
 </div>
