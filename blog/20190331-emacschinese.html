@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-07-06 Sat 15:46 -->
+<!-- 2019-08-24 Sat 18:05 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>emacs内置中文输入法</title>
 <meta name="generator" content="Org mode" />
@@ -72,13 +72,26 @@
 liberime的作用是使用rime的librime作为后端，提供一个elisp的封装供pyim调用。<br />
 </p>
 </div>
+
+<div id="outline-container-org53155e6" class="outline-3">
+<h3 id="org53155e6">直接拷贝</h3>
+<div class="outline-text-3" id="text-org53155e6">
+<p>
+如果你本身是rime的用户，那么可以直接拷贝：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">mkdir -p ~/librime/xbuild/lib/Release/
+cp /Library/Input\ Methods/Squirrel.app/Contents/Frameworks/librime.1.dylib ~/librime/xbuild/lib/Release/librime.dylib
+</pre>
+</div>
+</div>
 </div>
 
-<div id="outline-container-org57fd485" class="outline-2">
-<h2 id="org57fd485">编译librime</h2>
-<div class="outline-text-2" id="text-org57fd485">
+<div id="outline-container-org57fd485" class="outline-3">
+<h3 id="org57fd485">编译librime</h3>
+<div class="outline-text-3" id="text-org57fd485">
 <p>
-首先编译librime，文档：<a href="https://gitlab.com/liberime/liberime/blob/master/README.org">https://gitlab.com/liberime/liberime/blob/master/README.org</a>， MacOS的文档<a href="https://github.com/rime/librime/blob/master/README-mac.md">https://github.com/rime/librime/blob/master/README-mac.md</a> 。<br />
+你也可以选择自己编译。文档：<a href="https://gitlab.com/liberime/liberime/blob/master/README.org">https://gitlab.com/liberime/liberime/blob/master/README.org</a>， MacOS的文档<a href="https://github.com/rime/librime/blob/master/README-mac.md">https://github.com/rime/librime/blob/master/README-mac.md</a> 。<br />
 </p>
 
 <p>
@@ -120,6 +133,7 @@ make xcode
 <p>
 注意，不要删除这个文件夹。liberime只是一个动态库，最终还是要调用这里的编译结果。<br />
 </p>
+</div>
 </div>
 </div>
 
