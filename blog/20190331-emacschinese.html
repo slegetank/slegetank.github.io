@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-08-24 Sat 18:05 -->
+<!-- 2019-08-25 Sun 13:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>emacs内置中文输入法</title>
 <meta name="generator" content="Org mode" />
@@ -71,6 +71,15 @@
 <p>
 liberime的作用是使用rime的librime作为后端，提供一个elisp的封装供pyim调用。<br />
 </p>
+
+<p>
+首先下载源码：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #c678dd;">cd</span> ~
+git clone --recursive https://github.com/rime/librime.git
+</pre>
+</div>
 </div>
 
 <div id="outline-container-org53155e6" class="outline-3">
@@ -81,7 +90,12 @@ liberime的作用是使用rime的librime作为后端，提供一个elisp的封�
 </p>
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">mkdir -p ~/librime/xbuild/lib/Release/
+
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#30452;&#25509;&#25335;&#36125;&#65292;&#29992;&#20110;&#32534;&#35793;liberime</span>
 cp /Library/Input\ Methods/Squirrel.app/Contents/Frameworks/librime.1.dylib ~/librime/xbuild/lib/Release/librime.dylib
+
+<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">emacs&#37324;&#20351;&#29992;&#20294;&#26102;&#20505;&#20250;&#21160;&#24577;&#38142;&#25509;&#36825;&#20010;&#24211;</span>
+sudo cp /Library/Input\ Methods/Squirrel.app/Contents/Frameworks/librime.1.dylib /usr/local/lib
 </pre>
 </div>
 </div>
@@ -141,7 +155,7 @@ make xcode
 <h2 id="org0831d29">编译liberime</h2>
 <div class="outline-text-2" id="text-org0831d29">
 <p>
-编译完成后，就可以编译liberime了。<br />
+liberime将会使用上面编译打结果来编译liberime。<br />
 </p>
 <ol class="org-ol">
 <li><p>
