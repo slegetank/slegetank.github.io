@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-08-25 Sun 16:09 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>Rime输入法同步</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" /><link rel="shortcut icon" type="image/jpg" href="../static/favicon.jpg"/>
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">Rime输入法同步</h1>
+<p>
+目前我在Mac上以及emacs里分别使用Rime输入法，有两个缺陷：<br />
+</p>
+<ol class="org-ol">
+<li>一旦系统损坏，之前的输入习惯就都丢失了<br /></li>
+<li>emacs与操作系统的词库是独立的<br /></li>
+</ol>
+
+<p>
+因此需要统一。主要研究了这篇博客：<a href="https://havee.me/mac/2015-05/rime-configuration-summary.html">https://havee.me/mac/2015-05/rime-configuration-summary.html</a><br />
+</p>
+
+<div id="outline-container-org9d65e17" class="outline-2">
+<h2 id="org9d65e17">坚果云</h2>
+<div class="outline-text-2" id="text-org9d65e17">
+<p>
+需要配置一个云盘来存储自己的文件。这里选择坚果云，目前免费上传1G/月，下载3G/月，非常良心。而专业版也只有200一年，非常值得拥有。<br />
+配置完成后，将同步文件夹设为例如~/Work/cloud 。<br />
+在其下新建一个用来同步Rime的文件夹Rime。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5c7adc5" class="outline-2">
+<h2 id="org5c7adc5">MacOS</h2>
+<div class="outline-text-2" id="text-org5c7adc5">
+<p>
+fork了一个配置：<a href="https://github.com/slegetank/rime-files">https://github.com/slegetank/rime-files</a>。<br />
+</p>
+
+<p>
+MacOS的Rime默认的配置路径在：~/Library/Rime。将default.custom.yaml覆盖过去。<br />
+</p>
+
+<p>
+另外，对其下的installation.yaml最下面加上一行：<br />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span style="color: #dcaeea;">sync_dir</span>: <span style="color: #98be65;">"/Users/xxx/Work/cloud/cloud/Rime"</span>
+</pre>
+</div>
+
+<p>
+将installation_id设置为一个用来区分终端的字符串，例如：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-yaml"><span style="color: #dcaeea;">installation_id</span>: <span style="color: #98be65;">"mac"</span>
+</pre>
+</div>
+
+<p>
+点击同步：<img src="../static/20190825-rime-0.png" alt="20190825-rime-0.png" /> 。此时去看Rime文件夹下会多一个mac文件夹，里面是自己的配置以及自己平时的输入习惯文件。<br />
+installation_id的作用是各平台的配置不同步，而词库同步，简直完美。<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb75569e" class="outline-2">
+<h2 id="orgb75569e">emacs</h2>
+<div class="outline-text-2" id="text-orgb75569e">
+<p>
+emacs的rime配置文件在liberime-start的时候设置，我的在~/.emacs.d/pyim/rime 。执行同样的步骤：<br />
+</p>
+<ol class="org-ol">
+<li>将default.custom.yaml覆盖过去<br /></li>
+<li>installation.yaml添加sync_dir，installation_id设置为“emacs”。<br /></li>
+<li>调用(liberime-sync-user-data)<br /></li>
+</ol>
+
+<p>
+此时会发现cloud/Rime文件夹下多了一个emacs文件夹。此时，在emacs中用rime打字的时候会发现，平时浏览网页、QQ聊天时候自己写过的词汇也同步过来了。<br />
+</p>
+
+
+<div class="figure">
+<p><img src="../static/20190825-rime-1.png" alt="20190825-rime-1.png" /><br />
+</p>
+</div>
+
+<p>
+舒坦！<br />
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>
