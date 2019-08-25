@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-08-25 Sun 16:09 -->
+<!-- 2019-08-25 Sun 16:27 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>Rime输入法同步</title>
 <meta name="generator" content="Org mode" />
@@ -91,7 +91,7 @@ installation_id的作用是各平台的配置不同步，而词库同步，简�
 emacs的rime配置文件在liberime-start的时候设置，我的在~/.emacs.d/pyim/rime 。执行同样的步骤：<br />
 </p>
 <ol class="org-ol">
-<li>将default.custom.yaml覆盖过去<br /></li>
+<li>将default.custom.yaml覆盖过去。注意参考<a href="https://github.com/tumashu/pyim/issues/261">https://github.com/tumashu/pyim/issues/261</a>, 将候选词数量提高。<br /></li>
 <li>installation.yaml添加sync_dir，installation_id设置为“emacs”。<br /></li>
 <li>调用(liberime-sync-user-data)<br /></li>
 </ol>
