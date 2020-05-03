@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-07-06 Sat 15:47 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>开始</title>
 <meta name="generator" content="Org mode" />
@@ -27,9 +27,9 @@
 <div id="content">
 <h1 class="title">开始</h1>
 
-<div id="outline-container-org4895146" class="outline-2">
-<h2 id="org4895146">配置的基础</h2>
-<div class="outline-text-2" id="text-org4895146">
+<div id="outline-container-org2352390" class="outline-2">
+<h2 id="org2352390">配置的基础</h2>
+<div class="outline-text-2" id="text-org2352390">
 <p>
 除了前面介绍的基础之外，有以下基础知识还需要知道：<br />
 </p>
@@ -39,9 +39,9 @@
 </ol>
 </div>
 
-<div id="outline-container-org1f47c0e" class="outline-3">
-<h3 id="org1f47c0e">加载脚本文件</h3>
-<div class="outline-text-3" id="text-org1f47c0e">
+<div id="outline-container-orgacf077a" class="outline-3">
+<h3 id="orgacf077a">加载脚本文件</h3>
+<div class="outline-text-3" id="text-orgacf077a">
 <p>
 上一章大概的讲述了elisp的基本语法，这在配置脚本比较简单的时候就已经够用了。emacs启动时，会默认使用~/.emacs.d/init.el进行加载，这也就是配置的入口；只需要把配置贴到里面，emacs启动的时候就会对其进行加载。<br />
 而在实际配置中需要分文件对其进行管理。例如，python语言的配置与c语言的配置我们当然不希望混在一起。<br />
@@ -60,7 +60,7 @@ require保证文件只加载一次。即如果在不同地方require同一个功
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python">(add-to-<span style="color: #c678dd;">list</span> <span style="color: #98be65;">'load-path "~/.emacs.d/init/")</span>
+<pre class="src src-python">(add-to-list 'load-path "~/.emacs.d/init/")
 </pre>
 </div>
 
@@ -68,8 +68,8 @@ require保证文件只加载一次。即如果在不同地方require同一个功
 然后，在这个路径下新建一个文件init-default.el （C-x C-f），写入如下内容：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-python">(setq hello <span style="color: #98be65;">"world"</span>)
-(provide <span style="color: #98be65;">'init-default)</span>
+<pre class="src src-python">(setq hello "world")
+(provide 'init-default)
 </pre>
 </div>
 
@@ -77,8 +77,8 @@ require保证文件只加载一次。即如果在不同地方require同一个功
 注意，provide放在文件的末尾，这样当整个文件加载完成时才会提供此特性，也就保证了require时，如果一个特性已经存在，那么整个文件就肯定加载完了。然后，在init.el里写入：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-python">(require <span style="color: #98be65;">'init-default)</span>
-<span style="color: #98be65;">(message hello)</span>
+<pre class="src src-python">(require 'init-default)
+(message hello)
 </pre>
 </div>
 
@@ -88,9 +88,9 @@ require保证文件只加载一次。即如果在不同地方require同一个功
 </div>
 </div>
 
-<div id="outline-container-orgcbfb33a" class="outline-3">
-<h3 id="orgcbfb33a">从网络下载配置</h3>
-<div class="outline-text-3" id="text-orgcbfb33a">
+<div id="outline-container-org5a453bd" class="outline-3">
+<h3 id="org5a453bd">从网络下载配置</h3>
+<div class="outline-text-3" id="text-org5a453bd">
 <p>
 以前网络不发达的时候大家很难共享配置。后来大家一般用wiki来分享自己的配置（例如<a href="https://www.emacswiki.org/emacs/dired+.el">dired plus</a>，而且现在还是有一些人习惯用wiki来保存配置，实际上是在人为的抬高emacs的使用门槛）。再后来随着git以及github的兴起，emacs也终于出现了更灵活好用的配置方式。现在，将自己的配置存放到github上是一种标准方式。<br />
 而更重要的是，在emacs 24.1终于出现了从网络下载配置的pacakge包，极大的简化了配置的安装方式。一般在init.el的开头会写这么一段代码:<br />
@@ -98,28 +98,28 @@ require保证文件只加载一次。即如果在不同地方require同一个功
 
 <div class="org-src-container">
 <pre class="src src-python">(when (&gt;= emacs-major-version 24)
-  (setq package-archives <span style="color: #98be65;">'(("gnu"   . "http://elpa.emacs-china.org/gnu/")</span>
-<span style="color: #98be65;">                           ("melpa"   . "http://elpa.emacs-china.org/melpa/")</span>
-<span style="color: #98be65;">                           ("org" . "http://orgmode.org/elpa/")</span>
-<span style="color: #98be65;">                           )))</span>
+  (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
+                           ("melpa"   . "http://elpa.emacs-china.org/melpa/")
+                           ("org" . "http://orgmode.org/elpa/")
+                           )))
 
-<span style="color: #98be65;">(package-initialize)</span>
+(package-initialize)
 
-<span style="color: #98be65;">(defun require-package (package &amp;optional min-version no-refresh)</span>
-<span style="color: #98be65;">  "Install given PACKAGE, optionally requiring MIN-VERSION.</span>
-<span style="color: #98be65;"> If NO-REFRESH is non-nil, the available package lists will not be</span>
-<span style="color: #98be65;"> re-downloaded in order to locate PACKAGE."</span>
-<span style="color: #98be65;">  (add-to-list '</span>package-selected-packages package)
-  (<span style="color: #51afef;">if</span> (package-installed-p package <span style="color: #c678dd;">min</span>-version)
+(defun require-package (package &amp;optional min-version no-refresh)
+  "Install given PACKAGE, optionally requiring MIN-VERSION.
+ If NO-REFRESH is non-nil, the available package lists will not be
+ re-downloaded in order to locate PACKAGE."
+  (add-to-list 'package-selected-packages package)
+  (if (package-installed-p package min-version)
       t
-    (<span style="color: #51afef;">if</span> (<span style="color: #51afef;">or</span> (assoc package package-archive-contents) no-refresh)
-        (<span style="color: #51afef;">if</span> (boundp <span style="color: #98be65;">'package-selected-packages)</span>
-<span style="color: #98be65;">            ;; Record this as a package the user installed explicitly</span>
-<span style="color: #98be65;">            (package-install package nil)</span>
-<span style="color: #98be65;">          (package-install package))</span>
-<span style="color: #98be65;">      (progn</span>
-<span style="color: #98be65;">        (package-refresh-contents)</span>
-<span style="color: #98be65;">        (require-package package min-version t)))))</span>
+    (if (or (assoc package package-archive-contents) no-refresh)
+        (if (boundp 'package-selected-packages)
+            ;; Record this as a package the user installed explicitly
+            (package-install package nil)
+          (package-install package))
+      (progn
+        (package-refresh-contents)
+        (require-package package min-version t)))))
 </pre>
 </div>
 
@@ -131,7 +131,7 @@ require保证文件只加载一次。即如果在不同地方require同一个功
 然后执行package-initialize。接下来定义了一个帮助函数require-package，它的作用是检测包是否已经在本地，如果在则忽略，不在则下载。以上三步做完之后，如果想要安装一个包，例如evil，只需要：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-python">(require-package <span style="color: #98be65;">'evil)</span>
+<pre class="src src-python">(require-package 'evil)
 </pre>
 </div>
 
@@ -142,9 +142,9 @@ Perfect!<br />
 </div>
 </div>
 
-<div id="outline-container-orgb4536a7" class="outline-2">
-<h2 id="orgb4536a7">结构</h2>
-<div class="outline-text-2" id="text-orgb4536a7">
+<div id="outline-container-org54c39a1" class="outline-2">
+<h2 id="org54c39a1">结构</h2>
+<div class="outline-text-2" id="text-org54c39a1">
 <p>
 有了上面的基础之后就是如何组织配置文件了。这里推荐以<a href="https://github.com/purcell/emacs.d">purcell</a>的配置结构。很多高手都是拿他的配置作为基础，再根据自己的需要去修改配置，因此很具有代表性。<br />
 </p>
@@ -164,9 +164,9 @@ Perfect!<br />
 </div>
 </div>
 
-<div id="outline-container-org2d3d232" class="outline-2">
-<h2 id="org2d3d232">一般流程</h2>
-<div class="outline-text-2" id="text-org2d3d232">
+<div id="outline-container-orge6f7f37" class="outline-2">
+<h2 id="orge6f7f37">一般流程</h2>
+<div class="outline-text-2" id="text-orge6f7f37">
 <p>
 以某种语言的配置流程为例，一般是这样的：<br />
 </p>
@@ -199,14 +199,14 @@ Perfect!<br />
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python">;; &#19979;&#36733;&#21253;
-(require-package <span style="color: #98be65;">'rjsx-mode)</span>
+<pre class="src src-python">;; 下载包
+(require-package 'rjsx-mode)
 
-<span style="color: #98be65;">;; .ts/.js/.jsx&#40664;&#35748;&#20351;&#29992;rjsx-mode</span>
-<span style="color: #98be65;">(add-to-list '</span>auto-mode-alist <span style="color: #98be65;">'("\\.[jt]sx?$" . rjsx-mode))</span>
+;; .ts/.js/.jsx默认使用rjsx-mode
+(add-to-list 'auto-mode-alist '("\\.[jt]sx?$" . rjsx-mode))
 
-<span style="color: #98be65;">;; &#21152;&#36733;rjsx mode&#30340;&#26102;&#20505;&#36733;&#20837;&#33258;&#23450;&#20041;&#37197;&#32622;</span>
-<span style="color: #98be65;">(add-hook '</span>rjsx-mode-hook (<span style="color: #51afef;">lambda</span> () (local-<span style="color: #c678dd;">set</span>-key (kbd <span style="color: #98be65;">"&lt;S-tab&gt;"</span>) <span style="color: #98be65;">'js2-mode-toggle-hide-functions)))</span>
+;; 加载rjsx mode的时候载入自定义配置
+(add-hook 'rjsx-mode-hook (lambda () (local-set-key (kbd "&lt;S-tab&gt;") 'js2-mode-toggle-hide-functions)))
 </pre>
 </div>
 </div>

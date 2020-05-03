@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-07-06 Sat 15:46 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>Blog With Emacs</title>
 <meta name="generator" content="Org mode" />
@@ -27,9 +27,9 @@
 <div id="content">
 <h1 class="title">Blog With Emacs</h1>
 
-<div id="outline-container-org975e46c" class="outline-2">
-<h2 id="org975e46c">为什么</h2>
-<div class="outline-text-2" id="text-org975e46c">
+<div id="outline-container-org89021dc" class="outline-2">
+<h2 id="org89021dc">为什么</h2>
+<div class="outline-text-2" id="text-org89021dc">
 <p>
 为什么要用emacs写博客呢？网上有很多封装的很好的博客网站，提供了简单且丰富的编辑功能。对于我来说，理由有如下几点：<br />
 </p>
@@ -45,9 +45,9 @@
 </p>
 </div>
 </div>
-<div id="outline-container-orgbd14b8e" class="outline-2">
-<h2 id="orgbd14b8e">资料</h2>
-<div class="outline-text-2" id="text-orgbd14b8e">
+<div id="outline-container-org943a031" class="outline-2">
+<h2 id="org943a031">资料</h2>
+<div class="outline-text-2" id="text-org943a031">
 <ul class="org-ul">
 <li>wiki: <a href="http://orgmode.org/worg/org-blog-wiki.html">http://orgmode.org/worg/org-blog-wiki.html</a><br />
 关于用org mode发布博客的你想知道或不想知道的信息都在这里了。<br /></li>
@@ -58,9 +58,9 @@
 </ul>
 </div>
 
-<div id="outline-container-orgcda991d" class="outline-3">
-<h3 id="orgcda991d">例子</h3>
-<div class="outline-text-3" id="text-orgcda991d">
+<div id="outline-container-org4003775" class="outline-3">
+<h3 id="org4003775">例子</h3>
+<div class="outline-text-3" id="text-org4003775">
 <p>
 这里列出一些emacser博客的例子，以备查阅。<br />
 </p>
@@ -74,22 +74,22 @@
 </div>
 </div>
 </div>
-<div id="outline-container-orgdfc3d02" class="outline-2">
-<h2 id="orgdfc3d02">基础</h2>
-<div class="outline-text-2" id="text-orgdfc3d02">
+<div id="outline-container-orgd8e7751" class="outline-2">
+<h2 id="orgd8e7751">基础</h2>
+<div class="outline-text-2" id="text-orgd8e7751">
 <p>
 用emacs写博客的实质就是编写org mode文件，然后通过emacs导出成为静态网站。因此，首先需要用户熟练使用org mode编写文档；当然，如果懂得elisp就可以做更多的自定义配置。<br />
 博客的发布是通过ox-publish这个库完成的，其中核心是<a href="http://orgmode.org/manual/Project-alist.html#Project-alist">org-publish-project-alist</a> 这个alist; 关于博客发布的基础知识参照<a href="http://orgmode.org/manual/Publishing.html">这里</a>； 具体的例子可以参看我的<a href="https://github.com/slegetank/.emacs.d/blob/master/init/init-blog.org">emacs博客配置</a> 。<br />
 </p>
 </div>
 </div>
-<div id="outline-container-orgc2040b5" class="outline-2">
-<h2 id="orgc2040b5">我的</h2>
-<div class="outline-text-2" id="text-orgc2040b5">
+<div id="outline-container-orga819705" class="outline-2">
+<h2 id="orga819705">我的</h2>
+<div class="outline-text-2" id="text-orga819705">
 </div>
-<div id="outline-container-org38605f7" class="outline-3">
-<h3 id="org38605f7">结构</h3>
-<div class="outline-text-3" id="text-org38605f7">
+<div id="outline-container-org10177e8" class="outline-3">
+<h3 id="org10177e8">结构</h3>
+<div class="outline-text-3" id="text-org10177e8">
 <p>
 整个博客站的结构是这样的：<br />
 </p>
@@ -140,21 +140,21 @@
 </table>
 </div>
 </div>
-<div id="outline-container-orga29297a" class="outline-3">
-<h3 id="orga29297a">自定义sitemap</h3>
-<div class="outline-text-3" id="text-orga29297a">
+<div id="outline-container-orgd689f3b" class="outline-3">
+<h3 id="orgd689f3b">自定义sitemap</h3>
+<div class="outline-text-3" id="text-orgd689f3b">
 <p>
 在使用中，我发现自己还是需要一个自定义的sitemap的&#x2013;emacs提供的默认sitemap太简单了。自定义只要将函数名传入到":sitemap_function"，在生成网站的时候会自动调用。函数的原理很简单，就是遍历org目录下的所有文章，取到我们需要的文章属性信息，例如title/link/date等；然后将这些信息插入到一个指定的org文件里，例如作为首页的index.org或者sitemap.org，然后利用emacs将其导出成html。其中，对于每篇文章的preview的想法来自<a href="https://ogbe.net/blog/blogging_with_org.html">这里</a> 。<br />
 </p>
 </div>
 </div>
-<div id="outline-container-orgbb1e285" class="outline-3">
-<h3 id="orgbb1e285">自定义功能</h3>
-<div class="outline-text-3" id="text-orgbb1e285">
+<div id="outline-container-org5de31a6" class="outline-3">
+<h3 id="org5de31a6">自定义功能</h3>
+<div class="outline-text-3" id="text-org5de31a6">
 </div>
-<div id="outline-container-org932995d" class="outline-4">
-<h4 id="org932995d">初始化(bli - blog init)</h4>
-<div class="outline-text-4" id="text-org932995d">
+<div id="outline-container-orgea69c6f" class="outline-4">
+<h4 id="orgea69c6f">初始化(bli - blog init)</h4>
+<div class="outline-text-4" id="text-orgea69c6f">
 <p>
 我的博客文章都有如下共性：<br />
 </p>
@@ -186,18 +186,18 @@ PREVIEW: 需要我自己填<br /></li>
 </p>
 </div>
 </div>
-<div id="outline-container-org7558589" class="outline-4">
-<h4 id="org7558589">草稿发布(blf - blog finish draft)</h4>
-<div class="outline-text-4" id="text-org7558589">
+<div id="outline-container-orgec9dab9" class="outline-4">
+<h4 id="orgec9dab9">草稿发布(blf - blog finish draft)</h4>
+<div class="outline-text-4" id="text-orgec9dab9">
 <p>
 草稿的发布就是将org文件从draft拷贝到org文件夹。这个命令就做了这件事，顺便问一下是否要将博客commit一下。<br />
 </p>
 </div>
 </div>
 
-<div id="outline-container-org29e788d" class="outline-4">
-<h4 id="org29e788d">提交(blc - blog commit)</h4>
-<div class="outline-text-4" id="text-org29e788d">
+<div id="outline-container-orgaa1b33f" class="outline-4">
+<h4 id="orgaa1b33f">提交(blc - blog commit)</h4>
+<div class="outline-text-4" id="text-orgaa1b33f">
 <p>
 我将org文件的导出以及commit做了一个整合，变成了这个命令。也就是将org文件导出生成html文件，然后使用固定格式的message提交更改。这样看起来提交的记录会变得非常整洁：<br />
 <img src="../static/20170108-blogWithEmacs-2.png" alt="20170108-blogWithEmacs-2.png" /><br />
@@ -209,18 +209,18 @@ PREVIEW: 需要我自己填<br /></li>
 </div>
 </div>
 
-<div id="outline-container-org071cdb0" class="outline-4">
-<h4 id="org071cdb0">部署(bld - blog deploy)</h4>
-<div class="outline-text-4" id="text-org071cdb0">
+<div id="outline-container-orgb99fc96" class="outline-4">
+<h4 id="orgb99fc96">部署(bld - blog deploy)</h4>
+<div class="outline-text-4" id="text-orgb99fc96">
 <p>
 所谓静态博客的部署也就是git push到对应的远程仓库里。github自是不必说，官方文档在这：<a href="https://pages.github.com/">https://pages.github.com/</a> 。国内的话，之前的coding被腾讯收购了，官方文档在这：<a href="https://dev.tencent.com/help/doc/quick-start/creating-pages">https://dev.tencent.com/help/doc/quick-start/creating-pages</a> 。按照文档建立好各自的仓库之后，只需要push一下就可以了（腾讯云还需要自己手动部署一下，也没什么麻烦的）。<br />
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgcbc8010" class="outline-4">
-<h4 id="orgcbc8010">插入图片</h4>
-<div class="outline-text-4" id="text-orgcbc8010">
+<div id="outline-container-orgeec8117" class="outline-4">
+<h4 id="orgeec8117">插入图片</h4>
+<div class="outline-text-4" id="text-orgeec8117">
 <p>
 在org中插入图片用手输入的话太麻烦了，从<a href="http://kitchingroup.cheme.cmu.edu/blog/2015/07/10/Drag-images-and-files-onto-org-mode-and-insert-a-link-to-them/">这里</a> 我学到了可以通过拖拽的方式添加图片的链接。我做了一点修改：当发现当前org文件为博客文章时，将会自动把图片拷贝到static文件夹下，按照命名规则命名并递增序号，并且将相对路径添加到文件里。完美！<br />
 <img src="../static/20170108-blogWithEmacs-3.gif" alt="20170108-blogWithEmacs-3.gif" /><br />
@@ -230,9 +230,9 @@ PREVIEW: 需要我自己填<br /></li>
 </div>
 </div>
 
-<div id="outline-container-org2dd557c" class="outline-2">
-<h2 id="org2dd557c">结语</h2>
-<div class="outline-text-2" id="text-org2dd557c">
+<div id="outline-container-orgfe26df5" class="outline-2">
+<h2 id="orgfe26df5">结语</h2>
+<div class="outline-text-2" id="text-orgfe26df5">
 <p>
 用了上面的配置之后，用org mode写文档变得相当享受。Happy hacking。<br />
 </p>

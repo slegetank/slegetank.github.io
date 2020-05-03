@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-07-06 Sat 15:46 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>iOS开发之静态链接库</title>
 <meta name="generator" content="Org mode" />
@@ -27,9 +27,9 @@
 <div id="content">
 <h1 class="title">iOS开发之静态链接库</h1>
 
-<div id="outline-container-orgc4cf8bc" class="outline-2">
-<h2 id="orgc4cf8bc">概述</h2>
-<div class="outline-text-2" id="text-orgc4cf8bc">
+<div id="outline-container-org8556f11" class="outline-2">
+<h2 id="org8556f11">概述</h2>
+<div class="outline-text-2" id="text-org8556f11">
 <p>
 在Xcode提供的构建设置中，有一项称为“MACH_O_TYPE ”，其作用是定义输出的产品文件格式以及产品文件用于其他产品构建时如何被链接。它的取值如下所示：<br />
 </p>
@@ -64,9 +64,9 @@
 </div>
 </div>
 
-<div id="outline-container-org007ec5f" class="outline-2">
-<h2 id="org007ec5f">基本流程</h2>
-<div class="outline-text-2" id="text-org007ec5f">
+<div id="outline-container-orgb5fffc9" class="outline-2">
+<h2 id="orgb5fffc9">基本流程</h2>
+<div class="outline-text-2" id="text-orgb5fffc9">
 <p>
 最简单的流程：<br />
 </p>
@@ -81,9 +81,9 @@
 </div>
 </div>
 
-<div id="outline-container-orgdbad4eb" class="outline-2">
-<h2 id="orgdbad4eb">细节</h2>
-<div class="outline-text-2" id="text-orgdbad4eb">
+<div id="outline-container-org9f96613" class="outline-2">
+<h2 id="org9f96613">细节</h2>
+<div class="outline-text-2" id="text-org9f96613">
 <ol class="org-ol">
 <li>隐藏复杂性<br />
 库的存在最基本意义在于，提供与主工程分离的功能模块且不会暴露细节。只暴露出想让别人看到的内容是模块设计时需要详细考虑的。如果静态库的功能是提供一些API，那么很好的一种实践是使用外观模式，提供一个简单统一的对外类给主程序使用。对外类使用单例也是一种常用的模式。使用外观可以极大的降低子系统与主程序之间的耦合，隐藏子系统的复杂性。简单地说，就是提供给主程序的产品只有一个头文件和一个.a文件，头文件中只有一个类的声明，且这个类可以是一个单例。<br /></li>
@@ -136,9 +136,9 @@
 </div>
 </div>
 
-<div id="outline-container-org7d00395" class="outline-2">
-<h2 id="org7d00395">总结</h2>
-<div class="outline-text-2" id="text-org7d00395">
+<div id="outline-container-org761160e" class="outline-2">
+<h2 id="org761160e">总结</h2>
+<div class="outline-text-2" id="text-org761160e">
 <p>
 以上就是我对iOS开发中静态库使用的一些经验与理解，希望大家共同进步。<br />
 </p>

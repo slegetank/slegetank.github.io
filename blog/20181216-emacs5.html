@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-07-06 Sat 15:47 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>基础包</title>
 <meta name="generator" content="Org mode" />
@@ -32,9 +32,9 @@
 本章主要关注他们。<br />
 </p>
 
-<div id="outline-container-org91f6282" class="outline-2">
-<h2 id="org91f6282">dired</h2>
-<div class="outline-text-2" id="text-org91f6282">
+<div id="outline-container-org00bdf3c" class="outline-2">
+<h2 id="org00bdf3c">dired</h2>
+<div class="outline-text-2" id="text-org00bdf3c">
 <p>
 dired，directory editor，很好很强大的一个emacs应用，它相当于MacOS的Finder。之前写过一篇博客：<a href="https://slegetank.github.io/blog/20170106-dired.html">https://slegetank.github.io/blog/20170106-dired.html</a> ，这里对于其基本操作不再赘述。<br />
 就像其名字说的，路径编辑器，强在编辑，而不是访问。因为它的原理是封装了ls，所以是平摊的，而不是树状的，这就使得其操作变得很强大，但是树状访问就很别扭。通过搜索打破目录间的限制、统一进行某些操作是dired最强大的功能。<br />
@@ -61,9 +61,9 @@ Treemacs is a file and project explorer similar to NeoTree or vim’s NerdTree, 
 </div>
 </div>
 
-<div id="outline-container-org3caf58f" class="outline-2">
-<h2 id="org3caf58f">tramp</h2>
-<div class="outline-text-2" id="text-org3caf58f">
+<div id="outline-container-orgee65d58" class="outline-2">
+<h2 id="orgee65d58">tramp</h2>
+<div class="outline-text-2" id="text-orgee65d58">
 <p>
 tramp是个好东西，之前写过一篇博客：<a href="https://slegetank.github.io/blog/20170318-tramp.html">https://slegetank.github.io/blog/20170318-tramp.html</a> ，它使得编辑远程文件的时候如同编辑本地文件有类似的体验，只在加载文件和保存文件时会与远程通讯，原理其实很简单，就是先缓存到本地，等编辑完成再发送到远程主机。<br />
 它支持多种远程访问协议（随着emacs版本更新一直在添加），find-file或者dired访问的是远程路径就会自动调用。配合bookmark可以做到一键访问，简单高效。<br />
@@ -71,9 +71,9 @@ tramp是个好东西，之前写过一篇博客：<a href="https://slegetank.git
 </div>
 </div>
 
-<div id="outline-container-org4c28767" class="outline-2">
-<h2 id="org4c28767">evil</h2>
-<div class="outline-text-2" id="text-org4c28767">
+<div id="outline-container-orgbdd9ce8" class="outline-2">
+<h2 id="orgbdd9ce8">evil</h2>
+<div class="outline-text-2" id="text-orgbdd9ce8">
 <p>
 曾经据说Vim跟emacs发生过“圣战”，就类似曾经听说过php跟python发生过圣战一样。但是了解多了却发现这也太不靠谱了。emacs和vim都追求纯键盘、无鼠标的编辑，且两个编辑器都属于任何环境中都可使用的编辑器，即使是纯命令行环境。vim的核心是一套非常高效的指法，以我个人观点看，在单文件编辑的时候效率远超emacs(最起码小指不会断)；而emacs的特性则是无与伦比的可扩展性；vim作为unix上标志性的编辑器，其存在符合unix的哲学，即“Write programs that do one thing and do it well.”；而emacs则认为自己就是Unix，它的每个mode应该“Do one thing and do it well.”。正因为如此，vim被称为编辑器之神，emacs被称为神之编辑器，我认为这是切中事实的。<br />
 </p>
@@ -84,15 +84,15 @@ tramp是个好东西，之前写过一篇博客：<a href="https://slegetank.git
 </div>
 </div>
 
-<div id="outline-container-org7995416" class="outline-2">
-<h2 id="org7995416">evil-leader</h2>
-<div class="outline-text-2" id="text-org7995416">
+<div id="outline-container-org8072996" class="outline-2">
+<h2 id="org8072996">evil-leader</h2>
+<div class="outline-text-2" id="text-org8072996">
 <p>
 evil-leader提供了leader键来代替原来的C-x这些前置键。默认是逗号，但由于spacemacs的影响，一般使用空格。例如，对于buffer相关的操作，可以做如下定义：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">evil-define-key</span> 'normal global <span style="color: #c678dd;">(</span>kbd <span style="color: #98be65;">"bb"</span><span style="color: #c678dd;">)</span> 'ivy-switch-buffer<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">evil-define-key</span> 'normal global <span style="color: #c678dd;">(</span>kbd <span style="color: #98be65;">"bk"</span><span style="color: #c678dd;">)</span> 'kill-buffer<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(evil-define-key 'normal global (kbd "bb") 'ivy-switch-buffer)
+(evil-define-key 'normal global (kbd "bk") 'kill-buffer)
 </pre>
 </div>
 
@@ -102,9 +102,9 @@ b代表buffer，切换buffer是最常用的多文件操作，所以把它分配�
 </div>
 </div>
 
-<div id="outline-container-orgba952d0" class="outline-2">
-<h2 id="orgba952d0">ivy</h2>
-<div class="outline-text-2" id="text-orgba952d0">
+<div id="outline-container-org5eb347d" class="outline-2">
+<h2 id="org5eb347d">ivy</h2>
+<div class="outline-text-2" id="text-org5eb347d">
 <p>
 ivy/helm是两个提升emacs选择输入时用户体验的包，地址分别是<a href="https://github.com/abo-abo/swiper">ivy</a>，<a href="https://github.com/emacs-helm/helm">helm</a>。其中ivy更新、效率更高；helm更老更慢但是更全。对于这两个包，二选一，必须装一个，因为它们会极大的提升平时选择的时候的补全效率。这里我选择ivy，因为更活跃。<br />
 </p>
@@ -135,9 +135,9 @@ ivy这种插件再配上<a href="https://github.com/nonsequitur/smex">smex</a> �
 </div>
 </div>
 
-<div id="outline-container-org0c43071" class="outline-2">
-<h2 id="org0c43071">imenu</h2>
-<div class="outline-text-2" id="text-org0c43071">
+<div id="outline-container-orgcc2b1a5" class="outline-2">
+<h2 id="orgcc2b1a5">imenu</h2>
+<div class="outline-text-2" id="text-orgcc2b1a5">
 <p>
 Imenu is a feature that lets users select a definition or section in the buffer, from a menu which lists all of them, to go directly to that location in the buffer. emacs里有一些功能，类似imenu这种，一般每个major-mode都会对其提供支持，以获得相似的用户体验。这也是emacs中1+1&gt;2的例子，用的越多，这种不同功能间的碰撞越多。<br />
 </p>
@@ -154,18 +154,18 @@ Imenu is a feature that lets users select a definition or section in the buffer,
 </div>
 </div>
 
-<div id="outline-container-org5727a94" class="outline-2">
-<h2 id="org5727a94">yasnippet</h2>
-<div class="outline-text-2" id="text-org5727a94">
+<div id="outline-container-org37a2418" class="outline-2">
+<h2 id="org37a2418">yasnippet</h2>
+<div class="outline-text-2" id="text-org37a2418">
 <p>
 代码片段。例如，下面的模板：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-snippet"><span style="color: #5B6268;"># -*- mode: snippet -*-</span>
-<span style="color: #5B6268;"># name: Python Init Class</span>
-<span style="color: #5B6268;"># key: cc</span>
-<span style="color: #5B6268;"># --</span>
-class <span style="color: #51afef;">$</span><span style="color: #98be65;">0</span>(object):
+<pre class="src src-snippet"># -*- mode: snippet -*-
+# name: Python Init Class
+# key: cc
+# --
+class $0(object):
     def __init__(self):
         pass
 </pre>
@@ -175,17 +175,17 @@ class <span style="color: #51afef;">$</span><span style="color: #98be65;">0</spa
 只要在使用python-mode的buffer中输入cc，然后tab，就会自动展开：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #51afef;">class</span> (<span style="color: #c678dd;">object</span>):
-    <span style="color: #51afef;">def</span> <span style="color: #c678dd;">__init__</span>(<span style="color: #51afef;">self</span>):
-        <span style="color: #51afef;">pass</span>
+<pre class="src src-python">class (object):
+    def __init__(self):
+        pass
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgb090c4c" class="outline-2">
-<h2 id="orgb090c4c">company</h2>
-<div class="outline-text-2" id="text-orgb090c4c">
+<div id="outline-container-org1d97116" class="outline-2">
+<h2 id="org1d97116">company</h2>
+<div class="outline-text-2" id="text-org1d97116">
 <p>
 company, complete anything，自动补全插件。它提供了一个前端补全框架，把后端交给其他开发者实现。可以看到这个包有多么流行：<br />
 </p>
@@ -202,9 +202,9 @@ company, complete anything，自动补全插件。它提供了一个前端补全
 </div>
 </div>
 
-<div id="outline-container-org28cefef" class="outline-2">
-<h2 id="org28cefef">其他</h2>
-<div class="outline-text-2" id="text-org28cefef">
+<div id="outline-container-orge434588" class="outline-2">
+<h2 id="orge434588">其他</h2>
+<div class="outline-text-2" id="text-orge434588">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 

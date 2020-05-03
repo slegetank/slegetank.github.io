@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-08-25 Sun 16:27 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>Rime输入法同步</title>
 <meta name="generator" content="Org mode" />
@@ -38,9 +38,9 @@
 因此需要统一。主要研究了这篇博客：<a href="https://havee.me/mac/2015-05/rime-configuration-summary.html">https://havee.me/mac/2015-05/rime-configuration-summary.html</a><br />
 </p>
 
-<div id="outline-container-org9d65e17" class="outline-2">
-<h2 id="org9d65e17">坚果云</h2>
-<div class="outline-text-2" id="text-org9d65e17">
+<div id="outline-container-org0556105" class="outline-2">
+<h2 id="org0556105">坚果云</h2>
+<div class="outline-text-2" id="text-org0556105">
 <p>
 需要配置一个云盘来存储自己的文件。这里选择坚果云，目前免费上传1G/月，下载3G/月，非常良心。而专业版也只有200一年，非常值得拥有。<br />
 配置完成后，将同步文件夹设为例如~/Work/cloud 。<br />
@@ -49,9 +49,9 @@
 </div>
 </div>
 
-<div id="outline-container-org5c7adc5" class="outline-2">
-<h2 id="org5c7adc5">MacOS</h2>
-<div class="outline-text-2" id="text-org5c7adc5">
+<div id="outline-container-orgcfd3024" class="outline-2">
+<h2 id="orgcfd3024">MacOS</h2>
+<div class="outline-text-2" id="text-orgcfd3024">
 <p>
 fork了一个配置：<a href="https://github.com/slegetank/rime-files">https://github.com/slegetank/rime-files</a>。<br />
 </p>
@@ -65,7 +65,7 @@ MacOS的Rime默认的配置路径在：~/Library/Rime。将default.custom.yaml�
 </p>
 
 <div class="org-src-container">
-<pre class="src src-yaml"><span style="color: #dcaeea;">sync_dir</span>: <span style="color: #98be65;">"/Users/xxx/Work/cloud/cloud/Rime"</span>
+<pre class="src src-yaml">sync_dir: "/Users/xxx/Work/cloud/cloud/Rime"
 </pre>
 </div>
 
@@ -73,7 +73,7 @@ MacOS的Rime默认的配置路径在：~/Library/Rime。将default.custom.yaml�
 将installation_id设置为一个用来区分终端的字符串，例如：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-yaml"><span style="color: #dcaeea;">installation_id</span>: <span style="color: #98be65;">"mac"</span>
+<pre class="src src-yaml">installation_id: "mac"
 </pre>
 </div>
 
@@ -84,9 +84,9 @@ installation_id的作用是各平台的配置不同步，而词库同步，简�
 </div>
 </div>
 
-<div id="outline-container-orgb75569e" class="outline-2">
-<h2 id="orgb75569e">emacs</h2>
-<div class="outline-text-2" id="text-orgb75569e">
+<div id="outline-container-org098fc4b" class="outline-2">
+<h2 id="org098fc4b">emacs</h2>
+<div class="outline-text-2" id="text-org098fc4b">
 <p>
 emacs的rime配置文件在liberime-start的时候设置，我的在~/.emacs.d/pyim/rime 。执行同样的步骤：<br />
 </p>

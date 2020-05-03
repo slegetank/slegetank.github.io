@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-07-06 Sat 15:46 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>Magit - MagicGitTool for Emacs</title>
 <meta name="generator" content="Org mode" />
@@ -27,9 +27,9 @@
 <div id="content">
 <h1 class="title">Magit - MagicGitTool for Emacs</h1>
 
-<div id="outline-container-org70d7b27" class="outline-2">
-<h2 id="org70d7b27">为什么</h2>
-<div class="outline-text-2" id="text-org70d7b27">
+<div id="outline-container-orge50f9f1" class="outline-2">
+<h2 id="orge50f9f1">为什么</h2>
+<div class="outline-text-2" id="text-orge50f9f1">
 <ul class="org-ul">
 <li>emacs内置，可以与文件编辑无缝操作。<br /></li>
 <li>相比于命令行，对于提交内容的编辑操作更方便。<br /></li>
@@ -45,9 +45,9 @@
 </div>
 </div>
 
-<div id="outline-container-org7c8812d" class="outline-2">
-<h2 id="org7c8812d">安装及配置</h2>
-<div class="outline-text-2" id="text-org7c8812d">
+<div id="outline-container-orgbe4ceb8" class="outline-2">
+<h2 id="orgbe4ceb8">安装及配置</h2>
+<div class="outline-text-2" id="text-orgbe4ceb8">
 <p>
 配置依然按照我的习惯：<br />
 </p>
@@ -62,8 +62,8 @@
 将magit、evil-magit加入package-selected-packages，并将status页面绑定到gs按键上:<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">(require <span style="color: #98be65;">'evil-magit)</span>
-<span style="color: #98be65;">(evil-leader/set-key "gs" '</span>magit-status)
+<pre class="src src-sh">(require 'evil-magit)
+(evil-leader/set-key "gs" 'magit-status)
 </pre>
 </div>
 <p>
@@ -71,9 +71,9 @@
 </p>
 </div>
 </div>
-<div id="outline-container-org03570b2" class="outline-2">
-<h2 id="org03570b2">git status</h2>
-<div class="outline-text-2" id="text-org03570b2">
+<div id="outline-container-orgb31777a" class="outline-2">
+<h2 id="orgb31777a">git status</h2>
+<div class="outline-text-2" id="text-orgb31777a">
 <p>
 M-x magit-status或 空格+gs打开status页面，q退出。<br />
 status页面是magit的入口，其作用相当于git status，可以看到对比图：<br />
@@ -84,9 +84,9 @@ status页面是magit的入口，其作用相当于git status，可以看到对�
 看起来差不多。但是magit提供了更方便的方式来对文件的修改进行访问以及操作。<br />
 </p>
 </div>
-<div id="outline-container-org2051798" class="outline-3">
-<h3 id="org2051798">访问</h3>
-<div class="outline-text-3" id="text-org2051798">
+<div id="outline-container-org5473060" class="outline-3">
+<h3 id="org5473060">访问</h3>
+<div class="outline-text-3" id="text-org5473060">
 <p>
 每类文件都有4个展示等级，快捷键分别为1 2 3 4 :<br />
 <img src="../static/20170206-magit-2.gif" alt="20170206-magit-2.gif" /><br />
@@ -101,9 +101,9 @@ status页面是magit的入口，其作用相当于git status，可以看到对�
 </p>
 </div>
 </div>
-<div id="outline-container-orgd1a1e09" class="outline-3">
-<h3 id="orgd1a1e09">操作</h3>
-<div class="outline-text-3" id="text-orgd1a1e09">
+<div id="outline-container-org2114478" class="outline-3">
+<h3 id="org2114478">操作</h3>
+<div class="outline-text-3" id="text-org2114478">
 <p>
 具体见<a href="https://github.com/justbur/evil-magit">evil-magit</a>， 这里只列出常用的一部分：<br />
 </p>
@@ -217,9 +217,9 @@ status页面是magit的入口，其作用相当于git status，可以看到对�
 下面分别进行描述(对于像cc这种两个按键的，实际上是有popup提示的，所以记不住也没关系)：<br />
 </p>
 </div>
-<div id="outline-container-org88fe931" class="outline-4">
-<h4 id="org88fe931">stage/unstage</h4>
-<div class="outline-text-4" id="text-org88fe931">
+<div id="outline-container-org3e3a655" class="outline-4">
+<h4 id="org3e3a655">stage/unstage</h4>
+<div class="outline-text-4" id="text-org3e3a655">
 <p>
 直接对文件进行stage/unstage，即对文件进行s/u：<br />
 <img src="../static/20170206-magit-3.gif" alt="20170206-magit-3.gif" /><br />
@@ -231,9 +231,9 @@ status页面是magit的入口，其作用相当于git status，可以看到对�
 </p>
 </div>
 </div>
-<div id="outline-container-org45704d1" class="outline-4">
-<h4 id="org45704d1">commit/push</h4>
-<div class="outline-text-4" id="text-org45704d1">
+<div id="outline-container-org9fa689d" class="outline-4">
+<h4 id="org9fa689d">commit/push</h4>
+<div class="outline-text-4" id="text-org9fa689d">
 <p>
 stage完之后，按cc进行提交，此时会打开新的buffer，在其中编写commit message，C-c C-c提交，C-c C-k取消。<br />
 cc - commit<br />
@@ -241,9 +241,9 @@ ca - amend<br />
 </p>
 </div>
 </div>
-<div id="outline-container-org7a0af94" class="outline-4">
-<h4 id="org7a0af94">select</h4>
-<div class="outline-text-4" id="text-org7a0af94">
+<div id="outline-container-org2d2ffd2" class="outline-4">
+<h4 id="org2d2ffd2">select</h4>
+<div class="outline-text-4" id="text-org2d2ffd2">
 <p>
 magit允许同时对多项进行操作：<br />
 <img src="../static/20170206-magit-5.gif" alt="20170206-magit-5.gif" /><br />
@@ -251,9 +251,9 @@ magit允许同时对多项进行操作：<br />
 </div>
 </div>
 
-<div id="outline-container-org9220f85" class="outline-4">
-<h4 id="org9220f85">branch</h4>
-<div class="outline-text-4" id="text-org9220f85">
+<div id="outline-container-org0458ca6" class="outline-4">
+<h4 id="org0458ca6">branch</h4>
+<div class="outline-text-4" id="text-org0458ca6">
 <p>
 bb - checkout<br />
 bc - checkout new branch<br />
@@ -262,14 +262,14 @@ bc - checkout new branch<br />
 </div>
 </div>
 </div>
-<div id="outline-container-orgec9a269" class="outline-2">
-<h2 id="orgec9a269">git log</h2>
-<div class="outline-text-2" id="text-orgec9a269">
+<div id="outline-container-org56215ea" class="outline-2">
+<h2 id="org56215ea">git log</h2>
+<div class="outline-text-2" id="text-org56215ea">
 <p>
 在status页面按ll就进入了log页面，大概相当于<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">git log --format=<span style="color: #98be65;">"%h * %s %an %ar"</span>
+<pre class="src src-sh">git log --format="%h * %s %an %ar"
 </pre>
 </div>
 
@@ -286,36 +286,36 @@ bc - checkout new branch<br />
 </p>
 </div>
 
-<div id="outline-container-org43cecd0" class="outline-3">
-<h3 id="org43cecd0">操作</h3>
-<div class="outline-text-3" id="text-org43cecd0">
+<div id="outline-container-org63e5d31" class="outline-3">
+<h3 id="org63e5d31">操作</h3>
+<div class="outline-text-3" id="text-org63e5d31">
 </div>
-<div id="outline-container-org47d63e2" class="outline-4">
-<h4 id="org47d63e2">log</h4>
-<div class="outline-text-4" id="text-org47d63e2">
+<div id="outline-container-org05ba9c7" class="outline-4">
+<h4 id="org05ba9c7">log</h4>
+<div class="outline-text-4" id="text-org05ba9c7">
 <p>
 git log相对于git status功能上需要更多的对于查询的侧重，而log页面也有丰富的参数可供使用：<br />
 <img src="../static/20170206-magit-7.png" alt="20170206-magit-7.png" /><br />
 从"~/.emacs.d/elpa/magit-20170203.1633/magit-log.el"中可以看到每个选项对应的实际命令行参数：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #c678dd;">:switches</span> <span style="color: #51afef;">(</span><span style="color: #c678dd;">(</span>?g <span style="color: #98be65;">"Show graph"</span>              <span style="color: #98be65;">"--graph"</span><span style="color: #c678dd;">)</span>
-           <span style="color: #c678dd;">(</span>?c <span style="color: #98be65;">"Show graph in color"</span>     <span style="color: #98be65;">"--color"</span><span style="color: #c678dd;">)</span>
-           <span style="color: #c678dd;">(</span>?d <span style="color: #98be65;">"Show refnames"</span>           <span style="color: #98be65;">"--decorate"</span><span style="color: #c678dd;">)</span>
-           <span style="color: #c678dd;">(</span>?S <span style="color: #98be65;">"Show signatures"</span>         <span style="color: #98be65;">"--show-signature"</span><span style="color: #c678dd;">)</span>
-           <span style="color: #c678dd;">(</span>?u <span style="color: #98be65;">"Show diffs"</span>              <span style="color: #98be65;">"--patch"</span><span style="color: #c678dd;">)</span>
-           <span style="color: #c678dd;">(</span>?s <span style="color: #98be65;">"Show diffstats"</span>          <span style="color: #98be65;">"--stat"</span><span style="color: #c678dd;">)</span>
-           <span style="color: #c678dd;">(</span>?h <span style="color: #98be65;">"Show header"</span>             <span style="color: #98be65;">"++header"</span><span style="color: #c678dd;">)</span>
-           <span style="color: #c678dd;">(</span>?D <span style="color: #98be65;">"Simplify by decoration"</span>  <span style="color: #98be65;">"--simplify-by-decoration"</span><span style="color: #c678dd;">)</span>
-           <span style="color: #c678dd;">(</span>?f <span style="color: #98be65;">"Follow renames when showing single-file log"</span> <span style="color: #98be65;">"--follow"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #c678dd;">:options</span>  <span style="color: #51afef;">(</span><span style="color: #c678dd;">(</span>?n <span style="color: #98be65;">"Limit number of commits"</span> <span style="color: #98be65;">"-n"</span><span style="color: #c678dd;">)</span>
-           <span style="color: #c678dd;">(</span>?f <span style="color: #98be65;">"Limit to files"</span>          <span style="color: #98be65;">"-- "</span> magit-read-files<span style="color: #c678dd;">)</span>
-           <span style="color: #c678dd;">(</span>?a <span style="color: #98be65;">"Limit to author"</span>         <span style="color: #98be65;">"--author="</span><span style="color: #c678dd;">)</span>
-           <span style="color: #c678dd;">(</span>?o <span style="color: #98be65;">"Order commits by"</span>        <span style="color: #98be65;">"++order="</span> magit-log-select-order<span style="color: #c678dd;">)</span>
-           <span style="color: #c678dd;">(</span>?g <span style="color: #98be65;">"Search messages"</span>         <span style="color: #98be65;">"--grep="</span><span style="color: #c678dd;">)</span>
-           <span style="color: #c678dd;">(</span>?G <span style="color: #98be65;">"Search changes"</span>          <span style="color: #98be65;">"-G"</span><span style="color: #c678dd;">)</span>
-           <span style="color: #c678dd;">(</span>?S <span style="color: #98be65;">"Search occurrences"</span>      <span style="color: #98be65;">"-S"</span><span style="color: #c678dd;">)</span>
-           <span style="color: #c678dd;">(</span>?L <span style="color: #98be65;">"Trace line evolution"</span>    <span style="color: #98be65;">"-L"</span> magit-read-file-trace<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">:switches ((?g "Show graph"              "--graph")
+           (?c "Show graph in color"     "--color")
+           (?d "Show refnames"           "--decorate")
+           (?S "Show signatures"         "--show-signature")
+           (?u "Show diffs"              "--patch")
+           (?s "Show diffstats"          "--stat")
+           (?h "Show header"             "++header")
+           (?D "Simplify by decoration"  "--simplify-by-decoration")
+           (?f "Follow renames when showing single-file log" "--follow"))
+:options  ((?n "Limit number of commits" "-n")
+           (?f "Limit to files"          "-- " magit-read-files)
+           (?a "Limit to author"         "--author=")
+           (?o "Order commits by"        "++order=" magit-log-select-order)
+           (?g "Search messages"         "--grep=")
+           (?G "Search changes"          "-G")
+           (?S "Search occurrences"      "-S")
+           (?L "Trace line evolution"    "-L" magit-read-file-trace))
 </pre>
 </div>
 
@@ -325,9 +325,9 @@ git log相对于git status功能上需要更多的对于查询的侧重，而log
 </div>
 </div>
 
-<div id="outline-container-orgdb72102" class="outline-4">
-<h4 id="orgdb72102">rebase interactive</h4>
-<div class="outline-text-4" id="text-orgdb72102">
+<div id="outline-container-org41406cb" class="outline-4">
+<h4 id="org41406cb">rebase interactive</h4>
+<div class="outline-text-4" id="text-org41406cb">
 <p>
 即git rebase -i，magit里变得稍微方便了一点:<br />
 <img src="../static/20170206-magit-6.gif" alt="20170206-magit-6.gif" /><br />
@@ -339,9 +339,9 @@ git log相对于git status功能上需要更多的对于查询的侧重，而log
 </div>
 </div>
 
-<div id="outline-container-orgb02d3b3" class="outline-4">
-<h4 id="orgb02d3b3">reset</h4>
-<div class="outline-text-4" id="text-orgb02d3b3">
+<div id="outline-container-orga5b9adb" class="outline-4">
+<h4 id="orga5b9adb">reset</h4>
+<div class="outline-text-4" id="text-orga5b9adb">
 <p>
 log页面另一个主要功能就是代码回滚了：<br />
 <img src="../static/20170206-magit-7.gif" alt="20170206-magit-7.gif" /><br />
@@ -351,9 +351,9 @@ log页面另一个主要功能就是代码回滚了：<br />
 </div>
 </div>
 
-<div id="outline-container-org049179b" class="outline-2">
-<h2 id="org049179b">参考资料</h2>
-<div class="outline-text-2" id="text-org049179b">
+<div id="outline-container-orgfbd8f3c" class="outline-2">
+<h2 id="orgfbd8f3c">参考资料</h2>
+<div class="outline-text-2" id="text-orgfbd8f3c">
 <ul class="org-ul">
 <li>官方文档：<a href="https://magit.vc/manual/magit/index.html#Top">https://magit.vc/manual/magit/index.html#Top</a><br /></li>
 <li>官方常用功能文档：<a href="https://magit.vc/manual/magit-refcard.pdf">https://magit.vc/manual/magit-refcard.pdf</a><br /></li>

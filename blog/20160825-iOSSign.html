@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-07-06 Sat 15:46 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>iOS代码签名理解</title>
 <meta name="generator" content="Org mode" />
@@ -27,18 +27,18 @@
 <div id="content">
 <h1 class="title">iOS代码签名理解</h1>
 
-<div id="outline-container-org82b83ac" class="outline-2">
-<h2 id="org82b83ac">前言</h2>
-<div class="outline-text-2" id="text-org82b83ac">
+<div id="outline-container-orga12d4c7" class="outline-2">
+<h2 id="orga12d4c7">前言</h2>
+<div class="outline-text-2" id="text-orga12d4c7">
 <p>
 做了几年iOS app coder了，对于证书的生成、使用流程烂熟于心，然而对于这套机制的原理却一直不甚理解。近来由于工作需要仔细研究了一下，特将自己的学习经验记录于此，以供大家学习指正。<br />
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgd1e57c7" class="outline-2">
-<h2 id="orgd1e57c7">问题</h2>
-<div class="outline-text-2" id="text-orgd1e57c7">
+<div id="outline-container-orge3ee8ed" class="outline-2">
+<h2 id="orge3ee8ed">问题</h2>
+<div class="outline-text-2" id="text-orge3ee8ed">
 <p>
 通常的iOS应用的签名流程是这样的（这里只是大概写一下，具体流程网上有很多）：<br />
 </p>
@@ -56,17 +56,17 @@
 </div>
 </div>
 
-<div id="outline-container-orgb68d765" class="outline-2">
-<h2 id="orgb68d765">概念</h2>
-<div class="outline-text-2" id="text-orgb68d765">
+<div id="outline-container-org69a1308" class="outline-2">
+<h2 id="org69a1308">概念</h2>
+<div class="outline-text-2" id="text-org69a1308">
 <p>
 苹果需要我们对自己的应用签名，这样当用户从App Store里面下载到我们的应用时，用户就可以确定我们的应用来源于我们，并且从来没有被别人更改过。数字签名最重要的两个概念一个是证书，另一个是公钥加密（非对称加密）。苹果的数字签名机制使用的是X.509标准，依赖的加密算法是RSA。<br />
 </p>
 </div>
 
-<div id="outline-container-org59b61c6" class="outline-3">
-<h3 id="org59b61c6">Certificate</h3>
-<div class="outline-text-3" id="text-org59b61c6">
+<div id="outline-container-orgba0bb0c" class="outline-3">
+<h3 id="orgba0bb0c">Certificate</h3>
+<div class="outline-text-3" id="text-orgba0bb0c">
 <p>
 　　数字签名的整个流程大概是这样的：对于要加密的文件，首先生成其对应的hash（一份文件对应唯一的hash），然后使用私钥对其加密，并记录下来。用户收到文件后，使用公钥解密得到hash，然后跟自己计算的文件的hash作对比。如果一样，则说明文件没有被修改过，且文件来源于与此公钥配对的私钥的持有者。<br />
 </p>
@@ -91,9 +91,9 @@
 </div>
 </div>
 
-<div id="outline-container-org625fa9f" class="outline-3">
-<h3 id="org625fa9f">RSA</h3>
-<div class="outline-text-3" id="text-org625fa9f">
+<div id="outline-container-orgfca5663" class="outline-3">
+<h3 id="orgfca5663">RSA</h3>
+<div class="outline-text-3" id="text-orgfca5663">
 <p>
 除了证书，另一个重要的概念就是RSA。RSA算法可用于加密（公钥加私钥解），也可用于数字签名（私钥加公钥解）。这里我们使用openssl来作为研究的工具。<br />
 </p>
@@ -110,7 +110,7 @@ MCsCAQACBQCtbWYxAgMBAAECBDpl33UCAwDepwIDAMdnAgI/dwICcT8CAjMj
 -----END RSA PRIVATE KEY-----
 
 -----BEGIN PUBLIC KEY-----
-<span style="color: #dcaeea;">MCAwDQYJKoZIhvcNAQEBBQADDwAwDAIFAK1tZjECAwEAAQ</span>==
+MCAwDQYJKoZIhvcNAQEBBQADDwAwDAIFAK1tZjECAwEAAQ==
 -----END PUBLIC KEY-----
 </pre>
 </div>
@@ -121,7 +121,7 @@ MCsCAQACBQCtbWYxAgMBAAECBDpl33UCAwDepwIDAMdnAgI/dwICcT8CAjMj
 
 <div class="org-src-container">
 <pre class="src src-bash">openssl rsa -in private.key -text -noout
-&#36755;&#20986;&#65306;
+输出：
 Private-Key: (32 bit)
 modulus: 2909627953 (0xad6d6631)
 publicExponent: 65537 (0x10001)
@@ -133,8 +133,8 @@ exponent2: 28991 (0x713f)
 coefficient: 13091 (0x3323)
 
 openssl rsa -pubin -in pubkey.pubkey -text -noout
-&#36755;&#20986;&#65306;
-<span style="color: #c678dd;">Modulus</span> (32 bit): 2909627953 (0xad6d6631)
+输出：
+Modulus (32 bit): 2909627953 (0xad6d6631)
 Exponent: 65537 (0x10001)
 </pre>
 </div>
@@ -173,9 +173,9 @@ A=B^publicExponent mod modulus；B=A^privateExponent mod modulus<br />
 </div>
 </div>
 
-<div id="outline-container-org39653cb" class="outline-2">
-<h2 id="org39653cb">具体到iOS</h2>
-<div class="outline-text-2" id="text-org39653cb">
+<div id="outline-container-org459fa50" class="outline-2">
+<h2 id="org459fa50">具体到iOS</h2>
+<div class="outline-text-2" id="text-org459fa50">
 <p>
 那么，上面的概念在苹果的体系当中是如何工作的呢？大概是这样的：<br />
 </p>
@@ -193,9 +193,9 @@ A=B^publicExponent mod modulus；B=A^privateExponent mod modulus<br />
 </p>
 </div>
 
-<div id="outline-container-org87fcaac" class="outline-3">
-<h3 id="org87fcaac">Key</h3>
-<div class="outline-text-3" id="text-org87fcaac">
+<div id="outline-container-org01dcec4" class="outline-3">
+<h3 id="org01dcec4">Key</h3>
+<div class="outline-text-3" id="text-org01dcec4">
 <p>
 首先，我们要生成整个流程最核心的东西，即私钥、公钥；苹果使用的是2048位的密钥：<br />
 </p>
@@ -219,13 +219,13 @@ A=B^publicExponent mod modulus；B=A^privateExponent mod modulus<br />
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">-----BEGIN RSA PRIVATE KEY&#8212;&#8212;
-&#8230;
------END RSA PRIVATE KEY&#8212;&#8212;
+<pre class="src src-bash">-----BEGIN RSA PRIVATE KEY——
+…
+-----END RSA PRIVATE KEY——
 
------BEGIN PUBLIC KEY&#8212;&#8212;
-&#8230;
------END PUBLIC KEY&#8212;&#8212;
+-----BEGIN PUBLIC KEY——
+…
+-----END PUBLIC KEY——
 </pre>
 </div>
 
@@ -235,9 +235,9 @@ A=B^publicExponent mod modulus；B=A^privateExponent mod modulus<br />
 </div>
 </div>
 
-<div id="outline-container-org8e7e5b4" class="outline-3">
-<h3 id="org8e7e5b4">CSR</h3>
-<div class="outline-text-3" id="text-org8e7e5b4">
+<div id="outline-container-orgd6fcfe4" class="outline-3">
+<h3 id="orgd6fcfe4">CSR</h3>
+<div class="outline-text-3" id="text-orgd6fcfe4">
 <p>
 下一步我们需要生成给CA验证的CSR文件：<br />
 </p>
@@ -262,9 +262,9 @@ A=B^publicExponent mod modulus；B=A^privateExponent mod modulus<br />
 </div>
 </div>
 
-<div id="outline-container-org9ded614" class="outline-3">
-<h3 id="org9ded614">Certificate</h3>
-<div class="outline-text-3" id="text-org9ded614">
+<div id="outline-container-orgb342f24" class="outline-3">
+<h3 id="orgb342f24">Certificate</h3>
+<div class="outline-text-3" id="text-orgb342f24">
 <p>
 下一步，我们需要登录developer.apple.com来生成证书。具体步骤这里就不多说了，总之结果就是我们得到了证书（.cer）。我们要关心的是这一步发生了什么呢？<br />
 </p>
@@ -305,7 +305,7 @@ A=B^publicExponent mod modulus；B=A^privateExponent mod modulus<br />
 
 <div class="org-src-container">
 <pre class="src src-bash">openssl x509 -inform der -in ios_distribution.cer -out ios_distribution.pem
-openssl pkcs12 -export -in ios_distribution.pem -inkey private.key -out test.p12 -name <span style="color: #98be65;">"Test Sign"</span>
+openssl pkcs12 -export -in ios_distribution.pem -inkey private.key -out test.p12 -name "Test Sign"
 </pre>
 </div>
 
@@ -339,7 +339,7 @@ openssl pkcs12 -export -in ios_distribution.pem -inkey private.key -out test.p12
 <div class="org-src-container">
 <pre class="src src-bash">security verify-cert -c ios_distribution.pem
 
-&#36755;&#20986;&#65306;...certificate verification successful.
+输出：...certificate verification successful.
 </pre>
 </div>
 
@@ -358,7 +358,7 @@ openssl pkcs12 -export -in ios_distribution.pem -inkey private.key -out test.p12
 
 <div class="org-src-container">
 <pre class="src src-bash">security verify-cert -c selfsign.crt
-&#36755;&#20986;&#65306;Cert Verify Result: CSSMERR_TP_NOT_TRUSTED
+输出：Cert Verify Result: CSSMERR_TP_NOT_TRUSTED
 </pre>
 </div>
 
@@ -368,15 +368,15 @@ openssl pkcs12 -export -in ios_distribution.pem -inkey private.key -out test.p12
 </div>
 </div>
 
-<div id="outline-container-orgf37a4b4" class="outline-3">
-<h3 id="orgf37a4b4">Sign</h3>
-<div class="outline-text-3" id="text-orgf37a4b4">
+<div id="outline-container-org6833d0c" class="outline-3">
+<h3 id="org6833d0c">Sign</h3>
+<div class="outline-text-3" id="text-org6833d0c">
 <p>
 万事俱备，只欠东风。当我们编写完代码之后，我们就需要对代码进行签名了。苹果提供了一个工具codesign大大简化了工作的流程（当然也把具体的流程封装了起来）。只要知道了code sign identity（也就是证书的CN；证书需要保存着钥匙串中）就可以对app进行签名了：<br />
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">codesign -s -f <span style="color: #98be65;">'{code sign identity}'</span> test.app
+<pre class="src src-bash">codesign -s -f '{code sign identity}' test.app
 </pre>
 </div>
 
@@ -386,33 +386,33 @@ openssl pkcs12 -export -in ios_distribution.pem -inkey private.key -out test.p12
 
 <div class="org-src-container">
 <pre class="src src-bash">codesign -vv -d test.app
-&#36755;&#20986;&#65306;
+输出：
 
-<span style="color: #dcaeea;">Executable</span>=/Users/hy/Library/Developer/Xcode/DerivedData/test-hekagtjqikppkueajznajyogtpmc/Build/Products/Debug-iphoneos/test.app/test
+Executable=/Users/hy/Library/Developer/Xcode/DerivedData/test-hekagtjqikppkueajznajyogtpmc/Build/Products/Debug-iphoneos/test.app/test
 
-<span style="color: #dcaeea;">Identifier</span>=com.xxx.test
+Identifier=com.xxx.test
 
-<span style="color: #dcaeea;">Format</span>=app bundle with Mach-O universal (armv7 arm64)
+Format=app bundle with Mach-O universal (armv7 arm64)
 
-CodeDirectory <span style="color: #dcaeea;">v</span>=20200 <span style="color: #dcaeea;">size</span>=618 <span style="color: #dcaeea;">flags</span>=0x0(none) <span style="color: #dcaeea;">hashes</span>=14+3 <span style="color: #dcaeea;">location</span>=embedded
+CodeDirectory v=20200 size=618 flags=0x0(none) hashes=14+3 location=embedded
 
-Signature <span style="color: #dcaeea;">size</span>=4690
+Signature size=4690
 
-<span style="color: #dcaeea;">Authority</span>=iPhone Distribution: xxx
+Authority=iPhone Distribution: xxx
 
-<span style="color: #dcaeea;">Authority</span>=Apple Worldwide Developer Relations Certification Authority
+Authority=Apple Worldwide Developer Relations Certification Authority
 
-<span style="color: #dcaeea;">Authority</span>=Apple Root CA
+Authority=Apple Root CA
 
-Signed <span style="color: #dcaeea;">Time</span>=2016&#24180;8&#26376;8&#26085; &#19979;&#21320;4:19:19
+Signed Time=2016年8月8日 下午4:19:19
 
-Info.plist <span style="color: #dcaeea;">entries</span>=27
+Info.plist entries=27
 
-<span style="color: #dcaeea;">TeamIdentifier</span>=VWEN6QTM5A
+TeamIdentifier=VWEN6QTM5A
 
-Sealed Resources <span style="color: #dcaeea;">version</span>=2 <span style="color: #dcaeea;">rules</span>=12 <span style="color: #dcaeea;">files</span>=7
+Sealed Resources version=2 rules=12 files=7
 
-Internal requirements <span style="color: #dcaeea;">count</span>=1 <span style="color: #dcaeea;">size</span>=168
+Internal requirements count=1 size=168
 </pre>
 </div>
 
@@ -423,9 +423,9 @@ Internal requirements <span style="color: #dcaeea;">count</span>=1 <span style="
 </div>
 </div>
 
-<div id="outline-container-orgf73d895" class="outline-3">
-<h3 id="orgf73d895">Provision Profile</h3>
-<div class="outline-text-3" id="text-orgf73d895">
+<div id="outline-container-orgf5df204" class="outline-3">
+<h3 id="orgf5df204">Provision Profile</h3>
+<div class="outline-text-3" id="text-orgf5df204">
 <p>
 下一步，我们需要将应用安装到手机上，这时就轮到Provision Profile（.mobileprovision）出场了。每个iOS的应用都要携带一个对应的描述文件，它在app根目录下名为embeded.mobileprovision。iOS需要通过这个描述文件来确定应用是否有权限运行。在Mac系统中，它储存在~/Library/MobileDevices/Provisioning Profiles目录下。在打包应用时，Xcode只是简单的把对应的证书从这个目录下拷贝到app目录下。下面让我们看一下它具体包含哪些东西。<br />
 </p>
@@ -455,7 +455,7 @@ ProvisionedDevices 此证书可以安装的所有设备的UDID，仅出现在dev
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">security cms -D -i test.mobileprovision | perl -nle <span style="color: #98be65;">'print $&amp; if m{(?&lt;=&lt;data&gt;).*?(?=&lt;/data&gt;)}'</span> | base64 -D &gt; mobile.cer
+<pre class="src src-bash">security cms -D -i test.mobileprovision | perl -nle 'print $&amp; if m{(?&lt;=&lt;data&gt;).*?(?=&lt;/data&gt;)}' | base64 -D &gt; mobile.cer
 </pre>
 </div>
 
@@ -470,18 +470,18 @@ ProvisionedDevices 此证书可以安装的所有设备的UDID，仅出现在dev
 </div>
 </div>
 
-<div id="outline-container-orgc610a29" class="outline-2">
-<h2 id="orgc610a29">总结</h2>
-<div class="outline-text-2" id="text-orgc610a29">
+<div id="outline-container-org0c913c4" class="outline-2">
+<h2 id="org0c913c4">总结</h2>
+<div class="outline-text-2" id="text-org0c913c4">
 <p>
 以上就是我对苹果的代码签名机制的一些理解。文中忽略了一些内容，有的是因为时间问题，有的是因为与本文主题无关，有的是因为自己的疏忽。对于文中的不足以及纰漏，请不吝指教，先行谢过。<br />
 </p>
 </div>
 </div>
 
-<div id="outline-container-org2bf8770" class="outline-2">
-<h2 id="org2bf8770">参考资料</h2>
-<div class="outline-text-2" id="text-org2bf8770">
+<div id="outline-container-orgad321a8" class="outline-2">
+<h2 id="orgad321a8">参考资料</h2>
+<div class="outline-text-2" id="text-orgad321a8">
 <p>
 RSA算法<br />
 </p>

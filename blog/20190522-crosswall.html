@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-07-06 Sat 15:46 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>科学上网</title>
 <meta name="generator" content="Org mode" />
@@ -30,9 +30,9 @@
 使用他人搭建的vpn最大的问题是不稳定。所以勤劳的程序员需要自己翻墙，因为自己的主机比较隐蔽，流量小，不容易引起老大哥的注意。翻墙的原理很简单，就是通过不被墙的主机做中转去访问被墙掉的站点。所以首先需要在域外建立一个主机，vps是最佳的选择。<br />
 </p>
 
-<div id="outline-container-org9cbc517" class="outline-2">
-<h2 id="org9cbc517">vps</h2>
-<div class="outline-text-2" id="text-org9cbc517">
+<div id="outline-container-org8098f26" class="outline-2">
+<h2 id="org8098f26">vps</h2>
+<div class="outline-text-2" id="text-org8098f26">
 <p>
 选择一个vps提供商，这里选择<a href="https://cloud.digitalocean.com">digital ocean</a> 来搭建服务器。vps的成本相当低，digitalocean提供的最低配置只要5$每月，而且建立、删除都很灵活，可以在世界各地建立自己想要的网络服务。这里仅使用主机提供vpn服务。<br />
 </p>
@@ -67,9 +67,9 @@ ssh root@178.128.170.209<br />
 </div>
 </div>
 
-<div id="outline-container-org805fe0e" class="outline-2">
-<h2 id="org805fe0e">shadowsocks</h2>
-<div class="outline-text-2" id="text-org805fe0e">
+<div id="outline-container-org6a1b346" class="outline-2">
+<h2 id="org6a1b346">shadowsocks</h2>
+<div class="outline-text-2" id="text-org6a1b346">
 <p>
 如果不需要使用热点共享网络，那么可以使用shadowsocks，它更安全，更不容易被墙。但是需要安装客户端，系统不能默认支持。<br />
 教程：<a href="https://www.textarea.com/ExpectoPatronum/shiyong-shadowsocks-kexue-shangwang-265/">https://www.textarea.com/ExpectoPatronum/shiyong-shadowsocks-kexue-shangwang-265/</a><br />
@@ -77,9 +77,9 @@ ssh root@178.128.170.209<br />
 </div>
 </div>
 
-<div id="outline-container-org1216dec" class="outline-2">
-<h2 id="org1216dec">L2TP/IPSecs</h2>
-<div class="outline-text-2" id="text-org1216dec">
+<div id="outline-container-orge36636b" class="outline-2">
+<h2 id="orge36636b">L2TP/IPSecs</h2>
+<div class="outline-text-2" id="text-orge36636b">
 <p>
 传统的vpn协议有多种选择，区别在这里：<br />
 <a href="https://thebestvpn.com/pptp-l2tp-openvpn-sstp-ikev2-protocols/">https://thebestvpn.com/pptp-l2tp-openvpn-sstp-ikev2-protocols/</a><br />
@@ -106,13 +106,13 @@ Password : 123456
 </div>
 </div>
 
-<div id="outline-container-org9aa3a0c" class="outline-3">
-<h3 id="org9aa3a0c">客户端</h3>
-<div class="outline-text-3" id="text-org9aa3a0c">
+<div id="outline-container-orgcae0bc4" class="outline-3">
+<h3 id="orgcae0bc4">客户端</h3>
+<div class="outline-text-3" id="text-orgcae0bc4">
 </div>
-<div id="outline-container-org89afed0" class="outline-4">
-<h4 id="org89afed0">mac</h4>
-<div class="outline-text-4" id="text-org89afed0">
+<div id="outline-container-org68c75a5" class="outline-4">
+<h4 id="org68c75a5">mac</h4>
+<div class="outline-text-4" id="text-org68c75a5">
 <p>
 Setting -&gt; Network -&gt; + -&gt; VPN -&gt; L2TP over IPSec -&gt; Create。<br />
 填入Server Address，Account Name（对应上面的Server IP和Username），选择Advanced。<br />
@@ -137,9 +137,9 @@ Setting -&gt; Network -&gt; + -&gt; VPN -&gt; L2TP over IPSec -&gt; Create。<br
 </div>
 </div>
 
-<div id="outline-container-org9de6f48" class="outline-3">
-<h3 id="org9de6f48">win10</h3>
-<div class="outline-text-3" id="text-org9de6f48">
+<div id="outline-container-org4b76953" class="outline-3">
+<h3 id="org4b76953">win10</h3>
+<div class="outline-text-3" id="text-org4b76953">
 <p>
 教程：<a href="https://support.untangle.com/hc/en-us/articles/231971387-L2TP-VPN-Windows-10-configuration">https://support.untangle.com/hc/en-us/articles/231971387-L2TP-VPN-Windows-10-configuration</a><br />
 </p>

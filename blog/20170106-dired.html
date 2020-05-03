@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-07-06 Sat 15:46 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>如何优雅的使用Dired</title>
 <meta name="generator" content="Org mode" />
@@ -31,9 +31,9 @@ Dired是directory editor的简写，是emacs内置的目录管理工具。习惯
 这里是我的配置：<a href="https://github.com/slegetank/.emacs.d/blob/master/init/init-dired.org">Dired config</a> 。<br />
 </p>
 
-<div id="outline-container-org047f91b" class="outline-2">
-<h2 id="org047f91b">为什么</h2>
-<div class="outline-text-2" id="text-org047f91b">
+<div id="outline-container-org82b617f" class="outline-2">
+<h2 id="org82b617f">为什么</h2>
+<div class="outline-text-2" id="text-org82b617f">
 <ul class="org-ul">
 <li>emacs内置，可以与文件编辑无缝操作。<br /></li>
 <li>在批量操作的时候很方便；正则、wdired很强大。<br /></li>
@@ -45,9 +45,9 @@ Dired是directory editor的简写，是emacs内置的目录管理工具。习惯
 </div>
 </div>
 
-<div id="outline-container-orgc55fbae" class="outline-2">
-<h2 id="orgc55fbae">快捷键</h2>
-<div class="outline-text-2" id="text-orgc55fbae">
+<div id="outline-container-orgafc1652" class="outline-2">
+<h2 id="orgafc1652">快捷键</h2>
+<div class="outline-text-2" id="text-orgafc1652">
 <p>
 首先要记一下一些常用的快捷键。<br />
 </p>
@@ -176,9 +176,9 @@ Dired是directory editor的简写，是emacs内置的目录管理工具。习惯
 % 表示正则相关的操作，极大的增强了原命令的功能。<br />
 </p>
 </div>
-<div id="outline-container-org377b113" class="outline-3">
-<h3 id="org377b113">自定义快捷键</h3>
-<div class="outline-text-3" id="text-org377b113">
+<div id="outline-container-org43ee11c" class="outline-3">
+<h3 id="org43ee11c">自定义快捷键</h3>
+<div class="outline-text-3" id="text-org43ee11c">
 <ul class="org-ul">
 <li><p>
 外部<br />
@@ -271,13 +271,13 @@ Dired是directory editor的简写，是emacs内置的目录管理工具。习惯
 </div>
 </div>
 
-<div id="outline-container-org76e21ae" class="outline-2">
-<h2 id="org76e21ae">Better defaults</h2>
-<div class="outline-text-2" id="text-org76e21ae">
+<div id="outline-container-orge57c39c" class="outline-2">
+<h2 id="orge57c39c">Better defaults</h2>
+<div class="outline-text-2" id="text-orge57c39c">
 </div>
-<div id="outline-container-orgcd245a8" class="outline-3">
-<h3 id="orgcd245a8">单个buffer</h3>
-<div class="outline-text-3" id="text-orgcd245a8">
+<div id="outline-container-orgd2d914c" class="outline-3">
+<h3 id="orgd2d914c">单个buffer</h3>
+<div class="outline-text-3" id="text-orgd2d914c">
 <p>
 dired默认情况下每个目录会单独开一个buffer，而这是我们所不希望看到的；有几种方法进行改变：<br />
 </p>
@@ -286,14 +286,14 @@ dired默认情况下每个目录会单独开一个buffer，而这是我们所不
 自己改<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> dired-recursive-copies 'always<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> dired-recursive-deletes 'always<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> dired-dwim-target t<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(setq dired-recursive-copies 'always)
+(setq dired-recursive-deletes 'always)
+(setq dired-dwim-target t)
 
-<span style="color: #51afef;">(</span>put 'dired-find-alternate-file 'disabled nil<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">with-eval-after-load</span> 'dired
-    <span style="color: #c678dd;">(</span>define-key dired-mode-map <span style="color: #98be65;">(</span>kbd <span style="color: #98be65;">"RET"</span><span style="color: #98be65;">)</span> 'dired-find-alternate-file<span style="color: #c678dd;">)</span>
-    <span style="color: #c678dd;">(</span>define-key dired-mode-map <span style="color: #98be65;">(</span>kbd <span style="color: #98be65;">"^"</span><span style="color: #98be65;">)</span> <span style="color: #98be65;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #da8548;">()</span> <span style="color: #da8548;">(</span><span style="color: #51afef;">interactive</span><span style="color: #da8548;">)</span> <span style="color: #da8548;">(</span>find-alternate-file <span style="color: #98be65;">".."</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>  <span style="color: #5B6268;">; </span><span style="color: #5B6268;">was dired-up-directory)</span>
+(put 'dired-find-alternate-file 'disabled nil)
+(with-eval-after-load 'dired
+    (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+    (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))))  ; was dired-up-directory)
 </pre>
 </div></li>
 <li><a href="https://github.com/crocket/dired-single">dired-single</a><br /></li>
@@ -301,18 +301,18 @@ dired默认情况下每个目录会单独开一个buffer，而这是我们所不
 <a href="https://www.emacswiki.org/emacs/dired+.el">dired+</a><br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>diredp-toggle-find-file-reuse-dir 1<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(diredp-toggle-find-file-reuse-dir 1)
 </pre>
 </div></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orge73d4f3" class="outline-3">
-<h3 id="orge73d4f3">拷贝</h3>
-<div class="outline-text-3" id="text-orge73d4f3">
+<div id="outline-container-org491b349" class="outline-3">
+<h3 id="org491b349">拷贝</h3>
+<div class="outline-text-3" id="text-org491b349">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> dired-dwim-target t<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(setq dired-dwim-target t)
 </pre>
 </div>
 <p>
@@ -320,16 +320,16 @@ dired默认情况下每个目录会单独开一个buffer，而这是我们所不
 </p>
 </div>
 </div>
-<div id="outline-container-orga687443" class="outline-3">
-<h3 id="orga687443">过滤</h3>
-<div class="outline-text-3" id="text-orga687443">
+<div id="outline-container-org1da1baf" class="outline-3">
+<h3 id="org1da1baf">过滤</h3>
+<div class="outline-text-3" id="text-org1da1baf">
 <p>
 有些系统生成的文件我们并不希望看到，例如python的pyc文件，这时可以忽略：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq-default</span> dired-omit-files-p t<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> dired-omit-files
-      <span style="color: #c678dd;">(</span>concat dired-omit-files <span style="color: #98be65;">"\\.pyc$"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(setq-default dired-omit-files-p t)
+(setq dired-omit-files
+      (concat dired-omit-files "\\.pyc$"))
 </pre>
 </div>
 
@@ -337,45 +337,45 @@ dired默认情况下每个目录会单独开一个buffer，而这是我们所不
 还可以跟mark结合进行暂时的忽略、显示：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">custom-dired-temp-hide-files</span> <span style="color: #c678dd;">()</span>
-  <span style="color: #83898d;">"Hide/show marked files temporary."</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">interactive</span><span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">if</span> dired-omit-files-p
-      <span style="color: #98be65;">(</span><span style="color: #51afef;">setq</span> dired-omit-files-p nil<span style="color: #98be65;">)</span>
-    <span style="color: #98be65;">(</span><span style="color: #51afef;">progn</span>
-      <span style="color: #da8548;">(</span>make-local-variable 'dired-omit-files<span style="color: #da8548;">)</span>
-      <span style="color: #da8548;">(</span><span style="color: #51afef;">dolist</span> <span style="color: #a9a1e1;">(</span>item <span style="color: #ECBE7B;">(</span>dired-get-marked-files<span style="color: #ECBE7B;">)</span><span style="color: #a9a1e1;">)</span>
-        <span style="color: #a9a1e1;">(</span><span style="color: #51afef;">setq</span> dired-omit-files
-              <span style="color: #ECBE7B;">(</span>concat dired-omit-files <span style="color: #4db5bd;">(</span>format <span style="color: #98be65;">"</span><span style="color: #51afef; font-weight: bold;">\\</span><span style="color: #51afef; font-weight: bold;">|</span><span style="color: #98be65;">%s"</span> <span style="color: #a2b6da;">(</span>file-name-nondirectory item<span style="color: #a2b6da;">)</span><span style="color: #4db5bd;">)</span><span style="color: #ECBE7B;">)</span><span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span>
-      <span style="color: #da8548;">(</span><span style="color: #51afef;">setq</span> dired-omit-files-p t<span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span>dired-unmark-all-marks<span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span>revert-buffer<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(defun custom-dired-temp-hide-files ()
+  "Hide/show marked files temporary."
+  (interactive)
+  (if dired-omit-files-p
+      (setq dired-omit-files-p nil)
+    (progn
+      (make-local-variable 'dired-omit-files)
+      (dolist (item (dired-get-marked-files))
+        (setq dired-omit-files
+              (concat dired-omit-files (format "\\|%s" (file-name-nondirectory item)))))
+      (setq dired-omit-files-p t)))
+  (dired-unmark-all-marks)
+  (revert-buffer))
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgac1fe26" class="outline-3">
-<h3 id="orgac1fe26">默认递归操作文件夹</h3>
-<div class="outline-text-3" id="text-orgac1fe26">
+<div id="outline-container-org944c7da" class="outline-3">
+<h3 id="org944c7da">默认递归操作文件夹</h3>
+<div class="outline-text-3" id="text-org944c7da">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> dired-recursive-copies 'always<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> dired-recursive-deletes 'always<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(setq dired-recursive-copies 'always)
+(setq dired-recursive-deletes 'always)
 </pre>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-org4ced69d" class="outline-2">
-<h2 id="org4ced69d">排序</h2>
-<div class="outline-text-2" id="text-org4ced69d">
+<div id="outline-container-orgea4a192" class="outline-2">
+<h2 id="orgea4a192">排序</h2>
+<div class="outline-text-2" id="text-orgea4a192">
 <p>
 emacs原始的排序只有根据字符和modify time进行排序；有一个插件<a href="https://www.emacswiki.org/emacs/download/dired-sort.el">dired-sort</a> 允许用户根据自己的需要进行排序。但是其中的根据后缀名排序只支持GNU版本的ls；所以对于MacOS及其他系统，最简单的方法是使用elisp版本的ls：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">require</span> '<span style="color: #a9a1e1;">ls-lisp</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> ls-lisp-use-insert-directory-program nil<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> ls-lisp-verbosity nil<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(require 'ls-lisp)
+(setq ls-lisp-use-insert-directory-program nil)
+(setq ls-lisp-verbosity nil)
 </pre>
 </div>
 
@@ -383,18 +383,18 @@ emacs原始的排序只有根据字符和modify time进行排序；有一个插�
 并且，我希望文件夹能处在文件的前面：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">custom-dired-sort-dir-first</span> <span style="color: #c678dd;">()</span>
-  <span style="color: #83898d;">"Dired sort hook to list directories first."</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">save-excursion</span>
-    <span style="color: #98be65;">(</span><span style="color: #51afef;">let</span> <span style="color: #da8548;">(</span>buffer-read-only<span style="color: #da8548;">)</span>
-      <span style="color: #da8548;">(</span>forward-line 2<span style="color: #da8548;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">beyond dir. header</span>
-      <span style="color: #da8548;">(</span>sort-regexp-fields t <span style="color: #98be65;">"^.*$"</span> <span style="color: #98be65;">"[ ]*."</span> <span style="color: #a9a1e1;">(</span>point<span style="color: #a9a1e1;">)</span> <span style="color: #a9a1e1;">(</span>point-max<span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">and</span> <span style="color: #98be65;">(</span><span style="color: #51afef;">featurep</span> '<span style="color: #a9a1e1;">xemacs</span><span style="color: #98be65;">)</span>
-       <span style="color: #98be65;">(</span>fboundp 'dired-insert-set-properties<span style="color: #98be65;">)</span>
-       <span style="color: #98be65;">(</span>dired-insert-set-properties <span style="color: #da8548;">(</span>point-min<span style="color: #da8548;">)</span> <span style="color: #da8548;">(</span>point-max<span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span>set-buffer-modified-p nil<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(defun custom-dired-sort-dir-first ()
+  "Dired sort hook to list directories first."
+  (save-excursion
+    (let (buffer-read-only)
+      (forward-line 2) ;; beyond dir. header
+      (sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max))))
+  (and (featurep 'xemacs)
+       (fboundp 'dired-insert-set-properties)
+       (dired-insert-set-properties (point-min) (point-max)))
+  (set-buffer-modified-p nil))
 
-<span style="color: #51afef;">(</span>add-hook 'dired-after-readin-hook 'custom-dired-sort-dir-first<span style="color: #51afef;">)</span>
+(add-hook 'dired-after-readin-hook 'custom-dired-sort-dir-first)
 </pre>
 </div>
 
@@ -404,9 +404,9 @@ emacs原始的排序只有根据字符和modify time进行排序；有一个插�
 </p>
 </div>
 </div>
-<div id="outline-container-orgaaa9196" class="outline-2">
-<h2 id="orgaaa9196">书签</h2>
-<div class="outline-text-2" id="text-orgaaa9196">
+<div id="outline-container-orgca70f62" class="outline-2">
+<h2 id="orgca70f62">书签</h2>
+<div class="outline-text-2" id="text-orgca70f62">
 <p>
 跟书签配合之后，在访问远程路径的时候特别方便。借鉴了这篇文章：<a href="http://scottfrazersblog.blogspot.sg/2009/12/emacs-using-bookmarked-directories.html">Emacs: Using Bookmarked Directories</a>。<br />
 如果TRAMP配置合适的话，可以达到一键远程访问的效果：<br />
@@ -414,9 +414,9 @@ emacs原始的排序只有根据字符和modify time进行排序；有一个插�
 </p>
 </div>
 </div>
-<div id="outline-container-org93e65ad" class="outline-2">
-<h2 id="org93e65ad">wdired</h2>
-<div class="outline-text-2" id="text-org93e65ad">
+<div id="outline-container-org844332d" class="outline-2">
+<h2 id="org844332d">wdired</h2>
+<div class="outline-text-2" id="text-org844332d">
 <p>
 这个功能就很黑魔法了。我把它绑定到了“E”，C-c C-c确认修改；C-c C-k放弃修改。这个功能允许用户像操作普通文件那样操作目录，例如批量重命名：<br />
 <img src="../static/20170106-dired-1.gif" alt="20170106-dired-1.gif" /><br />
@@ -428,24 +428,24 @@ emacs原始的排序只有根据字符和modify time进行排序；有一个插�
 </div>
 </div>
 
-<div id="outline-container-org443940a" class="outline-2">
-<h2 id="org443940a">最近访问</h2>
-<div class="outline-text-2" id="text-org443940a">
+<div id="outline-container-org4165262" class="outline-2">
+<h2 id="org4165262">最近访问</h2>
+<div class="outline-text-2" id="text-org4165262">
 <p>
 打开最近访问的目录是比较常用的一个功能。在shell里也有<a href="https://github.com/rupa/z">z</a>、 <a href="https://github.com/clvv/fasd">fasd</a> 这些快速打开路径的命令。而emacs内置的recentf则可为我们提供方便的最近访问路径功能，当然还是需要一些配置才能变得更好用。这里是<a href="https://www.emacswiki.org/emacs/RecentFiles#toc21">wiki</a> 。<br />
 对于这个问题我最初查到的答案在这里：<a href="http://blog.binchen.org/posts/use-ivy-to-open-recent-directories.html">陈斌的解决方案</a> 。因此很简单的，我把其中fasd的部分去掉就可以用了：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">require</span> '<span style="color: #a9a1e1;">ivy</span><span style="color: #51afef;">)</span> <span style="color: #5B6268;">; </span><span style="color: #5B6268;">swiper 7.0+ should be installed</span>
+<pre class="src src-emacs-lisp">(require 'ivy) ; swiper 7.0+ should be installed
 
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">custom-goto-recent-directory</span> <span style="color: #c678dd;">()</span>
-  <span style="color: #83898d;">"Open recent directory with dired"</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">interactive</span><span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">unless</span> recentf-mode <span style="color: #98be65;">(</span>recentf-mode 1<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">let</span> <span style="color: #98be65;">(</span><span style="color: #da8548;">(</span>collection
-         <span style="color: #a9a1e1;">(</span>delete-dups
-          <span style="color: #ECBE7B;">(</span>append <span style="color: #4db5bd;">(</span>mapcar 'file-name-directory recentf-list<span style="color: #4db5bd;">)</span><span style="color: #ECBE7B;">)</span><span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span>
-    <span style="color: #98be65;">(</span>ivy-read <span style="color: #98be65;">"directories:"</span> collection <span style="color: #c678dd;">:action</span> 'dired<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+(defun custom-goto-recent-directory ()
+  "Open recent directory with dired"
+  (interactive)
+  (unless recentf-mode (recentf-mode 1))
+  (let ((collection
+         (delete-dups
+          (append (mapcar 'file-name-directory recentf-list)))))
+    (ivy-read "directories:" collection :action 'dired)))
 </pre>
 </div>
 
@@ -453,28 +453,28 @@ emacs原始的排序只有根据字符和modify time进行排序；有一个插�
 当然后来发现，这还是不够完美，因为有时我还是需要通过iterm、MacOS的Finder进行文件的操作，这些我也想能够实时的获取过来，于是变成了下面这样：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">slegetank/recent-directories</span> <span style="color: #c678dd;">()</span>
-  <span style="color: #83898d;">"Return recent access directories."</span>
-  <span style="color: #c678dd;">(</span>delete-dups
-   <span style="color: #98be65;">(</span>append
-    <span style="color: #da8548;">(</span>delq nil <span style="color: #a9a1e1;">(</span>mapcar <span style="color: #ECBE7B;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #4db5bd;">(</span>filename<span style="color: #4db5bd;">)</span> <span style="color: #5B6268;">; </span><span style="color: #5B6268;">recentf</span>
-                        <span style="color: #4db5bd;">(</span><span style="color: #51afef;">let</span> <span style="color: #a2b6da;">(</span><span style="color: #9cb6ad;">(</span>directory <span style="color: #51afef;">(</span>file-name-directory filename<span style="color: #51afef;">)</span><span style="color: #9cb6ad;">)</span><span style="color: #a2b6da;">)</span>
-                          <span style="color: #a2b6da;">(</span><span style="color: #51afef;">and</span> <span style="color: #9cb6ad;">(</span>not <span style="color: #51afef;">(</span>file-remote-p directory<span style="color: #51afef;">)</span><span style="color: #9cb6ad;">)</span> <span style="color: #9cb6ad;">(</span>file-exists-p directory<span style="color: #9cb6ad;">)</span> directory<span style="color: #a2b6da;">)</span><span style="color: #4db5bd;">)</span><span style="color: #ECBE7B;">)</span>
-                      recentf-list<span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span>
-    <span style="color: #da8548;">(</span>delq nil <span style="color: #a9a1e1;">(</span>mapcar <span style="color: #ECBE7B;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #4db5bd;">(</span>directory<span style="color: #4db5bd;">)</span> <span style="color: #5B6268;">; </span><span style="color: #5B6268;">finder recent</span>
-                        <span style="color: #4db5bd;">(</span><span style="color: #51afef;">and</span> <span style="color: #a2b6da;">(</span>file-exists-p directory<span style="color: #a2b6da;">)</span> <span style="color: #a2b6da;">(</span>concat directory <span style="color: #98be65;">"/"</span><span style="color: #a2b6da;">)</span><span style="color: #4db5bd;">)</span><span style="color: #ECBE7B;">)</span>
-                      <span style="color: #ECBE7B;">(</span>split-string <span style="color: #4db5bd;">(</span>shell-command-to-string <span style="color: #a2b6da;">(</span>format <span style="color: #98be65;">"python %s/init/osx-recent-dir.py"</span> user-emacs-directory<span style="color: #a2b6da;">)</span><span style="color: #4db5bd;">)</span> <span style="color: #98be65;">"\n"</span> t<span style="color: #ECBE7B;">)</span><span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span>
-    <span style="color: #da8548;">(</span><span style="color: #51afef;">when</span> <span style="color: #a9a1e1;">(</span>file-exists-p <span style="color: #98be65;">"~/.z"</span><span style="color: #a9a1e1;">)</span> <span style="color: #5B6268;">; </span><span style="color: #5B6268;">append lines from z; append top 20 dirs</span>
-      <span style="color: #a9a1e1;">(</span>mapcar <span style="color: #ECBE7B;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #4db5bd;">(</span>directory<span style="color: #4db5bd;">)</span>
-                <span style="color: #4db5bd;">(</span><span style="color: #51afef;">and</span> <span style="color: #a2b6da;">(</span>file-exists-p directory<span style="color: #a2b6da;">)</span> <span style="color: #a2b6da;">(</span>concat directory <span style="color: #98be65;">"/"</span><span style="color: #a2b6da;">)</span><span style="color: #4db5bd;">)</span><span style="color: #ECBE7B;">)</span>
-              <span style="color: #ECBE7B;">(</span>split-string <span style="color: #4db5bd;">(</span>shell-command-to-string <span style="color: #98be65;">"cat ~/.z | sort -r -n -k 2 -t \"|\" | cut -f 1 -d \"|\" | head -n 20"</span><span style="color: #4db5bd;">)</span> <span style="color: #98be65;">"\n"</span> t<span style="color: #ECBE7B;">)</span><span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(defun slegetank/recent-directories ()
+  "Return recent access directories."
+  (delete-dups
+   (append
+    (delq nil (mapcar (lambda (filename) ; recentf
+                        (let ((directory (file-name-directory filename)))
+                          (and (not (file-remote-p directory)) (file-exists-p directory) directory)))
+                      recentf-list))
+    (delq nil (mapcar (lambda (directory) ; finder recent
+                        (and (file-exists-p directory) (concat directory "/")))
+                      (split-string (shell-command-to-string (format "python %s/init/osx-recent-dir.py" user-emacs-directory)) "\n" t)))
+    (when (file-exists-p "~/.z") ; append lines from z; append top 20 dirs
+      (mapcar (lambda (directory)
+                (and (file-exists-p directory) (concat directory "/")))
+              (split-string (shell-command-to-string "cat ~/.z | sort -r -n -k 2 -t \"|\" | cut -f 1 -d \"|\" | head -n 20") "\n" t))))))
 
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">custom-goto-recent-directory</span> <span style="color: #c678dd;">()</span>
-  <span style="color: #83898d;">"Open recent directory with dired; add z cmd &amp; MacOS recent dir list to this"</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">interactive</span><span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">unless</span> recentf-mode <span style="color: #98be65;">(</span>recentf-mode 1<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span><span style="color: #51afef;">let</span> <span style="color: #98be65;">(</span><span style="color: #da8548;">(</span>collection <span style="color: #a9a1e1;">(</span>slegetank/recent-directories<span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span>
-    <span style="color: #98be65;">(</span>ivy-read <span style="color: #98be65;">"directories:"</span> collection <span style="color: #c678dd;">:action</span> 'dired<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+(defun custom-goto-recent-directory ()
+  "Open recent directory with dired; add z cmd &amp; MacOS recent dir list to this"
+  (interactive)
+  (unless recentf-mode (recentf-mode 1))
+  (let ((collection (slegetank/recent-directories)))
+    (ivy-read "directories:" collection :action 'dired)))
 </pre>
 </div>
 
@@ -486,54 +486,54 @@ emacs原始的排序只有根据字符和modify time进行排序；有一个插�
 dired访问的路径并不会被添加到最近访问里<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">recentd-track-opened-file</span> <span style="color: #c678dd;">()</span>
-    <span style="color: #83898d;">"Insert the name of the directory just opened into the recent list."</span>
-    <span style="color: #c678dd;">(</span><span style="color: #51afef;">and</span> <span style="color: #98be65;">(</span>derived-mode-p 'dired-mode<span style="color: #98be65;">)</span> default-directory
-        <span style="color: #98be65;">(</span>recentf-add-file default-directory<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-    <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Must return nil because it is run from `</span><span style="color: #a9a1e1;">write-file-functions</span><span style="color: #5B6268;">'.</span>
-    nil<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(defun recentd-track-opened-file ()
+    "Insert the name of the directory just opened into the recent list."
+    (and (derived-mode-p 'dired-mode) default-directory
+        (recentf-add-file default-directory))
+    ;; Must return nil because it is run from `write-file-functions'.
+    nil)
 
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #c678dd;">recentd-track-closed-file</span> <span style="color: #c678dd;">()</span>
-    <span style="color: #83898d;">"Update the recent list when a dired buffer is killed.</span>
-<span style="color: #83898d;">That is, remove a non kept dired from the recent list."</span>
-    <span style="color: #c678dd;">(</span><span style="color: #51afef;">and</span> <span style="color: #98be65;">(</span>derived-mode-p 'dired-mode<span style="color: #98be65;">)</span> default-directory
-        <span style="color: #98be65;">(</span>recentf-remove-if-non-kept default-directory<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+(defun recentd-track-closed-file ()
+    "Update the recent list when a dired buffer is killed.
+That is, remove a non kept dired from the recent list."
+    (and (derived-mode-p 'dired-mode) default-directory
+        (recentf-remove-if-non-kept default-directory)))
 
-<span style="color: #51afef;">(</span>add-hook 'dired-after-readin-hook 'recentd-track-opened-file<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>add-hook 'kill-buffer-hook 'recentd-track-closed-file<span style="color: #51afef;">)</span>
+(add-hook 'dired-after-readin-hook 'recentd-track-opened-file)
+(add-hook 'kill-buffer-hook 'recentd-track-closed-file)
 </pre>
 </div></li>
 <li><p>
 使用org-publish发布静态博客时，生成的html路径会把recentf-list塞满<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defsubst</span> <span style="color: #c678dd;">file-was-visible-p</span> <span style="color: #c678dd;">(</span>file<span style="color: #c678dd;">)</span>
-    <span style="color: #83898d;">"Return non-nil if FILE's buffer exists and has been displayed."</span>
-    <span style="color: #c678dd;">(</span><span style="color: #51afef;">let</span> <span style="color: #98be65;">(</span><span style="color: #da8548;">(</span>buf <span style="color: #a9a1e1;">(</span>find-buffer-visiting file<span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span>
-    <span style="color: #98be65;">(</span><span style="color: #51afef;">if</span> buf
-        <span style="color: #da8548;">(</span><span style="color: #51afef;">let</span> <span style="color: #a9a1e1;">(</span><span style="color: #ECBE7B;">(</span>display-count <span style="color: #4db5bd;">(</span>buffer-local-value 'buffer-display-count buf<span style="color: #4db5bd;">)</span><span style="color: #ECBE7B;">)</span><span style="color: #a9a1e1;">)</span>
-            <span style="color: #a9a1e1;">(</span><span style="color: #51afef;">if</span> <span style="color: #ECBE7B;">(</span>&gt; display-count 0<span style="color: #ECBE7B;">)</span> display-count nil<span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(defsubst file-was-visible-p (file)
+    "Return non-nil if FILE's buffer exists and has been displayed."
+    (let ((buf (find-buffer-visiting file)))
+    (if buf
+        (let ((display-count (buffer-local-value 'buffer-display-count buf)))
+            (if (&gt; display-count 0) display-count nil)))))
 
-<span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>r-list recentf-list<span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-    <span style="color: #c678dd;">(</span><span style="color: #51afef;">defsubst</span> <span style="color: #c678dd;">keep-default-old-and-visible-recentf-p</span> <span style="color: #98be65;">(</span>file<span style="color: #98be65;">)</span>
-    <span style="color: #83898d;">"Decide whether to keep file in recentf-list.</span>
-<span style="color: #83898d;">    Return non-nil if recentf would, by default, keep FILE, and</span>
-<span style="color: #83898d;">    either FILE name was loaded from recentf file on disk or FILE</span>
-<span style="color: #83898d;">    has been displayed in this session."</span>
-    <span style="color: #98be65;">(</span><span style="color: #51afef;">if</span> <span style="color: #da8548;">(</span>recentf-keep-default-predicate file<span style="color: #da8548;">)</span>
-        <span style="color: #da8548;">(</span><span style="color: #51afef;">or</span> <span style="color: #a9a1e1;">(</span>member file r-list<span style="color: #a9a1e1;">)</span>
-            <span style="color: #a9a1e1;">(</span>file-was-visible-p file<span style="color: #a9a1e1;">)</span><span style="color: #da8548;">)</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+(let ((r-list recentf-list))
+    (defsubst keep-default-old-and-visible-recentf-p (file)
+    "Decide whether to keep file in recentf-list.
+    Return non-nil if recentf would, by default, keep FILE, and
+    either FILE name was loaded from recentf file on disk or FILE
+    has been displayed in this session."
+    (if (recentf-keep-default-predicate file)
+        (or (member file r-list)
+            (file-was-visible-p file)))))
 
-<span style="color: #51afef;">(</span><span style="color: #51afef;">setf</span> recentf-keep '<span style="color: #c678dd;">(</span>keep-default-old-and-visible-recentf-p<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+(setf recentf-keep '(keep-default-old-and-visible-recentf-p))
 </pre>
 </div></li>
 <li><p>
 TRAMP访问时路径不会出现在recentf-list里<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">require</span> '<span style="color: #a9a1e1;">recentf</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> recentf-auto-cleanup 'never<span style="color: #51afef;">)</span> <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">disable before we start recentf!</span>
-<span style="color: #51afef;">(</span>recentf-mode 1<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(require 'recentf)
+(setq recentf-auto-cleanup 'never) ;; disable before we start recentf!
+(recentf-mode 1)
 </pre>
 </div></li>
 </ol>
@@ -545,9 +545,9 @@ TRAMP访问时路径不会出现在recentf-list里<br />
 </div>
 </div>
 
-<div id="outline-container-org5c8cccc" class="outline-2">
-<h2 id="org5c8cccc">条件筛选</h2>
-<div class="outline-text-2" id="text-org5c8cccc">
+<div id="outline-container-orgc82b25c" class="outline-2">
+<h2 id="orgc82b25c">条件筛选</h2>
+<div class="outline-text-2" id="text-orgc82b25c">
 <p>
 以这两个方法作为例子：find-grep-dired find-name-dired，分别是封装的find和grep命令，在结合dired（ls）。grep用的是正则，find用的是wildcard。这里以find-name-dired为例，列出~/.emacs.d下所有org文件。<br />
 </p>
@@ -623,9 +623,9 @@ find finished at Wed Feb 13 14:00:23
 </div>
 </div>
 
-<div id="outline-container-org3ac376b" class="outline-2">
-<h2 id="org3ac376b">参考</h2>
-<div class="outline-text-2" id="text-org3ac376b">
+<div id="outline-container-orgab5b052" class="outline-2">
+<h2 id="orgab5b052">参考</h2>
+<div class="outline-text-2" id="text-orgab5b052">
 <p>
 emacsist: <a href="http://mp.weixin.qq.com/s/73rHOjCF8Ot1kZdJuU6tgQ">Emacs文件管理神器&#x2013;dired常用操作说明</a><br />
 </p>

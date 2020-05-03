@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-08-28 Wed 09:13 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>emacs内置中文输入法</title>
 <meta name="generator" content="Org mode" />
@@ -42,9 +42,9 @@
 为什么要配置一个内置的输入法呢？最大的原因是由于vim模式切换很痛苦。normal-state的时候切回英文，insert-state的时候再切回去，在mac上是无法做到的。之前试过<a href="https://github.com/Lutzifer/keyboardSwitcher">https://github.com/Lutzifer/keyboardSwitcher</a>， 在切换的时候通过命令行切换输入法，但发现虽然系统状态栏上的变化了，但实际却并没有切换成中文。最终还是决定痛下杀手，折腾一番。<br />
 </p>
 
-<div id="outline-container-orgbca49df" class="outline-2">
-<h2 id="orgbca49df">pyim</h2>
-<div class="outline-text-2" id="text-orgbca49df">
+<div id="outline-container-orgb50aedd" class="outline-2">
+<h2 id="orgb50aedd">pyim</h2>
+<div class="outline-text-2" id="text-orgb50aedd">
 <p>
 <a href="https://github.com/tumashu/pyim">https://github.com/tumashu/pyim</a><br />
 </p>
@@ -61,9 +61,9 @@
 </div>
 </div>
 
-<div id="outline-container-orgfd152a9" class="outline-2">
-<h2 id="orgfd152a9">liberime</h2>
-<div class="outline-text-2" id="text-orgfd152a9">
+<div id="outline-container-org777c15d" class="outline-2">
+<h2 id="org777c15d">liberime</h2>
+<div class="outline-text-2" id="text-org777c15d">
 <p>
 但是，pyim原生的全拼补全实在是捉鸡。鼠须管虽然输入生词上仍然不如搜狗，但毕竟比pyim好太多了。pyim现在也支持了使用liberime作为后端，官方文档见：<a href="https://github.com/tumashu/pyim">https://github.com/tumashu/pyim</a> “通过-pyim-来支持-rime-所有输入法”小节。<br />
 </p>
@@ -76,34 +76,34 @@ liberime的作用是使用rime的librime作为后端，提供一个elisp的封�
 首先下载源码：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-shell"><span style="color: #c678dd;">cd</span> ~
+<pre class="src src-shell">cd ~
 git clone --recursive https://github.com/rime/librime.git
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org53155e6" class="outline-3">
-<h3 id="org53155e6">直接拷贝</h3>
-<div class="outline-text-3" id="text-org53155e6">
+<div id="outline-container-org67b0508" class="outline-3">
+<h3 id="org67b0508">直接拷贝</h3>
+<div class="outline-text-3" id="text-org67b0508">
 <p>
 如果你本身是rime的用户，那么可以直接拷贝：<br />
 </p>
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">mkdir -p ~/librime/xbuild/lib/Release/
 
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#30452;&#25509;&#25335;&#36125;&#65292;&#29992;&#20110;&#32534;&#35793;liberime</span>
+;; 直接拷贝，用于编译liberime
 cp /Library/Input\ Methods/Squirrel.app/Contents/Frameworks/librime.1.dylib ~/librime/xbuild/lib/Release/librime.dylib
 
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">emacs&#37324;&#20351;&#29992;&#30340;&#26102;&#20505;&#20250;&#21160;&#24577;&#38142;&#25509;&#36825;&#20010;&#24211;</span>
+;; emacs里使用的时候会动态链接这个库
 sudo cp /Library/Input\ Methods/Squirrel.app/Contents/Frameworks/librime.1.dylib /usr/local/lib
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org57fd485" class="outline-3">
-<h3 id="org57fd485">编译librime</h3>
-<div class="outline-text-3" id="text-org57fd485">
+<div id="outline-container-orgbee166c" class="outline-3">
+<h3 id="orgbee166c">编译librime</h3>
+<div class="outline-text-3" id="text-orgbee166c">
 <p>
 你也可以选择自己编译。文档：<a href="https://gitlab.com/liberime/liberime/blob/master/README.org">https://gitlab.com/liberime/liberime/blob/master/README.org</a>， MacOS的文档<a href="https://github.com/rime/librime/blob/master/README-mac.md">https://github.com/rime/librime/blob/master/README-mac.md</a> 。<br />
 </p>
@@ -127,7 +127,7 @@ brew link --overwrite --force boost@1.60
 下载源码<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-shell"><span style="color: #c678dd;">cd</span> ~
+<pre class="src src-shell">cd ~
 git clone --recursive https://github.com/rime/librime.git
 </pre>
 </div></li>
@@ -136,10 +136,10 @@ git clone --recursive https://github.com/rime/librime.git
 编译<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-shell"><span style="color: #c678dd;">cd</span> librime
-<span style="color: #5B6268;"># </span><span style="color: #5B6268;">&#32534;&#35793;&#31532;&#19977;&#26041;&#24211;</span>
+<pre class="src src-shell">cd librime
+# 编译第三方库
 make xcode/thirdparty
-<span style="color: #5B6268;"># </span><span style="color: #5B6268;">&#32534;&#35793;librime</span>
+# 编译librime
 make xcode
 </pre>
 </div></li>
@@ -151,9 +151,9 @@ make xcode
 </div>
 </div>
 
-<div id="outline-container-org0831d29" class="outline-2">
-<h2 id="org0831d29">编译liberime</h2>
-<div class="outline-text-2" id="text-org0831d29">
+<div id="outline-container-orga216fe8" class="outline-2">
+<h2 id="orga216fe8">编译liberime</h2>
+<div class="outline-text-2" id="text-orga216fe8">
 <p>
 liberime将会使用上面编译打结果来编译liberime。<br />
 </p>
@@ -170,12 +170,12 @@ liberime将会使用上面编译打结果来编译liberime。<br />
 编译<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-shell"><span style="color: #5B6268;"># </span><span style="color: #5B6268;">&#25351;&#21521;&#21018;&#25165;&#32534;&#35793;&#30340;librime&#25991;&#20214;&#22841;</span>
-<span style="color: #c678dd;">export</span> <span style="color: #dcaeea;">RIME_PATH</span>=~/librime
-<span style="color: #c678dd;">cd</span> liberime
+<pre class="src src-shell"># 指向刚才编译的librime文件夹
+export RIME_PATH=~/librime
+cd liberime
 make liberime
-<span style="color: #c678dd;">cd</span> build
-<span style="color: #5B6268;"># </span><span style="color: #5B6268;">&#23558;&#21160;&#24577;&#24211;&#25335;&#36125;&#21040;&#38656;&#35201;&#30340;&#30446;&#24405;</span>
+cd build
+# 将动态库拷贝到需要的目录
 cp liberime.so ~/ScriptHelper
 </pre>
 </div>
@@ -184,7 +184,7 @@ cp liberime.so ~/ScriptHelper
 如果报错：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-shell">ld: warning: directory not found for option <span style="color: #98be65;">'-L/Users/shuaizhao/librime/xbuild/lib/Release'</span>
+<pre class="src src-shell">ld: warning: directory not found for option '-L/Users/shuaizhao/librime/xbuild/lib/Release'
 ld: library not found for -lrime
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
 </pre>
@@ -197,29 +197,29 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)
 </div>
 </div>
 
-<div id="outline-container-org7842522" class="outline-2">
-<h2 id="org7842522">配置</h2>
-<div class="outline-text-2" id="text-org7842522">
+<div id="outline-container-orgdebcb14" class="outline-2">
+<h2 id="orgdebcb14">配置</h2>
+<div class="outline-text-2" id="text-orgdebcb14">
 <p>
 这里以我的配置作为例子：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#25351;&#21521;liberime.so&#25152;&#22312;&#30340;&#36335;&#24452;</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> load-path <span style="color: #c678dd;">(</span>cons <span style="color: #98be65;">(</span>file-truename <span style="color: #98be65;">"~/ScriptHelper"</span><span style="color: #98be65;">)</span> load-path<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">require</span> '<span style="color: #a9a1e1;">liberime</span><span style="color: #51afef;">)</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#31532;&#19968;&#20010;&#21442;&#25968;&#26159;&#20849;&#20139;&#25991;&#20214;&#22841;&#65292;&#35265;https://github.com/rime/home/wiki/SharedData</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#31532;&#20108;&#20010;&#21442;&#25968;&#26159;&#20010;&#20154;&#25991;&#20214;&#22841;</span>
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">&#27880;&#24847;&#65306;&#35774;&#32622;&#30340;&#26102;&#20505;&#26368;&#22909;&#19981;&#35201;&#20351;&#29992;&#36719;&#38142;&#25509;&#65292;&#20063;&#19981;&#35201;&#20351;&#29992; "~" &#21644;&#30456;&#23545;&#36335;&#24452;&#65292;liberime&#26377;&#26102;&#20505;&#26080;&#27861;&#22788;&#29702;&#12290;</span>
-<span style="color: #51afef;">(</span>liberime-start <span style="color: #98be65;">"/Library/Input Methods/Squirrel.app/Contents/SharedSupport"</span> <span style="color: #c678dd;">(</span>file-truename <span style="color: #98be65;">"~/.emacs.d/pyim/rime/"</span><span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>liberime-select-schema <span style="color: #98be65;">"luna_pinyin_simp"</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> pyim-default-scheme 'rime-quanpin<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">;; 指向liberime.so所在的路径
+(setq load-path (cons (file-truename "~/ScriptHelper") load-path))
+(require 'liberime)
+;; 第一个参数是共享文件夹，见https://github.com/rime/home/wiki/SharedData
+;; 第二个参数是个人文件夹
+;; 注意：设置的时候最好不要使用软链接，也不要使用 "~" 和相对路径，liberime有时候无法处理。
+(liberime-start "/Library/Input Methods/Squirrel.app/Contents/SharedSupport" (file-truename "~/.emacs.d/pyim/rime/"))
+(liberime-select-schema "luna_pinyin_simp")
+(setq pyim-default-scheme 'rime-quanpin)
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org4f8bb64" class="outline-3">
-<h3 id="org4f8bb64">上屏问题</h3>
-<div class="outline-text-3" id="text-org4f8bb64">
+<div id="outline-container-org1d7e024" class="outline-3">
+<h3 id="org1d7e024">上屏问题</h3>
+<div class="outline-text-3" id="text-org1d7e024">
 <p>
 <a href="https://github.com/tumashu/pyim/issues/261">https://github.com/tumashu/pyim/issues/261</a><br />
 </p>

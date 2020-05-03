@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-07-06 Sat 15:46 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>开发人员修养&#x2013;敏捷</title>
 <meta name="generator" content="Org mode" />
@@ -27,9 +27,9 @@
 <div id="content">
 <h1 class="title">开发人员修养&#x2013;敏捷</h1>
 
-<div id="outline-container-orgdb2b47b" class="outline-2">
-<h2 id="orgdb2b47b">开始之前</h2>
-<div class="outline-text-2" id="text-orgdb2b47b">
+<div id="outline-container-org94faa14" class="outline-2">
+<h2 id="org94faa14">开始之前</h2>
+<div class="outline-text-2" id="text-org94faa14">
 <p>
 本文的读者主要面向基层开发人员，即最苦逼的程序员，特别是像我一样的码农、码奴、码畜。<br />
 本文不会关注过多的细节，主要是一些自己的见解。<br />
@@ -37,9 +37,9 @@
 </p>
 </div>
 </div>
-<div id="outline-container-org5d7cfec" class="outline-2">
-<h2 id="org5d7cfec">序</h2>
-<div class="outline-text-2" id="text-org5d7cfec">
+<div id="outline-container-org9ed5c01" class="outline-2">
+<h2 id="org9ed5c01">序</h2>
+<div class="outline-text-2" id="text-org9ed5c01">
 <p>
 自从大学毕业进入公司之后，就开始接触这个概念&#x2013;敏捷。那时候没什么认识，就是领导带着我们每天早晨开开立会，每周开开周会，提交代码用JIRA写写流程之类的。至于这个概念到底有什么优点，甚至说这个概念是什么意思，脑子里没有什么具体的认识。我只知道它是不同于瀑布开发的另一种流程而已矣。<br />
 </p>
@@ -58,9 +58,9 @@
 </div>
 </div>
 
-<div id="outline-container-org7a0f920" class="outline-2">
-<h2 id="org7a0f920">端正思想&#x2013;enjoy</h2>
-<div class="outline-text-2" id="text-org7a0f920">
+<div id="outline-container-org19168f1" class="outline-2">
+<h2 id="org19168f1">端正思想&#x2013;enjoy</h2>
+<div class="outline-text-2" id="text-org19168f1">
 <p>
 在正式对敏捷开始介绍前，先对一些我遇到过的不正确的思想做出一些我的个人评论，以达到端正思想，更好的接受敏捷思想的作用。<br />
 </p>
@@ -84,9 +84,9 @@
 </div>
 </div>
 
-<div id="outline-container-org6388f0a" class="outline-2">
-<h2 id="org6388f0a">什么是敏捷&#x2013;拥抱变化</h2>
-<div class="outline-text-2" id="text-org6388f0a">
+<div id="outline-container-org8972351" class="outline-2">
+<h2 id="org8972351">什么是敏捷&#x2013;拥抱变化</h2>
+<div class="outline-text-2" id="text-org8972351">
 <p>
 *敏捷开发（Agile Development）*是一种面临迅速变化的需求快速开发软件的能力。&#x2013;《敏捷软件开发 原则、模式与实践》<br />
 </p>
@@ -142,9 +142,9 @@
 </div>
 </div>
 
-<div id="outline-container-orgfb5316b" class="outline-2">
-<h2 id="orgfb5316b">手段&#x2013;重构</h2>
-<div class="outline-text-2" id="text-orgfb5316b">
+<div id="outline-container-orga591901" class="outline-2">
+<h2 id="orga591901">手段&#x2013;重构</h2>
+<div class="outline-text-2" id="text-orga591901">
 <p>
 任何优秀的思想都不是空想的，都是要和实践结合在一起才能开花结果的。就像GongChanDang在新民主主义革命中一样，党具有先进的MaoZedong思想，但是只是想是没有用的。于是产生了三大法宝&#x2013;统一战线、武装斗争、党的建设。这其实都是我们民族很优秀的一些思想，但是现在很多人对其避而不谈、歪曲甚至抨击。扯远了，回到正题&#x2013;敏捷思想包含了很多积极的东西，它也具有很多手段来达到适应变化这一目的。这些实践包括：站立会议、持续集成、单一主干、重构、TDD、结对编程、迭代等等。这其中，我认为对于基层技术人员最有用处的概念有这么几个：<br />
 </p>
@@ -198,9 +198,9 @@
 </div>
 
 
-<div id="outline-container-org1fb6a9d" class="outline-2">
-<h2 id="org1fb6a9d">实践概述</h2>
-<div class="outline-text-2" id="text-org1fb6a9d">
+<div id="outline-container-org2db482f" class="outline-2">
+<h2 id="org2db482f">实践概述</h2>
+<div class="outline-text-2" id="text-org2db482f">
 <p>
 假如没有变化，不用维护，实际上无所谓啥耦不耦合，内不内聚。代码编写完成，测试通过，交付用户&#x2013;多美好。既然无法实现，那么只能面对现实。首先，面对需求的时候，（对于我们程序员来说，一般来说都已经划分成了story，最起码已经整理成了模块的文字需求），我们要以尽可能简洁的方式实现需求&#x2013;可工作的软件是我们最终的目的。当然了，如果某些部分你认为使用某种设计模式会更好的话，也可以使用。如果需要使用TDD，则需要进行重构&#x2013;实际上重构是贯穿于整个软件开流程当中的，看着不顺眼就改之。将代码重构的利于进行单元测试，并且使代码成功运行，这需要很好的基本功。实际上这种不停重构的方式是敏捷思想中拥抱变化的最好体现&#x2013;即不停地将代码变得整洁、优秀，不要害怕修改，不要懒惰，使代码一直维持较好的健康程度。<br />
 </p>
@@ -223,9 +223,9 @@ TDD的选择轮不到我们基层程序员来决定，而重构和设计模式�
 </div>
 </div>
 
-<div id="outline-container-orge610d6a" class="outline-2">
-<h2 id="orge610d6a">总结</h2>
-<div class="outline-text-2" id="text-orge610d6a">
+<div id="outline-container-orgebcd697" class="outline-2">
+<h2 id="orgebcd697">总结</h2>
+<div class="outline-text-2" id="text-orgebcd697">
 <p>
 简单来说，基层程序员应对变化需要做到如下几点：<br />
 </p>
@@ -252,9 +252,9 @@ TDD的选择轮不到我们基层程序员来决定，而重构和设计模式�
 </div>
 </div>
 
-<div id="outline-container-orgc44bc38" class="outline-2">
-<h2 id="orgc44bc38">后记</h2>
-<div class="outline-text-2" id="text-orgc44bc38">
+<div id="outline-container-org2128b98" class="outline-2">
+<h2 id="org2128b98">后记</h2>
+<div class="outline-text-2" id="text-org2128b98">
 <p>
 近来又重读毛选，读到了《中国革命战争的战略问题》。这篇文章是1936年写的，此时距长征完成大概一年时间。这篇文章是对第二次国内革命战争（即十年内战、土地革命战争，主要形式是围剿与反围剿，经过长征，最终结束于西安事变，国共第二次合作）的一次总结。其中第七节《运动战》中讲了一些内容，让我想写到这里：<br />
 </p>

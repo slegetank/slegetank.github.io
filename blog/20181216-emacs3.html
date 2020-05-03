@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-07-06 Sat 15:47 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>Mode</title>
 <meta name="generator" content="Org mode" />
@@ -30,9 +30,9 @@
 emacs中我们直接打交道的对象是buffer，决定buffer行为的则是mode，所以我们平常的配置行为实际上最基本的行为就是针对不同的编辑行为使用和调整mode。这里专门抽出一章来讲mode。<br />
 </p>
 
-<div id="outline-container-org2834beb" class="outline-2">
-<h2 id="org2834beb">Major Mode</h2>
-<div class="outline-text-2" id="text-org2834beb">
+<div id="outline-container-org9a74bab" class="outline-2">
+<h2 id="org9a74bab">Major Mode</h2>
+<div class="outline-text-2" id="text-org9a74bab">
 <p>
 当我们编辑c文件的时候，emacs会提供对于c的高亮、补全、跳转等的支持，而编辑python的时候又自动变成了python语言对应的行为。emacs对于这种不同类型的编辑提供的解决方案是mode，也就是抽象出了mode层来应对不同编辑方式的变化；buffer的主行为由major-mode确定。<br />
 </p>
@@ -41,12 +41,12 @@ emacs中我们直接打交道的对象是buffer，决定buffer行为的则是mod
 查看一下变量auto-mode-alist，这个变量的值看起来是这样的：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #c678dd;">(</span><span style="color: #98be65;">"\\.el"</span> . lisp-mode<span style="color: #c678dd;">)</span>
- <span style="color: #c678dd;">(</span><span style="color: #98be65;">"\\.c\\'"</span> . c-mode<span style="color: #c678dd;">)</span>
- <span style="color: #c678dd;">(</span><span style="color: #98be65;">"\\.py[iw]?\\'"</span> . python-mode<span style="color: #c678dd;">)</span>
- <span style="color: #c678dd;">(</span><span style="color: #98be65;">"\\.jsx$"</span> . rjsx-mode<span style="color: #c678dd;">)</span>
- <span style="color: #c678dd;">(</span><span style="color: #98be65;">"\\.html?\\'"</span> . web-mode<span style="color: #c678dd;">)</span>
- ...<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(("\\.el" . lisp-mode)
+ ("\\.c\\'" . c-mode)
+ ("\\.py[iw]?\\'" . python-mode)
+ ("\\.jsx$" . rjsx-mode)
+ ("\\.html?\\'" . web-mode)
+ ...)
 </pre>
 </div>
 
@@ -55,7 +55,7 @@ emacs中我们直接打交道的对象是buffer，决定buffer行为的则是mod
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>add-to-list 'auto-mode-alist '<span style="color: #c678dd;">(</span><span style="color: #98be65;">"\\.js\\'"</span> . js2-mode<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 </pre>
 </div>
 
@@ -73,14 +73,14 @@ emacs中我们直接打交道的对象是buffer，决定buffer行为的则是mod
 </div>
 </div>
 
-<div id="outline-container-org96ecf7b" class="outline-2">
-<h2 id="org96ecf7b">Hook</h2>
-<div class="outline-text-2" id="text-org96ecf7b">
+<div id="outline-container-orga575eea" class="outline-2">
+<h2 id="orga575eea">Hook</h2>
+<div class="outline-text-2" id="text-orga575eea">
 <p>
 hook是一种list类型的变量，它们的作用是在特定情况下执行列表里的函数。每个mode一般都会定义一些hook，而一般都会有一个xxx-mode-hook，它的作用是在加载这个mode的时候执行其中包含的函数。例如，如果想在加载js2-mode的时候执行自定义的配置函数custom-js-function，那么可以这么写：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>add-hook  'js2-mode-hook 'custom-js-function<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(add-hook  'js2-mode-hook 'custom-js-function)
 </pre>
 </div>
 
@@ -88,15 +88,15 @@ hook是一种list类型的变量，它们的作用是在特定情况下执行列
 或者希望enable一些minor hook，可以：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>add-hook  'js2-mode-hook 'some-mode<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(add-hook  'js2-mode-hook 'some-mode)
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgf56228d" class="outline-2">
-<h2 id="orgf56228d">Key Map</h2>
-<div class="outline-text-2" id="text-orgf56228d">
+<div id="outline-container-org665630e" class="outline-2">
+<h2 id="org665630e">Key Map</h2>
+<div class="outline-text-2" id="text-org665630e">
 <p>
 有的mode有自己的快捷键定义，名字一般为xxx-mode-map。快捷键的优先级为minor-mode-map &gt; major-mode-map &gt; global-map。<br />
 </p>
@@ -105,7 +105,7 @@ hook是一种list类型的变量，它们的作用是在特定情况下执行列
 定义全局快捷键的例子：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>global-set-key <span style="color: #c678dd;">(</span>kbd <span style="color: #98be65;">"s-s"</span><span style="color: #c678dd;">)</span> 'custom-save-buffer<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(global-set-key (kbd "s-s") 'custom-save-buffer)
 </pre>
 </div>
 
@@ -113,7 +113,7 @@ hook是一种list类型的变量，它们的作用是在特定情况下执行列
 修改某个map的例子：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>define-key company-active-map <span style="color: #c678dd;">(</span>kbd <span style="color: #98be65;">"C-n"</span><span style="color: #c678dd;">)</span> #'company-select-next<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(define-key company-active-map (kbd "C-n") #'company-select-next)
 </pre>
 </div>
 
@@ -123,16 +123,16 @@ hook是一种list类型的变量，它们的作用是在特定情况下执行列
 </div>
 </div>
 
-<div id="outline-container-orgd2753dc" class="outline-2">
-<h2 id="orgd2753dc">Minor Mode</h2>
-<div class="outline-text-2" id="text-orgd2753dc">
+<div id="outline-container-org8e04a55" class="outline-2">
+<h2 id="org8e04a55">Minor Mode</h2>
+<div class="outline-text-2" id="text-org8e04a55">
 <p>
 有时我们希望某些功能的使用可以更为灵活。例如，自动匹配括号的插件smartparens，我们希望在编辑所有语言的时候都具有这种功能，而不与某种特定的buffer有关。emacs提供了minor mode来提供此种功能。<br />
 每个buffer有且只有一个major mode，但minor mode则是完全自由的。有的minor mode会提供默认全局打开的方法，例如<br />
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>smartparens-global-mode t<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(smartparens-global-mode t)
 </pre>
 </div>
 
@@ -141,7 +141,7 @@ hook是一种list类型的变量，它们的作用是在特定情况下执行列
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span>add-hook 'web-mode-hook 'emmet-mode<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(add-hook 'web-mode-hook 'emmet-mode)
 </pre>
 </div>
 

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-07-06 Sat 15:47 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>iOS开发基础之MVC模式</title>
 <meta name="generator" content="Org mode" />
@@ -72,9 +72,9 @@ V-视图，UIView之类的。<br />
 理由有很多，在我看来，最重要的就是一点：这种方式设计出的程序可以较好的面对变化。对于客户端程序员来说，这无疑是非常重要的。而且，这样的代码结构明晰，可读性会比较好。<br />
 </p>
 
-<div id="outline-container-org1675bac" class="outline-2">
-<h2 id="org1675bac">场景</h2>
-<div class="outline-text-2" id="text-org1675bac">
+<div id="outline-container-orgea16ceb" class="outline-2">
+<h2 id="orgea16ceb">场景</h2>
+<div class="outline-text-2" id="text-orgea16ceb">
 <p>
 在未使用这种模式之前，考虑这样一种简单的情况。设计一个view，它的上面有一个UITableView。在程序中多个地方都会用到它，只是有细微的不同。在未使用MVC之前，它的设计可能是这样的：<br />
 </p>
@@ -93,9 +93,9 @@ UITableView的Delegate和Datasource都指向这个view，view中会有网络通�
 </div>
 </div>
 
-<div id="outline-container-orga20935d" class="outline-2">
-<h2 id="orga20935d">读图</h2>
-<div class="outline-text-2" id="text-orga20935d">
+<div id="outline-container-orgeb8cda6" class="outline-2">
+<h2 id="orgeb8cda6">读图</h2>
+<div class="outline-text-2" id="text-orgeb8cda6">
 <p>
 下面分析一下三个模块之间的关系，由图可知：<br />
 </p>
@@ -196,9 +196,9 @@ target/action 命令模式<br />
 </ol>
 </div>
 </div>
-<div id="outline-container-org54e2d69" class="outline-2">
-<h2 id="org54e2d69">场景之MVC</h2>
-<div class="outline-text-2" id="text-org54e2d69">
+<div id="outline-container-org392d3a3" class="outline-2">
+<h2 id="org392d3a3">场景之MVC</h2>
+<div class="outline-text-2" id="text-org392d3a3">
 <p>
 对于上面的场景，如果利用MVC设计，_尽可能简单的考虑_，大概是这样的：<br />
 </p>
@@ -237,9 +237,9 @@ Controller:<br />
 </div>
 </div>
 
-<div id="outline-container-org7ea2849" class="outline-2">
-<h2 id="org7ea2849">总结</h2>
-<div class="outline-text-2" id="text-org7ea2849">
+<div id="outline-container-org49751ad" class="outline-2">
+<h2 id="org49751ad">总结</h2>
+<div class="outline-text-2" id="text-org49751ad">
 <p>
 以上就是我对于MVC的一些见解，请大家在日常软件开发过程中多体会其中的思想。<br />
 </p>

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-07-06 Sat 15:46 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>Mac下安装UPnP Inspector</title>
 <meta name="generator" content="Org mode" />
@@ -34,32 +34,32 @@
 这个工具依赖于两个其他的库：<a href="http://coherence.beebits.net/">Coherence</a>(一个DLNA/UPnP框架)和<a href="http://www.pygtk.org/">PyGTK</a>(一个python GUI框架)。<br />
 </p>
 
-<div id="outline-container-orgf4ae7ed" class="outline-2">
-<h2 id="orgf4ae7ed">安装PyGTK</h2>
-<div class="outline-text-2" id="text-orgf4ae7ed">
+<div id="outline-container-orgd5fa2ff" class="outline-2">
+<h2 id="orgd5fa2ff">安装PyGTK</h2>
+<div class="outline-text-2" id="text-orgd5fa2ff">
 <p>
 <a href="http://sourceforge.net/projects/macpkg/files/PyGTK/2.24.0/PyGTK.pkg/download">PyGTK.pkg</a>， 下载完成双击安装。使用pip install会提示仅支持windows。<br />
 </p>
 </div>
 </div>
 
-<div id="outline-container-orga393d64" class="outline-2">
-<h2 id="orga393d64">安装Coherence</h2>
-<div class="outline-text-2" id="text-orga393d64">
+<div id="outline-container-org8ba4ebc" class="outline-2">
+<h2 id="org8ba4ebc">安装Coherence</h2>
+<div class="outline-text-2" id="text-org8ba4ebc">
 <p>
 pip install找不到，直接安装:<br />
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">git clone https://github.com/coherence-project/Coherence &amp;&amp; <span style="color: #c678dd;">cd</span> Coherence &amp;&amp; sudo python setup.py install
+<pre class="src src-bash">git clone https://github.com/coherence-project/Coherence &amp;&amp; cd Coherence &amp;&amp; sudo python setup.py install
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgd879c78" class="outline-2">
-<h2 id="orgd879c78">安装UPnP Inspector</h2>
-<div class="outline-text-2" id="text-orgd879c78">
+<div id="outline-container-org0336371" class="outline-2">
+<h2 id="org0336371">安装UPnP Inspector</h2>
+<div class="outline-text-2" id="text-org0336371">
 <p>
 这个pip找不到，git上的库在安装时会依赖pip安装PyGTK，因此也装不成功。用下面的方法安装：<br />
 <a href="http://ftparmy.com/213856-upnp-inspector.html">Mac UPnP Inspector</a> 下载，会得到一个tar文件。解压，sudo python setup.py install安装。<br />

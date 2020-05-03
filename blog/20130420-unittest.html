@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-07-06 Sat 15:46 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>iOS开发之单元测试</title>
 <meta name="generator" content="Org mode" />
@@ -27,18 +27,18 @@
 <div id="content">
 <h1 class="title">iOS开发之单元测试</h1>
 
-<div id="outline-container-orgcb54897" class="outline-2">
-<h2 id="orgcb54897">开始之前</h2>
-<div class="outline-text-2" id="text-orgcb54897">
+<div id="outline-container-org9e26512" class="outline-2">
+<h2 id="org9e26512">开始之前</h2>
+<div class="outline-text-2" id="text-org9e26512">
 <p>
 本文侧重讲述如何在iOS程序的开发过程中使用单元测试。使用Xcode自带的OCUnit作为测试框架。<br />
 </p>
 </div>
 </div>
 
-<div id="outline-container-org0a5ebe8" class="outline-2">
-<h2 id="org0a5ebe8">单元测试概述</h2>
-<div class="outline-text-2" id="text-org0a5ebe8">
+<div id="outline-container-org930ae3c" class="outline-2">
+<h2 id="org930ae3c">单元测试概述</h2>
+<div class="outline-text-2" id="text-org930ae3c">
 <p>
 单元测试作为敏捷开发实践的组成之一，其目的是提高软件开发的效率，维持代码的健康性。其目标是证明软件能够正常运行，而不是发现bug（发现bug这一目的与开发成本是正相关的，虽然发现bug是保证软件质量的一种手段，但是很显然这与降低软件开发成本这一目的背道而驰）。它是对软件质量的一种保证，例如重构之后我们需要保证软件产品的正常运行。<br />
 </p>
@@ -76,9 +76,9 @@
 </div>
 </div>
 
-<div id="outline-container-orgf1b1a2e" class="outline-2">
-<h2 id="orgf1b1a2e">iOS的单元测试概述</h2>
-<div class="outline-text-2" id="text-orgf1b1a2e">
+<div id="outline-container-org0f3e858" class="outline-2">
+<h2 id="org0f3e858">iOS的单元测试概述</h2>
+<div class="outline-text-2" id="text-org0f3e858">
 <p>
 刚接触客户端编程时，我在很长一段时间内都想不通对于客户端程序如何编写单元测试。单元测试本质上说白了就是用一些断言来判定结果，而这种方式是如何应用到具有复杂交互的界面测试上来的呢？<br />
 </p>
@@ -111,9 +111,9 @@
 </div>
 </div>
 
-<div id="outline-container-org8340a2a" class="outline-2">
-<h2 id="org8340a2a">单元测试实践</h2>
-<div class="outline-text-2" id="text-org8340a2a">
+<div id="outline-container-orgaf68e50" class="outline-2">
+<h2 id="orgaf68e50">单元测试实践</h2>
+<div class="outline-text-2" id="text-orgaf68e50">
 <p>
 下面是一些我所理解的单元测试中比较好的实践。<br />
 </p>
@@ -312,9 +312,9 @@
 </div>
 </div>
 
-<div id="outline-container-org7299b32" class="outline-2">
-<h2 id="org7299b32">一般流程</h2>
-<div class="outline-text-2" id="text-org7299b32">
+<div id="outline-container-org234de25" class="outline-2">
+<h2 id="org234de25">一般流程</h2>
+<div class="outline-text-2" id="text-org234de25">
 <p>
 使用OCUnit最大的好处就是流程非常的简单，简单到让你觉得非常愉悦。由于有XCode的支持，添加测试变得异常简单。只要在新建工程时勾选“Include Unit Tests”，就会自动的加入一个示例。然后再需要添加新的单元测试时，新建一个“Objective-C test case class”就可以了。<br />
 </p>
@@ -325,9 +325,9 @@
 </div>
 </div>
 
-<div id="outline-container-org08dfb66" class="outline-2">
-<h2 id="org08dfb66">测试驱动（TDD）</h2>
-<div class="outline-text-2" id="text-org08dfb66">
+<div id="outline-container-orgf9f4051" class="outline-2">
+<h2 id="orgf9f4051">测试驱动（TDD）</h2>
+<div class="outline-text-2" id="text-orgf9f4051">
 <p>
 敏捷当中提到了TDD这种开发方式。TDD的主旨是使开发者对其编写的代码更有信心，使开发者修改代码时心里更加踏实。对于其总结，还是引用原文比较妥当：“测试驱动开发的妙处即在于，它以需求为引领，通过测试的形式，来指导开发者进行软件的设计与架构，并编写出最为精炼的代码，使得测试用例运行通过。经过适当的重构之后，测试用例与产品代码可达到较为健康的状态。”也就是上面提到的，通过自上而下的形式设计类，通过单元测试来不停地审视和重构类，从而达到代码的健康。<br />
 </p>
@@ -338,9 +338,9 @@
 </div>
 </div>
 
-<div id="outline-container-org1e9d3bd" class="outline-2">
-<h2 id="org1e9d3bd">总结</h2>
-<div class="outline-text-2" id="text-org1e9d3bd">
+<div id="outline-container-org48d39e8" class="outline-2">
+<h2 id="org48d39e8">总结</h2>
+<div class="outline-text-2" id="text-org48d39e8">
 <p>
 单元测试的代码如此简单，但是想写好单元测试却并不是一件简单的事情。它需要程序员比较深的功底。由于个人水平所限，有一些东西说的比较啰嗦。把复杂问题简单化是本事，任重而道远。希望大家可以在日常开发中运用好这种简洁高效的技术。<br />
 </p>

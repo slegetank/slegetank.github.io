@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-07-06 Sat 15:47 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>工作环境配置记录</title>
 <meta name="generator" content="Org mode" />
@@ -30,17 +30,17 @@
 最近换了台MacBook，工作环境全部需要重新配置。为方便以后查询，特此记录。<br />
 </p>
 
-<div id="outline-container-org474c6fe" class="outline-2">
-<h2 id="org474c6fe">Xcode</h2>
-<div class="outline-text-2" id="text-org474c6fe">
+<div id="outline-container-org37a8ae1" class="outline-2">
+<h2 id="org37a8ae1">Xcode</h2>
+<div class="outline-text-2" id="text-org37a8ae1">
 <p>
 看家工具。<br />
 </p>
 </div>
 
-<div id="outline-container-org46b43c6" class="outline-3">
-<h3 id="org46b43c6">Alcatraz</h3>
-<div class="outline-text-3" id="text-org46b43c6">
+<div id="outline-container-orgc4a5d1b" class="outline-3">
+<h3 id="orgc4a5d1b">Alcatraz</h3>
+<div class="outline-text-3" id="text-orgc4a5d1b">
 <p>
 地址：<a href="http://alcatraz.io/">http://alcatraz.io/</a><br />
 安装：curl -fsSL <a href="https://raw.githubusercontent.com/supermarin/Alcatraz/deploy/Scripts/install.sh">https://raw.githubusercontent.com/supermarin/Alcatraz/deploy/Scripts/install.sh</a> | sh<br />
@@ -48,26 +48,26 @@
 </p>
 </div>
 </div>
-<div id="outline-container-org736e922" class="outline-3">
-<h3 id="org736e922">XVim</h3>
-<div class="outline-text-3" id="text-org736e922">
+<div id="outline-container-orgd0c0018" class="outline-3">
+<h3 id="orgd0c0018">XVim</h3>
+<div class="outline-text-3" id="text-orgd0c0018">
 <p>
 vim指法的效率无需多言。<br />
 </p>
 </div>
 </div>
-<div id="outline-container-orga0cbdd4" class="outline-3">
-<h3 id="orga0cbdd4">CocoaPods</h3>
-<div class="outline-text-3" id="text-orga0cbdd4">
+<div id="outline-container-orga29d3e7" class="outline-3">
+<h3 id="orga29d3e7">CocoaPods</h3>
+<div class="outline-text-3" id="text-orga29d3e7">
 <p>
 配置<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-C"><span style="color: #ECBE7B;">gem</span> <span style="color: #c678dd;">sources</span> --remove https:<span style="color: #5B6268;">//</span><span style="color: #5B6268;">rubygems.org/</span>
-gem sources -a https:<span style="color: #5B6268;">//</span><span style="color: #5B6268;">ruby.taobao.org/gem</span>
+<pre class="src src-C">gem sources --remove https://rubygems.org/
+gem sources -a https://ruby.taobao.org/gem
 gem sources -l
 sudo gem install cocoapods
-gem setup(&#21487;&#20197;&#21040;~/.cocoapods&#19979;du -sh &#26597;&#30475;&#36827;&#24230;)
+gem setup(可以到~/.cocoapods下du -sh 查看进度)
 </pre>
 </div>
 <p>
@@ -75,8 +75,8 @@ gem setup(&#21487;&#20197;&#21040;~/.cocoapods&#19979;du -sh &#26597;&#30475;&#3
 在工程目录下 vim Podfile，加入<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-C"><span style="color: #a9a1e1;">platform</span> :ios, <span style="color: #ECBE7B;">'</span>9.2<span style="color: #ECBE7B;">'</span>
-pod <span style="color: #ECBE7B;">'</span>SDWebImage<span style="color: #ECBE7B;">'</span>, <span style="color: #ECBE7B;">'</span>~&gt; 3.7.5<span style="color: #ECBE7B;">'</span>
+<pre class="src src-C">platform :ios, '9.2'
+pod 'SDWebImage', '~&gt; 3.7.5'
 </pre>
 </div>
 <p>
@@ -86,27 +86,27 @@ pod <span style="color: #ECBE7B;">'</span>SDWebImage<span style="color: #ECBE7B;
 </div>
 </div>
 </div>
-<div id="outline-container-orga00dcd8" class="outline-2">
-<h2 id="orga00dcd8">Terminal</h2>
-<div class="outline-text-2" id="text-orga00dcd8">
+<div id="outline-container-org2ca70b0" class="outline-2">
+<h2 id="org2ca70b0">Terminal</h2>
+<div class="outline-text-2" id="text-org2ca70b0">
 </div>
-<div id="outline-container-org7febad1" class="outline-3">
-<h3 id="org7febad1">iTerm</h3>
-<div class="outline-text-3" id="text-org7febad1">
+<div id="outline-container-org0b8b185" class="outline-3">
+<h3 id="org0b8b185">iTerm</h3>
+<div class="outline-text-3" id="text-org0b8b185">
 <p>
 地址：<a href="http://www.iterm2.com/">http://www.iterm2.com/</a><br />
 </p>
 </div>
 </div>
-<div id="outline-container-org934d6ce" class="outline-3">
-<h3 id="org934d6ce">zsh</h3>
-<div class="outline-text-3" id="text-org934d6ce">
+<div id="outline-container-org474974e" class="outline-3">
+<h3 id="org474974e">zsh</h3>
+<div class="outline-text-3" id="text-org474974e">
 <ol class="org-ol">
 <li>chsh -s /bin/zsh<br /></li>
 <li>安装oh my zsh<br /></li>
 </ol>
 <div class="org-src-container">
-<pre class="src src-C">sh -c <span style="color: #98be65;">"$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"</span>
+<pre class="src src-C">sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 </pre>
 </div>
 <p>
@@ -131,9 +131,9 @@ pod <span style="color: #ECBE7B;">'</span>SDWebImage<span style="color: #ECBE7B;
 </p>
 </div>
 </div>
-<div id="outline-container-orgebec83b" class="outline-3">
-<h3 id="orgebec83b">Homebrew</h3>
-<div class="outline-text-3" id="text-orgebec83b">
+<div id="outline-container-org6558d5f" class="outline-3">
+<h3 id="org6558d5f">Homebrew</h3>
+<div class="outline-text-3" id="text-org6558d5f">
 <p>
 Mac系统里缺了很多工具，可以使用这个进行方便的安装。<br />
 地址：<a href="http://brew.sh/">http://brew.sh/</a><br />
@@ -173,9 +173,9 @@ Mac系统里缺了很多工具，可以使用这个进行方便的安装。<br /
 </div>
 </div>
 </div>
-<div id="outline-container-org46c78fe" class="outline-2">
-<h2 id="org46c78fe">Git</h2>
-<div class="outline-text-2" id="text-org46c78fe">
+<div id="outline-container-org54feb1c" class="outline-2">
+<h2 id="org54feb1c">Git</h2>
+<div class="outline-text-2" id="text-org54feb1c">
 <p>
 sourcetree<br />
 地址： <a href="https://www.sourcetreeapp.com/">https://www.sourcetreeapp.com/</a><br />
@@ -186,9 +186,9 @@ sourcetree<br />
 </p>
 </div>
 </div>
-<div id="outline-container-org84adeb4" class="outline-2">
-<h2 id="org84adeb4">Emacs</h2>
-<div class="outline-text-2" id="text-org84adeb4">
+<div id="outline-container-orgc2963b1" class="outline-2">
+<h2 id="orgc2963b1">Emacs</h2>
+<div class="outline-text-2" id="text-orgc2963b1">
 <p>
 最强大的编辑器之一，org mode强大好用。<br />
 纯净版地址：<a href="http://emacsformacosx.com/">http://emacsformacosx.com/</a><br />
@@ -196,21 +196,21 @@ sourcetree<br />
 </p>
 </div>
 </div>
-<div id="outline-container-org83f3df3" class="outline-2">
-<h2 id="org83f3df3">Python</h2>
-<div class="outline-text-2" id="text-org83f3df3">
+<div id="outline-container-org733a3ad" class="outline-2">
+<h2 id="org733a3ad">Python</h2>
+<div class="outline-text-2" id="text-org733a3ad">
 </div>
-<div id="outline-container-orgfcf909f" class="outline-3">
-<h3 id="orgfcf909f">pip</h3>
-<div class="outline-text-3" id="text-orgfcf909f">
+<div id="outline-container-org290e3ca" class="outline-3">
+<h3 id="org290e3ca">pip</h3>
+<div class="outline-text-3" id="text-org290e3ca">
 <p>
 安装： <a href="https://bootstrap.pypa.io/get-pip.py">https://bootstrap.pypa.io/get-pip.py</a> <br />
 </p>
 </div>
 </div>
-<div id="outline-container-org79d32ad" class="outline-3">
-<h3 id="org79d32ad">其他包</h3>
-<div class="outline-text-3" id="text-org79d32ad">
+<div id="outline-container-org655a5c8" class="outline-3">
+<h3 id="org655a5c8">其他包</h3>
+<div class="outline-text-3" id="text-org655a5c8">
 <p>
 requests<br />
 已整合入脚本。<br />
@@ -218,9 +218,9 @@ requests<br />
 </div>
 </div>
 </div>
-<div id="outline-container-orgc84ddf3" class="outline-2">
-<h2 id="orgc84ddf3">其他</h2>
-<div class="outline-text-2" id="text-orgc84ddf3">
+<div id="outline-container-org8bafeac" class="outline-2">
+<h2 id="org8bafeac">其他</h2>
+<div class="outline-text-2" id="text-org8bafeac">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 

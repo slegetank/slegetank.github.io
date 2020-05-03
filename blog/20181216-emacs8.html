@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-07-06 Sat 15:46 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>工作流分享</title>
 <meta name="generator" content="Org mode" />
@@ -30,9 +30,9 @@
 这里分享一下我使用emacs的工作流。原则就是尽量高效，也就是说，操作尽量简化。编辑器作为一个输入文本的工具，应该尽量不影响程序员本身的行为，例如编写代码或者写文章的时候，应该使操作者集中注意力于本身的操作而不是相反。<br />
 </p>
 
-<div id="outline-container-orgcd7941e" class="outline-2">
-<h2 id="orgcd7941e">evil</h2>
-<div class="outline-text-2" id="text-orgcd7941e">
+<div id="outline-container-org400a68f" class="outline-2">
+<h2 id="org400a68f">evil</h2>
+<div class="outline-text-2" id="text-org400a68f">
 <p>
 首先，我是vi指法的坚定支持者。vi指法的好处是手指一直处于主键盘区，光标的移动、操作（跳转、选择、复制粘贴等）都脱离鼠标操作，因此不会打断自己写代码的思路。emacs的指法由于没有一个独立的state，因此需要加入meta键，会更复杂一些。<br />
 </p>
@@ -43,9 +43,9 @@
 </div>
 </div>
 
-<div id="outline-container-org0633859" class="outline-2">
-<h2 id="org0633859">单文件编辑</h2>
-<div class="outline-text-2" id="text-org0633859">
+<div id="outline-container-org10b63d9" class="outline-2">
+<h2 id="org10b63d9">单文件编辑</h2>
+<div class="outline-text-2" id="text-org10b63d9">
 <p>
 除了vi提供的指法之外，还有一些需要知道的包与技巧。<br />
 </p>
@@ -78,9 +78,9 @@ eshell，日常操作都可以，但还是推荐专业的终端工具<br /></li>
 </div>
 </div>
 
-<div id="outline-container-org6dda7ff" class="outline-2">
-<h2 id="org6dda7ff">多文件操作</h2>
-<div class="outline-text-2" id="text-org6dda7ff">
+<div id="outline-container-org80853fd" class="outline-2">
+<h2 id="org80853fd">多文件操作</h2>
+<div class="outline-text-2" id="text-org80853fd">
 <p>
 涉及到文件内容的多文件操作也是一个编辑环境需要的，工程相关的下面单独列出。<br />
 涉及到文件的重命名、拷贝、删除等使用dired。<br />
@@ -106,9 +106,9 @@ ag + counsel + wgrep<br /></li>
 </div>
 </div>
 
-<div id="outline-container-orgb826fea" class="outline-2">
-<h2 id="orgb826fea">分屏 w</h2>
-<div class="outline-text-2" id="text-orgb826fea">
+<div id="outline-container-org1967655" class="outline-2">
+<h2 id="org1967655">分屏 w</h2>
+<div class="outline-text-2" id="text-org1967655">
 <p>
 写代码常用的一个操作是分屏，例如同时编写两部分需要互相交互的代码的时候可能就会用到。关于分屏，有一个原则，就是尽量少，一般最多两个屏，再多就是分散注意力的行为（暂时的弹窗无所谓）。分屏的常用快捷键如下：<br />
 </p>
@@ -155,9 +155,9 @@ ag + counsel + wgrep<br /></li>
 </div>
 </div>
 
-<div id="outline-container-org6894e29" class="outline-2">
-<h2 id="org6894e29">buffer b</h2>
-<div class="outline-text-2" id="text-org6894e29">
+<div id="outline-container-org6b32e9e" class="outline-2">
+<h2 id="org6b32e9e">buffer b</h2>
+<div class="outline-text-2" id="text-org6b32e9e">
 <p>
 emacs的一个与众不同的地方就是抽象出了buffer。我们实际操作的对象是一个内存对象而不是实际的文件，只有当加载和保存文件的时候才会与文件打交道。<br />
 只要不显式的杀死buffer就能够访问到buffer，即使这个buffer已经不在内存中了。这在当由于电脑重启等原因导致emacs关闭之后的继续工作时将变得很方便。<br />
@@ -211,9 +211,9 @@ emacs的一个与众不同的地方就是抽象出了buffer。我们实际操作
 </div>
 </div>
 
-<div id="outline-container-orgd3954bd" class="outline-2">
-<h2 id="orgd3954bd">directory d</h2>
-<div class="outline-text-2" id="text-orgd3954bd">
+<div id="outline-container-org7a1c5cd" class="outline-2">
+<h2 id="org7a1c5cd">directory d</h2>
+<div class="outline-text-2" id="text-org7a1c5cd">
 <p>
 emacs除了编辑单个文件，还有很强的路径操作功能，其主体也就是dired。dired对于文件的操作很强大，并且支持远程操作。<br />
 </p>
@@ -255,9 +255,9 @@ emacs除了编辑单个文件，还有很强的路径操作功能，其主体也
 </div>
 </div>
 
-<div id="outline-container-orgd6271fc" class="outline-2">
-<h2 id="orgd6271fc">git g</h2>
-<div class="outline-text-2" id="text-orgd6271fc">
+<div id="outline-container-orga691c6d" class="outline-2">
+<h2 id="orga691c6d">git g</h2>
+<div class="outline-text-2" id="text-orga691c6d">
 <p>
 git是目前最流行的版本管理工具，emacs有很好用的magit对其进行了封装，可以无缝的进行代码的提交、更新。<br />
 </p>
@@ -289,9 +289,9 @@ git是目前最流行的版本管理工具，emacs有很好用的magit对其进�
 </div>
 </div>
 
-<div id="outline-container-orgca56cad" class="outline-2">
-<h2 id="orgca56cad">help h</h2>
-<div class="outline-text-2" id="text-orgca56cad">
+<div id="outline-container-org2e998d6" class="outline-2">
+<h2 id="org2e998d6">help h</h2>
+<div class="outline-text-2" id="text-org2e998d6">
 <p>
 自定义的一些帮助功能。<br />
 </p>
@@ -328,9 +328,9 @@ git是目前最流行的版本管理工具，emacs有很好用的magit对其进�
 </div>
 </div>
 
-<div id="outline-container-org7f6075a" class="outline-2">
-<h2 id="org7f6075a">project p</h2>
-<div class="outline-text-2" id="text-org7f6075a">
+<div id="outline-container-org5197726" class="outline-2">
+<h2 id="org5197726">project p</h2>
+<div class="outline-text-2" id="text-org5197726">
 <p>
 利用projectile，提供工程相关的操作。<br />
 </p>
@@ -377,9 +377,9 @@ git是目前最流行的版本管理工具，emacs有很好用的magit对其进�
 </div>
 </div>
 
-<div id="outline-container-org207dda9" class="outline-2">
-<h2 id="org207dda9">bookmark bm</h2>
-<div class="outline-text-2" id="text-org207dda9">
+<div id="outline-container-orge3072a6" class="outline-2">
+<h2 id="orge3072a6">bookmark bm</h2>
+<div class="outline-text-2" id="text-orge3072a6">
 <p>
 书签是个好东西，特别是涉及远程访问的时候。<br />
 </p>

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-07-06 Sat 15:46 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>Mail with Emacs</title>
 <meta name="generator" content="Org mode" />
@@ -27,9 +27,9 @@
 <div id="content">
 <h1 class="title">Mail with Emacs</h1>
 
-<div id="outline-container-org6923ac2" class="outline-2">
-<h2 id="org6923ac2">开始</h2>
-<div class="outline-text-2" id="text-org6923ac2">
+<div id="outline-container-org636a039" class="outline-2">
+<h2 id="org636a039">开始</h2>
+<div class="outline-text-2" id="text-org636a039">
 <p>
 为什么？除了作为一个Emacs重度用户的生活需要外，现行的邮件客户端有以下特性无法满足我：<br />
 1 搜索功能太弱，条件、正则无法使用<br />
@@ -73,9 +73,9 @@ Emacs中有很多此类的应用，这里不再多说。本文用于记录折腾
 </div>
 </div>
 
-<div id="outline-container-orgcb3ba4d" class="outline-2">
-<h2 id="orgcb3ba4d">总体结构</h2>
-<div class="outline-text-2" id="text-orgcb3ba4d">
+<div id="outline-container-org5751db7" class="outline-2">
+<h2 id="org5751db7">总体结构</h2>
+<div class="outline-text-2" id="text-org5751db7">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -109,9 +109,9 @@ Emacs中有很多此类的应用，这里不再多说。本文用于记录折腾
 </div>
 </div>
 
-<div id="outline-container-org559a6e5" class="outline-2">
-<h2 id="org559a6e5">offlineimap</h2>
-<div class="outline-text-2" id="text-org559a6e5">
+<div id="outline-container-org2be622f" class="outline-2">
+<h2 id="org2be622f">offlineimap</h2>
+<div class="outline-text-2" id="text-org2be622f">
 <p>
 github: <a href="https://github.com/OfflineIMAP/offlineimap">https://github.com/OfflineIMAP/offlineimap</a><br />
 官方文档：<a href="http://www.offlineimap.org">http://www.offlineimap.org</a><br />
@@ -129,9 +129,9 @@ github: <a href="https://github.com/OfflineIMAP/offlineimap">https://github.com/
 启动：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #5B6268;">;; </span><span style="color: #5B6268;">Startup</span>
+<pre class="src src-emacs-lisp">;; Startup
 brew services start offlineimap
-<span style="color: #5B6268;">;; </span><span style="color: #5B6268;">or</span>
+;; or
 offlineimap
 </pre>
 </div>
@@ -142,30 +142,30 @@ offlineimap
 
 <div class="org-src-container">
 <pre class="src src-python">[DEFAULT]
-<span style="color: #dcaeea;">postsynchook</span> = python ~/offlineimapnotify.py // &#21516;&#27493;&#20043;&#21518;&#35843;&#29992;&#65292;&#21487;&#20197;&#29992;&#26469;&#26816;&#27979;&#26159;&#21542;&#26377;&#26032;&#37038;&#20214;
+postsynchook = python ~/offlineimapnotify.py // 同步之后调用，可以用来检测是否有新邮件
 
 [general]
-<span style="color: #dcaeea;">ui</span>=TTYUI
-<span style="color: #dcaeea;">accounts</span> = 163
-<span style="color: #dcaeea;">autorefresh</span> = 5
+ui=TTYUI
+accounts = 163
+autorefresh = 5
 
 [Account 163]
-<span style="color: #dcaeea;">localrepository</span> = 163-Local
-<span style="color: #dcaeea;">remoterepository</span> = 163-Remote
+localrepository = 163-Local
+remoterepository = 163-Remote
 
 [Repository 163-Local]
-<span style="color: #c678dd;">type</span> = Maildir // https://en.wikipedia.org/wiki/Maildir
-<span style="color: #dcaeea;">localfolders</span> = ~/.Mail/YOUR_ACCOUNT
+type = Maildir // https://en.wikipedia.org/wiki/Maildir
+localfolders = ~/.Mail/YOUR_ACCOUNT
 
 [Repository 163-Remote]
-<span style="color: #c678dd;">type</span> = IMAP
-<span style="color: #dcaeea;">remotehost</span> = imap.163.com
-<span style="color: #dcaeea;">remoteuser</span> = YOUR_ACCOUNT // &#20320;&#30340;&#36134;&#25143;
-<span style="color: #dcaeea;">remotepass</span> = YOUR_PASS // &#20320;&#30340;&#23494;&#30721;
-<span style="color: #dcaeea;">realdelete</span> = no
-<span style="color: #dcaeea;">ssl</span> = yes
-<span style="color: #dcaeea;">sslcacertfile</span> = /usr/local/etc/openssl/cert.pem // macos&#19987;&#29992;
-<span style="color: #dcaeea;">maxconnections</span> = 1
+type = IMAP
+remotehost = imap.163.com
+remoteuser = YOUR_ACCOUNT // 你的账户
+remotepass = YOUR_PASS // 你的密码
+realdelete = no
+ssl = yes
+sslcacertfile = /usr/local/etc/openssl/cert.pem // macos专用
+maxconnections = 1
 </pre>
 </div>
 
@@ -173,9 +173,9 @@ offlineimap
 在命令行输入offlineimap，offlineimap就会尝试进行邮件同步了。<br />
 </p>
 </div>
-<div id="outline-container-org8830d3c" class="outline-3">
-<h3 id="org8830d3c">问题1</h3>
-<div class="outline-text-3" id="text-org8830d3c">
+<div id="outline-container-org87bf373" class="outline-3">
+<h3 id="org87bf373">问题1</h3>
+<div class="outline-text-3" id="text-org87bf373">
 <p>
 当收到邮件提示："网易邮箱提醒：阻止了一次不安全的收信请求"之后，登录页面：<br />
 </p>
@@ -189,9 +189,9 @@ offlineimap
 </p>
 </div>
 </div>
-<div id="outline-container-orge71a5c8" class="outline-3">
-<h3 id="orge71a5c8">问题2</h3>
-<div class="outline-text-3" id="text-orge71a5c8">
+<div id="outline-container-org159069d" class="outline-3">
+<h3 id="org159069d">问题2</h3>
+<div class="outline-text-3" id="text-org159069d">
 <p>
 中文文件夹问题<br />
   <a href="http://unix.stackexchange.com/questions/140372/greek-characters-in-mutts-sidebar-mailboxes-names-sourced-via-offlineimap">http://unix.stackexchange.com/questions/140372/greek-characters-in-mutts-sidebar-mailboxes-names-sourced-via-offlineimap</a><br />
@@ -208,9 +208,9 @@ Perfect!<br />
 </div>
 </div>
 
-<div id="outline-container-orga2dca42" class="outline-3">
-<h3 id="orga2dca42">问题3</h3>
-<div class="outline-text-3" id="text-orga2dca42">
+<div id="outline-container-orgd09964c" class="outline-3">
+<h3 id="orgd09964c">问题3</h3>
+<div class="outline-text-3" id="text-orgd09964c">
 <p>
 同步时有可能出现以下错误：<br />
 ERROR: Exceptions occurred during the run!<br />
@@ -221,22 +221,22 @@ ERROR: IMAP server 'linkplay-Remote' does not have a message with UID '1777'<br 
 此时可以选择对其进行忽略(<a href="http://www.offlineimap.org/configuration/2016/07/18/ignoring-UIDs.html">http://www.offlineimap.org/configuration/2016/07/18/ignoring-UIDs.html</a>)：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp">copy_ignore_eval = lambda foldername: {'INBOX': <span style="color: #51afef;">[</span>1777<span style="color: #51afef;">]</span>}.get<span style="color: #51afef;">(</span>foldername<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">copy_ignore_eval = lambda foldername: {'INBOX': [1777]}.get(foldername)
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org202e2ec" class="outline-3">
-<h3 id="org202e2ec">改进1</h3>
-<div class="outline-text-3" id="text-org202e2ec">
+<div id="outline-container-org791f868" class="outline-3">
+<h3 id="org791f868">改进1</h3>
+<div class="outline-text-3" id="text-org791f868">
 <p>
 同步之后的脚本可以这么写：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp">newMailCount = int<span style="color: #51afef;">(</span>os.popen<span style="color: #c678dd;">(</span>os.path.expanduser<span style="color: #98be65;">(</span><span style="color: #98be65;">"ls ~/.Mail/*/INBOX/new/* | wc -l"</span><span style="color: #98be65;">)</span> <span style="color: #c678dd;">)</span>.read<span style="color: #c678dd;">()</span>.strip<span style="color: #c678dd;">()</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">newMailCount = int(os.popen(os.path.expanduser("ls ~/.Mail/*/INBOX/new/* | wc -l") ).read().strip())
 if newMailCount &gt; 0:
-os.system<span style="color: #51afef;">(</span><span style="color: #98be65;">"osascript -e </span><span style="color: #ECBE7B;">\</span><span style="color: #98be65;">'display notification \"You have %d unread mails\" with title \"Mail\" sound name \"Glass\"</span><span style="color: #ECBE7B;">\</span><span style="color: #98be65;">'"</span> % newMailCount<span style="color: #51afef;">)</span>
+os.system("osascript -e \'display notification \"You have %d unread mails\" with title \"Mail\" sound name \"Glass\"\'" % newMailCount)
 </pre>
 </div>
 
@@ -246,9 +246,9 @@ os.system<span style="color: #51afef;">(</span><span style="color: #98be65;">"os
 </div>
 </div>
 </div>
-<div id="outline-container-org5d0a8b6" class="outline-2">
-<h2 id="org5d0a8b6">mu</h2>
-<div class="outline-text-2" id="text-org5d0a8b6">
+<div id="outline-container-org95add33" class="outline-2">
+<h2 id="org95add33">mu</h2>
+<div class="outline-text-2" id="text-org95add33">
 <p>
 <a href="https://github.com/djcb/mu">https://github.com/djcb/mu</a><br />
 </p>
@@ -280,9 +280,9 @@ os.system<span style="color: #51afef;">(</span><span style="color: #98be65;">"os
 </div>
 </div>
 
-<div id="outline-container-org88f4cff" class="outline-2">
-<h2 id="org88f4cff">mu4e</h2>
-<div class="outline-text-2" id="text-org88f4cff">
+<div id="outline-container-org7e992be" class="outline-2">
+<h2 id="org7e992be">mu4e</h2>
+<div class="outline-text-2" id="text-org7e992be">
 <p>
 然后，就到了重头戏：mu4e。mu4e对mu进行了一些lisp封装，在Emacs中提供更友好的UI。<br />
 </p>
@@ -291,25 +291,25 @@ os.system<span style="color: #51afef;">(</span><span style="color: #98be65;">"os
 通过brew安装的mu4e会默认以/usr/local/emacs为当前的Emacs，而相对应的el文件则保存在/usr/local/share/emacs/site-lisp下，所以在配置文件中要设置一下，不然找不到：<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #c678dd;">(</span><span style="color: #98be65;">(</span>default-directory <span style="color: #98be65;">"/usr/local/share/emacs/site-lisp/"</span><span style="color: #98be65;">)</span><span style="color: #c678dd;">)</span>
-  <span style="color: #c678dd;">(</span>normal-top-level-add-subdirs-to-load-path<span style="color: #c678dd;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(let ((default-directory "/usr/local/share/emacs/site-lisp/"))
+  (normal-top-level-add-subdirs-to-load-path))
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span>
- mu4e-maildir       <span style="color: #98be65;">"~/.Mail"</span>     <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">top-level Maildir</span>
- mu4e-sent-folder   <span style="color: #98be65;">"/sent"</span>       <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">folder for sent messages</span>
- mu4e-drafts-folder <span style="color: #98be65;">"/drafts"</span>     <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">unfinished messages</span>
- mu4e-trash-folder  <span style="color: #98be65;">"/trash"</span>      <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">trashed messages</span>
- mu4e-refile-folder <span style="color: #98be65;">"/archive"</span><span style="color: #51afef;">)</span>   <span style="color: #5B6268;">;; </span><span style="color: #5B6268;">saved messages</span>
+<pre class="src src-emacs-lisp">(setq
+ mu4e-maildir       "~/.Mail"     ;; top-level Maildir
+ mu4e-sent-folder   "/sent"       ;; folder for sent messages
+ mu4e-drafts-folder "/drafts"     ;; unfinished messages
+ mu4e-trash-folder  "/trash"      ;; trashed messages
+ mu4e-refile-folder "/archive")   ;; saved messages
 </pre>
 </div>
 </div>
 
-<div id="outline-container-orga313e19" class="outline-3">
-<h3 id="orga313e19">work flow</h3>
-<div class="outline-text-3" id="text-orga313e19">
+<div id="outline-container-orgd004a21" class="outline-3">
+<h3 id="orgd004a21">work flow</h3>
+<div class="outline-text-3" id="text-orgd004a21">
 <p>
 基本上都是在header view这个页面。<br />
 </p>
@@ -416,20 +416,20 @@ os.system<span style="color: #51afef;">(</span><span style="color: #98be65;">"os
 </table>
 </div>
 </div>
-<div id="outline-container-org6817092" class="outline-3">
-<h3 id="org6817092">search</h3>
-<div class="outline-text-3" id="text-org6817092">
+<div id="outline-container-orgf96a2b8" class="outline-3">
+<h3 id="orgf96a2b8">search</h3>
+<div class="outline-text-3" id="text-orgf96a2b8">
 <p>
 <a href="https://www.djcbsoftware.nl/code/mu/mu4e/Queries.html">https://www.djcbsoftware.nl/code/mu/mu4e/Queries.html</a><br />
 </p>
 </div>
 </div>
-<div id="outline-container-orgb686655" class="outline-3">
-<h3 id="orgb686655">send</h3>
-<div class="outline-text-3" id="text-orgb686655">
+<div id="outline-container-orgfdc0e9e" class="outline-3">
+<h3 id="orgfdc0e9e">send</h3>
+<div class="outline-text-3" id="text-orgfdc0e9e">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> message-send-mail-function 'smtpmail-send-it<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> smtpmail-smtp-server <span style="color: #98be65;">"smtp.example.org"</span><span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(setq message-send-mail-function 'smtpmail-send-it)
+(setq smtpmail-smtp-server "smtp.example.org")
 </pre>
 </div>
 
@@ -437,15 +437,15 @@ os.system<span style="color: #51afef;">(</span><span style="color: #98be65;">"os
 本地不处理已发邮件:<br />
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">setq</span> mu4e-sent-messages-behavior 'delete<span style="color: #51afef;">)</span>
+<pre class="src src-emacs-lisp">(setq mu4e-sent-messages-behavior 'delete)
 </pre>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-orgb3ece77" class="outline-2">
-<h2 id="orgb3ece77">参考</h2>
-<div class="outline-text-2" id="text-orgb3ece77">
+<div id="outline-container-orgeef3116" class="outline-2">
+<h2 id="orgeef3116">参考</h2>
+<div class="outline-text-2" id="text-orgeef3116">
 <ul class="org-ul">
 <li>作者的话：<a href="http://emacs-fu.blogspot.sg/2012/08/introducing-mu4e-for-email.html">http://emacs-fu.blogspot.sg/2012/08/introducing-mu4e-for-email.html</a><br /></li>
 <li>官方文档：<a href="http://www.djcbsoftware.nl/code/mu/mu4e/index.html">http://www.djcbsoftware.nl/code/mu/mu4e/index.html</a><br /></li>

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-07-06 Sat 15:47 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>翻译：Lisp Style Tips for the Beginner - Heinrich Taube</title>
 <meta name="generator" content="Org mode" />
@@ -34,9 +34,9 @@
 本篇文章是一篇非正式的摘要，旨在帮助新手写出高效、易读的Lisp代码。<br />
 </p>
 
-<div id="outline-container-org7ec24c9" class="outline-2">
-<h2 id="org7ec24c9">赋值</h2>
-<div class="outline-text-2" id="text-org7ec24c9">
+<div id="outline-container-orgaf1d306" class="outline-2">
+<h2 id="orgaf1d306">赋值</h2>
+<div class="outline-text-2" id="text-orgaf1d306">
 <ul class="org-ul">
 <li>避免使用eval。赋值是Lisp内置的流程，所以你几乎没有任何理由自己调用它。如果你使用了它，那么请停下来并且重新思考一下你的问题，因为你解决问题的方法一定是错的。<br /></li>
 
@@ -45,9 +45,9 @@
 </div>
 </div>
 
-<div id="outline-container-org4eea582" class="outline-2">
-<h2 id="org4eea582">函数</h2>
-<div class="outline-text-2" id="text-org4eea582">
+<div id="outline-container-orgba03688" class="outline-2">
+<h2 id="orgba03688">函数</h2>
+<div class="outline-text-2" id="text-orgba03688">
 <ul class="org-ul">
 <li>绝不要像在C或者Pascal程序里那样实现函数。通常来讲，尽可能保持每个函数短小。每个函数应该只完成一项任务。实现很多小函数而不是几个大函数将会使你的代码更清晰、更模块化、更易重用。<br /></li>
 
@@ -62,9 +62,9 @@
 </div>
 </div>
 
-<div id="outline-container-org2aad9dc" class="outline-2">
-<h2 id="org2aad9dc">符号和变量</h2>
-<div class="outline-text-2" id="text-org2aad9dc">
+<div id="outline-container-org15c5c0d" class="outline-2">
+<h2 id="org15c5c0d">符号和变量</h2>
+<div class="outline-text-2" id="text-org15c5c0d">
 <ul class="org-ul">
 <li>Lisp程序员倾向于使用小写字母。使用横杠来构成多词语的符号，例如multi-word-symbol。Lisp通常是冗长的，所以请习惯输入长长的符号名称！<br /></li>
 
@@ -77,9 +77,9 @@
 </div>
 </div>
 
-<div id="outline-container-org0ca6ebb" class="outline-2">
-<h2 id="org0ca6ebb">列表</h2>
-<div class="outline-text-2" id="text-org0ca6ebb">
+<div id="outline-container-orge77d542" class="outline-2">
+<h2 id="orge77d542">列表</h2>
+<div class="outline-text-2" id="text-orge77d542">
 <ul class="org-ul">
 <li>使用first，reset，second等等而不是使用car，cdr，cadr。<br /></li>
 
@@ -123,9 +123,9 @@
 </div>
 </div>
 
-<div id="outline-container-org151c44f" class="outline-2">
-<h2 id="org151c44f">条件</h2>
-<div class="outline-text-2" id="text-org151c44f">
+<div id="outline-container-org2861e83" class="outline-2">
+<h2 id="org2861e83">条件</h2>
+<div class="outline-text-2" id="text-org2861e83">
 <ul class="org-ul">
 <li>如果你并不需要条件语句的值，并且没有else分句，那么使用when和unless。否则，如果条件语句简单则使用if，否则使用cond。对于cond要在其结尾添加t语句。<br /></li>
 
@@ -161,18 +161,18 @@
 </div>
 </div>
 
-<div id="outline-container-orge772559" class="outline-2">
-<h2 id="orge772559">循环</h2>
-<div class="outline-text-2" id="text-orge772559">
+<div id="outline-container-org56882f0" class="outline-2">
+<h2 id="org56882f0">循环</h2>
+<div class="outline-text-2" id="text-org56882f0">
 <p>
 避免使用do，这会使代码难以阅读。对于简单的循环，dotimes和dolist都不错。如果你需要保存，存储或者修改循环的结果，那么loop几乎可能是最简洁、最高效的结构。一些Lisp程序员因为它“不像lisp”而拒绝使用它。然而loop是一个好用并且非常强大的特性。在花费了十分钟使用do之后，大部分Lisp程序员都很高兴loop的存在！<br />
 </p>
 </div>
 </div>
 
-<div id="outline-container-org919cec6" class="outline-2">
-<h2 id="org919cec6">注释</h2>
-<div class="outline-text-2" id="text-org919cec6">
+<div id="outline-container-org0209a72" class="outline-2">
+<h2 id="org0209a72">注释</h2>
+<div class="outline-text-2" id="text-org0209a72">
 <p>
 请写注释。对于整体功能以及有点复杂的代码进行注释（你会在2星期内忘掉你是如何实现他们的）。Lisp提供了两种不同的注释。分号标记单行注释。Lisp会忽略掉分号之后的整行。分号并不需要一定在行首。例如：<br />
 </p>
@@ -209,9 +209,9 @@
 </div>
 </div>
 
-<div id="outline-container-org22fb351" class="outline-2">
-<h2 id="org22fb351">格式和缩进</h2>
-<div class="outline-text-2" id="text-org22fb351">
+<div id="outline-container-org7b4ff7a" class="outline-2">
+<h2 id="org7b4ff7a">格式和缩进</h2>
+<div class="outline-text-2" id="text-org7b4ff7a">
 <p>
 坏格式的Lisp代码是很难阅读的。一份易读的Lisp代码的最重要的前提条件是使用简单、统一风格的缩进。有些编辑器，例如Emacs或者Fred，他们理解Lisp语意并且会替你完成这项工作。其他的文本编辑器，例如NeXTStep的Edit.app，除了括号匹配之外则不理解Lisp。即使你使用的编辑器并不能帮助你执行Lisp的缩进，你也应该自己花时间来格式化你的代码。下面是一些非常简单的规则：<br />
 </p>

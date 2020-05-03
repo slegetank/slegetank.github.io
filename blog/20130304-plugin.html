@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-07-06 Sat 15:46 -->
+<!-- 2020-05-03 Sun 14:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>iOS插件化开发概述</title>
 <meta name="generator" content="Org mode" />
@@ -38,13 +38,13 @@
 其次，这种方式可以使软件开发流程具有更大的灵活性。例如，不同的团队进行并行开发。每个团队开发一个插件，最后进行拼装。由于插件所具有的隐藏内部实现的特性会使软件更健壮。而团队之间是看不见各自源代码的，这对于外包（苦B？）来说是很有趣的一种方式，即将不重要的或是一些体力劳动插件交予合作方进行开发。而只要接口订的好，完全可以实现并行开发，提高软件开发的速度。<br />
 </p>
 
-<div id="outline-container-orgad55e45" class="outline-2">
-<h2 id="orgad55e45">基础知识</h2>
-<div class="outline-text-2" id="text-orgad55e45">
+<div id="outline-container-orgb282270" class="outline-2">
+<h2 id="orgb282270">基础知识</h2>
+<div class="outline-text-2" id="text-orgb282270">
 </div>
-<div id="outline-container-orgcb2185e" class="outline-3">
-<h3 id="orgcb2185e">bundle（包）</h3>
-<div class="outline-text-3" id="text-orgcb2185e">
+<div id="outline-container-org2e2309c" class="outline-3">
+<h3 id="org2e2309c">bundle（包）</h3>
+<div class="outline-text-3" id="text-org2e2309c">
 <p>
 bundle（包）是cocoa开发中提供的一种文件存储、组织方式。<br />
 </p>
@@ -58,9 +58,9 @@ bundle中可以包含很多内容，包括各种资源，甚至编译好的源�
 </p>
 </div>
 </div>
-<div id="outline-container-orgdf9e0af" class="outline-3">
-<h3 id="orgdf9e0af">面向接口</h3>
-<div class="outline-text-3" id="text-orgdf9e0af">
+<div id="outline-container-org158768c" class="outline-3">
+<h3 id="org158768c">面向接口</h3>
+<div class="outline-text-3" id="text-org158768c">
 <p>
 高内聚低耦合一直是面向对象开发的追求目标之一，而面向接口则是使软件接近这种目标的方法之一。模块之间的交互都是面向接口的，则模块内做出的改变不会影响其他模块，从而提高了软件的健壮程度。在Objective-C中，此种思想是使用协议来完成的，即protocol。<br />
 </p>
@@ -80,9 +80,9 @@ bundle中可以包含很多内容，包括各种资源，甚至编译好的源�
 </div>
 </div>
 </div>
-<div id="outline-container-orgcf71abe" class="outline-2">
-<h2 id="orgcf71abe">具体实现</h2>
-<div class="outline-text-2" id="text-orgcf71abe">
+<div id="outline-container-orgd3e71c7" class="outline-2">
+<h2 id="orgd3e71c7">具体实现</h2>
+<div class="outline-text-2" id="text-orgd3e71c7">
 <p>
 首先，有几个API需要了解。<br />
 </p>
