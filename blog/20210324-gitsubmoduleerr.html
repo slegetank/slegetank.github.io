@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-03-24 Wed 23:28 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>fatal: No url found for submodule path 'xxx' in .gitmodules</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" /><link rel="shortcut icon" type="image/jpg" href="../static/favicon.jpg"/>
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">fatal: No url found for submodule path 'xxx' in .gitmodules</h1>
+<p>
+遇到一个问题：切分支的时候，git会报：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">fatal: No url found for submodule path 'x/x' in .gitmodules
+</pre>
+</div>
+
+<p>
+但是找了一下，虽然之前使用了submodule，但是并没有这么一个文件的存在。<br />
+</p>
+
+<p>
+查了一下：<a href="https://stackoverflow.com/questions/4185365/no-submodule-mapping-found-in-gitmodule-for-a-path-thats-not-a-submodule/4185579#4185579">https://stackoverflow.com/questions/4185365/no-submodule-mapping-found-in-gitmodule-for-a-path-thats-not-a-submodule/4185579#4185579</a><br />
+</p>
+
+<p>
+用这条指令：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">git ls-files --stage | grep 160000
+</pre>
+</div>
+
+<p>
+其中，160000是git为submodule预留的一个特殊mode：<br />
+<a href="https://stackoverflow.com/questions/737673/how-to-read-the-mode-field-of-git-ls-trees-output">https://stackoverflow.com/questions/737673/how-to-read-the-mode-field-of-git-ls-trees-output</a><br />
+<a href="https://stackoverflow.com/questions/1992018/git-submodule-update-needed-only-initially/2227598#2227598">https://stackoverflow.com/questions/1992018/git-submodule-update-needed-only-initially/2227598#2227598</a><br />
+</p>
+
+<p>
+发现index中确实存在这么一条记录：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">160000 b4b26100fba8a5c23bfef75560041d15057a8dc5 0	x/x
+</pre>
+</div>
+
+<p>
+删之：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">git rm --cached x/x
+</pre>
+</div>
+
+<p>
+cherry-pick到其他分支，完成。<br />
+</p>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>
