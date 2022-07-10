@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-07-10 Sun 18:18 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>emacs-rime</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="slegetank" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" />
+<link rel="stylesheet" type="text/css" href="../static/org.css" /><link rel="shortcut icon" type="image/jpg" href="../static/favicon.jpg"/>
+</head>
+<body>
+<div id="preamble" class="status">
+<div id="header">
+  <h1>Slegtank's Blog</h1>
+  <ul id="nav">
+      <li><a href="https://gitlab.com/slegetank">GitLab</a></li>
+    <li><a href="https://github.com/slegetank/">Github</a></li>
+    <li><a href="../tag.html">Tags</a></li>
+    <li><a href="../archive.html">Archive</a></li>
+    <li><a href="../index.html">Home</a></li>
+  </ul>
+</div>
+</div>
+<div id="content">
+<h1 class="title">emacs-rime</h1>
+<p>
+相关文章<br />
+ <a href="./20190825-rime.html">Rime输入法同步</a><br />
+ <a href="./20190331-emacschinese.html">emacs内置中文输入法</a><br />
+</p>
+
+<p>
+最近把emacs升级到了28，发现输入法不是很灵。然后搜了下melpa，发现<a href="https://github.com/DogLooksGood/emacs-rime">emacs rime</a>已经release了。于是索性折腾一下。<br />
+</p>
+
+<div id="outline-container-org10c12c4" class="outline-2">
+<h2 id="org10c12c4">安装</h2>
+<div class="outline-text-2" id="text-org10c12c4">
+<p>
+<a href="https://github.com/DogLooksGood/emacs-rime/blob/master/INSTALLATION.org#macos">https://github.com/DogLooksGood/emacs-rime/blob/master/INSTALLATION.org#macos</a><br />
+</p>
+
+<p>
+就普通安装，第一次切换输入法的时候会自动编译，记得设置变量<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">curl -L -O https://github.com/rime/librime/releases/download/1.7.1/rime-1.7.1-osx.zip
+unzip rime-1.7.1-osx.zip -d ~/.emacs.d/librime
+rm -rf rime-1.7.1-osx.zip
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(rime-librime-root "~/.emacs.d/librime/dist")
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org03a2301" class="outline-2">
+<h2 id="org03a2301">配置</h2>
+<div class="outline-text-2" id="text-org03a2301">
+<p>
+默认用户路径为~/.emacs.d/rime，可以通过改变rime-user-data-dir进行改变，比如：<br />
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(use-package rime
+  :custom
+  (rime-show-candidate 'posframe)
+  (rime-posframe-style 'vertical)
+  (setq rime-cursor "˰")
+  ;; (setq rime-user-data-dir (file-truename "~/.emacs.d/pyim/rime/"))
+  (rime-librime-root "~/.emacs.d/librime/dist")
+  (default-input-method "rime"))
+</pre>
+</div>
+
+<p>
+然后，将之前pyim+liberime使用的配置拷贝覆盖到用户路径下，大功告成。<br />
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<hr />
+
+                <p>License: <a href= "https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+
+                <p><a href= "mailto:slegetank@163.com"> Contact</a></p>
+</div>
+</body>
+</html>
